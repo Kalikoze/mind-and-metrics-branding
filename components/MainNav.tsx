@@ -58,7 +58,8 @@ const MainNav = () => {
             <Link href="/" className="flex items-center space-x-3">
               <Image
                 src={Logo}
-                alt="Mind & Metrics"
+                alt=""
+                aria-hidden="true"
                 width={40}
                 height={40}
               />
@@ -103,6 +104,7 @@ const MainNav = () => {
 
           {/* Mobile menu button */}
           <motion.button
+            data-cy="mobile-menu-button"
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100"
@@ -119,6 +121,7 @@ const MainNav = () => {
 
       {/* Mobile menu */}
       <motion.div
+        data-cy="mobile-menu"
         initial="closed"
         animate={isMenuOpen ? "open" : "closed"}
         variants={menuVariants}
@@ -142,6 +145,7 @@ const MainNav = () => {
               }}
             >
               <Link
+                data-cy={`mobile-menu-${item.name.toLowerCase()}`}
                 href={item.href}
                 className={`block px-3 py-2 rounded-md text-base font-sans
                   ${pathname === item.href 

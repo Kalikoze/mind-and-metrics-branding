@@ -14,7 +14,7 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ title, subtitle, ctaText, onCtaClick }) => {
   return (
-    <div className="relative overflow-hidden bg-background min-h-screen flex items-center">
+    <div className="relative overflow-hidden bg-background min-h-screen flex items-center" data-cy="hero-section">
       {/* Background SVGs */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -33,15 +33,16 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, ctaText, onCtaClick }) => 
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="font-serif text-5xl sm:text-6xl font-bold mb-6 text-secondary-600
+          <h1 data-cy="hero-title" className="font-serif text-5xl sm:text-6xl font-bold mb-6 text-secondary-600
                          [text-wrap:balance] bg-clip-text text-transparent 
                          bg-gradient-to-r from-secondary-600 to-secondary-400">
             {title}
           </h1>
-          <h2 className="font-sans text-xl sm:text-2xl mb-12 text-secondary-500">
+          <h2 data-cy="hero-subtitle" className="font-sans text-xl sm:text-2xl mb-12 text-secondary-500">
             {subtitle}
           </h2>
           <motion.button
+            data-cy="hero-cta"
             onClick={onCtaClick}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
