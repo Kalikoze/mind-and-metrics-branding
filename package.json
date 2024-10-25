@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "test": "cypress run",
+    "test:ui": "cypress open"
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.8",
@@ -19,6 +22,8 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cypress": "^13.15.1",
+    "cypress-axe": "^1.5.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.1",
     "postcss": "^8",
