@@ -60,7 +60,7 @@ const config: Config = {
       },
       fontFamily: {
         serif: ['var(--font-gfs-didot)'],
-        sans: ['var(--font-poppins)'],
+        sans: ['var(--font-jost)'],
       },
     },
   },

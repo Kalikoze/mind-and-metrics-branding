@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import './globals.css';
+import MainNav from "@/components/MainNav";
+import './globals.css'
+import { gfsDidot, jost } from './fonts'
 
 export const metadata: Metadata = {
   title: "Mind & Metrics Branding",
@@ -7,14 +9,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${gfsDidot.variable} ${jost.variable}`}>
       <body>
+        <MainNav />
         {children}
       </body>
     </html>
-  );
+  )
 }

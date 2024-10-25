@@ -2,6 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import GraphingBackground from '@/public/assets/logos/graphing-background.svg';
 import SpiralDesign from '@/public/assets/logos/spiral-design.svg';
+import { motion } from 'framer-motion';
+import { HiOutlineArrowRight } from 'react-icons/hi';
 
 interface HeroProps {
   title: string;
@@ -18,36 +20,39 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, ctaText, onCtaClick }) => 
         <Image
           src={GraphingBackground}
           alt="Background design"
-          layout="fill"
-          objectFit="cover"
-          className="opacity-50"
+          fill
+          className="opacity-50 object-cover"
         />
         <Image
           src={SpiralDesign}
           alt="Background design"
-          layout="fill"
-          objectFit="cover"
-          className="opacity-50"
+          fill
+          className="opacity-50 object-cover"
         />
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="font-serif text-5xl sm:text-6xl font-bold mb-6 text-primary-700">
+          <h1 className="font-serif text-5xl sm:text-6xl font-bold mb-6 text-secondary-600
+                         [text-wrap:balance] bg-clip-text text-transparent 
+                         bg-gradient-to-r from-secondary-600 to-secondary-400">
             {title}
           </h1>
-          <h2 className="font-sans text-xl sm:text-2xl mb-8 text-gray-700">
+          <h2 className="font-sans text-xl sm:text-2xl mb-12 text-secondary-500">
             {subtitle}
           </h2>
-          <button
+          <motion.button
             onClick={onCtaClick}
-            className="font-sans px-8 py-3 bg-secondary-600 text-white font-semibold rounded-full 
-                       transition duration-300 ease-in-out transform hover:scale-105 
-                       hover:bg-secondary-700 hover:shadow-lg focus:outline-none focus:ring-2 
-                       focus:ring-secondary-500 focus:ring-opacity-50"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="font-sans px-8 py-3.5 bg-primary-50 text-white font-semibold 
+                     rounded-lg shadow-md hover:shadow-xl flex items-center space-x-2 
+                     mx-auto group transition-all duration-300
+                     hover:bg-gradient-to-r hover:from-primary-200 hover:to-primary-300"
           >
-            {ctaText}
-          </button>
+            <span>{ctaText}</span>
+            <HiOutlineArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </motion.button>
         </div>
       </div>
     </div>
