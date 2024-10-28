@@ -5,13 +5,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { RiMenuLine, RiCloseLine, RiHome5Line, RiCustomerService2Line, RiTeamLine, RiMailLine, RiRoadMapLine, RiPriceTag3Line } from 'react-icons/ri';
+import { RiMenuLine, RiCloseLine, RiHome5Line, RiCustomerService2Line, RiTeamLine, RiMailLine, RiRoadMapLine, RiPriceTag3Line, RiBookmarkLine } from 'react-icons/ri';
 import { HiOutlineUserCircle } from 'react-icons/hi';
 import Logo from '@/public/assets/logos/mm-temp-logo.svg';
 
 const menuItems = [
   { name: 'Home', href: '/', icon: RiHome5Line },
   { name: 'Services', href: '/services', icon: RiCustomerService2Line },
+  { name: 'Case Studies', href: '/case-studies', icon: RiBookmarkLine },
   { name: 'How It Works', href: '/process', icon: RiRoadMapLine },
   { name: 'Pricing', href: '/pricing', icon: RiPriceTag3Line },
   { name: 'About', href: '/about', icon: RiTeamLine },
@@ -90,14 +91,14 @@ const MainNav = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Link
-                href="/portal"
-                className="font-sans px-6 py-2.5 bg-primary-50 text-white rounded-lg
-                         flex items-center space-x-2 group shadow-md hover:shadow-xl
+                href="/login"
+                className="font-sans px-6 py-2.5 border-2 border-secondary-400 text-secondary-400 
+                         rounded-lg flex items-center space-x-2 
                          transition-all duration-300
-                         hover:bg-gradient-to-r hover:from-primary-200 hover:to-primary-300"
+                         hover:bg-secondary-400 hover:text-white hover:scale-105"
               >
                 <HiOutlineUserCircle className="w-5 h-5" />
-                <span>Client Portal</span>
+                <span className="font-medium">Login</span>
               </Link>
             </motion.div>
           </div>
@@ -159,6 +160,11 @@ const MainNav = () => {
               </Link>
             </motion.div>
           ))}
+
+          {/* Divider */}
+          <div className="border-t border-neutral-200 my-2"></div>
+
+          {/* Login button */}
           <motion.div
             variants={{
               open: {
@@ -174,15 +180,16 @@ const MainNav = () => {
             }}
           >
             <Link
-              href="/portal"
-              className="block px-3 py-2 text-base font-sans text-white bg-primary-50 
-                       rounded-md shadow-md hover:shadow-xl transition-all duration-300
-                       hover:bg-gradient-to-r hover:from-primary-200 hover:to-primary-300
-                       flex items-center space-x-3"
+              href="/login"
+              className="block px-3 py-2 rounded-md text-base font-sans
+                       border-2 border-secondary-400 text-secondary-400
+                       flex items-center space-x-3
+                       transition-all duration-200
+                       hover:bg-secondary-400 hover:text-white"
               onClick={() => setIsMenuOpen(false)}
             >
               <HiOutlineUserCircle className="w-5 h-5" />
-              <span>Client Portal</span>
+              <span className="font-medium">Login</span>
             </Link>
           </motion.div>
         </div>
