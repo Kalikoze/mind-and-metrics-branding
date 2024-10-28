@@ -56,7 +56,7 @@ const MainNav = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center space-x-3" data-cy="nav-logo">
               <Image
                 src={Logo}
                 alt=""
@@ -64,7 +64,7 @@ const MainNav = () => {
                 width={40}
                 height={40}
               />
-              <span className="font-serif text-xl text-secondary-600">Mind & Metrics</span>
+              <span data-cy="nav-logo-text" className="font-serif text-xl text-secondary-600">Mind & Metrics</span>
             </Link>
           </div>
 
@@ -77,6 +77,7 @@ const MainNav = () => {
                 whileHover="hover"
               >
                 <Link
+                  data-cy={`nav-item-${item.name.toLowerCase().replace(' ', '-')}`}
                   href={item.href}
                   className={`font-sans text-sm hover:text-primary-600 transition-colors relative
                     group ${pathname === item.href ? 'text-primary-700 font-semibold' : 'text-gray-600'}`}
@@ -91,6 +92,7 @@ const MainNav = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Link
+                data-cy="nav-login"
                 href="/login"
                 className="font-sans px-6 py-2.5 border-2 border-secondary-400 text-secondary-400 
                          rounded-lg flex items-center space-x-2 
