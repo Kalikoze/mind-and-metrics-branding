@@ -1,21 +1,26 @@
 "use client";
 
 import Hero from '../components/Hero';
+import IntroSection from '../components/IntroSection';
+import ServicesGrid from '../components/ServicesGrid';
 
 export default function Home() {
-  const handleCtaClick = () => {
-    // Handle CTA button click
-    console.log('CTA clicked');
-  };
-
   return (
     <main>
       <Hero
         title="Data Driven Tailored Excellence"
-        subtitle="Empowering B2B businesses with reliable, data-driven marketing and branding services that support sustainable growth and long-term success."
-        ctaText="YOUR CUSTOM SOLUTION AWAITS"
-        onCtaClick={handleCtaClick}
+        subtitle="We empower business to unlock sustainable growth through strategic branding, marketing, and web technologies."
+        primaryButton={{
+          text: "Get Started",
+          href: "/get-started"
+        }}
+        secondaryButton={{
+          text: "Contact Us",
+          href: "/contact"
+        }}
       />
+      <IntroSection />
+      <ServicesGrid />
     </main>
   );
 }
