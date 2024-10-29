@@ -112,59 +112,161 @@ describe('Home Page', () => {
         .and('have.text', 'View All Services');
     });
 
-    context('Accessibility Checks', () => {
-      beforeEach(() => {
-        cy.injectAxe();
-      });
-  
-      it('should pass accessibility checks', () => {
-      cy.checkA11y();
+    it('should render section headers correctly', () => {
+      cy.get('[data-cy="social-proof-title"]')
+        .should('exist')
+        .and('have.text', 'Proven Track Record');
+      
+      cy.get('[data-cy="social-proof-subtitle"]')
+        .should('exist')
+        .and('have.text', 'Join the growing list of B2B leaders who trust us with their digital success.');
+    });
+
+    it('should display statistics correctly', () => {
+      const expectedStats = [
+        { value: '100%', label: 'Client Retention Rate' },
+        { value: '5+', label: 'Projects in First 6 Months' },
+        { value: '24hr', label: 'Average Response Time' },
+        { value: '$42K', label: 'Average Annual Savings' }
+      ];
+
+      expectedStats.forEach(stat => {
+        cy.get(`[data-cy="stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}"]`).within(() => {
+          cy.get('[data-cy="stat-value"]').should('have.text', stat.value);
+          cy.get('[data-cy="stat-label"]').should('have.text', stat.label);
+        });
       });
     });
 
-    context('Responsive Design', () => {
-      const viewports = ['iphone-6', 'iphone-x', 'samsung-s10', 'samsung-note9'] as const;
-  
-      viewports.forEach(viewport => {
-        context(`Tests for ${viewport}`, () => {
-          beforeEach(() => {
-            cy.viewport(viewport);
-            cy.visit('/');
-            cy.injectAxe();
-          });
-  
-          it('should pass accessibility checks', () => {
-            cy.checkA11y();
-          });
-  
-          it('should display and interact with hamburger menu', () => {
-            // Menu should be initially closed
-            cy.get('[data-cy="mobile-menu"]').should('not.be.visible');
-            
-            // Open menu
-            cy.get('[data-cy="mobile-menu-button"]').should('be.visible').click();
-            cy.get('[data-cy="mobile-menu"]').should('be.visible');
+    it('should display client logos section correctly', () => {
+      cy.get('[data-cy="client-logos-title"]')
+        .should('exist')
+        .and('have.text', 'Trusted By Industry Leaders');
 
-            // Check all menu items
-            const expectedItems = [
-              { name: 'home', path: '/' },
-              { name: 'services', path: '/services' },
-              { name: 'how it works', path: '/process' },
-              { name: 'pricing', path: '/pricing' },
-              { name: 'about', path: '/about' },
-              { name: 'contact', path: '/contact' }
-            ];
+      const expectedClients = [
+        { 
+          name: 'PSC Construction',
+          description: 'Brand Evolution & Digital Marketing',
+          websiteUrl: 'https://www.psccompanies.com'
+        },
+        { 
+          name: 'Hydrovac Supply',
+          description: 'Website Design & SEO Strategy',
+          websiteUrl: 'https://www.hydrovac-supply.com'
+        },
+        { 
+          name: 'National Hydro Excavation Services',
+          description: 'Complete Digital Transformation',
+          websiteUrl: 'https://www.nathydro.com'
+        },
+        { 
+          name: 'Precision Surveying & Consulting',
+          description: 'Brand Identity & Web Development',
+          websiteUrl: 'https://www.precisionsurveyingandconsulting.com'
+        }
+      ];
 
-            expectedItems.forEach(({ name, path }) => {
-              cy.get(`[data-cy="mobile-menu-${name}"]`)
-                .should('be.visible')
-                .and('have.attr', 'href', path);
-            });
+      cy.get('[data-cy="client-logo-card"]').each(($card, index) => {
+        const client = expectedClients[index];
+        
+        cy.wrap($card)
+          .should('have.attr', 'href', client.websiteUrl)
+          .and('have.attr', 'target', '_blank')
+          .and('have.attr', 'rel', 'noopener noreferrer');
+        
+        cy.wrap($card).within(() => {
+          cy.get('[data-cy="client-logo-image"]').should('exist');
+          cy.get('[data-cy="client-name"]').should('have.text', client.name);
+          cy.get('[data-cy="client-description"]').should('have.text', client.description);
+          cy.get('[data-cy="client-website-link"]').should('exist');
+        });
+      });
+    });
 
-            // Close menu
-            cy.get('[data-cy="mobile-menu-button"]').click();
-            cy.get('[data-cy="mobile-menu"]').should('not.be.visible');
+    it('should display testimonials correctly', () => {
+      cy.get('[data-cy="testimonials-title"]')
+        .should('exist')
+        .and('have.text', 'What Our Clients Say');
+
+      const expectedTestimonials = [
+        {
+          quote: "Mind & Metrics transformed our digital presence. Their strategic approach and attention to detail exceeded our expectations.",
+          author: "Steven Koch",
+          position: "Project Manager",
+          company: "PSC Construction"
+        },
+        {
+          quote: "Working with their team has been revolutionary for our brand. They truly understand the B2B space and deliver results.",
+          author: "Cameron Dodds",
+          position: "Vice President",
+          company: "Precision Surveying & Consulting"
+        }
+      ];
+
+      expectedTestimonials.forEach((testimonial, index) => {
+        cy.get(`[data-cy="testimonial-${index + 1}"]`).within(() => {
+          cy.get('[data-cy="testimonial-author"]').should('have.text', testimonial.author);
+          cy.get('[data-cy="testimonial-position"]')
+            .should('have.text', `${testimonial.position} at ${testimonial.company}`);
+          cy.get('[data-cy="testimonial-quote"]')
+            .should('have.text', `\u201C${testimonial.quote}\u201D`);
+        });
+      });
+    });
+  });
+
+  context('Accessibility Checks', () => {
+    beforeEach(() => {
+      cy.injectAxe();
+    });
+
+    it('should pass accessibility checks', () => {
+    cy.checkA11y();
+    });
+  });
+
+  context('Responsive Design', () => {
+    const viewports = ['iphone-6', 'iphone-x', 'samsung-s10', 'samsung-note9'] as const;
+
+    viewports.forEach(viewport => {
+      context(`Tests for ${viewport}`, () => {
+        beforeEach(() => {
+          cy.viewport(viewport);
+          cy.visit('/');
+          cy.injectAxe();
+        });
+
+        it('should pass accessibility checks', () => {
+          cy.checkA11y();
+        });
+
+        it('should display and interact with hamburger menu', () => {
+          // Menu should be initially closed
+          cy.get('[data-cy="mobile-menu"]').should('not.be.visible');
+          
+          // Open menu
+          cy.get('[data-cy="mobile-menu-button"]').should('be.visible').click();
+          cy.get('[data-cy="mobile-menu"]').should('be.visible');
+
+          // Check all menu items
+          const expectedItems = [
+            { name: 'home', path: '/' },
+            { name: 'services', path: '/services' },
+            { name: 'how it works', path: '/process' },
+            { name: 'pricing', path: '/pricing' },
+            { name: 'about', path: '/about' },
+            { name: 'contact', path: '/contact' }
+          ];
+
+          expectedItems.forEach(({ name, path }) => {
+            cy.get(`[data-cy="mobile-menu-${name}"]`)
+              .should('be.visible')
+              .and('have.attr', 'href', path);
           });
+
+          // Close menu
+          cy.get('[data-cy="mobile-menu-button"]').click();
+          cy.get('[data-cy="mobile-menu"]').should('not.be.visible');
         });
       });
     });

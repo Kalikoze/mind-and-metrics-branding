@@ -8,20 +8,22 @@ import { motion } from 'framer-motion';
 import { RiMenuLine, RiCloseLine, RiHome5Line, RiCustomerService2Line, RiTeamLine, RiMailLine, RiRoadMapLine, RiPriceTag3Line, RiBookmarkLine } from 'react-icons/ri';
 import { HiOutlineUserCircle } from 'react-icons/hi';
 import Logo from '@/public/assets/logos/mm-temp-logo.svg';
+import ScrambleText from './ScrambleText';
 
 const menuItems = [
   { name: 'Home', href: '/', icon: RiHome5Line },
+  { name: 'About', href: '/about', icon: RiTeamLine },
   { name: 'Services', href: '/services', icon: RiCustomerService2Line },
   { name: 'Case Studies', href: '/case-studies', icon: RiBookmarkLine },
   { name: 'How It Works', href: '/process', icon: RiRoadMapLine },
   { name: 'Pricing', href: '/pricing', icon: RiPriceTag3Line },
-  { name: 'About', href: '/about', icon: RiTeamLine },
   { name: 'Contact', href: '/contact', icon: RiMailLine },
 ];
 
 const MainNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const [loginHovering, setLoginHovering] = useState(false);
 
   const navItemVariants = {
     hover: { 
@@ -79,11 +81,11 @@ const MainNav = () => {
                 <Link
                   data-cy={`nav-item-${item.name.toLowerCase().replace(' ', '-')}`}
                   href={item.href}
-                  className={`font-sans text-sm hover:text-primary-600 transition-colors relative
-                    group ${pathname === item.href ? 'text-primary-700 font-semibold' : 'text-gray-600'}`}
+                  className={`font-sans text-sm hover:text-secondary-400 transition-colors relative
+                    group ${pathname === item.href ? 'text-secondary-400 font-semibold' : 'text-gray-600'}`}
                 >
                   {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-50 transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-secondary-50 transition-all duration-300 group-hover:w-full" />
                 </Link>
               </motion.div>
             ))}
@@ -94,13 +96,17 @@ const MainNav = () => {
               <Link
                 data-cy="nav-login"
                 href="/login"
+                onMouseEnter={() => setLoginHovering(true)}
+                onMouseLeave={() => setLoginHovering(false)}
                 className="font-sans px-6 py-2.5 border-2 border-secondary-400 text-secondary-400 
-                         rounded-lg flex items-center space-x-2 
+                         rounded-lg flex items-center space-x-2 w-[140px] justify-center
                          transition-all duration-300
-                         hover:bg-secondary-400 hover:text-white hover:scale-105"
+                         hover:bg-secondary-400 hover:text-white"
               >
-                <HiOutlineUserCircle className="w-5 h-5" />
-                <span className="font-medium">Login</span>
+                <HiOutlineUserCircle className="w-5 h-5 shrink-0" />
+                <span className="w-[60px] text-center">
+                  <ScrambleText text="Login" isHovering={loginHovering} />
+                </span>
               </Link>
             </motion.div>
           </div>
@@ -152,7 +158,7 @@ const MainNav = () => {
                 href={item.href}
                 className={`block px-3 py-2 rounded-md text-base font-sans
                   ${pathname === item.href 
-                    ? 'text-primary-700 font-semibold bg-primary-50/10' 
+                    ? 'text-secondary-400 font-semibold bg-secondary-50/10' 
                     : 'text-gray-600 hover:bg-gray-50'}
                   flex items-center space-x-3`}
                 onClick={() => setIsMenuOpen(false)}
