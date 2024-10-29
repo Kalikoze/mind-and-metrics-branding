@@ -8,7 +8,6 @@ import { motion } from 'framer-motion';
 import { RiMenuLine, RiCloseLine, RiHome5Line, RiCustomerService2Line, RiTeamLine, RiMailLine, RiRoadMapLine, RiPriceTag3Line, RiBookmarkLine } from 'react-icons/ri';
 import { HiOutlineUserCircle } from 'react-icons/hi';
 import Logo from '@/public/assets/logos/mm-temp-logo.svg';
-import ScrambleText from './ScrambleText';
 
 const menuItems = [
   { name: 'Home', href: '/', icon: RiHome5Line },
@@ -23,7 +22,6 @@ const menuItems = [
 const MainNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  const [loginHovering, setLoginHovering] = useState(false);
 
   const navItemVariants = {
     hover: { 
@@ -96,17 +94,13 @@ const MainNav = () => {
               <Link
                 data-cy="nav-login"
                 href="/login"
-                onMouseEnter={() => setLoginHovering(true)}
-                onMouseLeave={() => setLoginHovering(false)}
                 className="font-sans px-6 py-2.5 border-2 border-secondary-400 text-secondary-400 
-                         rounded-lg flex items-center space-x-2 w-[140px] justify-center
+                         rounded-lg flex items-center space-x-2 
                          transition-all duration-300
-                         hover:bg-secondary-400 hover:text-white"
+                         hover:bg-secondary-400 hover:text-white hover:scale-105"
               >
-                <HiOutlineUserCircle className="w-5 h-5 shrink-0" />
-                <span className="w-[60px] text-center">
-                  <ScrambleText text="Login" isHovering={loginHovering} />
-                </span>
+                <HiOutlineUserCircle className="w-5 h-5" />
+                <span className="font-medium">Login</span>
               </Link>
             </motion.div>
           </div>
