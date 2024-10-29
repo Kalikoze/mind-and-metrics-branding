@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import ScrambleText from './ScrambleText';
 import PSCLogo from '@/public/assets/logos/psc-logo.svg';
 import HydrovacLogo from '@/public/assets/logos/hydrovac-logo.svg';
 import NatHydroLogo from '@/public/assets/logos/nat-hydro-logo.svg';
@@ -9,8 +10,8 @@ import PrecisionSurveyLogo from '@/public/assets/logos/precision-survey-logo.svg
 const stats = [
   { value: "100%", label: "Client Retention Rate" },
   { value: "5+", label: "Projects in First 6 Months" },
-  { value: "40%", label: "Average Cost Reduction" },
-  { value: "24/7", label: "Support Coverage" },
+  { value: "24hr", label: "Average Response Time" },
+  { value: "$42K", label: "Average Annual Savings" }
 ];
 
 const clientLogos = [
@@ -62,11 +63,23 @@ const testimonials = [
 ];
 
 const SocialProof = () => {
+  const [hoveringIndices, setHoveringIndices] = useState<{ [key: number]: boolean }>({});
+
   return (
     <section data-cy="social-proof-section" className="bg-neutral-50 py-20">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <h2 data-cy="social-proof-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
+            Proven Track Record
+          </h2>
+          <p className="text-secondary-500 text-lg max-w-2xl mx-auto">
+            Join the growing list of B2B leaders who trust us with their digital success.
+          </p>
+        </div>
+
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20 max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
           {stats.map((stat, index) => (
             <div 
               key={index}
@@ -86,9 +99,12 @@ const SocialProof = () => {
           ))}
         </div>
 
-        {/* Client Logos */}
-        <div className="mb-20 max-w-6xl mx-auto">
-          <div className="flex flex-wrap justify-center items-center gap-12">
+        {/* Client Logos Section */}
+        <div className="mb-20">
+          <h3 className="text-center font-serif text-2xl text-secondary-400 mb-12">
+            Trusted By Industry Leaders
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {clientLogos.map((logo, index) => (
               <Link 
                 key={index}
@@ -96,27 +112,51 @@ const SocialProof = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cy={`client-logo-${logo.alt.toLowerCase().replace(/\s+/g, '-')}`}
-                className="group relative"
+                className="group relative bg-white p-8 rounded-lg
+                         border-2 border-neutral-200 hover:border-secondary-400
+                         transition-all duration-300 hover:shadow-lg"
+                onMouseEnter={() => setHoveringIndices(prev => ({ ...prev, [index]: true }))}
+                onMouseLeave={() => setHoveringIndices(prev => ({ ...prev, [index]: false }))}
               >
-                <div className="w-[240px] h-[80px] relative grayscale hover:grayscale-0 
-                             transition-all duration-300 opacity-60 group-hover:opacity-100">
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    fill
-                    className="object-contain"
-                    sizes="240px"
-                    priority={index < 2}
-                  />
-                </div>
-                
-                {/* Hover tooltip */}
-                <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-max
-                              opacity-0 group-hover:opacity-100 
-                              transition-all duration-300 pointer-events-none">
-                  <div className="bg-white px-4 py-2 rounded-lg shadow-lg
-                                border border-neutral-200 text-sm text-secondary-500">
-                    {logo.description} • <span className="text-secondary-400">Visit Site →</span>
+                <div className="flex flex-col md:flex-row items-center gap-6">
+                  {/* Logo */}
+                  <div className="w-[200px] h-[70px] relative grayscale opacity-60 
+                               group-hover:grayscale-0 group-hover:opacity-100
+                               transition-all duration-300">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      fill
+                      className="object-contain"
+                      sizes="200px"
+                      priority={index < 2}
+                    />
+                  </div>
+                  
+                  {/* Description */}
+                  <div className="flex-1 text-center md:text-left">
+                    <h4 className="font-serif text-lg text-secondary-400 mb-2">
+                      {logo.alt}
+                    </h4>
+                    <p className="text-secondary-500 text-sm mb-3">
+                      {logo.description}
+                    </p>
+                    <span className="text-sm font-medium text-secondary-400 inline-flex items-center">
+                      <span className="w-[100px]">
+                        <ScrambleText 
+                          text="Visit Website" 
+                          isHovering={hoveringIndices[index]} 
+                        />
+                      </span>
+                      <svg 
+                        className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </span>
                   </div>
                 </div>
               </Link>
@@ -125,7 +165,10 @@ const SocialProof = () => {
         </div>
 
         {/* Testimonials */}
-        <div className="max-w-6xl mx-auto">
+        <div>
+          <h3 className="text-center font-serif text-2xl text-secondary-400 mb-12">
+            What Our Clients Say
+          </h3>
           <div className="grid md:grid-cols-2 gap-8">
             {testimonials.map((testimonial, index) => (
               <div 

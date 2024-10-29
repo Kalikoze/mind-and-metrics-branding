@@ -51,17 +51,17 @@ const ServicesGrid = () => {
 
   return (
     <section data-cy="services-section" className="bg-white py-20">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 data-cy="services-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
             Comprehensive B2B Solutions
           </h2>
           <p className="text-secondary-500 text-lg max-w-2xl mx-auto">
-            Everything you need to scale your business, handled by experts who understand your goals.
+            Scale your business with experts who understand your vision and goals.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <div 
               data-cy={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}

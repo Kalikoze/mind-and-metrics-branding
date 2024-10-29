@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+const chars = 'ABCDEFGHIJKLNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz';
 
 interface ScrambleTextProps {
   text: string;

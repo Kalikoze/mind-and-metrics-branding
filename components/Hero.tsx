@@ -47,7 +47,7 @@ const Hero: React.FC<HeroProps> = ({
         />
       </div>
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <h1 data-cy="hero-title" className="font-serif text-5xl sm:text-6xl font-bold mb-6 text-secondary-600
                          [text-wrap:balance] bg-clip-text text-transparent 
@@ -58,7 +58,7 @@ const Hero: React.FC<HeroProps> = ({
             {subtitle}
           </h2>
           
-          <div className="flex items-center justify-center space-x-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             <Link
               href={primaryButton.href}
               data-cy="hero-primary-cta"
