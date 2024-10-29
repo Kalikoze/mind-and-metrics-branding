@@ -199,7 +199,7 @@ const SocialProof = () => {
                   </div>
                 </div>
                 <blockquote className="text-secondary-500 italic" data-cy="testimonial-quote">
-                  "{testimonial.quote}"
+                  &ldquo;{testimonial.quote}&rdquo;
                 </blockquote>
               </div>
             ))}
