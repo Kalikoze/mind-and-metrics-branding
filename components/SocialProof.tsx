@@ -19,28 +19,28 @@ const clientLogos = [
     src: PSCLogo, 
     alt: "PSC Construction",
     description: "Brand Evolution & Digital Marketing",
-    websiteUrl: "https://pscconstruction.com",
+    websiteUrl: "https://www.psccompanies.com",
     caseStudyUrl: "/case-studies/psc-construction"
   },
   { 
     src: HydrovacLogo, 
     alt: "Hydrovac Supply",
     description: "Website Design & SEO Strategy",
-    websiteUrl: "https://hydrovacsupply.com",
+    websiteUrl: "https://www.hydrovac-supply.com",
     caseStudyUrl: "/case-studies/hydrovac-supply"
   },
   { 
     src: NatHydroLogo, 
     alt: "National Hydro Excavation Services",
     description: "Complete Digital Transformation",
-    websiteUrl: "https://nationalhydro.com",
+    websiteUrl: "https://www.nathydro.com",
     caseStudyUrl: "/case-studies/national-hydro"
   },
   { 
     src: PrecisionSurveyLogo, 
     alt: "Precision Surveying & Consulting",
     description: "Brand Identity & Web Development",
-    websiteUrl: "https://precisionsurveying.com",
+    websiteUrl: "https://www.precisionsurveyingandconsulting.com",
     caseStudyUrl: "/case-studies/precision-survey"
   },
 ];
@@ -73,7 +73,7 @@ const SocialProof = () => {
           <h2 data-cy="social-proof-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
             Proven Track Record
           </h2>
-          <p className="text-secondary-500 text-lg max-w-2xl mx-auto">
+          <p data-cy="social-proof-subtitle" className="text-secondary-500 text-lg max-w-2xl mx-auto">
             Join the growing list of B2B leaders who trust us with their digital success.
           </p>
         </div>
@@ -89,10 +89,10 @@ const SocialProof = () => {
                          transition-all duration-300 hover:border-secondary-400
                          hover:shadow-lg"
             >
-              <div className="font-serif text-4xl text-secondary-400 mb-2">
+              <div className="font-serif text-4xl text-secondary-400 mb-2" data-cy="stat-value">
                 {stat.value}
               </div>
-              <div className="text-secondary-500 text-sm font-sans">
+              <div className="text-secondary-500 text-sm font-sans" data-cy="stat-label">
                 {stat.label}
               </div>
             </div>
@@ -101,7 +101,7 @@ const SocialProof = () => {
 
         {/* Client Logos Section */}
         <div className="mb-20">
-          <h3 className="text-center font-serif text-2xl text-secondary-400 mb-12">
+          <h3 data-cy="client-logos-title" className="text-center font-serif text-2xl text-secondary-400 mb-12">
             Trusted By Industry Leaders
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
@@ -111,7 +111,7 @@ const SocialProof = () => {
                 href={logo.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                data-cy={`client-logo-${logo.alt.toLowerCase().replace(/\s+/g, '-')}`}
+                data-cy="client-logo-card"
                 className="group relative bg-white p-8 rounded-lg
                          border-2 border-neutral-200 hover:border-secondary-400
                          transition-all duration-300 hover:shadow-lg"
@@ -124,6 +124,7 @@ const SocialProof = () => {
                                group-hover:grayscale-0 group-hover:opacity-100
                                transition-all duration-300">
                     <Image
+                      data-cy="client-logo-image"
                       src={logo.src}
                       alt={logo.alt}
                       fill
@@ -135,14 +136,14 @@ const SocialProof = () => {
                   
                   {/* Description */}
                   <div className="flex-1 text-center md:text-left">
-                    <h4 className="font-serif text-lg text-secondary-400 mb-2">
+                    <h4 className="font-serif text-lg text-secondary-400 mb-2" data-cy="client-name">
                       {logo.alt}
                     </h4>
-                    <p className="text-secondary-500 text-sm mb-3">
+                    <p className="text-secondary-500 text-sm mb-3" data-cy="client-description">
                       {logo.description}
                     </p>
-                    <span className="text-sm font-medium text-secondary-400 inline-flex items-center">
-                      <span className="w-[100px]">
+                    <span data-cy="client-website-link" className="text-sm font-medium text-secondary-400 inline-flex items-center">
+                      <span data-cy="client-website-text" className="w-[100px]">
                         <ScrambleText 
                           text="Visit Website" 
                           isHovering={hoveringIndices[index]} 
@@ -166,7 +167,7 @@ const SocialProof = () => {
 
         {/* Testimonials */}
         <div>
-          <h3 className="text-center font-serif text-2xl text-secondary-400 mb-12">
+          <h3 data-cy="testimonials-title" className="text-center font-serif text-2xl text-secondary-400 mb-12">
             What Our Clients Say
           </h3>
           <div className="grid md:grid-cols-2 gap-8">
@@ -189,15 +190,15 @@ const SocialProof = () => {
                     /> */}
                   </div>
                   <div>
-                    <div className="font-serif text-lg text-secondary-400">
+                    <div className="font-serif text-lg text-secondary-400" data-cy="testimonial-author">
                       {testimonial.author}
                     </div>
-                    <div className="text-sm text-secondary-500">
+                    <div className="text-sm text-secondary-500" data-cy="testimonial-position">
                       {testimonial.position} at {testimonial.company}
                     </div>
                   </div>
                 </div>
-                <blockquote className="text-secondary-500 italic">
+                <blockquote className="text-secondary-500 italic" data-cy="testimonial-quote">
                   "{testimonial.quote}"
                 </blockquote>
               </div>
