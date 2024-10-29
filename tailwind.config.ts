@@ -62,6 +62,26 @@ const config: Config = {
         serif: ['var(--font-gfs-didot)'],
         sans: ['var(--font-jost)'],
       },
+      keyframes: {
+        draw: {
+          '0%': {
+            strokeDashoffset: '1',
+            opacity: '0'
+          },
+          '20%': {
+            opacity: '1'
+          },
+          '100%': {
+            strokeDashoffset: '0',
+            opacity: '0.8'
+          }
+        }
+      },
+      animation: {
+        'draw': 'draw 8s ease-out infinite',
+        'draw-delay-1': 'draw 8s ease-out infinite 1s',
+        'draw-delay-2': 'draw 8s ease-out infinite 2s',
+      }
     },
   },
   plugins: [],

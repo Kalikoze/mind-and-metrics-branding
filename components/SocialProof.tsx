@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ScrambleText from './ScrambleText';
+import CircuitOverlay from '@/components/CircuitOverlay';
 import PSCLogo from '@/public/assets/logos/psc-logo.svg';
 import HydrovacLogo from '@/public/assets/logos/hydrovac-logo.svg';
 import NatHydroLogo from '@/public/assets/logos/nat-hydro-logo.svg';
@@ -66,9 +67,10 @@ const SocialProof = () => {
   const [hoveringIndices, setHoveringIndices] = useState<{ [key: number]: boolean }>({});
 
   return (
-    <section data-cy="social-proof-section" className="bg-neutral-50 py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+    <section data-cy="social-proof-section" className="relative overflow-hidden bg-neutral-50 py-20">
+      <CircuitOverlay />
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 data-cy="social-proof-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
             Proven Track Record
@@ -78,7 +80,6 @@ const SocialProof = () => {
           </p>
         </div>
 
-        {/* Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
           {stats.map((stat, index) => (
             <div 
@@ -99,7 +100,6 @@ const SocialProof = () => {
           ))}
         </div>
 
-        {/* Client Logos Section */}
         <div className="mb-20">
           <h3 data-cy="client-logos-title" className="text-center font-serif text-2xl text-secondary-400 mb-12">
             Trusted By Industry Leaders
@@ -134,7 +134,6 @@ const SocialProof = () => {
                     />
                   </div>
                   
-                  {/* Description */}
                   <div className="flex-1 text-center md:text-left">
                     <h4 className="font-serif text-lg text-secondary-400 mb-2" data-cy="client-name">
                       {logo.alt}
@@ -165,7 +164,6 @@ const SocialProof = () => {
           </div>
         </div>
 
-        {/* Testimonials */}
         <div>
           <h3 data-cy="testimonials-title" className="text-center font-serif text-2xl text-secondary-400 mb-12">
             What Our Clients Say
