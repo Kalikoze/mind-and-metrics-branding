@@ -208,7 +208,8 @@ describe('Home Page', () => {
           cy.get('[data-cy="testimonial-author"]').should('have.text', testimonial.author);
           cy.get('[data-cy="testimonial-position"]')
             .should('have.text', `${testimonial.position} at ${testimonial.company}`);
-          cy.get('[data-cy="testimonial-quote"]').should('have.text', `"${testimonial.quote}"`);
+          cy.get('[data-cy="testimonial-quote"]')
+            .should('have.text', `\u201C${testimonial.quote}\u201D`);
         });
       });
     });
