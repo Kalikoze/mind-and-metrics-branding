@@ -9,6 +9,8 @@ import {
   RiBarChartLine
 } from 'react-icons/ri';
 import { HiOutlineArrowRight } from 'react-icons/hi2';
+import { useState } from 'react';
+import ScrambleText from './ScrambleText';
 
 const services = [
   {
@@ -44,6 +46,9 @@ const services = [
 ];
 
 const ServicesGrid = () => {
+  const [viewAllHovering, setViewAllHovering] = useState(false);
+  const [hoveringIndices, setHoveringIndices] = useState<{ [key: number]: boolean }>({});
+
   return (
     <section data-cy="services-section" className="bg-white py-20">
       <div className="container mx-auto px-4">
@@ -94,11 +99,16 @@ const ServicesGrid = () => {
               <Link 
                 data-cy="service-link"
                 href={`/services#${service.title.toLowerCase().replace(/\s+/g, '-')}`}
+                onMouseEnter={() => setHoveringIndices(prev => ({ ...prev, [index]: true }))}
+                onMouseLeave={() => setHoveringIndices(prev => ({ ...prev, [index]: false }))}
                 className="text-secondary-400 font-medium text-sm flex items-center
-                         opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                         opacity-0 group-hover:opacity-100 transition-opacity duration-300
+                         w-[120px]"
               >
-                Learn More 
-                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" 
+                <span className="w-[80px]">
+                  <ScrambleText text="Learn More" isHovering={hoveringIndices[index]} />
+                </span>
+                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300 shrink-0" 
                      fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
@@ -111,13 +121,17 @@ const ServicesGrid = () => {
           <Link
             data-cy="view-all-services"
             href="/services"
+            onMouseEnter={() => setViewAllHovering(true)}
+            onMouseLeave={() => setViewAllHovering(false)}
             className="font-sans px-8 py-3.5 border-2 border-secondary-400 text-secondary-400 
                      rounded-lg flex items-center space-x-2 inline-flex
-                     transition-all duration-200
+                     transition-all duration-200 w-[260px] justify-center
                      hover:bg-secondary-400 hover:text-white hover:scale-105"
           >
-            <HiOutlineArrowRight className="w-5 h-5" />
-            <span className="font-medium">View All Services</span>
+            <HiOutlineArrowRight className="w-5 h-5 shrink-0" />
+            <span className="w-[160px] text-center">
+              <ScrambleText text="View All Services" isHovering={viewAllHovering} />
+            </span>
           </Link>
         </div>
       </div>
