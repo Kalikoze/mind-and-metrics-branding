@@ -27,8 +27,8 @@ const AboutIntro = () => {
             
             <p data-cy="about-intro-paragraph-2">
               At Mind & Metrics, we build <span className="text-secondary-400 font-semibold">collaborative relationships</span>—becoming 
-              trusted partners on your journey toward sustainable success. Whether it's enhancing your brand, 
-              optimizing your web presence, or driving marketing performance, we're with you at every step.
+              trusted partners on your journey toward sustainable success. Whether it&apos;s enhancing your brand, 
+              optimizing your web presence, or driving marketing performance, we&apos;re with you at every step.
             </p>
           </div>
           
