@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '@/public/assets/logos/mm-temp-logo.svg';
@@ -66,7 +66,7 @@ const Footer = () => {
                 </span>
               </Link>
               <p className="text-secondary-500 text-sm mt-6">
-                Elevating Omaha's B2B landscape through strategic branding and digital excellence. 
+                Elevating Omaha&apos;s B2B landscape through strategic branding and digital excellence. 
                 Serving the Greater Omaha area and surrounding communities with tailored solutions 
                 for sustainable growth.
               </p>
