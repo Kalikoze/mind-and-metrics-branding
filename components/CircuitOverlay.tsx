@@ -14,12 +14,12 @@ const paths: CircuitPath[] = [
   // Main elegant lines (thicker)
   {
     d: "M-100,600 H300 V300 H700 V100 H1300",
-    className: "animate-draw stroke-primary-200/20",
+    className: "animate-draw stroke-primary-200/10",
     width: 2
   },
   {
     d: "M0,200 H400 V400 H800 V0 H1200",
-    className: "animate-draw-delay-1 stroke-secondary-200/20",
+    className: "animate-draw-delay-1 stroke-secondary-200/10",
     width: 2
   },
   {

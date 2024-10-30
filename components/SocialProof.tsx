@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ScrambleText from './ScrambleText';
-import CircuitOverlay from '@/components/CircuitOverlay';
 import PSCLogo from '@/public/assets/logos/psc-logo.svg';
 import HydrovacLogo from '@/public/assets/logos/hydrovac-logo.svg';
 import NatHydroLogo from '@/public/assets/logos/nat-hydro-logo.svg';
@@ -26,21 +25,21 @@ const clientLogos = [
   { 
     src: HydrovacLogo, 
     alt: "Hydrovac Supply",
-    description: "Website Design & SEO Strategy",
+    description: "Brand Identity & Web Development",
     websiteUrl: "https://www.hydrovac-supply.com",
     caseStudyUrl: "/case-studies/hydrovac-supply"
   },
   { 
     src: NatHydroLogo, 
     alt: "National Hydro Excavation Services",
-    description: "Complete Digital Transformation",
+    description: "Website Design & SEO Strategy" ,
     websiteUrl: "https://www.nathydro.com",
     caseStudyUrl: "/case-studies/national-hydro"
   },
   { 
     src: PrecisionSurveyLogo, 
     alt: "Precision Surveying & Consulting",
-    description: "Brand Identity & Web Development",
+    description: "Complete Digital Transformation",
     websiteUrl: "https://www.precisionsurveyingandconsulting.com",
     caseStudyUrl: "/case-studies/precision-survey"
   },
@@ -67,9 +66,7 @@ const SocialProof = () => {
   const [hoveringIndices, setHoveringIndices] = useState<{ [key: number]: boolean }>({});
 
   return (
-    <section data-cy="social-proof-section" className="relative overflow-hidden bg-neutral-50 py-20">
-      <CircuitOverlay />
-      
+    <section data-cy="social-proof-section" className="overflow-hidden bg-white py-20">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 data-cy="social-proof-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
@@ -85,10 +82,9 @@ const SocialProof = () => {
             <div 
               key={index}
               data-cy={`stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`}
-              className="text-center p-6 bg-white rounded-lg
+              className="text-center p-6 bg-neutral-50
                          border-2 border-neutral-200
-                         transition-all duration-300 hover:border-secondary-400
-                         hover:shadow-lg"
+                         transition-all duration-300"
             >
               <div className="font-serif text-4xl text-secondary-400 mb-2" data-cy="stat-value">
                 {stat.value}
@@ -112,9 +108,10 @@ const SocialProof = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cy="client-logo-card"
-                className="group relative bg-white p-8 rounded-lg
+                className="group relative bg-neutral-50 hover:bg-white p-8 rounded-lg
                          border-2 border-neutral-200 hover:border-secondary-400
-                         transition-all duration-300 hover:shadow-lg"
+                         transition-all duration-300
+                         hover:shadow-lg hover:-translate-y-1"
                 onMouseEnter={() => setHoveringIndices(prev => ({ ...prev, [index]: true }))}
                 onMouseLeave={() => setHoveringIndices(prev => ({ ...prev, [index]: false }))}
               >
@@ -173,10 +170,9 @@ const SocialProof = () => {
               <div 
                 key={index}
                 data-cy={`testimonial-${index + 1}`}
-                className="bg-white p-8 rounded-lg
+                className="bg-neutral-50 p-8 rounded-lg
                            border-2 border-neutral-200
-                           transition-all duration-300 hover:border-secondary-400
-                           hover:shadow-lg"
+                           transition-all duration-300"
               >
                 <div className="flex items-start mb-6">
                   <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">

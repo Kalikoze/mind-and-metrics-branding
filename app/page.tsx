@@ -3,6 +3,7 @@
 import Hero from '../components/Hero';
 import IntroSection from '../components/IntroSection';
 import ServicesGrid from '../components/ServicesGrid';
+import PricingPreview from '../components/PricingPreview';
 import SocialProof from '../components/SocialProof';
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
       />
       <IntroSection />
       <ServicesGrid />
+      <PricingPreview />
       <SocialProof />
     </main>
   );
