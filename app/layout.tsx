@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import MainNav from "@/components/MainNav";
 import './globals.css'
 import { gfsDidot, jost } from './fonts'
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Mind & Metrics Branding",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body>
         <MainNav />
         {children}
+        <Footer />
       </body>
     </html>
   )

@@ -27,7 +27,7 @@ const MainNav = () => {
 
   const navItemVariants = {
     hover: { 
-      scale: 1.05,
+      y: -2,
       transition: { type: "spring", stiffness: 400 }
     }
   };
@@ -90,7 +90,8 @@ const MainNav = () => {
               </motion.div>
             ))}
             <motion.div
-              whileHover={{ scale: 1.02 }}
+              variants={navItemVariants}
+              whileHover="hover"
               whileTap={{ scale: 0.95 }}
             >
               <Link
