@@ -100,19 +100,73 @@ describe('Home Page', () => {
           cy.get('[data-cy="service-description"]')
             .should('exist')
             .and('have.text', service.description);
-          cy.get('[data-cy="service-link"]')
-            .should('exist')
-            .and('have.text', 'Learn More');
+          
+          cy.get('[data-cy="service-card-content"]').contains('Learn More').should('exist');
         });
+
+        cy.get(selector)
+          .should('have.attr', 'href', `/services#${service.title.toLowerCase().replace(/\s+/g, '-')}`);
       });
 
-      // Check view all services button
       cy.get('[data-cy="view-all-services"]')
         .should('exist')
         .and('have.text', 'View All Services');
     });
 
-    it('should render section headers correctly', () => {
+    it('should render PricingPreview correctly', () => {
+      cy.get('[data-cy="pricing-preview-section"]').should('exist');
+      cy.get('[data-cy="pricing-preview-title"]')
+        .should('exist')
+        .and('have.text', 'Transparent Value-Based Pricing');
+      cy.get('[data-cy="pricing-preview-subtitle"]')
+        .should('exist')
+        .and('have.text', 'Discover a pricing structure that aligns with your goals and scales with your success');
+
+      const expectedValueProps = [
+        {
+          title: "Tailored Solutions",
+          description: "Custom-built strategies that adapt to your specific business needs and goals"
+        },
+        {
+          title: "Flexible Scaling",
+          description: "Adjust services and resources as your business grows and evolves"
+        },
+        {
+          title: "Transparent ROI",
+          description: "Clear reporting and metrics to demonstrate value and impact"
+        }
+      ];
+
+      expectedValueProps.forEach(prop => {
+        cy.get(`[data-cy="value-prop-${prop.title.toLowerCase().replace(/\s+/g, '-')}"]`).within(() => {
+          cy.get('h3').should('have.text', prop.title);
+          cy.get('p').should('have.text', prop.description);
+        });
+      });
+
+      cy.get('[data-cy="pricing-cta-card"]').within(() => {
+        cy.get('[data-cy="pricing-cta-title"]')
+          .should('exist')
+          .and('have.text', 'Ready to Build Your Custom Solution?');
+        
+        cy.get('[data-cy="pricing-cta-description"]')
+          .should('exist')
+          .and('contain.text', 'Answer a few questions about your business needs');
+        
+        // Check CTA buttons
+        cy.get('[data-cy="pricing-get-started-button"]')
+          .should('exist')
+          .and('have.attr', 'href', '/get-started')
+          .and('contain.text', 'Get Quote');
+        
+        cy.get('[data-cy="pricing-view-pricing-button"]')
+          .should('exist')
+          .and('have.attr', 'href', '/pricing')
+          .and('contain.text', 'Explore Plans');
+      });
+    });
+
+    it('should render headers correctly for the Proven Track Record section', () => {
       cy.get('[data-cy="social-proof-title"]')
         .should('exist')
         .and('have.text', 'Proven Track Record');
@@ -122,7 +176,7 @@ describe('Home Page', () => {
         .and('have.text', 'Join the growing list of B2B leaders who trust us with their digital success.');
     });
 
-    it('should display statistics correctly', () => {
+    it('should display statistics correctly for the Proven Track Record section', () => {
       const expectedStats = [
         { value: '100%', label: 'Client Retention Rate' },
         { value: '5+', label: 'Projects in First 6 Months' },
@@ -138,7 +192,7 @@ describe('Home Page', () => {
       });
     });
 
-    it('should display client logos section correctly', () => {
+    it('should display client logos correctly for the Trusted By Industry Leaders section', () => {
       cy.get('[data-cy="client-logos-title"]')
         .should('exist')
         .and('have.text', 'Trusted By Industry Leaders');
@@ -151,17 +205,17 @@ describe('Home Page', () => {
         },
         { 
           name: 'Hydrovac Supply',
-          description: 'Website Design & SEO Strategy',
+          description: 'Brand Identity & Web Development',
           websiteUrl: 'https://www.hydrovac-supply.com'
         },
         { 
           name: 'National Hydro Excavation Services',
-          description: 'Complete Digital Transformation',
+          description: 'Website Design & SEO Strategy',
           websiteUrl: 'https://www.nathydro.com'
         },
         { 
           name: 'Precision Surveying & Consulting',
-          description: 'Brand Identity & Web Development',
+          description: 'Complete Digital Transformation',
           websiteUrl: 'https://www.precisionsurveyingandconsulting.com'
         }
       ];

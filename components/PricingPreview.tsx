@@ -27,15 +27,15 @@ const PricingPreview = () => {
   const [secondaryHover, setSecondaryHover] = useState(false);
 
   return (
-    <section className="relative bg-neutral-50 py-20 overflow-hidden">
+    <section data-cy="pricing-preview-section" className="relative bg-neutral-50 py-20 overflow-hidden">
       <CircuitOverlay />
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
+          <h2 data-cy="pricing-preview-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
             Transparent Value-Based Pricing
           </h2>
-          <p className="text-secondary-500 text-lg max-w-2xl mx-auto">
+          <p data-cy="pricing-preview-subtitle" className="text-secondary-500 text-lg max-w-2xl mx-auto">
             Discover a pricing structure that aligns with your goals and scales with your success
           </p>
         </div>
@@ -44,8 +44,8 @@ const PricingPreview = () => {
           {valueProps.map((prop, index) => (
             <div 
               key={index}
-              className="p-8 rounded-lg bg-white
-                         border-2 border-neutral-200"
+              data-cy={`value-prop-${prop.title.toLowerCase().replace(/\s+/g, '-')}`}
+              className="p-8 rounded-lg bg-white border-2 border-neutral-200"
             >
               <div className="bg-neutral-50 p-4 rounded-full w-16 h-16 mb-6
                             flex items-center justify-center">
@@ -61,19 +61,20 @@ const PricingPreview = () => {
           ))}
         </div>
 
-        <div className="bg-white rounded-2xl p-12 border-2 border-neutral-200
+        <div data-cy="pricing-cta-card"className="bg-white rounded-2xl p-12 border-2 border-neutral-200
                       transition-all duration-300 hover:border-secondary-400
                       hover:shadow-lg text-center">
-          <h3 className="text-2xl font-serif text-secondary-400 mb-6">
+          <h3 data-cy="pricing-cta-title" className="text-2xl font-serif text-secondary-400 mb-6">
             Ready to Build Your Custom Solution?
           </h3>
-          <p className="text-secondary-500 max-w-2xl mx-auto mb-8">
+          <p data-cy="pricing-cta-description" className="text-secondary-500 max-w-2xl mx-auto mb-8">
             Answer a few questions about your business needs and get a personalized 
             quote tailored to your goals. No commitment required.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
+              data-cy="pricing-get-started-button"
               href="/get-started"
               onMouseEnter={() => setPrimaryHover(true)}
               onMouseLeave={() => setPrimaryHover(false)}
@@ -84,11 +85,12 @@ const PricingPreview = () => {
             >
               <HiOutlineRocketLaunch className="w-5 h-5 shrink-0" />
               <span className="w-[120px] text-center">
-                <ScrambleText text="Get Started" isHovering={primaryHover} />
+                <ScrambleText text="Get Quote" isHovering={primaryHover} />
               </span>
             </Link>
             
             <Link
+              data-cy="pricing-view-pricing-button"
               href="/pricing"
               onMouseEnter={() => setSecondaryHover(true)}
               onMouseLeave={() => setSecondaryHover(false)}
@@ -99,7 +101,7 @@ const PricingPreview = () => {
             >
               <HiOutlineCurrencyDollar className="w-5 h-5 shrink-0" />
               <span className="w-[120px] text-center">
-                <ScrambleText text="View Pricing" isHovering={secondaryHover} />
+                <ScrambleText text="Explore Plans" isHovering={secondaryHover} />
               </span>
             </Link>
           </div>

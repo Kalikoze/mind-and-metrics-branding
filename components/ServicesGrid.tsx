@@ -100,6 +100,7 @@ const ServicesGrid = () => {
               </p>
 
               <div 
+                data-cy="service-card-content"
                 className="text-secondary-400 font-medium text-sm flex items-center
                          opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               >
