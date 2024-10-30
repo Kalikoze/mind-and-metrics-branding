@@ -9,11 +9,9 @@ describe('Home Page', () => {
     });
 
     it('should render MainNav component correctly', () => {
-      // Logo check
       cy.get('[data-cy="nav-logo"]').should('exist');
       cy.get('[data-cy="nav-logo-text"]').should('have.text', 'Mind & Metrics');
 
-      // Desktop menu items
       const menuItems = ['Home', 'Services', 'Case Studies', 'How It Works', 'Pricing', 'About', 'Contact'];
       menuItems.forEach(item => {
         cy.get(`[data-cy="nav-item-${item.toLowerCase().replace(' ', '-')}"]`)
@@ -21,7 +19,6 @@ describe('Home Page', () => {
           .and('have.text', item);
       });
 
-      // Login button
       cy.get('[data-cy="nav-login"]')
         .should('exist')
         .and('have.text', 'Login');
@@ -266,6 +263,91 @@ describe('Home Page', () => {
             .should('have.text', `\u201C${testimonial.quote}\u201D`);
         });
       });
+    });
+
+    it('should render footer logo and description correctly', () => {
+      cy.get('[data-cy="footer-logo"]').should('exist');
+      cy.get('[data-cy="footer-logo"]').find('img').should('exist');
+      cy.get('[data-cy="footer-logo"]').contains('Mind & Metrics');
+      cy.get('[data-cy="footer-logo"]')
+        .closest('div')
+        .contains('Elevating Omaha\'s B2B landscape through strategic branding and digital excellence');
+    });
+  
+    it('should render navigation links in footer correctly', () => {
+      cy.get('[data-cy="footer-nav-title"]').should('have.text', 'Navigation');
+  
+      const navigationLinks = [
+        { name: 'Home', href: '/' },
+        { name: 'About', href: '/about' },
+        { name: 'Services', href: '/services' },
+        { name: 'Case Studies', href: '/case-studies' },
+        { name: 'How It Works', href: '/process' },
+        { name: 'Pricing', href: '/pricing' },
+        { name: 'Contact', href: '/contact' },
+      ];
+  
+      navigationLinks.forEach(link => {
+        cy.get(`[data-cy="footer-nav-${link.name.toLowerCase().replace(/\s+/g, '-')}"]`)
+          .should('exist')
+          .and('have.attr', 'href', link.href)
+          .and('contain.text', link.name);
+      });
+    });
+  
+    it('should render hours and contact information in footer correctly', () => {
+      cy.get('[data-cy="footer-hours-title"]').should('have.text', 'Hours & Contact');
+      
+      cy.get('[data-cy="footer-hours"]').within(() => {
+        cy.contains('Monday - Friday');
+        cy.contains('8:00 AM - 4:00 PM');
+        cy.contains('Closed Weekends & Holidays');
+      });
+  
+      cy.get('[data-cy="footer-address"]').within(() => {
+        cy.contains('1569 Washington St');
+        cy.contains('Blair, NE 68008');
+        cy.contains('Get Directions');
+        cy.get('a')
+          .should('have.attr', 'href')
+          .and('include', 'google.com/maps/dir');
+      });
+  
+      cy.get('[data-cy="footer-email"]')
+        .should('have.attr', 'href', 'mailto:info@mindandmetricsbranding.com')
+        .and('contain.text', 'info@mindandmetricsbranding.com');
+    });
+  
+    it('should render social links in footer correctly', () => {
+      cy.get('[data-cy="footer-social-title"]').should('have.text', 'Connect With Us');
+  
+      const socialLinks = [
+        { 
+          name: 'linkedin', 
+          href: 'https://www.linkedin.com/company/mind-and-metrics-branding/'
+        },
+        { 
+          name: 'facebook', 
+          href: 'https://www.facebook.com/mindandmetricsbranding'
+        },
+        { 
+          name: 'instagram', 
+          href: 'https://www.instagram.com/mindandmetricsbranding/'
+        }
+      ];
+  
+      socialLinks.forEach(link => {
+        cy.get(`[data-cy="footer-social-${link.name}"]`)
+          .should('exist')
+          .and('have.attr', 'href', link.href)
+          .and('have.attr', 'target', '_blank')
+          .and('have.attr', 'rel', 'noopener noreferrer');
+      });
+    });
+  
+    it('should render copyright notice in footer correctly', () => {
+      const currentYear = new Date().getFullYear();
+      cy.contains(`© ${currentYear} Mind & Metrics Branding. All rights reserved.`);
     });
   });
 

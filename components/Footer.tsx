@@ -13,7 +13,6 @@ import {
   RiMapPin2Line,
   RiArrowRightUpLine
 } from 'react-icons/ri';
-import ScrambleText from './ScrambleText';
 import { motion } from 'framer-motion';
 
 const navigationLinks = [
@@ -29,27 +28,25 @@ const navigationLinks = [
 const socialLinks = [
   { 
     name: 'LinkedIn', 
-    href: '#', 
+    href: 'https://www.linkedin.com/company/mind-and-metrics-branding/', 
     icon: RiLinkedinBoxLine,
     iconFill: RiLinkedinBoxFill 
   },
   { 
     name: 'Facebook', 
-    href: '#', 
+    href: 'https://www.facebook.com/mindandmetricsbranding', 
     icon: RiFacebookBoxLine,
     iconFill: RiFacebookBoxFill 
   },
   { 
     name: 'Instagram', 
-    href: '#', 
+    href: 'https://www.instagram.com/mindandmetricsbranding/', 
     icon: RiInstagramLine,
     iconFill: RiInstagramFill 
   },
 ];
 
 const Footer = () => {
-  const [hoveringIndices, setHoveringIndices] = useState<{ [key: string]: boolean }>({});
-
   return (
     <footer className="bg-neutral-50 border-t border-neutral-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -79,7 +76,7 @@ const Footer = () => {
           {/* Navigation Links */}
           <div className="flex flex-col items-center md:items-start">
             <div className="max-w-sm w-full">
-              <h3 className="font-serif text-lg text-secondary-400 mb-4">Navigation</h3>
+              <h3 className="font-serif text-lg text-secondary-400 mb-4" data-cy="footer-nav-title">Navigation</h3>
               <ul className="space-y-3">
                 {navigationLinks.map((link) => (
                   <motion.li 
@@ -94,6 +91,7 @@ const Footer = () => {
                   >
                     <Link
                       href={link.href}
+                      data-cy={`footer-nav-${link.name.toLowerCase().replace(/\s+/g, '-')}`}
                       className="text-gray-600 hover:text-secondary-400 transition-colors
                                relative group text-sm inline-flex items-center"
                     >
@@ -114,9 +112,9 @@ const Footer = () => {
           {/* Hours & Contact */}
           <div className="flex flex-col items-center md:items-start">
             <div className="max-w-sm w-full">
-              <h3 className="font-serif text-lg text-secondary-400 mb-4">Hours & Contact</h3>
+              <h3 className="font-serif text-lg text-secondary-400 mb-4" data-cy="footer-hours-title">Hours & Contact</h3>
               <div className="space-y-4">
-                <div className="flex items-start space-x-3">
+                <div className="flex items-start space-x-3" data-cy="footer-hours">
                   <RiTimeLine className="w-5 h-5 text-secondary-400 shrink-0 mt-0.5" />
                   <div className="text-sm text-secondary-500">
                     <p className="font-medium">Monday - Friday</p>
@@ -124,7 +122,7 @@ const Footer = () => {
                     <p className="mt-2">Closed Weekends & Holidays</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-3">
+                <div className="flex items-start space-x-3" data-cy="footer-address">
                   <RiMapPin2Line className="w-5 h-5 text-secondary-400 shrink-0 mt-0.5" />
                   <div className="text-sm text-secondary-500">
                     <motion.div
@@ -160,6 +158,7 @@ const Footer = () => {
                 >
                   <Link 
                     href="mailto:info@mindandmetricsbranding.com"
+                    data-cy="footer-email"
                     className="flex items-center space-x-3 text-secondary-500 hover:text-secondary-400 
                              transition-colors group"
                   >
@@ -176,7 +175,7 @@ const Footer = () => {
           {/* Social Links */}
           <div className="flex flex-col items-center md:items-start">
             <div className="max-w-sm w-full">
-              <h3 className="font-serif text-lg text-secondary-400 mb-4">Connect With Us</h3>
+              <h3 className="font-serif text-lg text-secondary-400 mb-4" data-cy="footer-social-title">Connect With Us</h3>
               <div className="flex space-x-4">
                 {socialLinks.map((social) => (
                   <motion.div
@@ -193,6 +192,7 @@ const Footer = () => {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      data-cy={`footer-social-${social.name.toLowerCase()}`}
                       className="text-secondary-500 hover:text-secondary-400 transition-all duration-300
                              group"
                       aria-label={social.name}
