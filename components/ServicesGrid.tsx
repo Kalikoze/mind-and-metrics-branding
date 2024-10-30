@@ -63,13 +63,16 @@ const ServicesGrid = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div 
-              data-cy={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
+            <Link 
+              href={`/services#${service.title.toLowerCase().replace(/\s+/g, '-')}`}
               key={index}
-              className="p-8 rounded-lg bg-neutral-50 hover:bg-white
-                         border-2 border-neutral-200 hover:border-secondary-400
-                         transition-all duration-300 group
-                         hover:shadow-lg hover:-translate-y-1"
+              data-cy={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
+              onMouseEnter={() => setHoveringIndices(prev => ({ ...prev, [index]: true }))}
+              onMouseLeave={() => setHoveringIndices(prev => ({ ...prev, [index]: false }))}
+              className="group relative p-8 rounded-lg bg-neutral-50 hover:bg-white
+                       border-2 border-neutral-200 hover:border-secondary-400
+                       transition-all duration-300
+                       hover:shadow-lg hover:-translate-y-1"
             >
               <div 
                 data-cy="service-icon"
@@ -96,14 +99,10 @@ const ServicesGrid = () => {
                 {service.description}
               </p>
 
-              <Link 
-                data-cy="service-link"
-                href={`/services#${service.title.toLowerCase().replace(/\s+/g, '-')}`}
-                onMouseEnter={() => setHoveringIndices(prev => ({ ...prev, [index]: true }))}
-                onMouseLeave={() => setHoveringIndices(prev => ({ ...prev, [index]: false }))}
+              <div 
+                data-cy="service-card-content"
                 className="text-secondary-400 font-medium text-sm flex items-center
-                         opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                         w-[120px]"
+                         opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               >
                 <span className="w-[80px]">
                   <ScrambleText text="Learn More" isHovering={hoveringIndices[index]} />
@@ -112,8 +111,8 @@ const ServicesGrid = () => {
                      fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </div>
 
