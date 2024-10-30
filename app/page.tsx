@@ -11,7 +11,7 @@ export default function Home() {
     <main>
       <Hero
         title="Data Driven Tailored Excellence"
-        subtitle="We empower business to unlock sustainable growth through strategic branding, marketing, and web technologies."
+        subtitle="We empower businesses to unlock sustainable growth through strategic branding, marketing, and web technologies."
         primaryButton={{
           text: "Get Started",
           href: "/get-started"

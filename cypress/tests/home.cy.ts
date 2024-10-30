@@ -32,7 +32,7 @@ describe('Home Page', () => {
       
       cy.get('[data-cy="hero-subtitle"]')
         .should('exist')
-        .and('have.text', 'We empower business to unlock sustainable growth through strategic branding, marketing, and web technologies.');
+        .and('have.text', 'We empower businesses to unlock sustainable growth through strategic branding, marketing, and web technologies.');
 
       cy.get('[data-cy="hero-primary-cta"]')
         .should('exist')
@@ -357,7 +357,7 @@ describe('Home Page', () => {
     });
 
     it('should pass accessibility checks', () => {
-    cy.checkA11y();
+      cy.checkA11y();
     });
   });
 
@@ -377,14 +377,11 @@ describe('Home Page', () => {
         });
 
         it('should display and interact with hamburger menu', () => {
-          // Menu should be initially closed
           cy.get('[data-cy="mobile-menu"]').should('not.be.visible');
           
-          // Open menu
           cy.get('[data-cy="mobile-menu-button"]').should('be.visible').click();
           cy.get('[data-cy="mobile-menu"]').should('be.visible');
 
-          // Check all menu items
           const expectedItems = [
             { name: 'home', path: '/' },
             { name: 'services', path: '/services' },
@@ -400,7 +397,6 @@ describe('Home Page', () => {
               .and('have.attr', 'href', path);
           });
 
-          // Close menu
           cy.get('[data-cy="mobile-menu-button"]').click();
           cy.get('[data-cy="mobile-menu"]').should('not.be.visible');
         });
