@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import GraphingBackground from '@/public/assets/logos/graphing-background.svg';
-import SpiralDesign from '@/public/assets/logos/spiral-design.svg';
+import GraphingBackground from '@/public/assets/backgrounds/graphing-background.svg';
+import SpiralDesign from '@/public/assets/backgrounds/spiral-design.svg';
 import { HiOutlineEnvelope, HiOutlineRocketLaunch } from 'react-icons/hi2';
 import Link from 'next/link';
 import { useState } from 'react';
