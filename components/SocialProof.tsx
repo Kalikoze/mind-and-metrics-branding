@@ -23,6 +23,13 @@ const clientLogos = [
     caseStudyUrl: "/case-studies/psc-construction"
   },
   { 
+    src: PrecisionSurveyLogo, 
+    alt: "Precision Surveying & Consulting",
+    description: "Complete Digital Transformation",
+    websiteUrl: "https://www.precisionsurveyingandconsulting.com",
+    caseStudyUrl: "/case-studies/precision-survey"
+  },
+  { 
     src: HydrovacLogo, 
     alt: "Hydrovac Supply",
     description: "Brand Identity & Web Development",
@@ -35,14 +42,7 @@ const clientLogos = [
     description: "Website Design & SEO Strategy" ,
     websiteUrl: "https://www.nathydro.com",
     caseStudyUrl: "/case-studies/national-hydro"
-  },
-  { 
-    src: PrecisionSurveyLogo, 
-    alt: "Precision Surveying & Consulting",
-    description: "Complete Digital Transformation",
-    websiteUrl: "https://www.precisionsurveyingandconsulting.com",
-    caseStudyUrl: "/case-studies/precision-survey"
-  },
+  }
 ];
 
 const testimonials = [

@@ -19,7 +19,6 @@ const navigationLinks = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
   { name: 'Services', href: '/services' },
-  { name: 'Case Studies', href: '/case-studies' },
   { name: 'How It Works', href: '/process' },
   { name: 'Pricing', href: '/pricing' },
   { name: 'Contact', href: '/contact' },
@@ -53,19 +52,30 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div className="flex flex-col items-center md:items-start">
             <div className="max-w-sm w-full">
-              <Link href="/" className="flex items-center space-x-3" data-cy="footer-logo">
-                <Image
-                  src={Logo}
-                  alt=""
-                  aria-hidden="true"
-                  width={40}
-                  height={40}
-                />
-                <span className="font-serif text-xl text-secondary-600">
-                  Mind & Metrics
-                </span>
-              </Link>
-              <p className="text-secondary-500 text-sm mt-6">
+              <motion.div
+                variants={{
+                  hover: { 
+                    y: -2,
+                    transition: { type: "spring", stiffness: 400 }
+                  }
+                }}
+                whileHover="hover"
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link href="/" className="flex items-center space-x-3" data-cy="footer-logo">
+                  <Image
+                    src={Logo}
+                    alt=""
+                    aria-hidden="true"
+                    width={40}
+                    height={40}
+                  />
+                  <span className="font-serif text-xl text-secondary-600">
+                    Mind & Metrics
+                  </span>
+                </Link>
+              </motion.div>
+              <p className="text-secondary-500 text-sm mt-6" data-cy="footer-description">
                 Elevating Omaha&apos;s B2B landscape through strategic branding and digital excellence. 
                 Serving the Greater Omaha area and surrounding communities with tailored solutions 
                 for sustainable growth.

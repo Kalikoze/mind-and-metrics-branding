@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { RiMenuLine, RiCloseLine, RiHome5Line, RiCustomerService2Line, RiTeamLine, RiMailLine, RiRoadMapLine, RiPriceTag3Line, RiBookmarkLine } from 'react-icons/ri';
+import { RiMenuLine, RiCloseLine, RiHome5Line, RiCustomerService2Line, RiTeamLine, RiMailLine, RiRoadMapLine, RiPriceTag3Line } from 'react-icons/ri';
 import { HiOutlineUserCircle } from 'react-icons/hi';
 import Logo from '@/public/assets/logos/mm-temp-logo.svg';
 import ScrambleText from './ScrambleText';
@@ -14,7 +14,6 @@ const menuItems = [
   { name: 'Home', href: '/', icon: RiHome5Line },
   { name: 'About', href: '/about', icon: RiTeamLine },
   { name: 'Services', href: '/services', icon: RiCustomerService2Line },
-  { name: 'Case Studies', href: '/case-studies', icon: RiBookmarkLine },
   { name: 'How It Works', href: '/process', icon: RiRoadMapLine },
   { name: 'Pricing', href: '/pricing', icon: RiPriceTag3Line },
   { name: 'Contact', href: '/contact', icon: RiMailLine },
@@ -58,16 +57,22 @@ const MainNav = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-3" data-cy="nav-logo">
-              <Image
-                src={Logo}
-                alt=""
-                aria-hidden="true"
-                width={40}
-                height={40}
-              />
-              <span data-cy="nav-logo-text" className="font-serif text-xl text-secondary-600">Mind & Metrics</span>
-            </Link>
+            <motion.div
+              variants={navItemVariants}
+              whileHover="hover"
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link href="/" className="flex items-center space-x-3" data-cy="nav-logo">
+                <Image
+                  src={Logo}
+                  alt=""
+                  aria-hidden="true"
+                  width={40}
+                  height={40}
+                />
+                <span data-cy="nav-logo-text" className="font-serif text-xl text-secondary-600">Mind & Metrics</span>
+              </Link>
+            </motion.div>
           </div>
 
           {/* Desktop Navigation */}

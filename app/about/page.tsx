@@ -3,6 +3,7 @@
 import Hero from '@/components/Hero';
 import AboutIntro from '@/components/AboutIntro';
 import TeamLeaders from '@/components/TeamLeaders';
+import CaseStudies from '@/components/CaseStudies';
 
 export default function About() {
   return (
@@ -14,6 +15,7 @@ export default function About() {
       />
       <AboutIntro />
       <TeamLeaders />
+      <CaseStudies />
     </main>
   );
 }
