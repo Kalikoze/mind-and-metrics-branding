@@ -12,7 +12,7 @@ describe('Home Page', () => {
       cy.get('[data-cy="nav-logo"]').should('exist');
       cy.get('[data-cy="nav-logo-text"]').should('have.text', 'Mind & Metrics');
 
-      const menuItems = ['Home', 'Services', 'Case Studies', 'How It Works', 'Pricing', 'About', 'Contact'];
+      const menuItems = ['Home', 'Services', 'How It Works', 'Pricing', 'About', 'Contact'];
       menuItems.forEach(item => {
         cy.get(`[data-cy="nav-item-${item.toLowerCase().replace(' ', '-')}"]`)
           .should('exist')
@@ -201,6 +201,11 @@ describe('Home Page', () => {
           websiteUrl: 'https://www.psccompanies.com'
         },
         { 
+          name: 'Precision Surveying & Consulting',
+          description: 'Complete Digital Transformation',
+          websiteUrl: 'https://www.precisionsurveyingandconsulting.com'
+        },
+        { 
           name: 'Hydrovac Supply',
           description: 'Brand Identity & Web Development',
           websiteUrl: 'https://www.hydrovac-supply.com'
@@ -209,11 +214,6 @@ describe('Home Page', () => {
           name: 'National Hydro Excavation Services',
           description: 'Website Design & SEO Strategy',
           websiteUrl: 'https://www.nathydro.com'
-        },
-        { 
-          name: 'Precision Surveying & Consulting',
-          description: 'Complete Digital Transformation',
-          websiteUrl: 'https://www.precisionsurveyingandconsulting.com'
         }
       ];
 
@@ -269,9 +269,8 @@ describe('Home Page', () => {
       cy.get('[data-cy="footer-logo"]').should('exist');
       cy.get('[data-cy="footer-logo"]').find('img').should('exist');
       cy.get('[data-cy="footer-logo"]').contains('Mind & Metrics');
-      cy.get('[data-cy="footer-logo"]')
-        .closest('div')
-        .contains('Elevating Omaha\'s B2B landscape through strategic branding and digital excellence');
+      cy.get('[data-cy="footer-description"]')
+        .should('contain.text', 'Elevating Omaha\'s B2B landscape through strategic branding and digital excellence. Serving the Greater Omaha area and surrounding communities with tailored solutions for sustainable growth.');
     });
   
     it('should render navigation links in footer correctly', () => {
@@ -281,7 +280,6 @@ describe('Home Page', () => {
         { name: 'Home', href: '/' },
         { name: 'About', href: '/about' },
         { name: 'Services', href: '/services' },
-        { name: 'Case Studies', href: '/case-studies' },
         { name: 'How It Works', href: '/process' },
         { name: 'Pricing', href: '/pricing' },
         { name: 'Contact', href: '/contact' },
