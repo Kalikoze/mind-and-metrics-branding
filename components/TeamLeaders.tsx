@@ -45,12 +45,14 @@ const TeamLeaders = () => {
           {leaders.map((leader, index) => (
             <div
               key={index}
+              data-cy={`team-leader-${index}`}
               className="bg-neutral-50 rounded-lg p-8 border-2 border-neutral-200
                          hover:border-secondary-400 transition-all duration-300"
             >
               <div className="flex flex-col items-center text-center">
                 <div className="relative w-48 h-48 mb-6 rounded-full overflow-hidden
-                               border-4 border-neutral-200">
+                               border-4 border-neutral-200"
+                     data-cy={`team-leader-image-${index}`}>
                   <Image
                     src={leader.image}
                     alt={leader.name}
@@ -59,13 +61,16 @@ const TeamLeaders = () => {
                   />
                 </div>
 
-                <h3 className="font-serif text-2xl text-secondary-400 mb-2">
+                <h3 className="font-serif text-2xl text-secondary-400 mb-2"
+                    data-cy={`team-leader-name-${index}`}>
                   {leader.name}
                 </h3>
-                <p className="text-secondary-500 font-medium mb-4">
+                <p className="text-secondary-500 font-medium mb-4"
+                   data-cy={`team-leader-role-${index}`}>
                   {leader.role}
                 </p>
-                <p className="text-secondary-400 mb-6 max-w-md">
+                <p className="text-secondary-400 mb-6 max-w-md"
+                   data-cy={`team-leader-bio-${index}`}>
                   {leader.bio}
                 </p>
 
@@ -77,6 +82,7 @@ const TeamLeaders = () => {
                       rel="noopener noreferrer"
                       className="text-secondary-400 hover:text-secondary-500 transition-colors group"
                       aria-label={`${leader.name}'s LinkedIn`}
+                      data-cy={`team-leader-linkedin-${index}`}
                     >
                       <div className="relative w-6 h-6">
                         <RiLinkedinBoxLine className="w-6 h-6 absolute inset-0 transition-opacity duration-300 
@@ -91,6 +97,7 @@ const TeamLeaders = () => {
                       href={`mailto:${leader.email}`}
                       className="text-secondary-400 hover:text-secondary-500 transition-colors group"
                       aria-label={`Email ${leader.name}`}
+                      data-cy={`team-leader-email-${index}`}
                     >
                       <div className="relative w-6 h-6">
                         <RiMailLine className="w-6 h-6 absolute inset-0 transition-opacity duration-300 
