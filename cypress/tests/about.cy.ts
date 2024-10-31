@@ -32,7 +32,7 @@ describe('About Page', () => {
 
       const expectedStats = [
         { value: '100%', label: 'Client Retention Rate' },
-        { value: '10+', label: 'Years Combined Experience' },
+        { value: '13+', label: 'Years Combined Experience' },
         { value: '$42K', label: 'Average Annual Savings' }
       ];
 
@@ -44,6 +44,52 @@ describe('About Page', () => {
         cy.get(`[data-cy="about-intro-stat-label-${index}"]`)
           .should('exist')
           .and('have.text', stat.label);
+      });
+    });
+
+    it('should render Leadership Team section correctly', () => {
+      cy.get('[data-cy="team-leaders-section"]').should('exist');
+      cy.get('[data-cy="team-leaders-title"]')
+        .should('exist')
+        .and('have.text', 'Leadership Team');
+
+      const expectedLeaders = [
+        {
+          name: "Julia Eskelson",
+          role: "Brand Strategy Director",
+          bio: "Combining creative vision with brand development expertise",
+          linkedin: "https://linkedin.com/",
+          email: "jeskelson@mindandmetricsbranding.com"
+        },
+        {
+          name: "Travis Rollins",
+          role: "Technical Director & Lead Engineer",
+          bio: "Bringing 7+ years of software development expertise",
+          linkedin: "https://www.linkedin.com/in/travisrollins/",
+          email: "trollins@mindandmetricsbranding.com"
+        }
+      ];
+
+      expectedLeaders.forEach((leader, index) => {
+        cy.get(`[data-cy="team-leader-${index}"]`).should('exist');
+        cy.get(`[data-cy="team-leader-image-${index}"]`).should('exist');
+        cy.get(`[data-cy="team-leader-name-${index}"]`)
+          .should('exist')
+          .and('have.text', leader.name);
+        
+        cy.get(`[data-cy="team-leader-role-${index}"]`)
+          .should('exist')
+          .and('have.text', leader.role);
+        cy.get(`[data-cy="team-leader-bio-${index}"]`)
+          .should('exist')
+          .and('contain.text', leader.bio);
+
+        cy.get(`[data-cy="team-leader-linkedin-${index}"]`)
+          .should('have.attr', 'href', leader.linkedin)
+          .and('have.attr', 'target', '_blank')
+          .and('have.attr', 'rel', 'noopener noreferrer');
+        cy.get(`[data-cy="team-leader-email-${index}"]`)
+          .should('have.attr', 'href', `mailto:${leader.email}`);
       });
     });
   });

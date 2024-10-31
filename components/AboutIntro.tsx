@@ -4,7 +4,7 @@ import CircuitOverlay from './CircuitOverlay';
 const AboutIntro = () => {
   const stats = [
     { value: '100%', label: 'Client Retention Rate' },
-    { value: '10+', label: 'Years Combined Experience' },
+    { value: '13+', label: 'Years Combined Experience' },
     { value: '$42K', label: 'Average Annual Savings' }
   ];
 
