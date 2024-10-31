@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { HiOutlineGlobeAlt } from 'react-icons/hi2';
 import ScrambleText from './ScrambleText';
 import CircuitOverlay from './CircuitOverlay';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import PSCLogo from '@/public/assets/logos/psc-logo.svg';
 import HydrovacLogo from '@/public/assets/logos/hydrovac-logo.svg';
@@ -98,10 +98,6 @@ const CaseStudies = () => {
   const [touchStartY, setTouchStartY] = useState(0);
   const [touchEndY, setTouchEndY] = useState(0);
   const componentRef = useRef(null);
-  const isInView = useInView(componentRef, {
-    once: false,
-    amount: .5
-  });
 
   const activeStudy = caseStudies.find(study => study.id === activeStudyId);
 
@@ -139,7 +135,7 @@ const CaseStudies = () => {
             Client Success Stories
           </h2>
           <p className="text-secondary-500 text-lg max-w-2xl mx-auto">
-            Discover how we've helped B2B leaders transform their digital presence and achieve measurable results.
+            Discover how we&apos;ve helped B2B leaders transform their digital presence and achieve measurable results.
           </p>
         </div>
 
