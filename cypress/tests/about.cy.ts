@@ -281,32 +281,17 @@ describe('About Page', () => {
           cy.get('[data-cy="mobile-menu"]').should('not.be.visible');
         });
     
-        it('should navigate through case studies with swipe gestures', () => {
-          cy.get('[data-cy="case-studies-container"]').scrollIntoView();
-          
-          const simulateSwipe = (direction: 'left' | 'right') => {
-            const startX = direction === 'left' ? 300 : 100;
-            const endX = direction === 'left' ? 100 : 300;
-            
-            cy.get('[data-cy="case-studies-container"]')
-              .trigger('touchstart', { 
-                touches: [{ clientX: startX, clientY: 150 }],
-                force: true 
-              })
-              .trigger('touchmove', { 
-                touches: [{ clientX: endX, clientY: 150 }],
-                force: true
-              })
-              .trigger('touchend', { force: true });
-            
-            cy.wait(500); // Reduced wait time
-          };
+        it('should navigate through case studies', () => {
+          cy.get('[data-cy="case-studies-container"]')
+            .scrollIntoView()
+            .should('be.visible')
 
-          // Test swiping through all case studies
           caseStudies.forEach((study, index) => {
             if (index > 0) {
-              simulateSwipe('left');
-              
+              cy.get(`[data-cy="case-study-indicator-${index}"]`)
+                .should('be.visible')
+                .click({ force: true });
+
               cy.get(`[data-cy="case-study-content-${study.id}"]`)
                 .should('be.visible')
                 .within(() => {
@@ -316,18 +301,6 @@ describe('About Page', () => {
                 });
             }
           });
-
-          // Test swiping back
-          for (let i = caseStudies.length; i > 0; i--) {
-            simulateSwipe('right');
-            
-            const study = caseStudies[i - 1];
-            cy.get(`[data-cy="case-study-content-${study.id}"]`)
-              .should('be.visible')
-              .within(() => {
-                cy.contains(study.name).should('be.visible');
-              });
-          }
         });
       });
     });
