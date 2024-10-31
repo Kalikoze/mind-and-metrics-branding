@@ -1,12 +1,11 @@
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { HiOutlineGlobeAlt, HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
+import { HiOutlineGlobeAlt } from 'react-icons/hi2';
 import ScrambleText from './ScrambleText';
 import CircuitOverlay from './CircuitOverlay';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 
-// Import logos from SocialProof
 import PSCLogo from '@/public/assets/logos/psc-logo.svg';
 import HydrovacLogo from '@/public/assets/logos/hydrovac-logo.svg';
 import NatHydroLogo from '@/public/assets/logos/nat-hydro-logo.svg';
@@ -96,6 +95,8 @@ const CaseStudies = () => {
   const [hoveringStates, setHoveringStates] = useState<{ [key: string]: boolean }>({});
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+  const [touchStartY, setTouchStartY] = useState(0);
+  const [touchEndY, setTouchEndY] = useState(0);
   const componentRef = useRef(null);
   const isInView = useInView(componentRef, {
     once: false,
@@ -106,25 +107,13 @@ const CaseStudies = () => {
 
   const handleSwipe = () => {
     const minSwipeDistance = 50;
-    const swipeDistance = touchStart - touchEnd;
+    const swipeDistanceX = touchStart - touchEnd;
+    const swipeDistanceY = Math.abs(touchStartY - touchEndY);
     
-    if (Math.abs(swipeDistance) < minSwipeDistance) return;
+    if (swipeDistanceY > Math.abs(swipeDistanceX) || Math.abs(swipeDistanceX) < minSwipeDistance) return;
     
     const currentIndex = caseStudies.findIndex(study => study.id === activeStudyId);
-    if (swipeDistance > 0) {
-      // Swipe left - next study
-      const nextIndex = (currentIndex + 1) % caseStudies.length;
-      setActiveStudyId(caseStudies[nextIndex].id);
-    } else {
-      // Swipe right - previous study
-      const prevIndex = currentIndex === 0 ? caseStudies.length - 1 : currentIndex - 1;
-      setActiveStudyId(caseStudies[prevIndex].id);
-    }
-  };
-
-  const navigateStudy = (direction: 'prev' | 'next') => {
-    const currentIndex = caseStudies.findIndex(study => study.id === activeStudyId);
-    if (direction === 'next') {
+    if (swipeDistanceX > 0) {
       const nextIndex = (currentIndex + 1) % caseStudies.length;
       setActiveStudyId(caseStudies[nextIndex].id);
     } else {
@@ -134,12 +123,19 @@ const CaseStudies = () => {
   };
 
   return (
-    <section className="relative bg-neutral-50 py-24 overflow-hidden">
+    <section 
+      className="relative bg-neutral-50 py-24 overflow-hidden"
+      data-cy="case-studies-section"
+      aria-label="Case Studies"
+    >
       <CircuitOverlay />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
+          <h2 
+            className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4"
+            data-cy="case-studies-title"
+          >
             Client Success Stories
           </h2>
           <p className="text-secondary-500 text-lg max-w-2xl mx-auto">
@@ -147,12 +143,20 @@ const CaseStudies = () => {
           </p>
         </div>
 
-        {/* Case Study Selector */}
-        <div className="flex justify-center mb-12 space-x-4">
+        <div 
+          className="flex justify-center mb-12 space-x-4"
+          role="tablist"
+          aria-label="Case study selection"
+        >
           {caseStudies.map((study) => (
             <button
               key={study.id}
               onClick={() => setActiveStudyId(study.id)}
+              role="tab"
+              aria-selected={activeStudyId === study.id}
+              aria-controls={`panel-${study.id}`}
+              id={`tab-${study.id}`}
+              data-cy={`case-study-tab-${study.id}`}
               className={`relative p-4 transition-all duration-300 
                 ${activeStudyId === study.id
                   ? 'bg-white shadow-lg scale-105'
@@ -163,9 +167,12 @@ const CaseStudies = () => {
                   : 'border-neutral-200'
                 }`}
             >
+              <span className="sr-only">
+                View case study for {study.client}
+              </span>
               <Image
                 src={study.logo}
-                alt={study.client}
+                alt={`${study.client} logo`}
                 width={120}
                 height={40}
                 className={`transition-all duration-300 
@@ -178,16 +185,26 @@ const CaseStudies = () => {
           ))}
         </div>
 
-        {/* Case Study Content */}
         <div className="relative min-h-fit"
+             data-cy="case-studies-container"
              ref={componentRef}
-             onTouchStart={e => setTouchStart(e.touches[0].clientX)}
-             onTouchMove={e => setTouchEnd(e.touches[0].clientX)}
+             onTouchStart={e => {
+               setTouchStart(e.touches[0].clientX);
+               setTouchStartY(e.touches[0].clientY);
+             }}
+             onTouchMove={e => {
+               setTouchEnd(e.touches[0].clientX);
+               setTouchEndY(e.touches[0].clientY);
+             }}
              onTouchEnd={handleSwipe}>
           <AnimatePresence mode="wait">
             {activeStudy && (
               <motion.div
                 key={activeStudy.id}
+                role="tabpanel"
+                id={`panel-${activeStudy.id}`}
+                aria-labelledby={`tab-${activeStudy.id}`}
+                data-cy={`case-study-content-${activeStudy.id}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -195,7 +212,6 @@ const CaseStudies = () => {
                 className="bg-white rounded-lg border-2 border-neutral-200 pb-32"
               >
                 <div className="grid md:grid-cols-2 gap-8 p-8">
-                  {/* Content Side */}
                   <div className="space-y-8">
                     <div className="h-[200px] flex items-center justify-start">
                       <div className="relative w-[200px] h-full">
@@ -262,9 +278,7 @@ const CaseStudies = () => {
                     </div>
                   </div>
 
-                  {/* Preview Side */}
                   <div className="relative h-auto pb-32 md:h-[600px]">
-                    {/* Desktop Preview */}
                     <div className="relative h-[300px] lg:h-[400px] min-w-[280px]">
                       <div className="relative h-full">
                         <Image
@@ -281,7 +295,6 @@ const CaseStudies = () => {
                       </span>
                     </div>
 
-                    {/* Mobile Preview with Phone Frame */}
                     <div className="absolute -bottom-24 right-12 w-[160px] md:w-1/3 h-[350px]">
                       <div className="relative h-full min-w-[160px] bg-dark-800 rounded-[2rem] p-1.5 shadow-xl">
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-[0.75rem] 
@@ -325,7 +338,6 @@ const CaseStudies = () => {
                   </div>
                 </div>
 
-                {/* Progress Indicator */}
                 <div className="md:hidden absolute bottom-4 left-0 right-0">
                   <div className="flex justify-center gap-2">
                     {caseStudies.map((study, index) => (
@@ -343,6 +355,30 @@ const CaseStudies = () => {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+
+        <div className="md:hidden absolute bottom-4 left-0 right-0">
+          <div 
+            className="flex justify-center gap-2"
+            role="tablist"
+            aria-label="Case study pagination"
+          >
+            {caseStudies.map((study, index) => (
+              <button
+                key={study.id}
+                onClick={() => setActiveStudyId(study.id)}
+                role="tab"
+                aria-selected={study.id === activeStudyId}
+                aria-controls={`panel-${study.id}`}
+                aria-label={`Case study ${index + 1} of ${caseStudies.length}`}
+                data-cy={`case-study-indicator-${index}`}
+                className={`h-1 rounded-full transition-all duration-300 
+                  ${study.id === activeStudyId 
+                    ? 'w-8 bg-secondary-400' 
+                    : 'w-2 bg-secondary-400/40'}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

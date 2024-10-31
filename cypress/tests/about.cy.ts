@@ -92,6 +92,111 @@ describe('About Page', () => {
           .should('have.attr', 'href', `mailto:${leader.email}`);
       });
     });
+
+    it('should render Case Studies section correctly', () => {
+      cy.get('[data-cy="case-studies-section"]').should('exist');
+      cy.get('[data-cy="case-studies-title"]')
+        .should('exist')
+        .and('have.text', 'Client Success Stories');
+
+      cy.get('[data-cy="case-study-tab-psc-construction"]')
+        .should('exist')
+        .and('have.attr', 'aria-selected', 'true');
+
+      cy.get('[data-cy="case-study-content-psc-construction"]')
+        .should('be.visible')
+        .within(() => {
+          cy.contains('PSC Construction').should('be.visible');
+          cy.contains('Site Preparation & Underground Utilities').should('be.visible');
+          
+          cy.contains('Challenge').should('be.visible');
+          cy.contains('Needed to modernize their digital presence').should('be.visible');
+          cy.contains('Solution').should('be.visible');
+          cy.contains('Executed a digital transformation strategy').should('be.visible');
+          
+          const expectedResults = [
+            { metric: 'Lead Quality', value: '+156%' },
+            { metric: 'Cost Savings', value: '+40%' },
+            { metric: 'Timeline Accuracy', value: '94%' }
+          ];
+
+          expectedResults.forEach(({ metric, value }) => {
+            cy.contains(metric).should('be.visible');
+            cy.contains(value).should('be.visible');
+          });
+          
+          const expectedTags = ['Web Development', 'Brand Evolution', 'Digital Strategy'];
+          expectedTags.forEach(tag => {
+            cy.contains(tag).should('be.visible');
+          });
+
+          cy.get('a[href="https://www.psccompanies.com"]')
+            .should('exist')
+            .and('have.attr', 'target', '_blank')
+            .and('have.attr', 'rel', 'noopener noreferrer');
+          cy.get('img[alt="PSC Construction"]').should('be.visible');
+          cy.get('img[alt="PSC Construction desktop preview"]').should('be.visible');
+          cy.get('img[alt="PSC Construction mobile preview"]').should('be.visible');
+        });
+    });
+  });
+
+  context('Interactivity Tests', () => {
+    const caseStudies = [
+      {
+        id: 'psc-construction',
+        name: 'PSC Construction',
+        website: 'https://www.psccompanies.com',
+        challenge: 'Needed to modernize their digital presence and rebrand away from dated orange-based color schemes while maintaining their established reputation in the industry.',
+        solution: 'Executed a digital transformation strategy with refined brand identity, modern color palette, and built a custom website with project showcases.'
+      },
+      {
+        id: 'precision-survey',
+        name: 'Precision Surveying & Consulting',
+        website: 'https://www.precisionsurveyingandconsulting.com',
+        challenge: 'Required a complete digital transformation to modernize their brand, streamline client communications, and showcase their technical expertise.',
+        solution: 'Executed a full brand refresh with a modern website featuring project galleries, automated client portals, and integrated survey request systems.'
+      },
+      {
+        id: 'hydrovac-supply',
+        name: 'Hydrovac Supply',
+        website: 'https://www.hydrovac-supply.com',
+        challenge: 'Required a complete brand identity and e-commerce solution to establish market presence and streamline their sales process.',
+        solution: 'Created a distinctive brand identity and built a custom e-commerce platform with inventory management and automated ordering systems.'
+      },
+      {
+        id: 'national-hydro',
+        name: 'National Hydro Excavation Services',
+        website: 'https://www.nathydro.com',
+        challenge: 'Needed to establish a strong online presence and improve lead generation while showcasing their specialized excavation services and safety standards.',
+        solution: 'Developed a comprehensive website featuring emergency service integration, detailed industry-specific documentation, and multi-location support. Enhanced credibility through safety certifications and streamlined contact systems.'
+      }
+    ];
+
+    caseStudies.forEach(({ id, name, website, challenge, solution }) => {
+      it(`should display and interact with ${name} case study`, () => {
+        cy.get(`[data-cy="case-study-tab-${id}"]`).click();
+        cy.get(`[data-cy="case-study-content-${id}"]`).should('be.visible');
+        cy.get(`[data-cy="case-study-content-${id}"]`).within(() => {
+          cy.contains('Challenge').should('be.visible');
+          cy.contains(challenge).should('be.visible');
+          
+          cy.contains('Solution').should('be.visible');
+          cy.contains(solution).should('be.visible');
+          
+          cy.get('span[class*="text-sm bg-neutral-50"]').should('exist');
+        });
+
+        cy.get('a[href="' + website + '"]')
+          .should('exist')
+          .and('have.attr', 'target', '_blank')
+          .and('have.attr', 'rel', 'noopener noreferrer');
+
+        cy.get('img[alt="' + name + '"]').should('be.visible');
+        cy.get('img[alt="' + name + ' desktop preview"]').should('be.visible');
+        cy.get('img[alt="' + name + ' mobile preview"]').should('be.visible');
+      });
+    });
   });
 
   context('Accessibility Checks', () => {
@@ -100,12 +205,43 @@ describe('About Page', () => {
     });
 
     it('should pass accessibility checks', () => {
+      cy.wait(1000);
       cy.checkA11y();
     });
   });
 
   context('Responsive Design', () => {
     const viewports = ['iphone-6', 'iphone-x', 'samsung-s10', 'samsung-note9'] as const;
+    const caseStudies = [
+      {
+        id: 'psc-construction',
+        name: 'PSC Construction',
+        website: 'https://www.psccompanies.com',
+        challenge: 'Needed to modernize their digital presence',
+        solution: 'Executed a digital transformation strategy'
+      },
+      {
+        id: 'precision-survey',
+        name: 'Precision Surveying & Consulting',
+        website: 'https://www.precisionsurveyingandconsulting.com',
+        challenge: 'Required a complete digital transformation',
+        solution: 'Executed a full brand refresh'
+      },
+      {
+        id: 'hydrovac-supply',
+        name: 'Hydrovac Supply',
+        website: 'https://www.hydrovac-supply.com',
+        challenge: 'Required a complete brand identity',
+        solution: 'Created a distinctive brand identity'
+      },
+      {
+        id: 'national-hydro',
+        name: 'National Hydro Excavation Services',
+        website: 'https://www.nathydro.com',
+        challenge: 'Needed to establish a strong online presence',
+        solution: 'Developed a comprehensive website'
+      }
+    ];
 
     viewports.forEach(viewport => {
       context(`Tests for ${viewport}`, () => {
@@ -116,6 +252,7 @@ describe('About Page', () => {
         });
 
         it('should pass accessibility checks', () => {
+          cy.wait(1000);
           cy.checkA11y();
         });
 
@@ -143,7 +280,58 @@ describe('About Page', () => {
           cy.get('[data-cy="mobile-menu-button"]').click();
           cy.get('[data-cy="mobile-menu"]').should('not.be.visible');
         });
+    
+        it('should navigate through case studies with swipe gestures', () => {
+          cy.get('[data-cy="case-studies-container"]').scrollIntoView();
+          
+          const simulateSwipe = (direction: 'left' | 'right') => {
+            const startX = direction === 'left' ? 300 : 100;
+            const endX = direction === 'left' ? 100 : 300;
+            
+            cy.get('[data-cy="case-studies-container"]')
+              .trigger('touchstart', { 
+                touches: [{ clientX: startX, clientY: 150 }],
+                force: true 
+              })
+              .trigger('touchmove', { 
+                touches: [{ clientX: endX, clientY: 150 }],
+                force: true
+              })
+              .trigger('touchend', { force: true });
+            
+            cy.wait(500); // Reduced wait time
+          };
+
+          // Test swiping through all case studies
+          caseStudies.forEach((study, index) => {
+            if (index > 0) {
+              simulateSwipe('left');
+              
+              cy.get(`[data-cy="case-study-content-${study.id}"]`)
+                .should('be.visible')
+                .within(() => {
+                  cy.contains(study.name).should('be.visible');
+                  cy.contains(study.challenge).should('be.visible');
+                  cy.contains(study.solution).should('be.visible');
+                });
+            }
+          });
+
+          // Test swiping back
+          for (let i = caseStudies.length; i > 0; i--) {
+            simulateSwipe('right');
+            
+            const study = caseStudies[i - 1];
+            cy.get(`[data-cy="case-study-content-${study.id}"]`)
+              .should('be.visible')
+              .within(() => {
+                cy.contains(study.name).should('be.visible');
+              });
+          }
+        });
       });
     });
   });
+
+
 });
