@@ -1,24 +1,21 @@
-import { motion } from 'framer-motion';
-import { Question } from './quizData';
-import { HiCheck } from 'react-icons/hi2';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Question, Option } from './quizData';
+import { HiCheck, HiArrowRight, HiArrowLeft } from 'react-icons/hi2';
+import { useState } from 'react';
+import ScrambleText from '../ScrambleText';
 
 interface QuizQuestionProps {
   question: Question;
   selectedAnswers: string[];
   onAnswer: (questionId: string, answer: string) => void;
+  onBack: () => void;
+  showBack: boolean;
 }
 
-export default function QuizQuestion({ question, selectedAnswers, onAnswer }: QuizQuestionProps) {
+export default function QuizQuestion({ question, selectedAnswers, onAnswer, onBack, showBack }: QuizQuestionProps) {
   const isSelected = (value: string) => selectedAnswers.includes(value);
-
-  const handleOptionClick = (value: string) => {
-    if (!question.multiSelect) {
-      // For single select, replace the current selection
-      onAnswer(question.id, value);
-      return;
-    }
-    onAnswer(question.id, value);
-  };
+  const [isHovering, setIsHovering] = useState(false);
+  const [isBackHovering, setIsBackHovering] = useState(false);
 
   return (
     <div className="bg-white rounded-lg p-8 shadow-sm w-full">
@@ -27,12 +24,12 @@ export default function QuizQuestion({ question, selectedAnswers, onAnswer }: Qu
       </h2>
       
       <div className="grid gap-4">
-        {question.options.map((option, index) => (
+        {question.options.map((option: Option, index: number) => (
           <motion.button
             key={index}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => handleOptionClick(option.value)}
+            onClick={() => onAnswer(question.id, option.value)}
             className={`p-4 text-left border-2 rounded-lg
                      transition-all duration-300 hover:border-secondary-400
                      hover:bg-neutral-50 group relative
@@ -64,21 +61,59 @@ export default function QuizQuestion({ question, selectedAnswers, onAnswer }: Qu
         ))}
       </div>
 
-      {selectedAnswers.length > 0 && (
-        <div className="mt-8 flex justify-end">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => onAnswer(question.id, 'NEXT')}
-            className="px-8 py-3.5 bg-secondary-400 text-white font-medium
-                     rounded-lg flex items-center space-x-2 border-2 border-secondary-400
-                     transition-all duration-300 hover:bg-transparent 
-                     hover:text-secondary-400"
-          >
-            Continue
-          </motion.button>
+      <div className="h-[76px] mt-8">
+        <div className={`flex ${showBack ? 'justify-between' : 'justify-end'} items-center`}>
+          <AnimatePresence mode="wait">
+            {showBack && (
+              <motion.button
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.2 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={onBack}
+                onMouseEnter={() => setIsBackHovering(true)}
+                onMouseLeave={() => setIsBackHovering(false)}
+                className="px-8 py-3.5 bg-transparent text-secondary-400 font-medium
+                         rounded-lg flex items-center space-x-2 border-2 border-secondary-400
+                         transition-all duration-300 hover:bg-secondary-400 
+                         hover:text-white"
+              >
+                <HiArrowLeft className="w-5 h-5 shrink-0" />
+                <span className="w-[80px] text-center">
+                  <ScrambleText text="Back" isHovering={isBackHovering} />
+                </span>
+              </motion.button>
+            )}
+          </AnimatePresence>
+          
+          <AnimatePresence mode="wait">
+            {selectedAnswers.length > 0 && (
+              <motion.button
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.2 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => onAnswer(question.id, 'NEXT')}
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+                className="px-8 py-3.5 bg-secondary-400 text-white font-medium
+                         rounded-lg flex items-center space-x-2 border-2 border-secondary-400
+                         transition-all duration-300 hover:bg-transparent 
+                         hover:text-secondary-400"
+              >
+                <span className="w-[80px] text-center">
+                  <ScrambleText text="Continue" isHovering={isHovering} />
+                </span>
+                <HiArrowRight className="w-5 h-5 shrink-0" />
+              </motion.button>
+            )}
+          </AnimatePresence>
         </div>
-      )}
+      </div>
     </div>
   );
 } 

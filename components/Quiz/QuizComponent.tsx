@@ -3,36 +3,70 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import QuizQuestion from './QuizQuestion';
-import { questions } from './quizData';
+import { primaryQuestion, branchQuestions } from './quizData';
 import CircuitOverlay from '../CircuitOverlay';
 
 export default function QuizComponent() {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentBranch, setCurrentBranch] = useState<string | null>(null);
+  const [branchQuestionIndex, setBranchQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string[]>>({});
   const [currentSelections, setCurrentSelections] = useState<string[]>([]);
-  
+  const [isComplete, setIsComplete] = useState(false);
+  const [questionPath, setQuestionPath] = useState<number[]>([0]);
+
+  const currentQuestion = currentBranch === null 
+    ? primaryQuestion 
+    : branchQuestions[currentBranch][branchQuestionIndex];
+
+  const totalQuestions = currentBranch 
+    ? branchQuestions[currentBranch].length + 1 // +1 for primary question
+    : 1;
+
   const handleAnswer = (questionId: string, answer: string) => {
     if (answer === 'NEXT') {
       setAnswers(prev => ({
         ...prev,
         [questionId]: currentSelections
       }));
-      setCurrentSelections([]);
-      setCurrentQuestionIndex(prev => prev + 1);
-      return;
-    }
 
-    const currentQuestion = questions[currentQuestionIndex];
-    
-    setCurrentSelections(prev => {
-      if (!currentQuestion.multiSelect) {
-        return [answer];
+      if (currentBranch === null) {
+        // Moving from primary question to branch
+        setCurrentBranch(currentSelections[0]);
+        setBranchQuestionIndex(0);
+        setQuestionPath(prev => [...prev, 1]);
+      } else {
+        // Moving to next question in branch
+        if (branchQuestionIndex < branchQuestions[currentBranch].length - 1) {
+          setBranchQuestionIndex(prev => prev + 1);
+          setQuestionPath(prev => [...prev, prev.length + 1]);
+        } else {
+          setIsComplete(true);
+          setQuestionPath(prev => [...prev, prev.length + 1]);
+        }
       }
-      if (prev.includes(answer)) {
-        return prev.filter(a => a !== answer);
-      }
-      return [...prev, answer];
-    });
+    } else {
+      setCurrentSelections(prev => {
+        if (!currentQuestion.multiSelect) {
+          return [answer];
+        }
+        if (prev.includes(answer)) {
+          return prev.filter(a => a !== answer);
+        }
+        return [...prev, answer];
+      });
+    }
+  };
+
+  const handleBack = () => {
+    if (branchQuestionIndex > 0) {
+      setBranchQuestionIndex(prev => prev - 1);
+      setCurrentSelections(answers[branchQuestions[currentBranch][branchQuestionIndex - 1].id] || []);
+      setQuestionPath(prev => prev.slice(0, -1));
+    } else {
+      setCurrentBranch(null);
+      setCurrentSelections(answers[primaryQuestion.id] || []);
+      setQuestionPath([0]);
+    }
   };
 
   return (
@@ -50,18 +84,20 @@ export default function QuizComponent() {
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentQuestionIndex}
+            key={`${currentBranch}-${branchQuestionIndex}`}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
             className="flex flex-col items-center justify-center w-full"
           >
-            {currentQuestionIndex < questions.length ? (
+            {!isComplete ? (
               <QuizQuestion
-                question={questions[currentQuestionIndex]}
+                question={currentQuestion}
                 selectedAnswers={currentSelections}
                 onAnswer={handleAnswer}
+                onBack={handleBack}
+                showBack={currentBranch !== null || branchQuestionIndex > 0}
               />
             ) : (
               <div className="text-center p-8 bg-white rounded-lg shadow-sm">
@@ -77,14 +113,12 @@ export default function QuizComponent() {
         </AnimatePresence>
 
         <div className="mt-8 flex justify-center">
-          {questions.map((_, index) => (
+          {Array.from({ length: totalQuestions }).map((_, index) => (
             <div
               key={index}
               className={`h-1 w-8 mx-1 rounded-full transition-all duration-300 ${
-                index === currentQuestionIndex
+                index < questionPath.length - 1
                   ? 'bg-secondary-400'
-                  : index < currentQuestionIndex
-                  ? 'bg-secondary-300'
                   : 'bg-neutral-200'
               }`}
             />
