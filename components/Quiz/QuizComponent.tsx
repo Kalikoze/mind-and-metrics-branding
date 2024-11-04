@@ -3,24 +3,31 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import QuizQuestion from './QuizQuestion';
-import { primaryQuestion, branchQuestions } from './quizData';
+import { primaryQuestion, branchQuestions, commonQuestions } from './quizData';
 import CircuitOverlay from '../CircuitOverlay';
 
 export default function QuizComponent() {
-  const [currentBranch, setCurrentBranch] = useState<string | null>(null);
+  const [selectedBranches, setSelectedBranches] = useState<string[]>([]);
+  const [currentBranchIndex, setCurrentBranchIndex] = useState<number>(-1);
   const [branchQuestionIndex, setBranchQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string[]>>({});
   const [currentSelections, setCurrentSelections] = useState<string[]>([]);
   const [isComplete, setIsComplete] = useState(false);
   const [questionPath, setQuestionPath] = useState<number[]>([0]);
+  const [commonQuestionIndex, setCommonQuestionIndex] = useState<number>(-1);
 
+  const currentBranch = currentBranchIndex === -1 ? null : selectedBranches[currentBranchIndex];
+  
   const currentQuestion = currentBranch === null 
-    ? primaryQuestion 
+    ? commonQuestionIndex === -1 
+      ? primaryQuestion 
+      : commonQuestions[commonQuestionIndex]
     : branchQuestions[currentBranch][branchQuestionIndex];
 
-  const totalQuestions = currentBranch 
-    ? branchQuestions[currentBranch].length + 1 // +1 for primary question
-    : 1;
+  const totalQuestions = selectedBranches.reduce((total, branch) => {
+    const branchTotal = branchQuestions[branch].length;
+    return total + branchTotal;
+  }, 1 + commonQuestions.length);
 
   const handleAnswer = (questionId: string, answer: string) => {
     if (answer === 'NEXT') {
@@ -30,18 +37,39 @@ export default function QuizComponent() {
       }));
 
       if (currentBranch === null) {
-        // Moving from primary question to branch
-        setCurrentBranch(currentSelections[0]);
-        setBranchQuestionIndex(0);
-        setQuestionPath(prev => [...prev, 1]);
+        if (commonQuestionIndex === -1) {
+          setSelectedBranches(currentSelections);
+          setCommonQuestionIndex(0);
+          setQuestionPath(prev => [...prev, 1]);
+          setCurrentSelections(answers[commonQuestions[0].id] || []);
+        } else if (commonQuestionIndex < commonQuestions.length - 1) {
+          setCommonQuestionIndex(prev => prev + 1);
+          setQuestionPath(prev => [...prev, prev.length + 1]);
+          setCurrentSelections(answers[commonQuestions[commonQuestionIndex + 1].id] || []);
+        } else {
+          setCurrentBranchIndex(0);
+          setBranchQuestionIndex(0);
+          setCommonQuestionIndex(-1);
+          setQuestionPath(prev => [...prev, prev.length + 1]);
+          const firstBranch = selectedBranches[0];
+          setCurrentSelections(answers[branchQuestions[firstBranch][0].id] || []);
+        }
       } else {
-        // Moving to next question in branch
         if (branchQuestionIndex < branchQuestions[currentBranch].length - 1) {
           setBranchQuestionIndex(prev => prev + 1);
           setQuestionPath(prev => [...prev, prev.length + 1]);
+          setCurrentSelections(answers[branchQuestions[currentBranch][branchQuestionIndex + 1].id] || []);
         } else {
-          setIsComplete(true);
-          setQuestionPath(prev => [...prev, prev.length + 1]);
+          if (currentBranchIndex < selectedBranches.length - 1) {
+            const nextBranch = selectedBranches[currentBranchIndex + 1];
+            setCurrentBranchIndex(prev => prev + 1);
+            setBranchQuestionIndex(0);
+            setQuestionPath(prev => [...prev, prev.length + 1]);
+            setCurrentSelections(answers[branchQuestions[nextBranch][0].id] || []);
+          } else {
+            setIsComplete(true);
+            setQuestionPath(prev => [...prev, prev.length + 1]);
+          }
         }
       }
     } else {
@@ -58,14 +86,31 @@ export default function QuizComponent() {
   };
 
   const handleBack = () => {
-    if (branchQuestionIndex > 0) {
+    if (currentBranch === null && commonQuestionIndex > 0) {
+      setCommonQuestionIndex(prev => prev - 1);
+      setCurrentSelections(answers[commonQuestions[commonQuestionIndex - 1].id] || []);
+      setQuestionPath(prev => prev.slice(0, -1));
+    } else if (currentBranch === null && commonQuestionIndex === 0) {
+      setCommonQuestionIndex(-1);
+      setCurrentSelections(answers[primaryQuestion.id] || []);
+      setQuestionPath([0]);
+    } else if (branchQuestionIndex > 0 && currentBranch) {
       setBranchQuestionIndex(prev => prev - 1);
       setCurrentSelections(answers[branchQuestions[currentBranch][branchQuestionIndex - 1].id] || []);
       setQuestionPath(prev => prev.slice(0, -1));
-    } else {
-      setCurrentBranch(null);
-      setCurrentSelections(answers[primaryQuestion.id] || []);
-      setQuestionPath([0]);
+    } else if (branchQuestionIndex === 0 && currentBranch) {
+      setCurrentBranchIndex(-1);
+      setBranchQuestionIndex(0);
+      setCommonQuestionIndex(commonQuestions.length - 1);
+      setCurrentSelections(answers[commonQuestions[commonQuestions.length - 1].id] || []);
+      setQuestionPath(prev => prev.slice(0, -1));
+    } else if (currentBranchIndex > 0) {
+      setCurrentBranchIndex(prev => prev - 1);
+      const prevBranch = selectedBranches[currentBranchIndex - 1];
+      const lastQuestionIndex = branchQuestions[prevBranch].length - 1;
+      setBranchQuestionIndex(lastQuestionIndex);
+      setCurrentSelections(answers[branchQuestions[prevBranch][lastQuestionIndex].id] || []);
+      setQuestionPath(prev => prev.slice(0, -1));
     }
   };
 
@@ -84,7 +129,7 @@ export default function QuizComponent() {
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${currentBranch}-${branchQuestionIndex}`}
+            key={`${currentBranch}-${branchQuestionIndex}-${commonQuestionIndex}`}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
@@ -97,7 +142,7 @@ export default function QuizComponent() {
                 selectedAnswers={currentSelections}
                 onAnswer={handleAnswer}
                 onBack={handleBack}
-                showBack={currentBranch !== null || branchQuestionIndex > 0}
+                showBack={commonQuestionIndex > -1 || currentBranch !== null || branchQuestionIndex > 0}
               />
             ) : (
               <div className="text-center p-8 bg-white rounded-lg shadow-sm">
