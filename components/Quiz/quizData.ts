@@ -1,7 +1,13 @@
+export interface Cost {
+  initial: number;
+  monthly?: number;
+}
+
 export interface Option {
   label: string;
   value: any;
   description?: string;
+  cost?: Cost;
 }
 
 export interface Question {
@@ -9,6 +15,7 @@ export interface Question {
   text: string;
   options: Option[];
   multiSelect?: boolean;
+  skipable?: boolean;
 }
 
 export const primaryQuestion: Question = {
@@ -19,22 +26,22 @@ export const primaryQuestion: Question = {
     {
       label: 'Visual Brand Identity',
       value: 'branding',
-      description: 'Stand out with a professional, cohesive look'
+      description: 'Stand out with a professional, cohesive look',
     },
     {
       label: 'Online Presence',
       value: 'website',
-      description: 'Reach more customers with an effective website'
+      description: 'Reach more customers with an effective website',
     },
     {
       label: 'Marketing & Visibility',
       value: 'marketing',
-      description: 'Get found by your ideal customers'
+      description: 'Get found by your ideal customers',
     },
     {
       label: 'Business Growth',
       value: 'consulting',
-      description: 'Expert guidance to reach your goals'
+      description: 'Expert guidance to reach your goals',
     }
   ]
 };
@@ -48,17 +55,17 @@ export const commonQuestions: Question[] = [
       {
         label: 'Just Getting Started',
         value: 'startup',
-        description: 'Planning or recently launched your business'
+        description: 'Planning or recently launched your business',
       },
       {
         label: 'Growing Business',
         value: 'growing',
-        description: 'Established and looking to expand'
+        description: 'Established and looking to expand',
       },
       {
         label: 'Established Organization',
         value: 'established',
-        description: 'Multiple years in operation with complex needs'
+        description: 'Multiple years in operation with complex needs',
       }
     ]
   },
@@ -70,22 +77,38 @@ export const commonQuestions: Question[] = [
       {
         label: 'Basic Investment',
         value: 'basic',
-        description: 'Essential services within $2,000 - $5,000'
+        description: 'Essential services within $2,000 - $5,000',
+        cost: {
+          initial: 2000,
+          monthly: 0
+        }
       },
       {
         label: 'Strategic Investment',
         value: 'strategic',
-        description: 'Comprehensive solutions within $5,000 - $10,000'
+        description: 'Comprehensive solutions within $5,000 - $10,000',
+        cost: {
+          initial: 5000,
+          monthly: 0
+        }
       },
       {
         label: 'Growth Investment',
         value: 'growth',
-        description: 'Full-scale implementation $10,000+'
+        description: 'Full-scale implementation $10,000+',
+        cost: {
+          initial: 10000,
+          monthly: 0
+        }
       },
       {
         label: 'Not Sure Yet',
         value: 'unsure',
-        description: 'Would like to discuss options based on needs'
+        description: 'Would like to discuss options based on needs',
+        cost: {
+          initial: 0,
+          monthly: 0
+        }
       }
     ]
   }
@@ -94,63 +117,115 @@ export const commonQuestions: Question[] = [
 export const branchQuestions: Record<string, Question[]> = {
   branding: [
     {
-      id: 'brand_needs',
-      text: "What type of branding services do you need?",
+      id: 'visual_identity',
+      text: "What level of visual identity design do you need?",
+      multiSelect: false,
+      options: [
+        {
+          label: 'Basic Logo Package',
+          value: 'basic_logo',
+          description: '2 initial concepts, 2 revisions, high-quality PNG file',
+          cost: {
+            initial: 1200,
+            monthly: 0
+          }
+        },
+        {
+          label: 'Standard Identity Package',
+          value: 'standard_logo',
+          description: '3 initial concepts, 3 revisions, full vector file',
+          cost: {
+            initial: 1500,
+            monthly: 0
+          }
+        },
+        {
+          label: 'Premium Brand Package',
+          value: 'premium_logo',
+          description: 'Logo, brand color palette, typography, basic brand style guide',
+          cost: {
+            initial: 2500,
+            monthly: 0
+          }
+        }
+      ]
+    },
+    {
+      id: 'brand_materials',
+      text: "Which brand materials would you like to include?",
       multiSelect: true,
+      skipable: true,
       options: [
         {
-          label: 'Logo Design',
-          value: 'logo',
-          description: 'Professional logo design with multiple concepts and revisions'
+          label: 'Business Cards',
+          value: 'cards',
+          description: 'Professional business card design',
+          cost: {
+            initial: 300,
+            monthly: 0
+          }
         },
         {
-          label: 'Complete Brand Identity',
-          value: 'identity',
-          description: 'Logo, color palette, typography, and brand guidelines'
+          label: 'Presentation Folders',
+          value: 'folders',
+          description: 'Custom folder design for documents',
+          cost: {
+            initial: 300,
+            monthly: 0
+          }
         },
         {
-          label: 'Brand Support Materials',
-          value: 'materials',
-          description: 'Business cards, email signatures, promotional items'
+          label: 'Email Signature',
+          value: 'email_signature',
+          description: 'Professional email signature template',
+          cost: {
+            initial: 300,
+            monthly: 0
+          }
         }
       ]
     },
     {
-      id: 'brand_stage',
-      text: "Where are you in your branding journey?",
-      multiSelect: false,
+      id: 'brand_addons',
+      text: "Would you like any additional promotional materials?",
+      multiSelect: true,
+      skipable: true,
       options: [
         {
-          label: 'Starting Fresh',
-          value: 'new',
-          description: 'Creating a new brand from scratch'
+          label: 'T-shirt Design & Vendor Coordination',
+          value: 'tshirt',
+          description: 'Custom t-shirt design with vendor interfacing',
+          cost: {
+            initial: 350,
+            monthly: 0
+          }
         },
         {
-          label: 'Brand Refresh',
-          value: 'refresh',
-          description: 'Updating existing brand elements'
+          label: 'Brochure & Flyer Design',
+          value: 'brochure',
+          description: 'Design with revisions, print/digital ready',
+          cost: {
+            initial: 400,
+            monthly: 0
+          }
         },
         {
-          label: 'Brand Extension',
-          value: 'extension',
-          description: 'Adding new materials to existing brand'
-        }
-      ]
-    },
-    {
-      id: 'brand_support',
-      text: "Would you like ongoing brand support?",
-      multiSelect: false,
-      options: [
-        {
-          label: 'Project-Based Support',
-          value: 'project',
-          description: 'One-time design projects as needed'
+          label: 'Promotional Item Design',
+          value: 'promo',
+          description: 'Custom designs for branded items with vendor coordination',
+          cost: {
+            initial: 350,
+            monthly: 0
+          }
         },
         {
-          label: 'Monthly Retainer',
+          label: 'Brand Support Retainer',
           value: 'retainer',
-          description: '5+ hours monthly for ongoing brand management'
+          description: '5+ hours monthly for ongoing brand support',
+          cost: {
+            initial: 0,
+            monthly: 500
+          }
         }
       ]
     }
@@ -164,17 +239,29 @@ export const branchQuestions: Record<string, Question[]> = {
         {
           label: 'Basic Business Website',
           value: 'starter',
-          description: '3-5 pages with essential features and SEO setup'
+          description: '3-5 pages with essential features and SEO setup',
+          cost: {
+            initial: 3300,
+            monthly: 900
+          }
         },
         {
           label: 'Professional Business Website',
           value: 'standard',
-          description: '6-10 pages with CMS and comprehensive SEO'
+          description: '6-10 pages with CMS and comprehensive SEO',
+          cost: {
+            initial: 5250,
+            monthly: 1200
+          }
         },
         {
           label: 'Advanced Business Platform',
           value: 'advanced',
-          description: '10+ pages with custom features and animations'
+          description: '10+ pages with custom features and animations',
+          cost: {
+            initial: 7550,
+            monthly: 1200
+          }
         }
       ]
     },
@@ -182,50 +269,112 @@ export const branchQuestions: Record<string, Question[]> = {
       id: 'website_features',
       text: "Would you like to add any specific functionality?",
       multiSelect: true,
+      skipable: true,
       options: [
         {
           label: 'E-commerce Store',
           value: 'ecommerce',
-          description: 'Sell products or services online'
+          description: 'Sell products or services online',
+          cost: {
+            initial: 2000,
+            monthly: 0
+          }
         },
         {
           label: 'Booking System',
           value: 'booking',
-          description: 'Allow customers to schedule appointments'
+          description: 'Allow customers to schedule appointments',
+          cost: {
+            initial: 2000,
+            monthly: 0
+          }
         },
         {
           label: 'Google Business Integration',
           value: 'google',
-          description: 'Enhance your local business presence'
+          description: 'Enhance your local business presence',
+          cost: {
+            initial: 200,
+            monthly: 200
+          }
         }
       ]
     }
   ],
   marketing: [
     {
-      id: 'marketing_needs',
-      text: "Which marketing services interest you?",
-      multiSelect: true,
+      id: 'social_media',
+      text: "What level of social media management do you need?",
+      multiSelect: false,
       options: [
         {
-          label: 'Social Media Management',
-          value: 'social',
-          description: 'Content creation and platform management'
+          label: 'Basic Social Media Package',
+          value: 'basic_social',
+          description: 'Social media setup and basic content management',
+          cost: {
+            initial: 500,
+            monthly: 800
+          }
         },
         {
-          label: 'Email Marketing',
-          value: 'email',
-          description: 'Newsletter and campaign management'
+          label: 'Standard Social Media Package',
+          value: 'standard_social',
+          description: '5 posts per week per platform with monthly insight reports',
+          cost: {
+            initial: 500,
+            monthly: 1000
+          }
         },
         {
-          label: 'Digital Advertising',
-          value: 'ads',
-          description: 'Google Ads and social media campaigns'
+          label: 'Advanced Social Media Package',
+          value: 'advanced_social',
+          description: '5 posts per week all platforms with content strategy session',
+          cost: {
+            initial: 500,
+            monthly: 1200
+          }
+        }
+      ]
+    },
+    {
+      id: 'youtube_management',
+      text: "Would you like to add YouTube channel management?",
+      multiSelect: false,
+      skipable: true,
+      options: [
+        {
+          label: 'YouTube Management',
+          value: 'youtube',
+          description: 'Video optimization and upload management ($50 per video upload)',
+          cost: {
+            initial: 500,
+            monthly: 0
+          }
+        }
+      ]
+    },
+    {
+      id: 'marketing_needs',
+      text: "Which marketing services interest you?",
+      multiSelect: false,
+      options: [
+        {
+          label: 'Starter Email Marketing',
+          value: 'starter_email',
+          description: '2 emails per month, performance tracking',
+          cost: {
+            initial: 0,
+            monthly: 250
+          }
         },
         {
-          label: 'Content Creation',
-          value: 'content',
-          description: 'Blog posts, videos, and social media content'
+          label: 'Advanced Email Marketing',
+          value: 'advanced_email',
+          description: '4 emails per month, A/B testing, segmentation',
+          cost: {
+            initial: 0,
+            monthly: 400
+          }
         }
       ]
     },
@@ -235,19 +384,22 @@ export const branchQuestions: Record<string, Question[]> = {
       multiSelect: false,
       options: [
         {
-          label: 'Starter Campaign',
+          label: 'Starter Campaign Management',
           value: 'starter',
-          description: 'Multi-channel strategy with basic tracking'
+          description: 'Multi-channel strategy with basic tracking',
+          cost: {
+            initial: 2000,
+            monthly: 1500
+          }
         },
         {
-          label: 'Advanced Campaign',
+          label: 'Advanced Campaign Management',
           value: 'advanced',
-          description: 'Comprehensive strategy with detailed analytics'
-        },
-        {
-          label: 'Custom Solution',
-          value: 'custom',
-          description: 'Tailored to your specific needs and goals'
+          description: 'Comprehensive strategy with detailed analytics',
+          cost: {
+            initial: 2500,
+            monthly: 3000
+          }
         }
       ]
     },
@@ -259,17 +411,29 @@ export const branchQuestions: Record<string, Question[]> = {
         {
           label: 'Immediate Start',
           value: 'immediate',
-          description: 'Ready to begin within the next month'
+          description: 'Ready to begin within the next month',
+          cost: {
+            initial: 0,
+            monthly: 0
+          }
         },
         {
           label: 'Planned Launch',
           value: 'planned',
-          description: 'Specific future date in mind'
+          description: 'Specific future date in mind',
+          cost: {
+            initial: 0,
+            monthly: 0
+          }
         },
         {
           label: 'After Other Services',
           value: 'after',
-          description: 'Following website/branding completion'
+          description: 'Following website/branding completion',
+          cost: {
+            initial: 0,
+            monthly: 0
+          }
         }
       ]
     }
@@ -281,41 +445,31 @@ export const branchQuestions: Record<string, Question[]> = {
       multiSelect: true,
       options: [
         {
-          label: 'Strategy Development',
-          value: 'strategy',
-          description: 'Comprehensive business growth planning'
-        },
-        {
-          label: 'Market Research',
-          value: 'research',
-          description: 'Industry and competitor analysis'
-        },
-        {
-          label: 'Campaign Planning',
-          value: 'campaign',
-          description: 'Marketing and advertising strategy'
-        }
-      ]
-    },
-    {
-      id: 'consulting_frequency',
-      text: "How would you like to structure the consulting relationship?",
-      multiSelect: false,
-      options: [
-        {
-          label: 'One-time Strategy Session',
-          value: 'onetime',
-          description: 'Intensive planning and recommendation session'
+          label: 'Hourly Consulting',
+          value: 'hourly',
+          description: 'Strategy sessions, troubleshooting, and marketing insights',
+          cost: {
+            initial: 150,
+            monthly: 0
+          }
         },
         {
           label: 'Monthly Retainer',
           value: 'monthly',
-          description: 'Ongoing support and strategy optimization'
+          description: 'Ongoing strategy support, campaign optimization, and creative assistance',
+          cost: {
+            initial: 0,
+            monthly: 1500
+          }
         },
         {
-          label: 'Project-Based',
-          value: 'project',
-          description: 'Support for specific initiatives or campaigns'
+          label: 'Market Research Package',
+          value: 'research',
+          description: 'Comprehensive market analysis, positioning, and strategy recommendations',
+          cost: {
+            initial: 3000,
+            monthly: 0
+          }
         }
       ]
     }

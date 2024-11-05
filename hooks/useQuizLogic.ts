@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { primaryQuestion, branchQuestions, commonQuestions } from '../components/Quiz/quizData';
+import { primaryQuestion, branchQuestions, commonQuestions } from '@/components/Quiz/quizData';
 
 export function useQuizLogic() {
   const [selectedBranches, setSelectedBranches] = useState<string[]>([]);
