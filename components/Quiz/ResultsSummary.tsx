@@ -41,7 +41,7 @@ export default function ResultsSummary({
               className="border-b border-neutral-200 pb-4"
             >
               <div className="flex justify-between items-start mb-2">
-                <h3 className="font-medium text-secondary-400">{question.text}</h3>
+                <h3 className="font-medium text-secondary-400 px-2">{question.text}</h3>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -82,7 +82,7 @@ export default function ResultsSummary({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.2 }}
-          className="mt-8 border-t border-neutral-200 pt-6"
+          className="mt-8 border-neutral-200"
         >
           <div className="flex flex-col gap-4">
             <h3 className="font-medium text-secondary-400">
@@ -117,7 +117,7 @@ export default function ResultsSummary({
                       <div>
                         <p className="font-medium text-secondary-500 mb-1">Investment Consideration</p>
                         <p className="text-secondary-600">
-                          Your selected services exceed your indicated investment comfort level. Let's discuss options to align with your budget.
+                          Your selected services exceed your indicated investment comfort level. Let&apos;s discuss options to align with your budget.
                         </p>
                       </div>
                     </>

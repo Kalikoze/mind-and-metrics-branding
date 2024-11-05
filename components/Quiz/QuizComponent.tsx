@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import QuizQuestion from '@/components/Quiz/QuizQuestion';
-import { primaryQuestion, branchQuestions, commonQuestions } from '@/components/Quiz/quizData';
+import { primaryQuestion, branchQuestions, commonQuestions } from '@/data/quizData';
 import CircuitOverlay from '@/components/CircuitOverlay';
 import ResultsSummary from '@/components/Quiz/ResultsSummary';
 
@@ -234,7 +234,7 @@ export default function QuizComponent() {
       <div className="relative w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="font-serif text-4xl text-secondary-400 mb-4">
-            Let's Build Your Growth Strategy
+            Let&apos;s Build Your Growth Strategy
           </h1>
           <p className="text-secondary-500 text-lg">
             Answer a few questions to help us understand your needs
@@ -276,7 +276,7 @@ export default function QuizComponent() {
                   Thank you for completing the quiz!
                 </h2>
                 <p className="text-secondary-500">
-                  We'll be in touch with your customized solution shortly.
+                  We&apos;ll be in touch with your customized solution shortly.
                 </p>
               </div>
             )}

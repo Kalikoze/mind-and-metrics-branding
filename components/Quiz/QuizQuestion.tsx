@@ -1,4 +1,4 @@
-import { Question, Option } from '@/components/Quiz/quizData';
+import { Question, Option } from '@/data/quizData';
 import QuestionOption from '@/components/Quiz/QuestionOption';
 import NavigationButtons from '@/components/Quiz/NavigationButtons';
 

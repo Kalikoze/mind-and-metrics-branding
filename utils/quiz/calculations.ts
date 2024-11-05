@@ -1,4 +1,4 @@
-import { Question, Option, primaryQuestion, branchQuestions, commonQuestions } from '@/components/Quiz/quizData';
+import { Question, Option, primaryQuestion, branchQuestions, commonQuestions } from '@/data/quizData';
 
 interface InvestmentRange {
   initial: {

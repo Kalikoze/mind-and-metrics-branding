@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { HiCheck } from 'react-icons/hi2';
-import { Option } from '@/components/Quiz/quizData';
+import { Option } from '@/data/quizData';
 
 interface QuestionOptionProps {
   option: Option;

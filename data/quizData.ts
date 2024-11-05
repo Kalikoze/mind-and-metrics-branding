@@ -26,22 +26,22 @@ export const primaryQuestion: Question = {
     {
       label: 'Visual Brand Identity',
       value: 'branding',
-      description: 'Stand out with a professional, cohesive look',
+      description: 'Stand out with a professional look including logos, color schemes, and brand guidelines',
     },
     {
-      label: 'Online Presence',
+      label: 'Website',
       value: 'website',
-      description: 'Reach more customers with an effective website',
+      description: 'Reach more customers with an effective website optimized for search engines and user experience',
     },
     {
-      label: 'Marketing & Visibility',
+      label: 'Marketing',
       value: 'marketing',
-      description: 'Get found by your ideal customers',
+      description: 'Get found by ideal customers through targeted social media, email, and digital marketing campaigns',
     },
     {
-      label: 'Business Growth',
+      label: 'Growth Strategy',
       value: 'consulting',
-      description: 'Expert guidance to reach your goals',
+      description: 'Expert guidance to your goals through strategic planning, market research, and ongoing support',
     }
   ]
 };
@@ -77,7 +77,7 @@ export const commonQuestions: Question[] = [
       {
         label: 'Basic Investment',
         value: 'basic',
-        description: 'Essential services within $2,000 - $5,000',
+        description: 'Essential services within $2,000 - $5,000 for small businesses or specific focused needs',
         cost: {
           initial: 2000,
           monthly: 0
@@ -86,7 +86,7 @@ export const commonQuestions: Question[] = [
       {
         label: 'Strategic Investment',
         value: 'strategic',
-        description: 'Comprehensive solutions within $5,000 - $10,000',
+        description: 'Comprehensive solutions within $5,000 - $10,000 for growing businesses needing multiple services',
         cost: {
           initial: 5000,
           monthly: 0
@@ -95,7 +95,7 @@ export const commonQuestions: Question[] = [
       {
         label: 'Growth Investment',
         value: 'growth',
-        description: 'Full-scale implementation $10,000+',
+        description: 'Full-scale implementation $10,000+ for established businesses ready for significant expansion',
         cost: {
           initial: 10000,
           monthly: 0
@@ -104,7 +104,7 @@ export const commonQuestions: Question[] = [
       {
         label: 'Not Sure Yet',
         value: 'unsure',
-        description: 'Would like to discuss options based on needs',
+        description: 'Would like to discuss options based on needs and receive a custom quote',
         cost: {
           initial: 0,
           monthly: 0
@@ -338,14 +338,14 @@ export const branchQuestions: Record<string, Question[]> = {
     },
     {
       id: 'youtube_management',
-      text: "Would you like to add YouTube channel management?",
+      text: "Would you like to add YouTube channel management to your marketing strategy?",
       multiSelect: false,
       skipable: true,
       options: [
         {
           label: 'YouTube Management',
           value: 'youtube',
-          description: 'Video optimization and upload management ($50 per video upload)',
+          description: 'Professional video optimization, SEO-friendly titles and descriptions, thumbnail creation, and upload management ($50 per video upload). Includes performance analytics and engagement monitoring',
           cost: {
             initial: 500,
             monthly: 0
@@ -441,13 +441,13 @@ export const branchQuestions: Record<string, Question[]> = {
   consulting: [
     {
       id: 'consulting_type',
-      text: "What type of consulting support do you need?",
+      text: "What type of consulting support would best help your business grow?",
       multiSelect: true,
       options: [
         {
           label: 'Hourly Consulting',
           value: 'hourly',
-          description: 'Strategy sessions, troubleshooting, and marketing insights',
+          description: 'Flexible strategy sessions and marketing insights for specific challenges ($150/hour)',
           cost: {
             initial: 150,
             monthly: 0
@@ -456,7 +456,7 @@ export const branchQuestions: Record<string, Question[]> = {
         {
           label: 'Monthly Retainer',
           value: 'monthly',
-          description: 'Ongoing strategy support, campaign optimization, and creative assistance',
+          description: 'Dedicated support including weekly strategy calls, campaign optimization, and creative direction',
           cost: {
             initial: 0,
             monthly: 1500
@@ -465,7 +465,7 @@ export const branchQuestions: Record<string, Question[]> = {
         {
           label: 'Market Research Package',
           value: 'research',
-          description: 'Comprehensive market analysis, positioning, and strategy recommendations',
+          description: 'Market analysis, competitor research, and strategic recommendations with implementation plan',
           cost: {
             initial: 3000,
             monthly: 0
