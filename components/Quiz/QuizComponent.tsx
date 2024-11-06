@@ -9,6 +9,7 @@ import ResultsSummary from '@/components/Quiz/ResultsSummary';
 import ContactForm from '@/components/Quiz/ContactForm';
 import { HiArrowRight } from 'react-icons/hi';
 import ScrambleText from '@/components/ScrambleText';
+import { ContactFormData } from '@/components/Quiz/ContactForm';
 
 export default function QuizComponent() {
   const [selectedBranches, setSelectedBranches] = useState<string[]>([]);
@@ -234,6 +235,11 @@ export default function QuizComponent() {
     return hasCompletedNewPath;
   };
 
+  const handleContactSubmit = async (formData: ContactFormData) => {
+    setPreferredContact(formData.preferredContact);
+    setIsComplete(true);
+  };
+
   return (
     <section className="relative overflow-hidden py-20 min-h-screen flex items-center justify-center">
       <CircuitOverlay />
@@ -261,11 +267,9 @@ export default function QuizComponent() {
             {!isComplete ? (
               showingContactForm ? (
                 <ContactForm
-                  onSubmit={(data) => {
-                    console.log('Form submitted:', data);
-                    setPreferredContact(data.preferredContact);
-                    setIsComplete(true);
-                  }}
+                  answers={answers}
+                  selectedBranches={selectedBranches}
+                  onSubmit={handleContactSubmit}
                   onBack={() => setShowingContactForm(false)}
                 />
               ) : showingSummary ? (
