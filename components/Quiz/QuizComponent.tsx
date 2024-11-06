@@ -294,13 +294,13 @@ export default function QuizComponent() {
                     Thank You for Choosing Us
                   </h1>
                   <h2 className="text-secondary-500 text-lg">
-                    We're excited to help grow your business
+                    We&apos;re excited to help grow your business
                   </h2>
                 </div>
 
                 <div className="mb-8">
                   <p className="text-secondary-500 mb-3">
-                    We'll review your information and craft a customized growth strategy for your business.
+                    We&apos;ll review your information and craft a customized growth strategy for your business.
                   </p>
                   <p className="text-secondary-500 text-sm">
                     Expect to hear from us within 24 hours{preferredContact === 'phone' ? ' at your specified time' : ''}.

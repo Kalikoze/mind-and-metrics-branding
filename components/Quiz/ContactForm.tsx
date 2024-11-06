@@ -56,7 +56,7 @@ export default function ContactForm({ onSubmit, onBack, loading }: ContactFormPr
           Almost There!
         </h1>
         <h2 className="text-secondary-500/80 text-sm italic">
-          Share your contact details to receive your customized growth strategy. We'll only use your information to discuss this quote.
+          Share your contact details to receive your customized growth strategy. We&apos;ll only use your information to discuss this quote.
         </h2>
       </div>
 
