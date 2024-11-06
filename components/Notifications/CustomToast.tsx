@@ -1,6 +1,3 @@
-import { HiExclamationCircle, HiCheckCircle } from 'react-icons/hi2';
-import { motion } from 'framer-motion';
-
 interface CustomToastProps {
   type: 'success' | 'error';
   message: string;
