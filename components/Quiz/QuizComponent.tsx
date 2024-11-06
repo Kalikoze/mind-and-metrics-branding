@@ -6,6 +6,9 @@ import QuizQuestion from '@/components/Quiz/QuizQuestion';
 import { primaryQuestion, branchQuestions, commonQuestions } from '@/data/quizData';
 import CircuitOverlay from '@/components/CircuitOverlay';
 import ResultsSummary from '@/components/Quiz/ResultsSummary';
+import ContactForm from '@/components/Quiz/ContactForm';
+import { HiArrowRight } from 'react-icons/hi';
+import ScrambleText from '@/components/ScrambleText';
 
 export default function QuizComponent() {
   const [selectedBranches, setSelectedBranches] = useState<string[]>([]);
@@ -21,6 +24,9 @@ export default function QuizComponent() {
   const [originalPrimaryAnswers, setOriginalPrimaryAnswers] = useState<string[]>([]);
   const [hasCompletedNewPath, setHasCompletedNewPath] = useState(true);
   const [hasProceededWithChanges, setHasProceededWithChanges] = useState(false);
+  const [showingContactForm, setShowingContactForm] = useState(false);
+  const [preferredContact, setPreferredContact] = useState<'email' | 'phone' | null>(null);
+  const [isHomeHovering, setIsHomeHovering] = useState(false);
 
   const currentBranch = currentBranchIndex === -1 ? null : selectedBranches[currentBranchIndex];
   
@@ -232,14 +238,16 @@ export default function QuizComponent() {
     <section className="relative overflow-hidden py-20 min-h-screen flex items-center justify-center">
       <CircuitOverlay />
       <div className="relative w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="font-serif text-4xl text-secondary-400 mb-4">
-            Let&apos;s Build Your Growth Strategy
-          </h1>
-          <p className="text-secondary-500 text-lg">
-            Answer a few questions to help us understand your needs
-          </p>
-        </div>
+        {!showingSummary && !showingContactForm && !isComplete && (
+          <div className="text-center mb-12">
+            <h1 className="font-serif text-4xl text-secondary-400 mb-4">
+              Let&apos;s Build Your Growth Strategy
+            </h1>
+            <p className="text-secondary-500 text-lg">
+              Answer a few questions to help us understand your needs
+            </p>
+          </div>
+        )}
 
         <AnimatePresence mode="wait">
           <motion.div
@@ -251,12 +259,21 @@ export default function QuizComponent() {
             className="flex flex-col items-center justify-center w-full"
           >
             {!isComplete ? (
-              showingSummary ? (
+              showingContactForm ? (
+                <ContactForm
+                  onSubmit={(data) => {
+                    console.log('Form submitted:', data);
+                    setPreferredContact(data.preferredContact);
+                    setIsComplete(true);
+                  }}
+                  onBack={() => setShowingContactForm(false)}
+                />
+              ) : showingSummary ? (
                 <ResultsSummary
                   answers={answers}
                   selectedBranches={selectedBranches}
                   onEdit={handleEdit}
-                  onConfirm={() => setIsComplete(true)}
+                  onConfirm={() => setShowingContactForm(true)}
                 />
               ) : (
                 <QuizQuestion
@@ -271,13 +288,48 @@ export default function QuizComponent() {
                 />
               )
             ) : (
-              <div className="text-center p-8 bg-white rounded-lg shadow-sm">
-                <h2 className="font-serif text-2xl text-secondary-400 mb-4">
-                  Thank you for completing the quiz!
-                </h2>
-                <p className="text-secondary-500">
-                  We&apos;ll be in touch with your customized solution shortly.
-                </p>
+              <div className="text-center p-8 bg-white rounded-lg shadow-sm max-w-2xl mx-auto">
+                <div className="mb-8">
+                  <h1 className="font-serif text-3xl text-secondary-400 mb-4">
+                    Thank You for Choosing Us
+                  </h1>
+                  <h2 className="text-secondary-500 text-lg">
+                    We're excited to help grow your business
+                  </h2>
+                </div>
+
+                <div className="mb-8">
+                  <p className="text-secondary-500 mb-3">
+                    We'll review your information and craft a customized growth strategy for your business.
+                  </p>
+                  <p className="text-secondary-500 text-sm">
+                    Expect to hear from us within 24 hours{preferredContact === 'phone' ? ' at your specified time' : ''}.
+                  </p>
+                </div>
+
+                <div className="text-sm text-secondary-500/80 italic mb-8">
+                  Need immediate assistance? Email us at{' '}
+                  <a href="mailto:info@mindandmetricsbranding.com" className="text-secondary-400 hover:underline">
+                    info@mindandmetricsbranding.com
+                  </a>
+                </div>
+
+                <motion.button
+                  onClick={() => window.location.href = '/'}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onMouseEnter={() => setIsHomeHovering(true)}
+                  onMouseLeave={() => setIsHomeHovering(false)}
+                  className="px-8 py-3 bg-secondary-400 text-white font-medium
+                           rounded-lg flex items-center justify-center space-x-2 mx-auto
+                           border-2 border-secondary-400 transition-all duration-300
+                           hover:bg-transparent hover:text-secondary-400"
+                >
+                  <span className="w-[120px] text-center">
+                    <ScrambleText text="Return to Home" isHovering={isHomeHovering} />
+                  </span>
+                  <HiArrowRight className="w-5 h-5" />
+                </motion.button>
               </div>
             )}
           </motion.div>
