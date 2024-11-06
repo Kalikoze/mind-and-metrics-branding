@@ -4,8 +4,10 @@ import { HiArrowRight, HiExclamationCircle, HiArrowLeft } from 'react-icons/hi2'
 import ScrambleText from '@/components/ScrambleText';
 import { useState, useEffect } from 'react';
 import { usePhoneFormat } from '@/hooks/usePhoneFormat';
+import { toast } from 'react-toastify';
+import { CustomToast } from '@/components/Notifications/CustomToast';
 
-interface ContactFormData {
+export interface ContactFormData {
   firstName: string;
   lastName: string;
   email: string;
@@ -20,12 +22,13 @@ interface ContactFormData {
 }
 
 interface ContactFormProps {
+  answers: Record<string, string[]>;
+  selectedBranches: string[];
   onSubmit: (data: ContactFormData) => void;
   onBack: () => void;
-  loading?: boolean;
 }
 
-export default function ContactForm({ onSubmit, onBack, loading }: ContactFormProps) {
+export default function ContactForm({ answers, selectedBranches, onSubmit, onBack }: ContactFormProps) {
   const [isHovering, setIsHovering] = useState(false);
   const [isBackHovering, setIsBackHovering] = useState(false);
   const { handlePhoneChange } = usePhoneFormat();
@@ -39,6 +42,7 @@ export default function ContactForm({ onSubmit, onBack, loading }: ContactFormPr
     mode: 'onSubmit',
     reValidateMode: 'onChange'
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const preferredContact = watch('preferredContact');
 
@@ -48,6 +52,48 @@ export default function ContactForm({ onSubmit, onBack, loading }: ContactFormPr
       trigger('bestTimeToContact');
     }
   }, [preferredContact, trigger, isSubmitted]);
+
+  const onSubmitForm = async (formData: ContactFormData) => {
+    if (isLoading) return;
+    
+    try {
+      setIsLoading(true);
+      const response = await fetch('/api/quiz-submission', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          answers,
+          selectedBranches,
+          contactInfo: formData
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (!data.success) {
+        throw new Error(data.message || 'Failed to submit form');
+      }
+
+      toast(() => CustomToast({
+        type: 'success',
+        message: 'Form Submitted Successfully',
+        description: 'We\'ll be in touch with you shortly.'
+      }));
+
+      await onSubmit(formData);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast(() => CustomToast({
+        type: 'error',
+        message: 'Submission Failed',
+        description: error instanceof Error ? error.message : 'Please try again later'
+      }));
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="bg-white rounded-lg p-8 shadow-sm w-full">
@@ -72,7 +118,7 @@ export default function ContactForm({ onSubmit, onBack, loading }: ContactFormPr
       )}
 
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmitForm)}
         className="space-y-8"
         aria-label="Contact information form"
         noValidate
@@ -369,24 +415,29 @@ export default function ContactForm({ onSubmit, onBack, loading }: ContactFormPr
 
           <motion.button
             type="submit"
-            disabled={loading || (isSubmitted && Object.keys(errors).length > 0)}
-            whileHover={!loading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 1.05 } : undefined}
-            whileTap={!loading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 0.95 } : undefined}
+            disabled={isLoading || (isSubmitted && Object.keys(errors).length > 0)}
+            whileHover={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 1.05 } : undefined}
+            whileTap={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 0.95 } : undefined}
             className={`px-8 py-3 font-medium rounded-lg flex items-center space-x-3 border-2
-                     transition-all duration-300 ${loading || (isSubmitted && Object.keys(errors).length > 0)
-                ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
-                : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'
-              }`}
+                     transition-all duration-300 ${
+                       isLoading || (isSubmitted && Object.keys(errors).length > 0)
+                         ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
+                         : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'
+                     }`}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
           >
-            <span className="w-[80px] text-center">
+            <span className="w-[80px] text-center relative">
               <ScrambleText
-                text={loading ? "Sending..." : "Submit"}
-                isHovering={isHovering && !loading && (!isSubmitted || Object.keys(errors).length === 0)}
+                text={isLoading ? "Sending..." : "Submit"}
+                isHovering={isHovering && !isLoading && (!isSubmitted || Object.keys(errors).length === 0)}
               />
             </span>
-            <HiArrowRight className="w-5 h-5 shrink-0" />
+            {isLoading ? (
+              <div className="w-5 h-5 border-2 border-neutral-300 border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <HiArrowRight className="w-5 h-5 shrink-0" />
+            )}
           </motion.button>
         </div>
       </form>

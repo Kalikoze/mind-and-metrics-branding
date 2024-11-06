@@ -3,6 +3,7 @@ import MainNav from "@/components/MainNav";
 import './globals.css'
 import { gfsDidot, jost } from './fonts'
 import Footer from "@/components/Footer";
+import CustomToastContainer from '@/components/Notifications/ToastContainer';
 
 export const metadata: Metadata = {
   title: "Mind & Metrics Branding",
@@ -19,6 +20,7 @@ export default function RootLayout({
         <MainNav />
         {children}
         <Footer />
+        <CustomToastContainer />
       </body>
     </html>
   )
