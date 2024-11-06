@@ -13,19 +13,19 @@ interface QuizQuestionProps {
   editingPrimaryWithChanges?: boolean;
 }
 
-export default function QuizQuestion({ 
-  question, 
-  selectedAnswers, 
-  onAnswer, 
-  onBack, 
+export default function QuizQuestion({
+  question,
+  selectedAnswers,
+  onAnswer,
+  onBack,
   showBack,
   isEditing,
   onReturnToSummary,
-  editingPrimaryWithChanges 
+  editingPrimaryWithChanges
 }: QuizQuestionProps) {
   const isSelected = (value: string) => selectedAnswers.includes(value);
   const canContinue = question.skipable || selectedAnswers.length > 0;
-  
+
   return (
     <div className="bg-white rounded-lg p-8 shadow-sm w-full">
       <h2 className="font-serif text-2xl text-secondary-400 mb-6">
@@ -37,8 +37,8 @@ export default function QuizQuestion({
         )}
         {question.skipable && (
           <span className="block text-lg italic text-secondary-300 mt-1">
-            {question.multiSelect 
-              ? "(Optional - Select all that apply)" 
+            {question.multiSelect
+              ? "(Optional - Select all that apply)"
               : "(Optional - Click continue to skip)"
             }
           </span>
@@ -49,7 +49,7 @@ export default function QuizQuestion({
           </span>
         )}
       </h2>
-      
+
       <div className="grid gap-4">
         {question.options.map((option: Option, index: number) => (
           <QuestionOption

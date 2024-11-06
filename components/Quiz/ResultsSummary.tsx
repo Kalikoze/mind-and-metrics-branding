@@ -23,10 +23,15 @@ export default function ResultsSummary({
 
   return (
     <div className="bg-white rounded-lg p-8 shadow-sm w-full">
-      <h2 className="font-serif text-2xl text-secondary-400 mb-6">
-        Your Growth Strategy Summary
-      </h2>
-      
+      <div className="mb-8">
+        <h1 className="font-serif text-3xl text-secondary-400 mb-4">
+          Your Growth Strategy Summary
+        </h1>
+        <h2 className="text-secondary-500/80 text-sm italic">
+          Review your selections and estimated investment
+        </h2>
+      </div>
+
       <div className="space-y-6">
         {Object.entries(answers).map(([questionId, selectedValues]) => {
           const question = getQuestionById(questionId, selectedBranches);
@@ -163,8 +168,8 @@ export default function ResultsSummary({
                      border-2 border-secondary-400 transition-all duration-300 
                      hover:bg-transparent hover:text-secondary-400"
           >
-            <span className="w-[140px] text-center">
-              <ScrambleText text="Confirm & Submit" isHovering={isHovering} />
+            <span className="w-[200px] text-center">
+              <ScrambleText text="Continue to Contact Info" isHovering={isHovering} />
             </span>
             <HiArrowRight className="w-5 h-5 shrink-0" />
           </motion.button>
