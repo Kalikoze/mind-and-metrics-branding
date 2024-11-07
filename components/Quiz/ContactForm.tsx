@@ -70,10 +70,26 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
         }),
       });
 
+      // Check if response is ok and content-type is json
+      const contentType = response.headers.get('content-type');
+      if (!response.ok) {
+        if (contentType && contentType.includes('application/json')) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to submit form');
+        } else {
+          throw new Error('Our system is currently experiencing issues. Please try again in a few minutes.');
+        }
+      }
+
+      // Ensure we have JSON response
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Received an invalid response from the server. Please try again.');
+      }
+
       const data = await response.json();
       
       if (!data.success) {
-        throw new Error(data.message || 'Failed to submit form');
+        throw new Error(data.message || 'Unable to submit form. Please try again.');
       }
 
       toast(() => CustomToast({
@@ -88,7 +104,9 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
       toast(() => CustomToast({
         type: 'error',
         message: 'Submission Failed',
-        description: error instanceof Error ? error.message : 'Please try again later'
+        description: error instanceof Error 
+          ? error.message 
+          : 'We\'re having trouble submitting your form. Please try again or contact support if the issue persists.'
       }));
     } finally {
       setIsLoading(false);

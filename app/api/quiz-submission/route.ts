@@ -118,7 +118,10 @@ export async function POST(request: Request) {
 
     if (!answers || !selectedBranches || !contactInfo) {
       return NextResponse.json(
-        { success: false, message: 'Missing required data' },
+        { 
+          success: false, 
+          message: 'Please ensure all required information is provided before submitting.' 
+        },
         { status: 400 }
       );
     }
@@ -128,7 +131,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { 
           success: false, 
-          message: 'Invalid contact information',
+          message: 'Please review and correct the highlighted fields.',
           errors: validation.errors 
         },
         { status: 400 }
@@ -172,15 +175,27 @@ export async function POST(request: Request) {
       }
     };
     console.log(msg);
-    await sgMail.send(msg);
-    return NextResponse.json({ success: true });
+    try {
+      await sgMail.send(msg);
+      return NextResponse.json({ success: true });
+    } catch (error) {
+      console.error('SendGrid error:', error);
+      return NextResponse.json(
+        { 
+          success: false, 
+          message: 'Unable to send your submission at this time. Please try again in a few minutes or contact support.' 
+        },
+        { status: 500 }
+      );
+    }
 
   } catch (error) {
-    console.error('Error sending email:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-
+    console.error('Error processing submission:', error);
     return NextResponse.json(
-      { success: false, message: errorMessage },
+      { 
+        success: false, 
+        message: 'We encountered an unexpected error. Please try again or contact our support team for assistance.' 
+      },
       { status: 500 }
     );
   }
