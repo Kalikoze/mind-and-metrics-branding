@@ -70,10 +70,26 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
         }),
       });
 
+      // Check if response is ok and content-type is json
+      const contentType = response.headers.get('content-type');
+      if (!response.ok) {
+        if (contentType && contentType.includes('application/json')) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to submit form');
+        } else {
+          throw new Error('Our system is currently experiencing issues. Please try again in a few minutes.');
+        }
+      }
+
+      // Ensure we have JSON response
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Received an invalid response from the server. Please try again.');
+      }
+
       const data = await response.json();
       
       if (!data.success) {
-        throw new Error(data.message || 'Failed to submit form');
+        throw new Error(data.message || 'Unable to submit form. Please try again.');
       }
 
       toast(() => CustomToast({
@@ -88,7 +104,9 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
       toast(() => CustomToast({
         type: 'error',
         message: 'Submission Failed',
-        description: error instanceof Error ? error.message : 'Please try again later'
+        description: error instanceof Error 
+          ? error.message 
+          : 'We\'re having trouble submitting your form. Please try again or contact support if the issue persists.'
       }));
     } finally {
       setIsLoading(false);
@@ -107,11 +125,15 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
       </div>
 
       {isSubmitted && Object.keys(errors).length > 0 && (
-        <div className="p-4 bg-red-50 rounded-lg mb-6" role="alert">
+        <div 
+          className="p-4 bg-red-50 rounded-lg mb-6" 
+          role="alert"
+          data-cy="error-summary"
+        >
           <p className="text-red-500 font-medium mb-2">Please correct the following errors:</p>
           <ul className="list-disc list-inside text-sm text-red-500">
             {Object.entries(errors).map(([field, error]) => (
-              <li key={field}>{error.message}</li>
+              <li key={field} data-cy={`error-summary-${field}`}>{error.message}</li>
             ))}
           </ul>
         </div>
@@ -121,6 +143,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
         onSubmit={handleSubmit(onSubmitForm)}
         className="space-y-8"
         aria-label="Contact information form"
+        data-cy="contact-form"
         noValidate
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
@@ -133,12 +156,13 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 required: 'First name is required',
                 maxLength: { value: 20, message: 'First name is too long' }
               })}
+              data-cy="input-first-name"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="John"
             />
             {isSubmitted && errors.firstName && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-firstName">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.firstName.message}
               </p>
@@ -154,12 +178,13 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 required: 'Last name is required',
                 maxLength: { value: 20, message: 'Last name is too long' }
               })}
+              data-cy="input-last-name"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="Doe"
             />
             {isSubmitted && errors.lastName && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-lastName">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.lastName.message}
               </p>
@@ -172,6 +197,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             </label>
             <input
               {...register('companyName')}
+              data-cy="input-company"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="Company Inc."
@@ -190,12 +216,13 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                   message: 'Invalid email address'
                 }
               })}
+              data-cy="input-email"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="john@example.com"
             />
             {isSubmitted && errors.email && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-email">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.email.message}
               </p>
@@ -225,9 +252,10 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="(555) 555-5555"
               maxLength={14}
+              data-cy="input-phone"
             />
             {isSubmitted && errors.phone && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-phone">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.phone.message}
               </p>
@@ -257,7 +285,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               <option value="afternoon">Afternoon (12pm - 4pm)</option>
             </select>
             {isSubmitted && errors.bestTimeToContact && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-bestTimeToContact">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.bestTimeToContact.message}
               </p>
@@ -276,6 +304,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 {...register('preferredContact', { required: 'Please select a contact method' })}
                 value="email"
                 className="mr-2"
+                data-cy="input-preferred-contact-email"
               />
               Email
             </label>
@@ -285,12 +314,13 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 {...register('preferredContact', { required: 'Please select a contact method' })}
                 value="phone"
                 className="mr-2"
+                data-cy="input-preferred-contact-phone"
               />
               Phone
             </label>
           </div>
           {isSubmitted && errors.preferredContact && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-preferredContact">
               <HiExclamationCircle className="w-4 h-4 mr-1" />
               {errors.preferredContact.message}
             </p>
@@ -373,6 +403,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
           <label className="flex items-start">
             <input
               type="checkbox"
+              data-cy="privacy-policy-checkbox"
               {...register('privacyPolicy', {
                 required: 'Please accept the privacy policy to proceed'
               })}
@@ -388,7 +419,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             </span>
           </label>
           {isSubmitted && errors.privacyPolicy && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-privacyPolicy">
               <HiExclamationCircle className="w-4 h-4 mr-1" />
               {errors.privacyPolicy.message}
             </p>
@@ -415,6 +446,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
 
           <motion.button
             type="submit"
+            data-cy="submit-form"
             disabled={isLoading || (isSubmitted && Object.keys(errors).length > 0)}
             whileHover={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 1.05 } : undefined}
             whileTap={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 0.95 } : undefined}

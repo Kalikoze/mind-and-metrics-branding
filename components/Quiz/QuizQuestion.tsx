@@ -27,41 +27,61 @@ export default function QuizQuestion({
   const canContinue = question.skipable || selectedAnswers.length > 0;
 
   return (
-    <div className="bg-white rounded-lg p-8 shadow-sm w-full">
-      <h2 className="font-serif text-2xl text-secondary-400 mb-6">
-        {question.text}
+    <div className="bg-white rounded-lg p-8 shadow-sm w-full" data-cy="question-container">
+      <div className="mb-6">
+        <h2 className="font-serif text-2xl text-secondary-400" data-cy="question-title">
+          {question.text}
+        </h2>
+        
         {editingPrimaryWithChanges && (
-          <span className="block text-sm text-amber-600 mt-2">
+          <div 
+            className="text-sm text-amber-600 mt-2"
+            data-cy="editing-warning"
+          >
             Note: Changing your selections here will require answering new questions for your selected services.
-          </span>
+          </div>
         )}
+        
         {question.skipable && (
-          <span className="block text-lg italic text-secondary-300 mt-1">
+          <div 
+            className="text-lg italic text-secondary-300 mt-1"
+            data-cy="skipable-note"
+          >
             {question.multiSelect
               ? "(Optional - Select all that apply)"
               : "(Optional - Click continue to skip)"
             }
-          </span>
+          </div>
         )}
+        
         {!question.skipable && question.multiSelect && (
-          <span className="block text-lg italic text-secondary-300 mt-1">
+          <div 
+            className="text-lg italic text-secondary-300 mt-1"
+            data-cy="multiselect-note"
+          >
             (Select all that apply)
-          </span>
+          </div>
         )}
-      </h2>
+      </div>
 
-      <div className="grid gap-4">
+      <div 
+        className="grid gap-4" 
+        data-cy="options-container"
+        role="radiogroup"
+        aria-label={question.text}
+      >
         {question.options.map((option: Option, index: number) => (
           <QuestionOption
             key={index}
             option={option}
             isSelected={isSelected(option.value)}
             onSelect={(value) => onAnswer(question.id, value)}
+            index={index}
           />
         ))}
       </div>
 
-      <div className="h-[76px] mt-8">
+      <div className="h-[76px] mt-8" data-cy="navigation-container">
         <NavigationButtons
           showBack={showBack}
           canContinue={canContinue}
