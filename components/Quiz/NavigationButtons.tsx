@@ -43,6 +43,7 @@ export default function NavigationButtons({
                        rounded-lg flex items-center space-x-2 border-2 border-secondary-400
                        transition-all duration-300 hover:bg-secondary-400 
                        hover:text-white"
+              data-cy="back-button"
             >
               <HiArrowLeft className="w-5 h-5 shrink-0" />
               <span className="w-[80px] text-center">
@@ -72,6 +73,7 @@ export default function NavigationButtons({
                          ? 'bg-transparent text-secondary-400 border-secondary-400 hover:bg-secondary-400 hover:text-white'
                          : 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
                      }`}
+            data-cy="return-to-summary"
           >
             <HiListBullet className="w-5 h-5 shrink-0" />
             <span className="w-[140px] text-center">
@@ -95,6 +97,7 @@ export default function NavigationButtons({
                      rounded-lg flex items-center space-x-2 border-2 border-secondary-400
                      transition-all duration-300 hover:bg-transparent 
                      hover:text-secondary-400"
+            data-cy="continue-button"
           >
             <span className="w-[80px] text-center">
               <ScrambleText text="Continue" isHovering={isHovering} />

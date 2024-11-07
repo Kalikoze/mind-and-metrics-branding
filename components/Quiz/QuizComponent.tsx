@@ -241,15 +241,15 @@ export default function QuizComponent() {
   };
 
   return (
-    <section className="relative overflow-hidden py-20 min-h-screen flex items-center justify-center">
+    <section className="relative overflow-hidden py-20 min-h-screen flex items-center justify-center" data-cy="quiz-section">
       <CircuitOverlay />
       <div className="relative w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {!showingSummary && !showingContactForm && !isComplete && (
           <div className="text-center mb-12">
-            <h1 className="font-serif text-4xl text-secondary-400 mb-4">
+            <h1 className="font-serif text-4xl text-secondary-400 mb-4" data-cy="quiz-title">
               Let&apos;s Build Your Growth Strategy
             </h1>
-            <p className="text-secondary-500 text-lg">
+            <p className="text-secondary-500 text-lg" data-cy="quiz-subtitle">
               Answer a few questions to help us understand your needs
             </p>
           </div>
@@ -292,28 +292,32 @@ export default function QuizComponent() {
                 />
               )
             ) : (
-              <div className="text-center p-8 bg-white rounded-lg shadow-sm max-w-2xl mx-auto">
+              <div className="text-center p-8 bg-white rounded-lg shadow-sm max-w-2xl mx-auto" data-cy="completion-view">
                 <div className="mb-8">
-                  <h1 className="font-serif text-3xl text-secondary-400 mb-4">
+                  <h1 className="font-serif text-3xl text-secondary-400 mb-4" data-cy="completion-title">
                     Thank You for Choosing Us
                   </h1>
-                  <h2 className="text-secondary-500 text-lg">
+                  <h2 className="text-secondary-500 text-lg" data-cy="completion-subtitle">
                     We&apos;re excited to help grow your business
                   </h2>
                 </div>
 
                 <div className="mb-8">
-                  <p className="text-secondary-500 mb-3">
+                  <p className="text-secondary-500 mb-3" data-cy="completion-message">
                     We&apos;ll review your information and craft a customized growth strategy for your business.
                   </p>
-                  <p className="text-secondary-500 text-sm">
+                  <p className="text-secondary-500 text-sm" data-cy="completion-timeline">
                     Expect to hear from us within 24 hours{preferredContact === 'phone' ? ' at your specified time' : ''}.
                   </p>
                 </div>
 
-                <div className="text-sm text-secondary-500/80 italic mb-8">
+                <div className="text-sm text-secondary-500/80 italic mb-8" data-cy="completion-contact">
                   Need immediate assistance? Email us at{' '}
-                  <a href="mailto:info@mindandmetricsbranding.com" className="text-secondary-400 hover:underline">
+                  <a 
+                    href="mailto:info@mindandmetricsbranding.com" 
+                    className="text-secondary-400 hover:underline"
+                    data-cy="completion-email"
+                  >
                     info@mindandmetricsbranding.com
                   </a>
                 </div>
@@ -328,6 +332,7 @@ export default function QuizComponent() {
                            rounded-lg flex items-center justify-center space-x-2 mx-auto
                            border-2 border-secondary-400 transition-all duration-300
                            hover:bg-transparent hover:text-secondary-400"
+                  data-cy="return-home-button"
                 >
                   <span className="w-[120px] text-center">
                     <ScrambleText text="Return to Home" isHovering={isHomeHovering} />
@@ -339,7 +344,7 @@ export default function QuizComponent() {
           </motion.div>
         </AnimatePresence>
 
-        <div className="mt-8 flex justify-center">
+        <div className="mt-8 flex justify-center" data-cy="progress-indicators">
           {Array.from({ length: totalQuestions }).map((_, index) => (
             <div
               key={index}

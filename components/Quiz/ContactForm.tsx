@@ -121,6 +121,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
         onSubmit={handleSubmit(onSubmitForm)}
         className="space-y-8"
         aria-label="Contact information form"
+        data-cy="contact-form"
         noValidate
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
@@ -133,6 +134,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 required: 'First name is required',
                 maxLength: { value: 20, message: 'First name is too long' }
               })}
+              data-cy="input-first-name"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="John"
@@ -154,6 +156,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 required: 'Last name is required',
                 maxLength: { value: 20, message: 'Last name is too long' }
               })}
+              data-cy="input-last-name"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="Doe"
@@ -172,6 +175,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             </label>
             <input
               {...register('companyName')}
+              data-cy="input-company"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="Company Inc."
@@ -190,6 +194,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                   message: 'Invalid email address'
                 }
               })}
+              data-cy="input-email"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="john@example.com"
@@ -225,6 +230,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="(555) 555-5555"
               maxLength={14}
+              data-cy="input-phone"
             />
             {isSubmitted && errors.phone && (
               <p className="mt-1 text-red-500 text-sm flex items-center">
@@ -276,6 +282,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 {...register('preferredContact', { required: 'Please select a contact method' })}
                 value="email"
                 className="mr-2"
+                data-cy="input-preferred-contact-email"
               />
               Email
             </label>
@@ -373,6 +380,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
           <label className="flex items-start">
             <input
               type="checkbox"
+              data-cy="privacy-policy-checkbox"
               {...register('privacyPolicy', {
                 required: 'Please accept the privacy policy to proceed'
               })}
@@ -415,6 +423,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
 
           <motion.button
             type="submit"
+            data-cy="submit-form"
             disabled={isLoading || (isSubmitted && Object.keys(errors).length > 0)}
             whileHover={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 1.05 } : undefined}
             whileTap={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 0.95 } : undefined}
