@@ -125,11 +125,15 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
       </div>
 
       {isSubmitted && Object.keys(errors).length > 0 && (
-        <div className="p-4 bg-red-50 rounded-lg mb-6" role="alert">
+        <div 
+          className="p-4 bg-red-50 rounded-lg mb-6" 
+          role="alert"
+          data-cy="error-summary"
+        >
           <p className="text-red-500 font-medium mb-2">Please correct the following errors:</p>
           <ul className="list-disc list-inside text-sm text-red-500">
             {Object.entries(errors).map(([field, error]) => (
-              <li key={field}>{error.message}</li>
+              <li key={field} data-cy={`error-summary-${field}`}>{error.message}</li>
             ))}
           </ul>
         </div>
@@ -158,7 +162,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               placeholder="John"
             />
             {isSubmitted && errors.firstName && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-firstName">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.firstName.message}
               </p>
@@ -180,7 +184,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               placeholder="Doe"
             />
             {isSubmitted && errors.lastName && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-lastName">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.lastName.message}
               </p>
@@ -218,7 +222,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               placeholder="john@example.com"
             />
             {isSubmitted && errors.email && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-email">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.email.message}
               </p>
@@ -251,7 +255,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               data-cy="input-phone"
             />
             {isSubmitted && errors.phone && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-phone">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.phone.message}
               </p>
@@ -281,7 +285,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               <option value="afternoon">Afternoon (12pm - 4pm)</option>
             </select>
             {isSubmitted && errors.bestTimeToContact && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-bestTimeToContact">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.bestTimeToContact.message}
               </p>
@@ -310,12 +314,13 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 {...register('preferredContact', { required: 'Please select a contact method' })}
                 value="phone"
                 className="mr-2"
+                data-cy="input-preferred-contact-phone"
               />
               Phone
             </label>
           </div>
           {isSubmitted && errors.preferredContact && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-preferredContact">
               <HiExclamationCircle className="w-4 h-4 mr-1" />
               {errors.preferredContact.message}
             </p>
@@ -414,7 +419,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             </span>
           </label>
           {isSubmitted && errors.privacyPolicy && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-privacyPolicy">
               <HiExclamationCircle className="w-4 h-4 mr-1" />
               {errors.privacyPolicy.message}
             </p>

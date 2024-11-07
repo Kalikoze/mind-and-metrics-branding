@@ -367,6 +367,119 @@ describe('Get Started Page', () => {
         .should('exist')
         .and('not.be.disabled');
     });
+
+    it('should handle form validation errors correctly', () => {
+      cy.wait(500);
+      cy.get('[data-cy="option-0"]').click();
+      cy.get('[data-cy="continue-button"]').click();
+
+      commonQuestions.forEach(() => {
+        cy.wait(500);
+        cy.get('[data-cy="option-1"]').click();
+        cy.get('[data-cy="continue-button"]').click();
+      });
+
+      branchQuestions.branding.forEach(question => {
+        cy.wait(500);
+        if (!question.skipable) {
+          cy.get('[data-cy="option-2"]').click();
+        }
+        cy.get('[data-cy="continue-button"]').click();
+      });
+
+      cy.get('[data-cy="confirm-selections"]').click();
+
+      cy.get('[data-cy="contact-form"]').within(() => {
+        cy.get('[data-cy="submit-form"]').click();
+      });
+
+      cy.get('[data-cy="error-summary"]')
+        .should('exist')
+        .within(() => {
+          cy.get('[data-cy="error-summary-firstName"]')
+            .should('exist')
+            .and('contain.text', 'First name is required');
+          cy.get('[data-cy="error-summary-lastName"]')
+            .should('exist')
+            .and('contain.text', 'Last name is required');
+          cy.get('[data-cy="error-summary-email"]')
+            .should('exist')
+            .and('contain.text', 'Email is required');
+          cy.get('[data-cy="error-summary-preferredContact"]')
+            .should('exist')
+            .and('contain.text', 'Please select a contact method');
+          cy.get('[data-cy="error-summary-privacyPolicy"]')
+            .should('exist')
+            .and('contain.text', 'Please accept the privacy policy to proceed');
+        });
+
+      cy.get('[data-cy="contact-form"]').within(() => {
+        cy.get('[data-cy="error-firstName"]')
+          .should('exist')
+          .and('contain.text', 'First name is required');
+        
+        cy.get('[data-cy="error-lastName"]')
+          .should('exist')
+          .and('contain.text', 'Last name is required');
+        
+        cy.get('[data-cy="error-email"]')
+          .should('exist')
+          .and('contain.text', 'Email is required');
+
+        cy.get('[data-cy="submit-form"]').should('be.disabled');
+      });
+
+      cy.get('[data-cy="contact-form"]').within(() => {
+        cy.get('[data-cy="input-first-name"]').type('John');
+        cy.get('[data-cy="input-last-name"]').type('Doe');
+        cy.get('[data-cy="input-email"]').type('invalid-email');
+        cy.get('[data-cy="input-preferred-contact-email"]').click();
+        cy.get('[data-cy="privacy-policy-checkbox"]').click();
+        
+        cy.get('[data-cy="submit-form"]')
+          .should('be.disabled');
+
+        cy.get('[data-cy="error-email"]')
+          .should('exist')
+          .and('contain.text', 'Invalid email address');
+      });
+
+      cy.get('[data-cy="contact-form"]').within(() => {
+        cy.get('[data-cy="input-email"]').clear().type('john@example.com');        
+        cy.get('[data-cy="submit-form"]')
+          .should('not.be.disabled')
+
+        cy.get('[data-cy="input-preferred-contact-phone"]').click();
+        cy.get('[data-cy="submit-form"]')
+          .should('be.disabled');
+ 
+        cy.get('[data-cy="error-phone"]')
+          .should('exist')
+          .and('contain.text', 'Phone number is required when phone is selected as contact method');
+
+        cy.get('[data-cy="error-bestTimeToContact"]')
+          .should('exist')
+          .and('contain.text', 'Please select your preferred contact time');
+
+        cy.get('[data-cy="input-phone"]').type('123456');
+        
+        cy.get('[data-cy="submit-form"]')
+          .should('be.disabled')
+
+        cy.get('[data-cy="error-phone"]')
+          .should('exist')
+          .and('contain.text', 'Please enter a valid phone number');
+      });
+
+      cy.get('[data-cy="contact-form"]').within(() => {
+        cy.get('[data-cy="input-phone"]').clear().type('402-555-1234');
+        cy.get('#bestTimeToContact').select('morning');
+        
+        cy.get('[data-cy="submit-form"]')
+          .should('not.be.disabled');
+        cy.get('[data-cy^="error-"]').should('not.exist');
+      });
+    });
   });
 
   context('Accessibility Checks', () => {
