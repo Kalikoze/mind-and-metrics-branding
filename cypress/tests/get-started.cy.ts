@@ -215,34 +215,157 @@ describe('Get Started Page', () => {
     });
 
     it('should handle multiple path selections and editing', () => {
-      cy.get('[data-cy="option-0"]').click(); // Branding
+      const websitePath = branchQuestions.website;
+      
+      // Initial path selection
+      cy.wait(500);
+      cy.get('[data-cy="question-title"]')
+        .should('exist')
+        .and('have.text', primaryQuestion.text);
       cy.get('[data-cy="option-1"]').click(); // Website
       cy.get('[data-cy="continue-button"]').click();
 
-      cy.get('[data-cy="option-1"]').click(); // Growing Business
-      cy.get('[data-cy="continue-button"]').click();
-      cy.get('[data-cy="option-1"]').click(); // Strategic Investment
-      cy.get('[data-cy="continue-button"]').click();
+      // Answer common questions
+      commonQuestions.forEach((question) => {
+        cy.wait(500);
+        cy.get('[data-cy="question-title"]')
+          .should('exist')
+          .and('have.text', question.text);
 
-      cy.get('[data-cy="option-1"]').click(); // Standard Identity Package
-      cy.get('[data-cy="continue-button"]').click();
-      cy.get('[data-cy="continue-button"]').click(); // Skip optional
-      cy.get('[data-cy="continue-button"]').click(); // Skip optional
+        question.options.forEach((option, optionIndex) => {
+          cy.get(`[data-cy="option-${optionIndex}"]`).within(() => {
+            cy.get('[data-cy="option-label"]').should('have.text', option.label);
+            if (option.description) {
+              cy.get('[data-cy="option-description"]').should('have.text', option.description);
+            }
+          });
+        });
 
-      cy.get('[data-cy="option-1"]').click(); // Professional Business Website
-      cy.get('[data-cy="continue-button"]').click();
-      cy.get('[data-cy="option-0"]').click(); // E-commerce Store
-      cy.get('[data-cy="continue-button"]').click();
+        cy.get('[data-cy="option-1"]').click();
+        cy.get('[data-cy="continue-button"]').click();
+      });
 
-      cy.get('[data-cy="results-summary"]').should('exist');
-      cy.get('[data-cy="edit-selections"]').click();
+      websitePath.forEach(question => {
+        cy.wait(500);
+        cy.get('[data-cy="question-title"]')
+          .should('exist')
+          .and('have.text', question.text);
 
-      cy.get('[data-cy="option-2"]').click(); // Add Marketing
-      cy.get('[data-cy="continue-button"]').click();
+        question.options.forEach((option, optionIndex) => {
+          cy.get(`[data-cy="option-${optionIndex}"]`).within(() => {
+            cy.get('[data-cy="option-label"]').should('have.text', option.label);
+            if (option.description) {
+              cy.get('[data-cy="option-description"]').should('have.text', option.description);
+            }
+          });
+        });
 
-      cy.get('[data-cy="results-summary"]')
+        cy.get('[data-cy="option-1"]').click();
+        cy.get('[data-cy="continue-button"]').click();
+      });
+
+      cy.get('[data-cy="summary-title"]')
         .should('exist')
-        .and('contain', 'Marketing');
+        .and('have.text', 'Your Growth Strategy Summary');
+
+      cy.get('[data-cy="question-summary-primary_need"]').within(() => {
+        cy.get('[data-cy="question-text-primary_need"]')
+          .should('exist')
+          .and('have.text', primaryQuestion.text);
+        cy.get('[data-cy="selected-values-primary_need"]').within(() => {
+          cy.get('[data-cy="selected-value-primary_need-website"]')
+            .should('exist')
+            .and('contain.text', primaryQuestion.options[1].label);
+        });
+      });
+
+      cy.get(`[data-cy="edit-button-${commonQuestions[0].id}"]`).click();
+      cy.get('[data-cy="option-0"]').click(); // Change to first option
+      cy.get('[data-cy="return-to-summary"]').click();
+
+      cy.get('[data-cy="summary-title"]')
+        .should('exist')
+        .and('have.text', 'Your Growth Strategy Summary');
+
+      cy.get(`[data-cy="question-summary-${commonQuestions[0].id}"]`).within(() => {
+        cy.get(`[data-cy="selected-values-${commonQuestions[0].id}"]`)
+          .should('exist')
+          .and('contain.text', commonQuestions[0].options[0].label);
+      });
+
+      cy.get('[data-cy="investment-summary"]').should('exist');
+      cy.get('[data-cy="investment-title"]')
+        .should('exist')
+        .and('have.text', 'Investment Summary:');
+      cy.get('[data-cy="initial-investment"]').should('exist');
+      cy.get('[data-cy="investment-disclaimer"]')
+        .should('exist')
+        .and('contain.text', 'This is an estimated investment based on your selections');
+    });
+
+
+    it('should handle primary question editing with new path requirements', () => {
+      const websitePath = branchQuestions.website;
+      // Initial path selection - start with just Website
+      cy.wait(500);
+      cy.get('[data-cy="question-title"]')
+        .should('exist')
+        .and('have.text', primaryQuestion.text);
+      cy.get('[data-cy="option-1"]').click();
+      cy.get('[data-cy="continue-button"]').click();
+    
+      commonQuestions.forEach((question) => {
+        cy.wait(500);
+        cy.get('[data-cy="question-title"]')
+          .should('exist')
+          .and('have.text', question.text);
+
+        question.options.forEach((option, optionIndex) => {
+          cy.get(`[data-cy="option-${optionIndex}"]`).within(() => {
+            cy.get('[data-cy="option-label"]').should('have.text', option.label);
+            if (option.description) {
+              cy.get('[data-cy="option-description"]').should('have.text', option.description);
+            }
+          });
+        });
+
+        cy.get('[data-cy="option-1"]').click();
+        cy.get('[data-cy="continue-button"]').click();
+      });
+
+      websitePath.forEach(question => {
+        cy.wait(500);
+        cy.get('[data-cy="question-title"]')
+          .should('exist')
+          .and('have.text', question.text);
+
+        question.options.forEach((option, optionIndex) => {
+          cy.get(`[data-cy="option-${optionIndex}"]`).within(() => {
+            cy.get('[data-cy="option-label"]').should('have.text', option.label);
+            if (option.description) {
+              cy.get('[data-cy="option-description"]').should('have.text', option.description);
+            }
+          });
+        });
+
+        cy.get('[data-cy="option-1"]').click();
+        cy.get('[data-cy="continue-button"]').click();
+      });
+    
+      cy.get('[data-cy="edit-button-primary_need"]').click();
+      cy.get('[data-cy="option-2"]').click();
+    
+      cy.get('[data-cy="return-to-summary"]')
+        .should('exist')
+        .and('be.disabled')
+
+      cy.get('[data-cy="editing-warning"]')
+        .should('exist')
+        .and('contain.text', 'Note: Changing your selections here will require answering new questions for your selected services.');
+
+      cy.get('[data-cy="continue-button"]')
+        .should('exist')
+        .and('not.be.disabled');
     });
   });
 
@@ -252,25 +375,66 @@ describe('Get Started Page', () => {
     });
 
     it('should pass accessibility checks', () => {
-      cy.wait(1000);
+      cy.wait(500);
       cy.checkA11y();
     });
 
     it('should maintain accessibility through quiz flow', () => {
-      // Test accessibility at each major step
+      const brandingPath = branchQuestions.branding;
+
+      cy.wait(500);
+      cy.checkA11y();
+
       cy.get('[data-cy="option-0"]').click();
       cy.get('[data-cy="continue-button"]').click();
-      cy.wait(1000);
+      cy.wait(500);
       cy.checkA11y();
 
-      cy.get('[data-cy="option-1"]').click();
-      cy.get('[data-cy="continue-button"]').click();
-      cy.wait(1000);
+      commonQuestions.forEach((question) => {
+        cy.wait(500);
+        cy.get('[data-cy="option-1"]').click();
+        cy.get('[data-cy="continue-button"]').click();
+        cy.wait(500);
+        cy.checkA11y();
+      });
+
+      brandingPath.forEach(question => {
+        cy.wait(500);
+        if (!question.skipable) {
+          cy.get('[data-cy="option-2"]').click();
+        }
+        cy.get('[data-cy="continue-button"]').click();
+        cy.wait(500);
+        cy.checkA11y();
+      });
+
       cy.checkA11y();
 
-      // Continue testing through summary and contact form
       cy.get('[data-cy="confirm-selections"]').click();
       cy.wait(1000);
+      cy.checkA11y();
+
+      cy.intercept('POST', '/api/quiz-submission', (req) => {
+        req.reply({
+          statusCode: 200,
+          body: { success: true }
+        });
+      }).as('quizSubmission');
+
+      cy.get('[data-cy="contact-form"]').within(() => {
+        cy.get('[data-cy="input-first-name"]').type('John');
+        cy.get('[data-cy="input-last-name"]').type('Doe');
+        cy.get('[data-cy="input-email"]').type('john@example.com');
+        cy.get('[data-cy="input-phone"]').type('402-555-1234');
+        cy.get('[data-cy="input-company"]').type('Test Company');
+        cy.get('[data-cy="input-preferred-contact-email"]').click();
+        cy.get('[data-cy="privacy-policy-checkbox"]').click();
+        cy.get('[data-cy="submit-form"]').click();
+      });
+
+      cy.wait('@quizSubmission');
+
+      cy.wait(500);
       cy.checkA11y();
     });
   });
@@ -287,7 +451,7 @@ describe('Get Started Page', () => {
         });
 
         it('should pass accessibility checks', () => {
-          cy.wait(1000);
+          cy.wait(500);
           cy.checkA11y();
         });
 
