@@ -1,9 +1,9 @@
 "use client";
 
-import Hero from '../components/Hero';
-import ServicesGrid from '../components/ServicesGrid';
-import PricingPreview from '../components/PricingPreview';
-import SocialProof from '../components/SocialProof';
+import Hero from '@/components/Hero';
+import ServicesGrid from '@/components/ServicesGrid';
+import PricingPreview from '@/components/PricingPreview';
+import SocialProof from '@/components/SocialProof';
 
 export default function Home() {
   return (
