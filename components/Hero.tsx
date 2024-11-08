@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import GraphingBackground from '@/public/assets/backgrounds/graphing-background.svg';
 import SpiralDesign from '@/public/assets/backgrounds/spiral-design.svg';
-import { HiOutlineEnvelope, HiOutlineRocketLaunch } from 'react-icons/hi2';
+import { HiOutlineClipboardDocument, HiOutlineEnvelope } from 'react-icons/hi2';
 import Link from 'next/link';
 import { useState } from 'react';
 import ScrambleText from './ScrambleText';
@@ -75,7 +75,7 @@ const Hero: React.FC<HeroProps> = ({
                            transition-all duration-300 w-[200px] justify-center
                            hover:bg-transparent hover:text-secondary-400 hover:scale-105"
                 >
-                  <HiOutlineRocketLaunch className="w-5 h-5 shrink-0" />
+                  <HiOutlineClipboardDocument className="w-5 h-5 shrink-0" />
                   <span className="w-[120px] text-center">
                     <ScrambleText text={primaryButton.text} isHovering={hoveringPrimary} />
                   </span>

@@ -105,9 +105,9 @@ describe('Home Page', () => {
           .should('have.attr', 'href', `/services#${service.title.toLowerCase().replace(/\s+/g, '-')}`);
       });
 
-      cy.get('[data-cy="view-all-services"]')
+      cy.get('[data-cy="explore-services"]')
         .should('exist')
-        .and('have.text', 'View All Services');
+        .and('have.text', 'Explore Services');
     });
 
     it('should render PricingPreview correctly', () => {

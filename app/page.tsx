@@ -1,7 +1,6 @@
 "use client";
 
 import Hero from '../components/Hero';
-import IntroSection from '../components/IntroSection';
 import ServicesGrid from '../components/ServicesGrid';
 import PricingPreview from '../components/PricingPreview';
 import SocialProof from '../components/SocialProof';
@@ -11,9 +10,9 @@ export default function Home() {
     <main>
       <Hero
         title="Data Driven Tailored Excellence"
-        subtitle="We empower businesses to unlock sustainable growth through strategic branding, marketing, and web technologies."
+        subtitle="Compelling / comprehensive branding and marketing strategies designed for YOUR business."
         primaryButton={{
-          text: "Get Started",
+          text: "Get A Quote",
           href: "/get-started"
         }}
         secondaryButton={{
@@ -21,10 +20,9 @@ export default function Home() {
           href: "/contact"
         }}
       />
-      <IntroSection />
+      <SocialProof />
       <ServicesGrid />
       <PricingPreview />
-      <SocialProof />
     </main>
   );
 }
