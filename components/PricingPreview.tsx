@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { HiOutlinePuzzlePiece, HiOutlineScale, HiOutlineChartBar, HiOutlineRocketLaunch, HiOutlineCurrencyDollar } from 'react-icons/hi2';
+import { HiOutlinePuzzlePiece, HiOutlineScale, HiOutlineChartBar, HiOutlineClipboardDocument, HiOutlineCurrencyDollar } from 'react-icons/hi2';
 import ScrambleText from './ScrambleText';
 import CircuitOverlay from './CircuitOverlay';
 
@@ -68,8 +68,7 @@ const PricingPreview = () => {
             Ready to Build Your Custom Solution?
           </h3>
           <p data-cy="pricing-cta-description" className="text-secondary-500 max-w-2xl mx-auto mb-8">
-            Answer a few questions about your business needs and get a personalized 
-            quote tailored to your goals. No commitment required.
+            Answer a few questions to receive an initial estimate. We&apos;ll then schedule a consultation to discuss specifics and provide a detailed quote. No commitment required.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -83,9 +82,9 @@ const PricingPreview = () => {
                          transition-all duration-300 w-[200px] justify-center
                          hover:bg-transparent hover:text-secondary-400 hover:scale-105"
             >
-              <HiOutlineRocketLaunch className="w-5 h-5 shrink-0" />
+              <HiOutlineClipboardDocument className="w-5 h-5 shrink-0" />
               <span className="w-[120px] text-center">
-                <ScrambleText text="Get Quote" isHovering={primaryHover} />
+                <ScrambleText text="Get A Quote" isHovering={primaryHover} />
               </span>
             </Link>
             
@@ -101,7 +100,7 @@ const PricingPreview = () => {
             >
               <HiOutlineCurrencyDollar className="w-5 h-5 shrink-0" />
               <span className="w-[120px] text-center">
-                <ScrambleText text="Explore Plans" isHovering={secondaryHover} />
+                <ScrambleText text="Explore Pricing" isHovering={secondaryHover} />
               </span>
             </Link>
           </div>

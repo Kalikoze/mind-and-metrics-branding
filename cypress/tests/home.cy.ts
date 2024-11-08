@@ -32,148 +32,32 @@ describe('Home Page', () => {
       
       cy.get('[data-cy="hero-subtitle"]')
         .should('exist')
-        .and('have.text', 'We empower businesses to unlock sustainable growth through strategic branding, marketing, and web technologies.');
+        .and('have.text', 'Compelling branding and marketing strategies designed for YOUR business.');
 
       cy.get('[data-cy="hero-primary-cta"]')
         .should('exist')
-        .and('have.text', 'Get Started');
+        .and('have.text', 'Get A Quote');
 
       cy.get('[data-cy="hero-secondary-cta"]')
         .should('exist')
         .and('have.text', 'Contact Us');
     });
 
-    it('should render IntroSection correctly', () => {
-      cy.get('[data-cy="intro-section"]').should('exist');
-      cy.get('[data-cy="intro-title"]')
-        .should('exist')
-        .and('have.text', 'Strategic Partners for Reputable B2B Leaders');
-      
-      cy.get('[data-cy="intro-description"]')
-        .should('exist')
-        .and('contain.text', 'At Mind & Metrics, we specialize in working with established B2B businesses ready to scale. Our subscription-based services remove operational roadblocks, giving you time to focus on what matters most—driving revenue, maintaining your reputation, and staying ahead of digital trends.');
-    });
-
-    it('should render ServicesGrid correctly', () => {
-      cy.get('[data-cy="services-section"]').should('exist');
-      cy.get('[data-cy="services-title"]')
-        .should('exist')
-        .and('have.text', 'Comprehensive B2B Solutions');
-
-      const services = [
-        {
-          title: 'Strategic Brand Evolution',
-          description: "We'll transform your business identity into a compelling brand story that captivates your target market."
-        },
-        {
-          title: 'Visual Identity Design',
-          description: "Trust us to craft your distinctive visual language, ensuring your brand stands out while maintaining perfect consistency."
-        },
-        {
-          title: 'Digital Experience Design',
-          description: "Leave your digital presence to us - we build powerful, user-centric websites that convert visitors into loyal customers."
-        },
-        {
-          title: 'Content & Social Strategy',
-          description: "Let us handle your content creation and social media presence, establishing your brand as an industry authority."
-        },
-        {
-          title: 'Digital Marketing & Growth',
-          description: "Our team drives your growth through expertly managed digital marketing campaigns and SEO strategies."
-        },
-        {
-          title: 'Market Intelligence',
-          description: "Rely on our comprehensive market research and analysis to empower your strategic decisions."
-        }
-      ];
-
-      services.forEach(service => {
-        const selector = `[data-cy="service-${service.title.toLowerCase().replace(/\s+/g, '-')}"]`;
-        cy.get(selector).within(() => {
-          cy.get('[data-cy="service-icon"]').should('exist');
-          cy.get('[data-cy="service-title"]')
-            .should('exist')
-            .and('have.text', service.title);
-          cy.get('[data-cy="service-description"]')
-            .should('exist')
-            .and('have.text', service.description);
-          
-          cy.get('[data-cy="service-card-content"]').contains('Learn More').should('exist');
-        });
-
-        cy.get(selector)
-          .should('have.attr', 'href', `/services#${service.title.toLowerCase().replace(/\s+/g, '-')}`);
-      });
-
-      cy.get('[data-cy="view-all-services"]')
-        .should('exist')
-        .and('have.text', 'View All Services');
-    });
-
-    it('should render PricingPreview correctly', () => {
-      cy.get('[data-cy="pricing-preview-section"]').should('exist');
-      cy.get('[data-cy="pricing-preview-title"]')
-        .should('exist')
-        .and('have.text', 'Transparent Value-Based Pricing');
-      cy.get('[data-cy="pricing-preview-subtitle"]')
-        .should('exist')
-        .and('have.text', 'Discover a pricing structure that aligns with your goals and scales with your success');
-
-      const expectedValueProps = [
-        {
-          title: "Tailored Solutions",
-          description: "Custom-built strategies that adapt to your specific business needs and goals"
-        },
-        {
-          title: "Flexible Scaling",
-          description: "Adjust services and resources as your business grows and evolves"
-        },
-        {
-          title: "Transparent ROI",
-          description: "Clear reporting and metrics to demonstrate value and impact"
-        }
-      ];
-
-      expectedValueProps.forEach(prop => {
-        cy.get(`[data-cy="value-prop-${prop.title.toLowerCase().replace(/\s+/g, '-')}"]`).within(() => {
-          cy.get('h3').should('have.text', prop.title);
-          cy.get('p').should('have.text', prop.description);
-        });
-      });
-
-      cy.get('[data-cy="pricing-cta-card"]').within(() => {
-        cy.get('[data-cy="pricing-cta-title"]')
-          .should('exist')
-          .and('have.text', 'Ready to Build Your Custom Solution?');
-        
-        cy.get('[data-cy="pricing-cta-description"]')
-          .should('exist')
-          .and('contain.text', 'Answer a few questions about your business needs');
-        
-        // Check CTA buttons
-        cy.get('[data-cy="pricing-get-started-button"]')
-          .should('exist')
-          .and('have.attr', 'href', '/get-started')
-          .and('contain.text', 'Get Quote');
-        
-        cy.get('[data-cy="pricing-view-pricing-button"]')
-          .should('exist')
-          .and('have.attr', 'href', '/pricing')
-          .and('contain.text', 'Explore Plans');
-      });
-    });
-
-    it('should render headers correctly for the Proven Track Record section', () => {
+    it('should render headers correctly for the Social Proof section', () => {
       cy.get('[data-cy="social-proof-title"]')
         .should('exist')
-        .and('have.text', 'Proven Track Record');
+        .and('have.text', 'Trusted By Industry Leaders');
       
       cy.get('[data-cy="social-proof-subtitle"]')
         .should('exist')
         .and('have.text', 'Join the growing list of B2B leaders who trust us with their digital success.');
     });
 
-    it('should display statistics correctly for the Proven Track Record section', () => {
+    it('should display statistics correctly for the Success By The Numbers section', () => {
+      // Check section headers
+      cy.contains('h2', 'Success By The Numbers').should('exist');
+      cy.contains('p', 'Measurable results that drive business growth through data-driven strategies').should('exist');
+
       const expectedStats = [
         { value: '100%', label: 'Client Retention Rate' },
         { value: '5+', label: 'Projects in First 6 Months' },
@@ -189,11 +73,7 @@ describe('Home Page', () => {
       });
     });
 
-    it('should display client logos correctly for the Trusted By Industry Leaders section', () => {
-      cy.get('[data-cy="client-logos-title"]')
-        .should('exist')
-        .and('have.text', 'Trusted By Industry Leaders');
-
+    it('should display client logos correctly', () => {
       const expectedClients = [
         { 
           name: 'PSC Construction',
@@ -234,37 +114,6 @@ describe('Home Page', () => {
       });
     });
 
-    it('should display testimonials correctly', () => {
-      cy.get('[data-cy="testimonials-title"]')
-        .should('exist')
-        .and('have.text', 'What Our Clients Say');
-
-      const expectedTestimonials = [
-        {
-          quote: "Mind & Metrics transformed our digital presence. Their strategic approach and attention to detail exceeded our expectations.",
-          author: "Steven Koch",
-          position: "Project Manager",
-          company: "PSC Construction"
-        },
-        {
-          quote: "Working with their team has been revolutionary for our brand. They truly understand the B2B space and deliver results.",
-          author: "Cameron Dodds",
-          position: "Vice President",
-          company: "Precision Surveying & Consulting"
-        }
-      ];
-
-      expectedTestimonials.forEach((testimonial, index) => {
-        cy.get(`[data-cy="testimonial-${index + 1}"]`).within(() => {
-          cy.get('[data-cy="testimonial-author"]').should('have.text', testimonial.author);
-          cy.get('[data-cy="testimonial-position"]')
-            .should('have.text', `${testimonial.position} at ${testimonial.company}`);
-          cy.get('[data-cy="testimonial-quote"]')
-            .should('have.text', `\u201C${testimonial.quote}\u201D`);
-        });
-      });
-    });
-
     it('should render footer logo and description correctly', () => {
       cy.get('[data-cy="footer-logo"]').should('exist');
       cy.get('[data-cy="footer-logo"]').find('img').should('exist');
@@ -290,6 +139,107 @@ describe('Home Page', () => {
           .should('exist')
           .and('have.attr', 'href', link.href)
           .and('contain.text', link.name);
+      });
+    });
+
+    it('should render ServicesGrid correctly', () => {
+      cy.get('[data-cy="services-section"]').should('exist');
+      cy.get('[data-cy="services-title"]')
+        .should('exist')
+        .and('have.text', 'Comprehensive B2B Solutions');
+
+      const services = [
+        {
+          title: 'Brand Identity and Strategy',
+          description: "Transform your brand into a strategic asset that resonates with your target audience and drives business growth."
+        },
+        {
+          title: 'Website Development & SEO',
+          description: "Build a site that drives success through modern development practices and search engine optimization strategies."
+        },
+        {
+          title: 'Digital Marketing & Content Management',
+          description: "Tailored content and marketing strategies to drive engagement and establish your brand's digital presence."
+        },
+        {
+          title: 'Consulting & Market Research',
+          description: "Tailored research and consulting services to inform your strategic decisions and accelerate growth."
+        }
+      ];
+
+      services.forEach(service => {
+        const selector = `[data-cy="service-${service.title.toLowerCase().replace(/\s+/g, '-')}"]`;
+        cy.get(selector).within(() => {
+          cy.get('[data-cy="service-icon"]').should('exist');
+          cy.get('[data-cy="service-title"]')
+            .should('exist')
+            .and('have.text', service.title);
+          cy.get('[data-cy="service-description"]')
+            .should('exist')
+            .and('have.text', service.description);
+          
+          cy.get('[data-cy="service-card-content"]').contains('Learn More').should('exist');
+        });
+
+        cy.get(selector)
+          .should('have.attr', 'href', `/services#${service.title.toLowerCase().replace(/\s+/g, '-')}`);
+      });
+
+      cy.get('[data-cy="explore-services"]')
+        .should('exist')
+        .contains('Explore Services');
+    });
+
+    it('should render PricingPreview correctly', () => {
+      cy.get('[data-cy="pricing-preview-section"]').should('exist');
+      cy.get('[data-cy="pricing-preview-title"]')
+        .should('exist')
+        .and('have.text', 'Transparent Value-Based Pricing');
+      cy.get('[data-cy="pricing-preview-subtitle"]')
+        .should('exist')
+        .and('have.text', 'Discover a pricing structure that aligns with your goals and scales with your success');
+
+      const expectedValueProps = [
+        {
+          title: "Tailored Solutions",
+          description: "Custom-built strategies that adapt to your specific business needs and goals"
+        },
+        {
+          title: "Flexible Scaling",
+          description: "Adjust services and resources as your business grows and evolves"
+        },
+        {
+          title: "Transparent ROI",
+          description: "Clear reporting and metrics to demonstrate value and impact"
+        }
+      ];
+
+      expectedValueProps.forEach(prop => {
+        cy.get(`[data-cy="value-prop-${prop.title.toLowerCase().replace(/\s+/g, '-')}"]`).within(() => {
+          cy.get('h3').should('have.text', prop.title);
+          cy.get('p').should('have.text', prop.description);
+        });
+      });
+
+      cy.get('[data-cy="pricing-cta-card"]').within(() => {
+        cy.get('[data-cy="pricing-cta-title"]')
+          .should('exist')
+          .and('have.text', 'Ready to Build Your Custom Solution?');
+        
+        cy.get('[data-cy="pricing-cta-description"]')
+          .should('exist')
+          .and('contain.text', 'Answer a few questions to receive an initial estimate. We\'ll then schedule a consultation to discuss specifics and provide a detailed quote. No commitment required.');
+        
+        // Check CTA buttons
+        cy.get('[data-cy="pricing-get-started-button"]')
+          .should('exist')
+          .and('have.attr', 'href', '/get-started')
+          .and('contain.text', 'Get A Quote');
+        
+        cy.get('[data-cy="pricing-view-pricing-button"]')
+          .should('exist')
+          .and('have.attr', 'href', '/pricing')
+          .and('contain.text', 'Explore Pricing');
       });
     });
   
