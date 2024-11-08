@@ -75,9 +75,9 @@ const SocialProof = () => {
           <h2 data-cy="social-proof-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
             Trusted By Industry Leaders
           </h2>
-          <p data-cy="social-proof-subtitle" className="text-secondary-500 text-lg max-w-2xl mx-auto">
+          <h3 data-cy="social-proof-subtitle" className="text-secondary-500 text-lg max-w-2xl mx-auto">
             Join the growing list of B2B leaders who trust us with their digital success.
-          </p>
+          </h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">

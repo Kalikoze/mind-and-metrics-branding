@@ -10,7 +10,7 @@ export default function Home() {
     <main>
       <Hero
         title="Data Driven Tailored Excellence"
-        subtitle="Compelling / comprehensive branding and marketing strategies designed for YOUR business."
+        subtitle="Compelling branding and marketing strategies designed for YOUR business."
         primaryButton={{
           text: "Get A Quote",
           href: "/get-started"
