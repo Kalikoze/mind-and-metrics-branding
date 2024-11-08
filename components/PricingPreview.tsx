@@ -68,7 +68,7 @@ const PricingPreview = () => {
             Ready to Build Your Custom Solution?
           </h3>
           <p data-cy="pricing-cta-description" className="text-secondary-500 max-w-2xl mx-auto mb-8">
-            Answer a few questions to receive an initial estimate. We'll then schedule a consultation to discuss specifics and provide a detailed quote. No commitment required.
+            Answer a few questions to receive an initial estimate. We&apos;ll then schedule a consultation to discuss specifics and provide a detailed quote. No commitment required.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
