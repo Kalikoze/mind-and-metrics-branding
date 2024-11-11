@@ -107,12 +107,14 @@ export async function POST(request: Request) {
       templateId: 'd-761689fbba544e96bd1a2149a797f253',
       dynamic_template_data: {
         timestamp: new Date().toLocaleString('en-US', {
+          timeZone: 'America/Chicago',
           weekday: 'long',
           year: 'numeric',
           month: 'long',
           day: 'numeric',
           hour: '2-digit',
-          minute: '2-digit'
+          minute: '2-digit',
+          hour12: true
         }),
         firstName: data.firstName,
         lastName: data.lastName,

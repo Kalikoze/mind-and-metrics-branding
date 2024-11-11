@@ -6,7 +6,7 @@ import CircuitOverlay from '../CircuitOverlay';
 
 export default function ContactSection() {
   return (
-    <section className="relative bg-neutral-50 py-20 overflow-hidden">
+    <section className="relative bg-neutral-50 py-20 overflow-hidden" data-cy="contact-section">
       <CircuitOverlay />
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

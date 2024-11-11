@@ -102,8 +102,12 @@ export default function ContactForm() {
   return (
     <div className="bg-white rounded-lg p-8 border-2 border-neutral-200
                     transition-all duration-300 hover:border-secondary-400
-                    hover:shadow-lg">
-      <h2 className="font-serif text-2xl text-secondary-400 mb-6">
+                    hover:shadow-lg"
+         data-cy="contact-form"
+    >
+      <h2 className="font-serif text-2xl text-secondary-400 mb-6"
+          data-cy="contact-form-title"
+      >
         Send Us a Message
       </h2>
 
@@ -126,7 +130,6 @@ export default function ContactForm() {
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-6"
         aria-label="Contact information form"
-        data-cy="contact-form"
         noValidate
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -139,9 +142,10 @@ export default function ContactForm() {
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="John"
+              data-cy="input-first-name"
             />
             {isSubmitted && errors.firstName && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-firstName">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.firstName.message}
               </p>
@@ -157,9 +161,10 @@ export default function ContactForm() {
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="Doe"
+              data-cy="input-last-name"
             />
             {isSubmitted && errors.lastName && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-lastName">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.lastName.message}
               </p>
@@ -182,9 +187,10 @@ export default function ContactForm() {
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                      focus:border-secondary-400 focus:outline-none transition-colors"
             placeholder="john@example.com"
+            data-cy="input-email"
           />
           {isSubmitted && errors.email && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-email">
               <HiExclamationCircle className="w-4 h-4 mr-1" />
               {errors.email.message}
             </p>
@@ -231,6 +237,7 @@ export default function ContactForm() {
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                      focus:border-secondary-400 focus:outline-none transition-colors"
             placeholder="Company Inc."
+            data-cy="input-company"
           />
         </div>
 
@@ -243,9 +250,10 @@ export default function ContactForm() {
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                      focus:border-secondary-400 focus:outline-none transition-colors"
             placeholder="How can we help?"
+            data-cy="input-subject"
           />
           {isSubmitted && errors.subject && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-subject">
               <HiExclamationCircle className="w-4 h-4 mr-1" />
               {errors.subject.message}
             </p>
@@ -265,9 +273,10 @@ export default function ContactForm() {
                      focus:border-secondary-400 focus:outline-none transition-colors"
             rows={4}
             placeholder="Tell us about your project or inquiry..."
+            data-cy="input-message"
           />
           {isSubmitted && errors.message && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-message">
               <HiExclamationCircle className="w-4 h-4 mr-1" />
               {errors.message.message}
             </p>
@@ -282,13 +291,14 @@ export default function ContactForm() {
                 required: 'Please accept the privacy policy to proceed'
               })}
               className="mt-1 mr-2"
+              data-cy="privacy-policy-checkbox"
             />
             <span className="text-sm text-secondary-500">
               I agree to the <Link href="/privacy" className="text-secondary-400 hover:underline">Privacy Policy</Link>
             </span>
           </label>
           {isSubmitted && errors.privacyPolicy && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-privacyPolicy">
               <HiExclamationCircle className="w-4 h-4 mr-1" />
               {errors.privacyPolicy.message}
             </p>
