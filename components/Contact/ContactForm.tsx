@@ -25,6 +25,7 @@ export default function ContactForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitted }
   } = useForm<ContactFormData>({
     mode: 'onSubmit',
@@ -32,34 +33,66 @@ export default function ContactForm() {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = async (data: ContactFormData) => {
+  const onSubmit = async (formData: ContactFormData) => {
     if (isLoading) return;
-    
+
     try {
       setIsLoading(true);
-      const response = await fetch('/api/contact-submission', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       });
 
+      // Check if response is ok and content-type is json
+      const contentType = response.headers.get('content-type');
       if (!response.ok) {
-        throw new Error('Failed to submit form');
+        if (contentType && contentType.includes('application/json')) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to send message');
+        } else {
+          throw new Error('Our system is currently experiencing issues. Please try again in a few minutes.');
+        }
+      }
+
+      // Ensure we have JSON response
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Received an invalid response from the server. Please try again.');
+      }
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.message || 'Unable to send message. Please try again.');
       }
 
       toast(() => CustomToast({
         type: 'success',
         message: 'Message Sent Successfully',
-        description: 'We\'ll get back to you as soon as possible.'
+        description: data.message || 'We\'ll be in touch with you shortly.'
       }));
+
+      reset({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        companyName: '',
+        subject: '',
+        message: '',
+        privacyPolicy: false
+      });
+
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Error sending message:', error);
       toast(() => CustomToast({
         type: 'error',
-        message: 'Submission Failed',
-        description: 'We\'re having trouble submitting your message. Please try again or email us directly.'
+        message: 'Failed to Send Message',
+        description: error instanceof Error
+          ? error.message
+          : 'We\'re having trouble sending your message. Please try again or contact us directly.'
       }));
     } finally {
       setIsLoading(false);
@@ -75,8 +108,8 @@ export default function ContactForm() {
       </h2>
 
       {isSubmitted && Object.keys(errors).length > 0 && (
-        <div 
-          className="p-4 bg-red-50 rounded-lg mb-6" 
+        <div
+          className="p-4 bg-red-50 rounded-lg mb-6"
           role="alert"
           data-cy="error-summary"
         >
@@ -89,8 +122,8 @@ export default function ContactForm() {
         </div>
       )}
 
-      <form 
-        onSubmit={handleSubmit(onSubmit)} 
+      <form
+        onSubmit={handleSubmit(onSubmit)}
         className="space-y-6"
         aria-label="Contact information form"
         data-cy="contact-form"
@@ -139,7 +172,7 @@ export default function ContactForm() {
             Email *
           </label>
           <input
-            {...register('email', { 
+            {...register('email', {
               required: 'Email is required',
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -163,12 +196,30 @@ export default function ContactForm() {
             Phone
           </label>
           <input
-            {...register('phone')}
-            onChange={(e) => handlePhoneChange(e)}
+            {...register('phone', {
+              validate: (value) => {
+                if (value && !/^\(\d{3}\) \d{3}-\d{4}$/.test(value)) {
+                  return 'Please enter a valid phone number';
+                }
+                return true;
+              }
+            })}
+            onChange={(e) => {
+              handlePhoneChange(e);
+              register('phone').onChange(e);
+            }}
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                      focus:border-secondary-400 focus:outline-none transition-colors"
             placeholder="(555) 555-5555"
+            maxLength={14}
+            data-cy="input-phone"
           />
+          {isSubmitted && errors.phone && (
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-phone">
+              <HiExclamationCircle className="w-4 h-4 mr-1" />
+              {errors.phone.message}
+            </p>
+          )}
         </div>
 
         <div>
@@ -206,7 +257,10 @@ export default function ContactForm() {
             Message *
           </label>
           <textarea
-            {...register('message', { required: 'Message is required' })}
+            {...register('message', {
+              required: 'Message is required',
+              maxLength: { value: 500, message: 'Message is too long' }
+            })}
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                      focus:border-secondary-400 focus:outline-none transition-colors"
             rows={4}
@@ -248,11 +302,10 @@ export default function ContactForm() {
           whileHover={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 1.05 } : undefined}
           whileTap={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 0.95 } : undefined}
           className={`w-full px-8 py-3.5 font-medium rounded-lg flex items-center justify-center space-x-3 
-                     border-2 transition-all duration-300 ${
-                       isLoading || (isSubmitted && Object.keys(errors).length > 0)
-                         ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
-                         : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'
-                     }`}
+                     border-2 transition-all duration-300 ${isLoading || (isSubmitted && Object.keys(errors).length > 0)
+              ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
+              : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'
+            }`}
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
