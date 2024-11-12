@@ -12,7 +12,7 @@ describe('Home Page', () => {
       cy.get('[data-cy="nav-logo"]').should('exist');
       cy.get('[data-cy="nav-logo-text"]').should('have.text', 'Mind & Metrics');
 
-      const menuItems = ['Home', 'Services', 'How It Works', 'Pricing', 'About', 'Contact'];
+      const menuItems = ['Home', 'About', 'Services', 'Pricing', 'Careers', 'Contact'];
       menuItems.forEach(item => {
         cy.get(`[data-cy="nav-item-${item.toLowerCase().replace(' ', '-')}"]`)
           .should('exist')
@@ -129,8 +129,8 @@ describe('Home Page', () => {
         { name: 'Home', href: '/' },
         { name: 'About', href: '/about' },
         { name: 'Services', href: '/services' },
-        { name: 'How It Works', href: '/process' },
         { name: 'Pricing', href: '/pricing' },
+        { name: 'Careers', href: '/careers' },
         { name: 'Contact', href: '/contact' },
       ];
   
@@ -332,10 +332,10 @@ describe('Home Page', () => {
 
           const expectedItems = [
             { name: 'home', path: '/' },
-            { name: 'services', path: '/services' },
-            { name: 'how it works', path: '/process' },
-            { name: 'pricing', path: '/pricing' },
             { name: 'about', path: '/about' },
+            { name: 'services', path: '/services' },
+            { name: 'pricing', path: '/pricing' },
+            { name: 'careers', path: '/careers' },
             { name: 'contact', path: '/contact' }
           ];
 
