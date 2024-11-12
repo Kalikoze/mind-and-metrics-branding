@@ -19,7 +19,6 @@ const navigationLinks = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
   { name: 'Services', href: '/services' },
-  { name: 'Pricing', href: '/pricing' },
   { name: 'Careers', href: '/careers' },
   { name: 'Contact', href: '/contact' },
 ];

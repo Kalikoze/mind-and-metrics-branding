@@ -12,7 +12,7 @@ describe('Home Page', () => {
       cy.get('[data-cy="nav-logo"]').should('exist');
       cy.get('[data-cy="nav-logo-text"]').should('have.text', 'Mind & Metrics');
 
-      const menuItems = ['Home', 'About', 'Services', 'Pricing', 'Careers', 'Contact'];
+      const menuItems = ['Home', 'About', 'Services', 'Careers', 'Contact'];
       menuItems.forEach(item => {
         cy.get(`[data-cy="nav-item-${item.toLowerCase().replace(' ', '-')}"]`)
           .should('exist')
@@ -129,7 +129,6 @@ describe('Home Page', () => {
         { name: 'Home', href: '/' },
         { name: 'About', href: '/about' },
         { name: 'Services', href: '/services' },
-        { name: 'Pricing', href: '/pricing' },
         { name: 'Careers', href: '/careers' },
         { name: 'Contact', href: '/contact' },
       ];
@@ -334,7 +333,6 @@ describe('Home Page', () => {
             { name: 'home', path: '/' },
             { name: 'about', path: '/about' },
             { name: 'services', path: '/services' },
-            { name: 'pricing', path: '/pricing' },
             { name: 'careers', path: '/careers' },
             { name: 'contact', path: '/contact' }
           ];

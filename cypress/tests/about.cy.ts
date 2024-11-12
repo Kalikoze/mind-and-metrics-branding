@@ -266,7 +266,6 @@ describe('About Page', () => {
             { name: 'home', path: '/' },
             { name: 'about', path: '/about' },
             { name: 'services', path: '/services' },
-            { name: 'pricing', path: '/pricing' },
             { name: 'careers', path: '/careers' },
             { name: 'contact', path: '/contact' }
           ];

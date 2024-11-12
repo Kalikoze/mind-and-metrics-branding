@@ -223,15 +223,21 @@ const ServiceDetails = () => {
           
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <div className="bg-white p-8 rounded-full w-32 h-32 mb-8 mx-auto
+              <div 
+                data-cy={`service-icon-${service.id}`}
+                className="bg-white p-8 rounded-full w-32 h-32 mb-8 mx-auto
                             flex items-center justify-center
                             shadow-lg border-2 border-neutral-200">
                 <service.icon className="w-16 h-16 text-secondary-400" />
               </div>
-              <h2 className="font-serif text-3xl md:text-4xl text-secondary-400 mb-4">
+              <h2 
+                data-cy={`service-title-${service.id}`}
+                className="font-serif text-3xl md:text-4xl text-secondary-400 mb-4">
                 {service.title}
               </h2>
-              <p className="text-secondary-500 text-lg leading-relaxed max-w-3xl mx-auto text-center">
+              <p 
+                data-cy={`service-overview-${service.id}`}
+                className="text-secondary-500 text-lg leading-relaxed max-w-3xl mx-auto text-center">
                 {service.overview}
               </p>
             </div>
@@ -245,9 +251,14 @@ const ServiceDetails = () => {
                 <h3 className={`font-serif text-xl mb-6 ${
                   index % 2 === 0 ? 'text-secondary-500' : 'text-secondary-400'
                 }`}>Key Features</h3>
-                <div className="space-y-6">
+                <div 
+                  data-cy={`service-features-${service.id}`}
+                  className="space-y-6">
                   {service.keyPoints.map((point, index) => (
-                    <div key={index} className="space-y-3">
+                    <div 
+                      key={index}
+                      data-cy={`service-feature-${service.id}-${index}`}
+                      className="space-y-3">
                       <div className="flex items-center space-x-3">
                         <RiCheckLine className="w-5 h-5 text-secondary-400 shrink-0" />
                         <span className="font-medium text-secondary-500">{point.title}</span>
@@ -272,9 +283,14 @@ const ServiceDetails = () => {
                 <h3 className={`font-serif text-xl mb-6 ${
                   index % 2 === 0 ? 'text-secondary-500' : 'text-secondary-400'
                 }`}>Service Details</h3>
-                <div className="space-y-8">
+                <div 
+                  data-cy={`service-offerings-${service.id}`}
+                  className="space-y-8">
                   {service.offerings.map((offering, index) => (
-                    <div key={index}>
+                    <div 
+                      key={index}
+                      data-cy={`service-offering-${service.id}-${index}`}
+                    >
                       <h4 className="font-medium text-secondary-500 mb-2">{offering.title}</h4>
                       <p className="text-secondary-400 text-sm">{offering.description}</p>
                     </div>
