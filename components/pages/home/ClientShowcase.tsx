@@ -46,24 +46,7 @@ const clientLogos = [
   }
 ];
 
-// const testimonials = [
-//   {
-//     quote: "Mind & Metrics transformed our digital presence. Their strategic approach and attention to detail exceeded our expectations.",
-//     author: "Steven Koch",
-//     position: "Project Manager",
-//     company: "PSC Construction",
-//     image: "/assets/testimonials/steven-koch.jpg"
-//   },
-//   {
-//     quote: "Working with their team has been revolutionary for our brand. They truly understand the B2B space and deliver results.",
-//     author: "Cameron Dodds",
-//     position: "Vice President",
-//     company: "Precision Surveying & Consulting",
-//     image: "/assets/testimonials/cameron-dodds.jpg"
-//   },
-// ];
-
-const SocialProof = () => {
+const ClientShowcase = () => {
   const [hoveringIndices, setHoveringIndices] = useState<{ [key: number]: boolean }>({});
 
   return (
@@ -173,48 +156,9 @@ const SocialProof = () => {
             ))}
           </div>
         </div>
-
-        {/* <div>
-          <h3 data-cy="testimonials-title" className="text-center font-serif text-2xl text-secondary-400 mb-12">
-            What Our Clients Say
-          </h3>
-          <div className="grid md:grid-cols-2 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div 
-                key={index}
-                data-cy={`testimonial-${index + 1}`}
-                className="bg-white p-8 rounded-lg
-                           border-2 border-neutral-200 hover:border-secondary-400
-                           transition-all duration-300 hover:shadow-lg"
-              >
-                <div className="flex items-start mb-6">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
-                    <Image
-                      src={testimonial.image}
-                      alt={`${testimonial.author}'s testimonial`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <div className="font-serif text-lg text-secondary-400" data-cy="testimonial-author">
-                      {testimonial.author}
-                    </div>
-                    <div className="text-sm text-secondary-500" data-cy="testimonial-position">
-                      {testimonial.position} at {testimonial.company}
-                    </div>
-                  </div>
-                </div>
-                <blockquote className="text-secondary-500 italic" data-cy="testimonial-quote">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </blockquote>
-              </div>
-            ))}
-          </div>
-        </div> */}
       </div>
     </section>
   );
 };
 
-export default SocialProof; 
+export default ClientShowcase; 

@@ -3,7 +3,7 @@
 import Hero from '@/components/common/Hero';
 import ServicesGrid from '@/components/pages/home/ServicesGrid';
 import PricingPreview from '@/components/pages/home/PricingPreview';
-import SocialProof from '@/components/pages/home/SocialProof';
+import ClientShowcase from '@/components/pages/home/ClientShowcase';
 
 export default function Home() {
   return (
@@ -20,7 +20,7 @@ export default function Home() {
           href: "/contact"
         }}
       />
-      <SocialProof />
+      <ClientShowcase />
       <ServicesGrid />
       <PricingPreview />
     </main>
