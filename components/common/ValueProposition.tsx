@@ -20,13 +20,16 @@ const ValueProposition: React.FC<ValuePropositionProps> = ({
   paragraphs,
   stats,
 }) => {
-  const renderParagraphWithHighlights = (text: string, highlights: string[] = []) => {
+  const renderParagraphWithHighlights = (text: string, highlights: string[] = [], index: number) => {
     if (!highlights.length) return text;
 
     let result = text;
-    highlights.forEach(word => {
+    highlights.forEach((word, highlightIndex) => {
       const regex = new RegExp(`(${word})`, 'gi');
-      result = result.replace(regex, '<span class="text-secondary-400 font-semibold">$1</span>');
+      result = result.replace(
+        regex, 
+        `<span class="text-secondary-400 font-semibold" data-cy="value-proposition-highlight-${index}-${highlightIndex}">$1</span>`
+      );
     });
 
     return <p dangerouslySetInnerHTML={{ __html: result }} />;
@@ -47,14 +50,17 @@ const ValueProposition: React.FC<ValuePropositionProps> = ({
             {title}
           </h2>
           
-          <div className="space-y-8 text-lg text-secondary-500 leading-relaxed">
+          <div 
+            className="space-y-8 text-lg text-secondary-500 leading-relaxed"
+            data-cy="value-proposition-content"
+          >
             {paragraphs.map((paragraph, index) => (
               <div 
                 key={index}
                 className="value-proposition-paragraph"
                 data-cy={`value-proposition-paragraph-${index}`}
               >
-                {renderParagraphWithHighlights(paragraph.text, paragraph.highlights)}
+                {renderParagraphWithHighlights(paragraph.text, paragraph.highlights, index)}
               </div>
             ))}
           </div>

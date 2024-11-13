@@ -32,18 +32,60 @@ describe('Home Page', () => {
       
       cy.get('[data-cy="hero-subtitle"]')
         .should('exist')
-        .and('have.text', 'Compelling branding and marketing strategies designed for YOUR business.');
+        .and('have.text', 'Your Vision, Our Expertise — Uniting Strategy and Story');
 
       cy.get('[data-cy="hero-primary-cta"]')
         .should('exist')
-        .and('have.text', 'Get A Quote');
+        .and('have.text', 'Get Started')
+        .and('have.attr', 'href', '/get-started');
 
       cy.get('[data-cy="hero-secondary-cta"]')
         .should('exist')
-        .and('have.text', 'Contact Us');
+        .and('have.text', 'Contact Us')
+        .and('have.attr', 'href', '/contact');
     });
 
-    it('should render headers correctly for the Social Proof section', () => {
+    it('should render ValueProposition component correctly', () => {
+      cy.get('[data-cy="value-proposition-section"]').should('exist');
+      
+      cy.get('[data-cy="value-proposition-title"]')
+        .should('exist')
+        .and('have.text', 'Dedicated Partners in Your Growth');
+
+      cy.get('[data-cy="value-proposition-paragraph-0"]').within(() => {
+        cy.get('p').should('contain.text', 'We work exclusively with B2B companies serious about scaling efficiently while maintaining their reputation. Our team knows that sustainable growth takes a mix of strategy, precision, and data-backed insights.');
+        cy.get('[data-cy="value-proposition-highlight-0-0"]')
+          .should('exist')
+          .and('have.text', 'sustainable growth');
+      });
+
+      cy.get('[data-cy="value-proposition-paragraph-1"]').within(() => {
+        cy.get('p').should('contain.text', 'At Mind & Metrics, we build collaborative relationships—becoming trusted partners on your journey toward sustainable success. Whether it\'s enhancing your brand, optimizing your web presence, or driving marketing performance, we\'re with you at every step.');
+        cy.get('[data-cy="value-proposition-highlight-1-0"]')
+          .should('exist')
+          .and('have.text', 'collaborative relationships');
+      });
+
+      // Test statistics
+      const expectedStats = [
+        { value: '100%', label: 'Client Retention Rate' },
+        { value: '1yr+', label: 'Average Client Partnership' },
+        { value: '5', label: 'Full-Scale Projects Launched' }
+      ];
+
+      expectedStats.forEach((stat, index) => {
+        cy.get(`[data-cy="value-proposition-stat-${index}"]`).within(() => {
+          cy.get(`[data-cy="value-proposition-stat-value-${index}"]`)
+            .should('exist')
+            .and('have.text', stat.value);
+          cy.get(`[data-cy="value-proposition-stat-label-${index}"]`)
+            .should('exist')
+            .and('have.text', stat.label);
+        });
+      });
+    });
+
+    it('should render headers correctly for the ClientShowcase section', () => {
       cy.get('[data-cy="social-proof-title"]')
         .should('exist')
         .and('have.text', 'Trusted By Industry Leaders');
@@ -58,12 +100,12 @@ describe('Home Page', () => {
       cy.contains('h2', 'Success By The Numbers').should('exist');
       cy.contains('p', 'Measurable results that drive business growth through data-driven strategies').should('exist');
 
-      const expectedStats = [
-        { value: '100%', label: 'Client Retention Rate' },
-        { value: '5+', label: 'Projects in First 6 Months' },
-        { value: '24hr', label: 'Average Response Time' },
-        { value: '$42K', label: 'Average Annual Savings' }
-      ];
+        const expectedStats = [
+          { value: '$42K', label: 'Average Annual Savings' },
+          { value: '100%', label: 'Preview Before Production' },
+          { value: '24hr', label: 'Content Update Turnaround' },
+          { value: '10+', label: 'Client Trainings Attended' }
+        ];
 
       expectedStats.forEach(stat => {
         cy.get(`[data-cy="stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}"]`).within(() => {
@@ -114,38 +156,15 @@ describe('Home Page', () => {
       });
     });
 
-    it('should render footer logo and description correctly', () => {
-      cy.get('[data-cy="footer-logo"]').should('exist');
-      cy.get('[data-cy="footer-logo"]').find('img').should('exist');
-      cy.get('[data-cy="footer-logo"]').contains('Mind & Metrics');
-      cy.get('[data-cy="footer-description"]')
-        .should('contain.text', 'Elevating Omaha\'s B2B landscape through strategic branding and digital excellence. Serving the Greater Omaha area and surrounding communities with tailored solutions for sustainable growth.');
-    });
-  
-    it('should render navigation links in footer correctly', () => {
-      cy.get('[data-cy="footer-nav-title"]').should('have.text', 'Navigation');
-  
-      const navigationLinks = [
-        { name: 'Home', href: '/' },
-        { name: 'About', href: '/about' },
-        { name: 'Services', href: '/services' },
-        { name: 'Careers', href: '/careers' },
-        { name: 'Contact', href: '/contact' },
-      ];
-  
-      navigationLinks.forEach(link => {
-        cy.get(`[data-cy="footer-nav-${link.name.toLowerCase().replace(/\s+/g, '-')}"]`)
-          .should('exist')
-          .and('have.attr', 'href', link.href)
-          .and('contain.text', link.name);
-      });
-    });
-
     it('should render ServicesGrid correctly', () => {
       cy.get('[data-cy="services-section"]').should('exist');
       cy.get('[data-cy="services-title"]')
         .should('exist')
-        .and('have.text', 'Comprehensive B2B Solutions');
+        .and('have.text', 'Total B2B Business Suite');
+
+      cy.get('[data-cy="services-subtitle"]')
+        .should('exist')
+        .and('have.text', 'Ready to scale your business with experts who truly understand your vision and goals?');
 
       const services = [
         {
@@ -186,7 +205,7 @@ describe('Home Page', () => {
 
       cy.get('[data-cy="explore-services"]')
         .should('exist')
-        .contains('Explore Services');
+        .contains('Learn More');
     });
 
     it('should render PricingPreview correctly', () => {
@@ -233,12 +252,39 @@ describe('Home Page', () => {
         cy.get('[data-cy="pricing-get-started-button"]')
           .should('exist')
           .and('have.attr', 'href', '/get-started')
-          .and('contain.text', 'Get A Quote');
+          .and('contain.text', 'Get Started');
         
         cy.get('[data-cy="pricing-view-pricing-button"]')
           .should('exist')
           .and('have.attr', 'href', '/pricing')
-          .and('contain.text', 'Explore Pricing');
+          .and('contain.text', 'View Pricing');
+      });
+    });
+
+    it('should render footer logo and description correctly', () => {
+      cy.get('[data-cy="footer-logo"]').should('exist');
+      cy.get('[data-cy="footer-logo"]').find('img').should('exist');
+      cy.get('[data-cy="footer-logo"]').contains('Mind & Metrics');
+      cy.get('[data-cy="footer-description"]')
+        .should('contain.text', 'Transforming Omaha\'s B2B landscape with strategic branding and digital solutions that are tailored to your business\'s unique vision. Serving the Greater Omaha area and beyond with expert strategies designed for sustainable growth.');
+    });
+  
+    it('should render navigation links in footer correctly', () => {
+      cy.get('[data-cy="footer-nav-title"]').should('have.text', 'Navigation');
+  
+      const navigationLinks = [
+        { name: 'Home', href: '/' },
+        { name: 'About', href: '/about' },
+        { name: 'Services', href: '/services' },
+        { name: 'Careers', href: '/careers' },
+        { name: 'Contact', href: '/contact' },
+      ];
+  
+      navigationLinks.forEach(link => {
+        cy.get(`[data-cy="footer-nav-${link.name.toLowerCase().replace(/\s+/g, '-')}"]`)
+          .should('exist')
+          .and('have.attr', 'href', link.href)
+          .and('contain.text', link.name);
       });
     });
   

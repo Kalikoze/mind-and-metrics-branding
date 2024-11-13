@@ -15,35 +15,51 @@ describe('About Page', () => {
         .and('have.text', 'Building lasting partnerships with B2B leaders through data-driven solutions and collaborative excellence.');
     });
 
-    it('should render AboutIntro section correctly', () => {
-      cy.get('[data-cy="about-intro-section"]').should('exist');
+    it('should render ValueProposition component correctly', () => {
+      cy.get('[data-cy="value-proposition-section"]').should('exist');
       
-      cy.get('[data-cy="about-intro-title"]')
+      cy.get('[data-cy="value-proposition-title"]')
         .should('exist')
-        .and('have.text', 'Dedicated Partners in Your Growth');
+        .and('have.text', 'A Better Way to Serve Your Brand');
 
-      cy.get('[data-cy="about-intro-paragraph-1"]')
-        .should('exist')
-        .and('contain.text', 'We work exclusively with B2B companies');
+      // Test first paragraph with highlights
+      cy.get('[data-cy="value-proposition-paragraph-0"]').within(() => {
+        cy.get('p').should('contain.text', 'For years, we partnered with marketing agencies');
+        cy.get('[data-cy="value-proposition-highlight-0-0"]')
+          .should('exist')
+          .and('have.text', 'meaningful relationship');
+        cy.get('[data-cy="value-proposition-highlight-0-1"]')
+          .should('exist')
+          .and('have.text', 'unique needs');
+      });
 
-      cy.get('[data-cy="about-intro-paragraph-2"]')
-        .should('exist')
-        .and('contain.text', 'At Mind & Metrics');
+      // Test second paragraph with highlights
+      cy.get('[data-cy="value-proposition-paragraph-1"]').within(() => {
+        cy.get('p').should('contain.text', 'The website they built for us');
+        cy.get('[data-cy="value-proposition-highlight-1-0"]')
+          .should('exist')
+          .and('have.text', 'true partner');
+        cy.get('[data-cy="value-proposition-highlight-1-1"]')
+          .should('exist')
+          .and('have.text', 'personalized care');
+      });
 
+      // Test statistics
       const expectedStats = [
-        { value: '100%', label: 'Client Retention Rate' },
-        { value: '13+', label: 'Years Combined Experience' },
-        { value: '$42K', label: 'Average Annual Savings' }
+        { value: '100%', label: 'Accessibility Compliance' },
+        { value: '24/7', label: 'Guaranteed Uptime' },
+        { value: '13+', label: 'Years Combined Experience' }
       ];
 
       expectedStats.forEach((stat, index) => {
-        cy.get(`[data-cy="about-intro-stat-${index}"]`).should('exist');
-        cy.get(`[data-cy="about-intro-stat-value-${index}"]`)
-          .should('exist')
-          .and('have.text', stat.value);
-        cy.get(`[data-cy="about-intro-stat-label-${index}"]`)
-          .should('exist')
-          .and('have.text', stat.label);
+        cy.get(`[data-cy="value-proposition-stat-${index}"]`).within(() => {
+          cy.get(`[data-cy="value-proposition-stat-value-${index}"]`)
+            .should('exist')
+            .and('have.text', stat.value);
+          cy.get(`[data-cy="value-proposition-stat-label-${index}"]`)
+            .should('exist')
+            .and('have.text', stat.label);
+        });
       });
     });
 

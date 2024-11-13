@@ -34,7 +34,7 @@ export default function NotFound() {
         </h2>
         
         <p className="text-secondary-500 text-lg mb-12">
-          The page you're looking for doesn't exist or has been moved.
+          The page you&apos;re looking for doesn&apos;t exist or has been moved.
           <br />
           But there&apos;s plenty more to explore—let&apos;s get you back home.
         </p>
