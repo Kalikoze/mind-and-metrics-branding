@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '@/public/assets/logos/mm-temp-logo.svg';
-import { 
+import {
   RiLinkedinBoxLine, RiLinkedinBoxFill,
   RiFacebookBoxLine, RiFacebookBoxFill,
   RiInstagramLine, RiInstagramFill,
@@ -24,23 +24,23 @@ const navigationLinks = [
 ];
 
 const socialLinks = [
-  { 
-    name: 'LinkedIn', 
-    href: 'https://www.linkedin.com/company/mind-and-metrics-branding/', 
+  {
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/mind-and-metrics-branding/',
     icon: RiLinkedinBoxLine,
-    iconFill: RiLinkedinBoxFill 
+    iconFill: RiLinkedinBoxFill
   },
-  { 
-    name: 'Facebook', 
-    href: 'https://www.facebook.com/mindandmetricsbranding', 
+  {
+    name: 'Facebook',
+    href: 'https://www.facebook.com/mindandmetricsbranding',
     icon: RiFacebookBoxLine,
-    iconFill: RiFacebookBoxFill 
+    iconFill: RiFacebookBoxFill
   },
-  { 
-    name: 'Instagram', 
-    href: 'https://www.instagram.com/mindandmetricsbranding/', 
+  {
+    name: 'Instagram',
+    href: 'https://www.instagram.com/mindandmetricsbranding/',
     icon: RiInstagramLine,
-    iconFill: RiInstagramFill 
+    iconFill: RiInstagramFill
   },
 ];
 
@@ -53,7 +53,7 @@ const Footer = () => {
             <div className="max-w-sm w-full">
               <motion.div
                 variants={{
-                  hover: { 
+                  hover: {
                     y: -2,
                     transition: { type: "spring", stiffness: 400 }
                   }
@@ -75,9 +75,7 @@ const Footer = () => {
                 </Link>
               </motion.div>
               <p className="text-secondary-500 text-sm mt-6" data-cy="footer-description">
-                Elevating Omaha&apos;s B2B landscape through strategic branding and digital excellence. 
-                Serving the Greater Omaha area and surrounding communities with tailored solutions 
-                for sustainable growth.
+                Transforming Omaha&apos;s B2B landscape with strategic branding and digital solutions that are tailored to your business&apos;s unique vision. Serving the Greater Omaha area and beyond with expert strategies designed for sustainable growth.
               </p>
             </div>
           </div>
@@ -88,10 +86,10 @@ const Footer = () => {
               <h3 className="font-serif text-lg text-secondary-400 mb-4" data-cy="footer-nav-title">Navigation</h3>
               <ul className="space-y-3">
                 {navigationLinks.map((link) => (
-                  <motion.li 
+                  <motion.li
                     key={link.name}
                     variants={{
-                      hover: { 
+                      hover: {
                         y: -2,
                         transition: { type: "spring", stiffness: 400 }
                       }
@@ -136,7 +134,7 @@ const Footer = () => {
                   <div className="text-sm text-secondary-500">
                     <motion.div
                       variants={{
-                        hover: { 
+                        hover: {
                           y: -2,
                           transition: { type: "spring", stiffness: 400 }
                         }
@@ -156,27 +154,28 @@ const Footer = () => {
                     </motion.div>
                   </div>
                 </div>
-                <motion.div
-                  variants={{
-                    hover: { 
-                      y: -2,
-                      transition: { type: "spring", stiffness: 400 }
-                    }
-                  }}
-                  whileHover="hover"
-                >
-                  <Link 
-                    href="mailto:info@mindandmetricsbranding.com"
-                    data-cy="footer-email"
-                    className="flex items-center space-x-3 text-secondary-500 hover:text-secondary-400 
-                             transition-colors group"
+                <div className="flex items-center space-x-3">
+                  <RiMailLine className="w-5 h-5 shrink-0 text-secondary-500" />
+                  <motion.div
+                    variants={{
+                      hover: {
+                        y: -2,
+                        transition: { type: "spring", stiffness: 400 }
+                      }
+                    }}
+                    whileHover="hover"
                   >
-                    <RiMailLine className="w-5 h-5 shrink-0" />
-                    <span className="text-sm break-all group-hover:underline">
-                      info@mindandmetricsbranding.com
-                    </span>
-                  </Link>
-                </motion.div>
+                    <Link
+                      href="mailto:info@mindandmetricsbranding.com"
+                      data-cy="footer-email"
+                      className="text-secondary-500 hover:text-secondary-400 transition-colors group"
+                    >
+                      <span className="text-sm break-all group-hover:underline">
+                        info@mindandmetricsbranding.com
+                      </span>
+                    </Link>
+                  </motion.div>
+                </div>
               </div>
             </div>
           </div>
@@ -190,7 +189,7 @@ const Footer = () => {
                   <motion.div
                     key={social.name}
                     variants={{
-                      hover: { 
+                      hover: {
                         y: -2,
                         transition: { type: "spring", stiffness: 400 }
                       }

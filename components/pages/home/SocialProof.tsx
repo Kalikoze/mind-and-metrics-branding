@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import ScrambleText from './ScrambleText';
+import ScrambleText from '@/components/common/ScrambleText';
 import PSCLogo from '@/public/assets/logos/psc-logo.svg';
 import HydrovacLogo from '@/public/assets/logos/hydrovac-logo.svg';
 import NatHydroLogo from '@/public/assets/logos/nat-hydro-logo.svg';
 import PrecisionSurveyLogo from '@/public/assets/logos/precision-survey-logo.svg';
-import CircuitOverlay from './CircuitOverlay';
+import CircuitOverlay from '@/components/common/CircuitOverlay';
 
 const stats = [
   { value: "100%", label: "Client Retention Rate" },

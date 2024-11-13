@@ -1,9 +1,9 @@
 "use client";
 
-import Hero from '@/components/Hero';
-import AboutIntro from '@/components/AboutIntro';
-import TeamLeaders from '@/components/TeamLeaders';
-import CaseStudies from '@/components/CaseStudies';
+import Hero from '@/components/common/Hero';
+import AboutIntro from '@/components/pages/about/AboutIntro';
+import TeamLeaders from '@/components/pages/about/TeamLeaders';
+import CaseStudies from '@/components/pages/about/CaseStudies';
 
 export default function About() {
   return (

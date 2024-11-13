@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { 
+import {
   RiLightbulbFlashLine,
   RiCodeBoxLine,
   RiMegaphoneLine,
@@ -8,7 +8,7 @@ import {
 } from 'react-icons/ri';
 import { HiOutlineArrowRight } from 'react-icons/hi2';
 import { useState } from 'react';
-import ScrambleText from './ScrambleText';
+import ScrambleText from '@/components/common/ScrambleText';
 
 const services = [
   {
@@ -42,16 +42,16 @@ const ServicesGrid = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 data-cy="services-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
-            Comprehensive B2B Solutions
+            Total B2B Business Suite
           </h2>
           <p className="text-secondary-500 text-lg max-w-2xl mx-auto">
-            Scale your business with experts who understand your vision and goals.
+            Ready to scale your business with experts who truly understand your vision and goals?
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {services.map((service, index) => (
-            <Link 
+            <Link
               href={`/services#${service.title.toLowerCase().replace(/\s+/g, '-')}`}
               key={index}
               data-cy={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
@@ -62,7 +62,7 @@ const ServicesGrid = () => {
                        transition-all duration-300
                        hover:shadow-lg hover:-translate-y-1"
             >
-              <div 
+              <div
                 data-cy="service-icon"
                 className="bg-white p-4 rounded-full w-16 h-16 mb-6
                           flex items-center justify-center
@@ -71,23 +71,23 @@ const ServicesGrid = () => {
                 <service.icon className="w-8 h-8 text-secondary-400 
                                       group-hover:text-white transition-colors duration-300" />
               </div>
-              
-              <h3 
+
+              <h3
                 data-cy="service-title"
                 className="text-xl font-serif text-secondary-500 mb-3 group-hover:text-secondary-400
                          transition-colors duration-300"
               >
                 {service.title}
               </h3>
-              
-              <p 
+
+              <p
                 data-cy="service-description"
                 className="text-secondary-400 font-sans mb-6"
               >
                 {service.description}
               </p>
 
-              <div 
+              <div
                 data-cy="service-card-content"
                 className="text-secondary-400 font-medium text-sm flex items-center
                          opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -95,8 +95,8 @@ const ServicesGrid = () => {
                 <span className="w-[80px]">
                   <ScrambleText text="Learn More" isHovering={hoveringIndices[index]} />
                 </span>
-                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300 shrink-0" 
-                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300 shrink-0"
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </div>
@@ -117,7 +117,7 @@ const ServicesGrid = () => {
           >
             <HiOutlineArrowRight className="w-5 h-5 shrink-0" />
             <span className="w-[160px] text-center">
-              <ScrambleText text="Explore Services" isHovering={viewAllHovering} />
+              <ScrambleText text="Learn More" isHovering={viewAllHovering} />
             </span>
           </Link>
         </div>

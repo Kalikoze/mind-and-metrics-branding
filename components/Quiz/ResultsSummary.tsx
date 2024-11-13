@@ -1,7 +1,7 @@
 import { calculateInvestmentRange, getQuestionById, getOptionLabel } from '@/utils/quiz/calculations';
 import { motion } from 'framer-motion';
 import { HiArrowRight, HiPencil, HiExclamationCircle, HiLightBulb, HiCheckCircle } from 'react-icons/hi2';
-import ScrambleText from '@/components/ScrambleText';
+import ScrambleText from '@/components/common/ScrambleText';
 import { useState } from 'react';
 
 interface ResultsSummaryProps {
@@ -11,11 +11,11 @@ interface ResultsSummaryProps {
   onConfirm: () => void;
 }
 
-export default function ResultsSummary({ 
-  answers, 
+export default function ResultsSummary({
+  answers,
   selectedBranches,
   onEdit,
-  onConfirm 
+  onConfirm
 }: ResultsSummaryProps) {
   const [isHovering, setIsHovering] = useState(false);
   const [hoveringEdit, setHoveringEdit] = useState<string | null>(null);
@@ -38,8 +38,8 @@ export default function ResultsSummary({
           if (!question) return null;
 
           return (
-            <motion.div 
-              key={questionId} 
+            <motion.div
+              key={questionId}
               data-cy={`question-summary-${questionId}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -71,8 +71,8 @@ export default function ResultsSummary({
               </div>
               <div className="flex flex-wrap gap-2" data-cy={`selected-values-${questionId}`}>
                 {selectedValues.map(value => (
-                  <span 
-                    key={value} 
+                  <span
+                    key={value}
                     data-cy={`selected-value-${questionId}-${value}`}
                     className="inline-block px-3 py-1.5 bg-neutral-100 
                              text-secondary-400 rounded-lg text-sm"
@@ -85,7 +85,7 @@ export default function ResultsSummary({
           );
         })}
 
-        <motion.div 
+        <motion.div
           data-cy="investment-summary"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,7 +96,7 @@ export default function ResultsSummary({
             <h3 className="font-medium text-secondary-400" data-cy="investment-title">
               Investment Summary:
             </h3>
-            
+
             <div className="bg-neutral-50 p-4 rounded-lg" data-cy="initial-investment">
               <p className="text-secondary-400 mb-1">Initial Investment:</p>
               <p className="text-xl font-serif text-secondary-400" data-cy="initial-investment-amount">

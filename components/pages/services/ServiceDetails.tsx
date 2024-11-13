@@ -1,14 +1,14 @@
 'use client';
 
 import React from 'react';
-import { 
+import {
   RiLightbulbFlashLine,
   RiCodeBoxLine,
   RiMegaphoneLine,
   RiBarChartBoxLine,
   RiCheckLine
 } from 'react-icons/ri';
-import CircuitOverlay from './CircuitOverlay';
+import CircuitOverlay from '@/components/common/CircuitOverlay';
 
 const serviceDetails = [
   {
@@ -213,29 +213,29 @@ const ServiceDetails = () => {
   return (
     <>
       {serviceDetails.map((service, index) => (
-        <section 
+        <section
           key={service.id}
           id={service.id}
           data-cy={`service-section-${service.id}`}
           className={`relative ${index % 2 === 0 ? 'bg-neutral-50' : 'bg-white'} py-24`}
         >
           {index % 2 === 0 && <CircuitOverlay />}
-          
+
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <div 
+              <div
                 data-cy={`service-icon-${service.id}`}
                 className="bg-white p-8 rounded-full w-32 h-32 mb-8 mx-auto
                             flex items-center justify-center
                             shadow-lg border-2 border-neutral-200">
                 <service.icon className="w-16 h-16 text-secondary-400" />
               </div>
-              <h2 
+              <h2
                 data-cy={`service-title-${service.id}`}
                 className="font-serif text-3xl md:text-4xl text-secondary-400 mb-4">
                 {service.title}
               </h2>
-              <p 
+              <p
                 data-cy={`service-overview-${service.id}`}
                 className="text-secondary-500 text-lg leading-relaxed max-w-3xl mx-auto text-center">
                 {service.overview}
@@ -243,19 +243,17 @@ const ServiceDetails = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              <div className={`rounded-lg p-8 ${
-                index % 2 === 0 
-                  ? 'bg-white border border-neutral-200' 
+              <div className={`rounded-lg p-8 ${index % 2 === 0
+                  ? 'bg-white border border-neutral-200'
                   : 'bg-neutral-50 border-2 border-neutral-200'
-              }`}>
-                <h3 className={`font-serif text-xl mb-6 ${
-                  index % 2 === 0 ? 'text-secondary-500' : 'text-secondary-400'
-                }`}>Key Features</h3>
-                <div 
+                }`}>
+                <h3 className={`font-serif text-xl mb-6 ${index % 2 === 0 ? 'text-secondary-500' : 'text-secondary-400'
+                  }`}>Key Features</h3>
+                <div
                   data-cy={`service-features-${service.id}`}
                   className="space-y-6">
                   {service.keyPoints.map((point, index) => (
-                    <div 
+                    <div
                       key={index}
                       data-cy={`service-feature-${service.id}-${index}`}
                       className="space-y-3">
@@ -274,20 +272,18 @@ const ServiceDetails = () => {
                   ))}
                 </div>
               </div>
-              
-              <div className={`rounded-lg p-8 ${
-                index % 2 === 0 
-                  ? 'bg-white border border-neutral-200' 
+
+              <div className={`rounded-lg p-8 ${index % 2 === 0
+                  ? 'bg-white border border-neutral-200'
                   : 'bg-neutral-50 border-2 border-neutral-200'
-              }`}>
-                <h3 className={`font-serif text-xl mb-6 ${
-                  index % 2 === 0 ? 'text-secondary-500' : 'text-secondary-400'
-                }`}>Service Details</h3>
-                <div 
+                }`}>
+                <h3 className={`font-serif text-xl mb-6 ${index % 2 === 0 ? 'text-secondary-500' : 'text-secondary-400'
+                  }`}>Service Details</h3>
+                <div
                   data-cy={`service-offerings-${service.id}`}
                   className="space-y-8">
                   {service.offerings.map((offering, index) => (
-                    <div 
+                    <div
                       key={index}
                       data-cy={`service-offering-${service.id}-${index}`}
                     >

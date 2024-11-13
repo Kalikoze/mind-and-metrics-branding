@@ -2,8 +2,8 @@ import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { HiOutlineGlobeAlt } from 'react-icons/hi2';
-import ScrambleText from './ScrambleText';
-import CircuitOverlay from './CircuitOverlay';
+import ScrambleText from '@/components/common/ScrambleText';
+import CircuitOverlay from '@/components/common/CircuitOverlay';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import PSCLogo from '@/public/assets/logos/psc-logo.svg';
@@ -105,9 +105,9 @@ const CaseStudies = () => {
     const minSwipeDistance = 50;
     const swipeDistanceX = touchStart - touchEnd;
     const swipeDistanceY = Math.abs(touchStartY - touchEndY);
-    
+
     if (swipeDistanceY > Math.abs(swipeDistanceX) || Math.abs(swipeDistanceX) < minSwipeDistance) return;
-    
+
     const currentIndex = caseStudies.findIndex(study => study.id === activeStudyId);
     if (swipeDistanceX > 0) {
       const nextIndex = (currentIndex + 1) % caseStudies.length;
@@ -119,7 +119,7 @@ const CaseStudies = () => {
   };
 
   return (
-    <section 
+    <section
       className="relative bg-neutral-50 py-24 overflow-hidden"
       data-cy="case-studies-section"
       aria-label="Case Studies"
@@ -128,7 +128,7 @@ const CaseStudies = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 
+          <h2
             className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4"
             data-cy="case-studies-title"
           >
@@ -139,7 +139,7 @@ const CaseStudies = () => {
           </p>
         </div>
 
-        <div 
+        <div
           className="flex justify-center mb-12 space-x-4"
           role="tablist"
           aria-label="Case study selection"
@@ -182,17 +182,17 @@ const CaseStudies = () => {
         </div>
 
         <div className="relative min-h-fit"
-             data-cy="case-studies-container"
-             ref={componentRef}
-             onTouchStart={e => {
-               setTouchStart(e.touches[0].clientX);
-               setTouchStartY(e.touches[0].clientY);
-             }}
-             onTouchMove={e => {
-               setTouchEnd(e.touches[0].clientX);
-               setTouchEndY(e.touches[0].clientY);
-             }}
-             onTouchEnd={handleSwipe}>
+          data-cy="case-studies-container"
+          ref={componentRef}
+          onTouchStart={e => {
+            setTouchStart(e.touches[0].clientX);
+            setTouchStartY(e.touches[0].clientY);
+          }}
+          onTouchMove={e => {
+            setTouchEnd(e.touches[0].clientX);
+            setTouchEndY(e.touches[0].clientY);
+          }}
+          onTouchEnd={handleSwipe}>
           <AnimatePresence mode="wait">
             {activeStudy && (
               <motion.div
@@ -340,8 +340,8 @@ const CaseStudies = () => {
                       <div
                         key={study.id}
                         className={`h-1 rounded-full transition-all duration-300 
-                          ${study.id === activeStudyId 
-                            ? 'w-8 bg-secondary-400' 
+                          ${study.id === activeStudyId
+                            ? 'w-8 bg-secondary-400'
                             : 'w-2 bg-secondary-400/40'}`}
                         aria-label={`Case study ${index + 1} of ${caseStudies.length}`}
                       />
@@ -354,7 +354,7 @@ const CaseStudies = () => {
         </div>
 
         <div className="md:hidden absolute bottom-4 left-0 right-0">
-          <div 
+          <div
             className="flex justify-center gap-2"
             role="tablist"
             aria-label="Case study pagination"
@@ -369,8 +369,8 @@ const CaseStudies = () => {
                 aria-label={`Case study ${index + 1} of ${caseStudies.length}`}
                 data-cy={`case-study-indicator-${index}`}
                 className={`h-1 rounded-full transition-all duration-300 
-                  ${study.id === activeStudyId 
-                    ? 'w-8 bg-secondary-400' 
+                  ${study.id === activeStudyId
+                    ? 'w-8 bg-secondary-400'
                     : 'w-2 bg-secondary-400/40'}`}
               />
             ))}

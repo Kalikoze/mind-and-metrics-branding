@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiArrowRight, HiArrowLeft, HiListBullet } from 'react-icons/hi2';
-import ScrambleText from '../ScrambleText';
+import ScrambleText from '../common/ScrambleText';
 import { useState } from 'react';
 
 interface NavigationButtonsProps {
@@ -12,10 +12,10 @@ interface NavigationButtonsProps {
   onReturnToSummary?: () => void;
 }
 
-export default function NavigationButtons({ 
-  showBack, 
-  canContinue, 
-  onBack, 
+export default function NavigationButtons({
+  showBack,
+  canContinue,
+  onBack,
   onContinue,
   isEditing,
   onReturnToSummary,
@@ -68,11 +68,10 @@ export default function NavigationButtons({
             onMouseLeave={() => setIsSummaryHovering(false)}
             disabled={!onReturnToSummary}
             className={`px-8 py-3.5 font-medium rounded-lg flex items-center space-x-2 border-2
-                     transition-all duration-300 ${
-                       onReturnToSummary
-                         ? 'bg-transparent text-secondary-400 border-secondary-400 hover:bg-secondary-400 hover:text-white'
-                         : 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
-                     }`}
+                     transition-all duration-300 ${onReturnToSummary
+                ? 'bg-transparent text-secondary-400 border-secondary-400 hover:bg-secondary-400 hover:text-white'
+                : 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
+              }`}
             data-cy="return-to-summary"
           >
             <HiListBullet className="w-5 h-5 shrink-0" />

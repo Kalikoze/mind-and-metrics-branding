@@ -1,7 +1,7 @@
 "use client";
 
-import Hero from '@/components/Hero';
-import ServiceDetails from '@/components/ServiceDetails';
+import Hero from '@/components/common/Hero';
+import ServiceDetails from '@/components/pages/services/ServiceDetails';
 
 export default function Services() {
   return (

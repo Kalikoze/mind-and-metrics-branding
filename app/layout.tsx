@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import MainNav from "@/components/MainNav";
+import MainNav from "@/components/common/MainNav";
 import './globals.css'
 import { gfsDidot, jost } from './fonts'
-import Footer from "@/components/Footer";
-import CustomToastContainer from '@/components/Notifications/ToastContainer';
+import Footer from "@/components/common/Footer";
+import CustomToastContainer from '@/components/common/Notifications/ToastContainer';
 
 export const metadata: Metadata = {
   title: "Mind & Metrics Branding",
