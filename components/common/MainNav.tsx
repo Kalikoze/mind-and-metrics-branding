@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 import { RiMenuLine, RiCloseLine, RiHome5Line, RiCustomerService2Line, RiTeamLine, RiMailLine, RiBriefcaseLine } from 'react-icons/ri';
 import { HiOutlineUserCircle } from 'react-icons/hi';
 import Logo from '@/public/assets/logos/mm-temp-logo.svg';
-import ScrambleText from './ScrambleText';
+import ScrambleText from '@/components/common/ScrambleText';
 
 const menuItems = [
   { name: 'Home', href: '/', icon: RiHome5Line },
@@ -24,7 +24,7 @@ const MainNav = () => {
   const [loginHovering, setLoginHovering] = useState(false);
 
   const navItemVariants = {
-    hover: { 
+    hover: {
       y: -2,
       transition: { type: "spring", stiffness: 400 }
     }
@@ -162,8 +162,8 @@ const MainNav = () => {
                 data-cy={`mobile-menu-${item.name.toLowerCase()}`}
                 href={item.href}
                 className={`block px-3 py-2 rounded-md text-base font-sans
-                  ${pathname === item.href 
-                    ? 'text-secondary-400 font-semibold bg-secondary-50/10' 
+                  ${pathname === item.href
+                    ? 'text-secondary-400 font-semibold bg-secondary-50/10'
                     : 'text-gray-600 hover:bg-gray-50'}
                   flex items-center space-x-3`}
                 onClick={() => setIsMenuOpen(false)}

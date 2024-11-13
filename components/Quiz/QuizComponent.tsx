@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import QuizQuestion from '@/components/Quiz/QuizQuestion';
 import { primaryQuestion, branchQuestions, commonQuestions } from '@/data/quizData';
-import CircuitOverlay from '@/components/CircuitOverlay';
+import CircuitOverlay from '@/components/common/CircuitOverlay';
 import ResultsSummary from '@/components/Quiz/ResultsSummary';
 import ContactForm from '@/components/Quiz/ContactForm';
 import { HiArrowRight } from 'react-icons/hi';
-import ScrambleText from '@/components/ScrambleText';
+import ScrambleText from '@/components/common/ScrambleText';
 import { ContactFormData } from '@/components/Quiz/ContactForm';
 
 export default function QuizComponent() {
@@ -30,10 +30,10 @@ export default function QuizComponent() {
   const [isHomeHovering, setIsHomeHovering] = useState(false);
 
   const currentBranch = currentBranchIndex === -1 ? null : selectedBranches[currentBranchIndex];
-  
-  const currentQuestion = currentBranch === null 
-    ? commonQuestionIndex === -1 
-      ? primaryQuestion 
+
+  const currentQuestion = currentBranch === null
+    ? commonQuestionIndex === -1
+      ? primaryQuestion
       : commonQuestions[commonQuestionIndex]
     : branchQuestions[currentBranch][branchQuestionIndex];
 
@@ -61,7 +61,7 @@ export default function QuizComponent() {
       const newSelections = currentSelections.includes(answer) && currentQuestion.skipable
         ? []
         : [answer];
-      
+
       setCurrentSelections(newSelections);
       setAnswers(prev => ({
         ...prev,
@@ -69,15 +69,15 @@ export default function QuizComponent() {
       }));
     } else {
       setCurrentSelections(prev => {
-        const newSelections = prev.includes(answer) 
+        const newSelections = prev.includes(answer)
           ? prev.filter(a => a !== answer)
           : [...prev, answer];
-        
+
         setAnswers(prevAnswers => ({
           ...prevAnswers,
           [questionId]: newSelections
         }));
-        
+
         return newSelections;
       });
     }
@@ -179,7 +179,7 @@ export default function QuizComponent() {
   const handleEdit = (questionId: string) => {
     setIsEditing(true);
     setHasProceededWithChanges(false);
-    
+
     if (questionId === primaryQuestion.id) {
       setCurrentBranchIndex(-1);
       setBranchQuestionIndex(0);
@@ -191,7 +191,7 @@ export default function QuizComponent() {
     } else {
       const isCommonQuestion = commonQuestions.find(q => q.id === questionId);
       const commonIndex = commonQuestions.findIndex(q => q.id === questionId);
-      
+
       if (isCommonQuestion) {
         setCurrentBranchIndex(-1);
         setBranchQuestionIndex(0);
@@ -313,8 +313,8 @@ export default function QuizComponent() {
 
                 <div className="text-sm text-secondary-500/80 italic mb-8" data-cy="completion-contact">
                   Need immediate assistance? Email us at{' '}
-                  <a 
-                    href="mailto:info@mindandmetricsbranding.com" 
+                  <a
+                    href="mailto:info@mindandmetricsbranding.com"
                     className="text-secondary-400 hover:underline"
                     data-cy="completion-email"
                   >
@@ -348,11 +348,10 @@ export default function QuizComponent() {
           {Array.from({ length: totalQuestions }).map((_, index) => (
             <div
               key={index}
-              className={`h-1 w-8 mx-1 rounded-full transition-all duration-300 ${
-                index < questionPath.length - 1
-                  ? 'bg-secondary-400'
-                  : 'bg-neutral-200'
-              }`}
+              className={`h-1 w-8 mx-1 rounded-full transition-all duration-300 ${index < questionPath.length - 1
+                ? 'bg-secondary-400'
+                : 'bg-neutral-200'
+                }`}
             />
           ))}
         </div>

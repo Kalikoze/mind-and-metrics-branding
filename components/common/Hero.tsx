@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import GraphingBackground from '@/public/assets/backgrounds/graphing-background.svg';
 import SpiralDesign from '@/public/assets/backgrounds/spiral-design.svg';
-import { HiOutlineClipboardDocument, HiOutlineEnvelope } from 'react-icons/hi2';
+import { HiOutlineRocketLaunch, HiOutlineEnvelope } from 'react-icons/hi2';
 import Link from 'next/link';
 import { useState } from 'react';
 import ScrambleText from './ScrambleText';
@@ -21,10 +21,10 @@ interface HeroProps {
   showBackground?: boolean;
 }
 
-const Hero: React.FC<HeroProps> = ({ 
-  title, 
-  subtitle, 
-  primaryButton, 
+const Hero: React.FC<HeroProps> = ({
+  title,
+  subtitle,
+  primaryButton,
   secondaryButton,
   showBackground = true
 }) => {
@@ -50,7 +50,7 @@ const Hero: React.FC<HeroProps> = ({
           />
         )}
       </div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <h1 data-cy="hero-title" className="font-serif text-5xl sm:text-6xl font-bold mb-6 text-secondary-600
@@ -61,7 +61,7 @@ const Hero: React.FC<HeroProps> = ({
           <h2 data-cy="hero-subtitle" className="font-sans text-xl sm:text-2xl text-secondary-500">
             {subtitle}
           </h2>
-          
+
           {(primaryButton || secondaryButton) && (
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 mt-12">
               {primaryButton && (
@@ -75,7 +75,7 @@ const Hero: React.FC<HeroProps> = ({
                            transition-all duration-300 w-[200px] justify-center
                            hover:bg-transparent hover:text-secondary-400 hover:scale-105"
                 >
-                  <HiOutlineClipboardDocument className="w-5 h-5 shrink-0" />
+                  <HiOutlineRocketLaunch className="w-5 h-5 shrink-0" />
                   <span className="w-[120px] text-center">
                     <ScrambleText text={primaryButton.text} isHovering={hoveringPrimary} />
                   </span>

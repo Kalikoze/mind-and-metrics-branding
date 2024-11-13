@@ -1,5 +1,5 @@
 import React from 'react';
-import CircuitOverlay from './CircuitOverlay';
+import CircuitOverlay from '@/components/common/CircuitOverlay';
 
 const AboutIntro = () => {
   const stats = [

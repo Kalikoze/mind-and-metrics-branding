@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { HiOutlinePuzzlePiece, HiOutlineScale, HiOutlineChartBar, HiOutlineClipboardDocument, HiOutlineCurrencyDollar } from 'react-icons/hi2';
-import ScrambleText from './ScrambleText';
-import CircuitOverlay from './CircuitOverlay';
+import { HiOutlinePuzzlePiece, HiOutlineScale, HiOutlineChartBar, HiOutlineRocketLaunch, HiOutlineCurrencyDollar } from 'react-icons/hi2';
+import ScrambleText from '@/components/common/ScrambleText';
 
 const valueProps = [
   {
@@ -27,10 +26,8 @@ const PricingPreview = () => {
   const [secondaryHover, setSecondaryHover] = useState(false);
 
   return (
-    <section data-cy="pricing-preview-section" className="relative bg-neutral-50 py-20 overflow-hidden">
-      <CircuitOverlay />
-      
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section data-cy="pricing-preview-section" className="bg-white py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 data-cy="pricing-preview-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
             Transparent Value-Based Pricing
@@ -42,12 +39,12 @@ const PricingPreview = () => {
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {valueProps.map((prop, index) => (
-            <div 
+            <div
               key={index}
               data-cy={`value-prop-${prop.title.toLowerCase().replace(/\s+/g, '-')}`}
-              className="p-8 rounded-lg bg-white border-2 border-neutral-200"
+              className="p-8 rounded-lg bg-neutral-50 border-2 border-neutral-200"
             >
-              <div className="bg-neutral-50 p-4 rounded-full w-16 h-16 mb-6
+              <div className="bg-white p-4 rounded-full w-16 h-16 mb-6
                             flex items-center justify-center">
                 <prop.icon className="w-8 h-8 text-secondary-400" />
               </div>
@@ -61,16 +58,17 @@ const PricingPreview = () => {
           ))}
         </div>
 
-        <div data-cy="pricing-cta-card"className="bg-white rounded-2xl p-12 border-2 border-neutral-200
-                      transition-all duration-300 hover:border-secondary-400
-                      hover:shadow-lg text-center">
+        <div data-cy="pricing-cta-card" 
+             className="bg-neutral-50 rounded-2xl p-12 border-2 border-neutral-200
+                       transition-all duration-300 hover:border-secondary-400
+                       hover:shadow-lg text-center">
           <h3 data-cy="pricing-cta-title" className="text-2xl font-serif text-secondary-400 mb-6">
             Ready to Build Your Custom Solution?
           </h3>
           <p data-cy="pricing-cta-description" className="text-secondary-500 max-w-2xl mx-auto mb-8">
             Answer a few questions to receive an initial estimate. We&apos;ll then schedule a consultation to discuss specifics and provide a detailed quote. No commitment required.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               data-cy="pricing-get-started-button"
@@ -82,12 +80,12 @@ const PricingPreview = () => {
                          transition-all duration-300 w-[200px] justify-center
                          hover:bg-transparent hover:text-secondary-400 hover:scale-105"
             >
-              <HiOutlineClipboardDocument className="w-5 h-5 shrink-0" />
+              <HiOutlineRocketLaunch className="w-5 h-5 shrink-0" />
               <span className="w-[120px] text-center">
-                <ScrambleText text="Get A Quote" isHovering={primaryHover} />
+                <ScrambleText text="Get Started" isHovering={primaryHover} />
               </span>
             </Link>
-            
+
             <Link
               data-cy="pricing-view-pricing-button"
               href="/pricing"
@@ -100,7 +98,7 @@ const PricingPreview = () => {
             >
               <HiOutlineCurrencyDollar className="w-5 h-5 shrink-0" />
               <span className="w-[120px] text-center">
-                <ScrambleText text="Explore Pricing" isHovering={secondaryHover} />
+                <ScrambleText text="View Pricing" isHovering={secondaryHover} />
               </span>
             </Link>
           </div>

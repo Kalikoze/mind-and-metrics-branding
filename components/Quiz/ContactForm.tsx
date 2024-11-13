@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import { HiArrowRight, HiExclamationCircle, HiArrowLeft } from 'react-icons/hi2';
-import ScrambleText from '@/components/ScrambleText';
+import ScrambleText from '@/components/common/ScrambleText';
 import { useState, useEffect } from 'react';
 import { usePhoneFormat } from '@/hooks/usePhoneFormat';
 import { toast } from 'react-toastify';
-import { CustomToast } from '@/components/Notifications/CustomToast';
+import { CustomToast } from '@/components/common/Notifications/CustomToast';
 
 export interface ContactFormData {
   firstName: string;
@@ -55,7 +55,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
 
   const onSubmitForm = async (formData: ContactFormData) => {
     if (isLoading) return;
-    
+
     try {
       setIsLoading(true);
       const response = await fetch('/api/quiz-submission', {
@@ -87,7 +87,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
       }
 
       const data = await response.json();
-      
+
       if (!data.success) {
         throw new Error(data.message || 'Unable to submit form. Please try again.');
       }
@@ -104,8 +104,8 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
       toast(() => CustomToast({
         type: 'error',
         message: 'Submission Failed',
-        description: error instanceof Error 
-          ? error.message 
+        description: error instanceof Error
+          ? error.message
           : 'We\'re having trouble submitting your form. Please try again or contact support if the issue persists.'
       }));
     } finally {
@@ -125,8 +125,8 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
       </div>
 
       {isSubmitted && Object.keys(errors).length > 0 && (
-        <div 
-          className="p-4 bg-red-50 rounded-lg mb-6" 
+        <div
+          className="p-4 bg-red-50 rounded-lg mb-6"
           role="alert"
           data-cy="error-summary"
         >
@@ -451,11 +451,10 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             whileHover={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 1.05 } : undefined}
             whileTap={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 0.95 } : undefined}
             className={`px-8 py-3 font-medium rounded-lg flex items-center space-x-3 border-2
-                     transition-all duration-300 ${
-                       isLoading || (isSubmitted && Object.keys(errors).length > 0)
-                         ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
-                         : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'
-                     }`}
+                     transition-all duration-300 ${isLoading || (isSubmitted && Object.keys(errors).length > 0)
+                ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
+                : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'
+              }`}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
           >

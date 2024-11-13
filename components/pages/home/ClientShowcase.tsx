@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import ScrambleText from './ScrambleText';
+import ScrambleText from '@/components/common/ScrambleText';
 import PSCLogo from '@/public/assets/logos/psc-logo.svg';
 import HydrovacLogo from '@/public/assets/logos/hydrovac-logo.svg';
 import NatHydroLogo from '@/public/assets/logos/nat-hydro-logo.svg';
 import PrecisionSurveyLogo from '@/public/assets/logos/precision-survey-logo.svg';
-import CircuitOverlay from './CircuitOverlay';
 
 const stats = [
-  { value: "100%", label: "Client Retention Rate" },
-  { value: "5+", label: "Projects in First 6 Months" },
-  { value: "24hr", label: "Average Response Time" },
-  { value: "$42K", label: "Average Annual Savings" }
+  { value: "$42K", label: "Average Annual Savings" },
+  { value: '100%', label: 'Preview Before Production' },
+  { value: '24hr', label: 'Content Update Turnaround' },
+  { value: '10+', label: 'Client Trainings Attended' }
 ];
 
 const clientLogos = [
@@ -46,31 +45,12 @@ const clientLogos = [
   }
 ];
 
-// const testimonials = [
-//   {
-//     quote: "Mind & Metrics transformed our digital presence. Their strategic approach and attention to detail exceeded our expectations.",
-//     author: "Steven Koch",
-//     position: "Project Manager",
-//     company: "PSC Construction",
-//     image: "/assets/testimonials/steven-koch.jpg"
-//   },
-//   {
-//     quote: "Working with their team has been revolutionary for our brand. They truly understand the B2B space and deliver results.",
-//     author: "Cameron Dodds",
-//     position: "Vice President",
-//     company: "Precision Surveying & Consulting",
-//     image: "/assets/testimonials/cameron-dodds.jpg"
-//   },
-// ];
-
-const SocialProof = () => {
+const ClientShowcase = () => {
   const [hoveringIndices, setHoveringIndices] = useState<{ [key: number]: boolean }>({});
 
   return (
-    <section data-cy="social-proof-section" className="relative bg-neutral-50 py-20 overflow-hidden">
-      <CircuitOverlay />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section data-cy="social-proof-section" className="bg-white py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 data-cy="social-proof-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
             Trusted By Industry Leaders
@@ -88,7 +68,7 @@ const SocialProof = () => {
               target="_blank"
               rel="noopener noreferrer"
               data-cy="client-logo-card"
-              className="group relative bg-white p-8 rounded-lg
+              className="group relative bg-neutral-50 p-8 rounded-lg
                          border-2 border-neutral-200 hover:border-secondary-400
                          transition-all duration-300
                          hover:shadow-lg hover:-translate-y-1"
@@ -141,9 +121,6 @@ const SocialProof = () => {
         </div>
 
         <div className="relative">
-          {/* Decorative line */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-secondary-400/30" />
-
           <div className="text-center mb-16 pt-16">
             <h2 className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
               Success By The Numbers
@@ -158,7 +135,7 @@ const SocialProof = () => {
               <div
                 key={index}
                 data-cy={`stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`}
-                className="text-center p-8 bg-white
+                className="text-center p-8 bg-neutral-50
                           border-2 border-neutral-200
                           rounded-lg"
               >
@@ -173,48 +150,9 @@ const SocialProof = () => {
             ))}
           </div>
         </div>
-
-        {/* <div>
-          <h3 data-cy="testimonials-title" className="text-center font-serif text-2xl text-secondary-400 mb-12">
-            What Our Clients Say
-          </h3>
-          <div className="grid md:grid-cols-2 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div 
-                key={index}
-                data-cy={`testimonial-${index + 1}`}
-                className="bg-white p-8 rounded-lg
-                           border-2 border-neutral-200 hover:border-secondary-400
-                           transition-all duration-300 hover:shadow-lg"
-              >
-                <div className="flex items-start mb-6">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
-                    <Image
-                      src={testimonial.image}
-                      alt={`${testimonial.author}'s testimonial`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <div className="font-serif text-lg text-secondary-400" data-cy="testimonial-author">
-                      {testimonial.author}
-                    </div>
-                    <div className="text-sm text-secondary-500" data-cy="testimonial-position">
-                      {testimonial.position} at {testimonial.company}
-                    </div>
-                  </div>
-                </div>
-                <blockquote className="text-secondary-500 italic" data-cy="testimonial-quote">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </blockquote>
-              </div>
-            ))}
-          </div>
-        </div> */}
       </div>
     </section>
   );
 };
 
-export default SocialProof; 
+export default ClientShowcase; 

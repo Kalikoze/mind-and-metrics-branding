@@ -488,7 +488,7 @@ describe('Get Started Page', () => {
     });
 
     it('should pass accessibility checks', () => {
-      cy.wait(500);
+      cy.wait(1000);
       cy.checkA11y();
     });
 

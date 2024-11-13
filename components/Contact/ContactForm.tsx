@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 import { HiExclamationCircle, HiArrowRight } from 'react-icons/hi2';
 import { usePhoneFormat } from '@/hooks/usePhoneFormat';
 import { toast } from 'react-toastify';
-import { CustomToast } from '@/components/Notifications/CustomToast';
-import ScrambleText from '../ScrambleText';
+import { CustomToast } from '@/components/common/Notifications/CustomToast';
+import ScrambleText from '@/components/common/ScrambleText';
 
 interface ContactFormData {
   firstName: string;
@@ -103,10 +103,10 @@ export default function ContactForm() {
     <div className="bg-white rounded-lg p-8 border-2 border-neutral-200
                     transition-all duration-300 hover:border-secondary-400
                     hover:shadow-lg"
-         data-cy="contact-form"
+      data-cy="contact-form"
     >
       <h2 className="font-serif text-2xl text-secondary-400 mb-6"
-          data-cy="contact-form-title"
+        data-cy="contact-form-title"
       >
         Send Us a Message
       </h2>

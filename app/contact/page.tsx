@@ -1,6 +1,6 @@
 'use client';
 
-import Hero from '@/components/Hero';
+import Hero from '@/components/common/Hero';
 import ContactSection from '@/components/Contact/ContactSection';
 
 export default function Contact() {
