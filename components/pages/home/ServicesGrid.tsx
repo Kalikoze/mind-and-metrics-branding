@@ -9,6 +9,7 @@ import {
 import { HiOutlineArrowRight } from 'react-icons/hi2';
 import { useState } from 'react';
 import ScrambleText from '@/components/common/ScrambleText';
+import CircuitOverlay from '@/components/common/CircuitOverlay';
 
 const services = [
   {
@@ -38,8 +39,10 @@ const ServicesGrid = () => {
   const [hoveringIndices, setHoveringIndices] = useState<{ [key: number]: boolean }>({});
 
   return (
-    <section data-cy="services-section" className="bg-white py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section data-cy="services-section" className="relative bg-neutral-50 py-20 overflow-hidden">
+      <CircuitOverlay />
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 data-cy="services-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
             Total B2B Business Suite
@@ -57,7 +60,7 @@ const ServicesGrid = () => {
               data-cy={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
               onMouseEnter={() => setHoveringIndices(prev => ({ ...prev, [index]: true }))}
               onMouseLeave={() => setHoveringIndices(prev => ({ ...prev, [index]: false }))}
-              className="group relative p-8 rounded-lg bg-neutral-50 hover:bg-white
+              className="group relative p-8 rounded-lg bg-white hover:bg-white
                        border-2 border-neutral-200 hover:border-secondary-400
                        transition-all duration-300
                        hover:shadow-lg hover:-translate-y-1"

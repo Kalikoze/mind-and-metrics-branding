@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { HiOutlinePuzzlePiece, HiOutlineScale, HiOutlineChartBar, HiOutlineRocketLaunch, HiOutlineCurrencyDollar } from 'react-icons/hi2';
 import ScrambleText from '@/components/common/ScrambleText';
-import CircuitOverlay from '@/components/common/CircuitOverlay';
 
 const valueProps = [
   {
@@ -27,10 +26,8 @@ const PricingPreview = () => {
   const [secondaryHover, setSecondaryHover] = useState(false);
 
   return (
-    <section data-cy="pricing-preview-section" className="relative bg-neutral-50 py-20 overflow-hidden">
-      <CircuitOverlay />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section data-cy="pricing-preview-section" className="bg-white py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 data-cy="pricing-preview-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
             Transparent Value-Based Pricing
@@ -45,9 +42,9 @@ const PricingPreview = () => {
             <div
               key={index}
               data-cy={`value-prop-${prop.title.toLowerCase().replace(/\s+/g, '-')}`}
-              className="p-8 rounded-lg bg-white border-2 border-neutral-200"
+              className="p-8 rounded-lg bg-neutral-50 border-2 border-neutral-200"
             >
-              <div className="bg-neutral-50 p-4 rounded-full w-16 h-16 mb-6
+              <div className="bg-white p-4 rounded-full w-16 h-16 mb-6
                             flex items-center justify-center">
                 <prop.icon className="w-8 h-8 text-secondary-400" />
               </div>
@@ -61,9 +58,10 @@ const PricingPreview = () => {
           ))}
         </div>
 
-        <div data-cy="pricing-cta-card" className="bg-white rounded-2xl p-12 border-2 border-neutral-200
-                      transition-all duration-300 hover:border-secondary-400
-                      hover:shadow-lg text-center">
+        <div data-cy="pricing-cta-card" 
+             className="bg-neutral-50 rounded-2xl p-12 border-2 border-neutral-200
+                       transition-all duration-300 hover:border-secondary-400
+                       hover:shadow-lg text-center">
           <h3 data-cy="pricing-cta-title" className="text-2xl font-serif text-secondary-400 mb-6">
             Ready to Build Your Custom Solution?
           </h3>
