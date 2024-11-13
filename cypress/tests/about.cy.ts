@@ -264,10 +264,9 @@ describe('About Page', () => {
 
           const expectedItems = [
             { name: 'home', path: '/' },
-            { name: 'services', path: '/services' },
-            { name: 'how it works', path: '/process' },
-            { name: 'pricing', path: '/pricing' },
             { name: 'about', path: '/about' },
+            { name: 'services', path: '/services' },
+            { name: 'careers', path: '/careers' },
             { name: 'contact', path: '/contact' }
           ];
 

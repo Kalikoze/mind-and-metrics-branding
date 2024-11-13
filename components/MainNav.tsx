@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { RiMenuLine, RiCloseLine, RiHome5Line, RiCustomerService2Line, RiTeamLine, RiMailLine, RiRoadMapLine, RiPriceTag3Line } from 'react-icons/ri';
+import { RiMenuLine, RiCloseLine, RiHome5Line, RiCustomerService2Line, RiTeamLine, RiMailLine, RiBriefcaseLine } from 'react-icons/ri';
 import { HiOutlineUserCircle } from 'react-icons/hi';
 import Logo from '@/public/assets/logos/mm-temp-logo.svg';
 import ScrambleText from './ScrambleText';
@@ -14,8 +14,7 @@ const menuItems = [
   { name: 'Home', href: '/', icon: RiHome5Line },
   { name: 'About', href: '/about', icon: RiTeamLine },
   { name: 'Services', href: '/services', icon: RiCustomerService2Line },
-  { name: 'How It Works', href: '/process', icon: RiRoadMapLine },
-  { name: 'Pricing', href: '/pricing', icon: RiPriceTag3Line },
+  { name: 'Careers', href: '/careers', icon: RiBriefcaseLine },
   { name: 'Contact', href: '/contact', icon: RiMailLine },
 ];
 
