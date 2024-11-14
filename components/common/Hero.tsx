@@ -55,7 +55,7 @@ const Hero: React.FC<HeroProps> = ({
         <div className="max-w-3xl mx-auto text-center">
           <h1 data-cy="hero-title" className="font-serif text-5xl sm:text-6xl font-bold mb-6 text-secondary-600
                          [text-wrap:balance] bg-clip-text text-transparent 
-                         bg-gradient-to-r from-secondary-600 to-secondary-400">
+                         bg-gradient-to-r from-secondary-600 to-secondary-400 pb-2">
             {title}
           </h1>
           <h2 data-cy="hero-subtitle" className="font-sans text-xl sm:text-2xl text-secondary-500">
