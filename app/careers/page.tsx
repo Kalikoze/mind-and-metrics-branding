@@ -3,6 +3,7 @@
 import Hero from '@/components/common/Hero';
 import ValueProposition from '@/components/common/ValueProposition';
 import WorkCulture from '@/components/pages/careers/WorkCulture';
+import OpenPositions from '@/components/pages/careers/OpenPositions';
 
 export default function Careers() {
   const valuePropositionData = {
@@ -29,9 +30,11 @@ export default function Careers() {
       <Hero
         title="Shape the Future of Digital Excellence"
         subtitle="Join a team dedicated to transforming brands through strategy, creativity, and innovation"
+        showBackground={false}
       />
       <ValueProposition {...valuePropositionData} />
       <WorkCulture />
+      <OpenPositions />
     </main>
   );
 } 

@@ -32,7 +32,7 @@ const culturePoints = [
 const WorkCulture = () => {
   return (
     <section className="bg-white py-24" data-cy="work-culture-section">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl text-secondary-400 mb-4">
             Our Culture
