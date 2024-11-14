@@ -15,5 +15,9 @@ export default function JobPosting({ params }: { params: { positionId: string } 
     notFound();
   }
 
-  return <JobPostingTemplate position={position} />;
+  return (
+    <main>
+      <JobPostingTemplate position={position} />
+    </main>
+  );
 } 

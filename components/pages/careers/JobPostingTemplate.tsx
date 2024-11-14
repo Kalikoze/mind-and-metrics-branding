@@ -35,12 +35,13 @@ const JobPostingTemplate = ({ position }: JobPostingTemplateProps) => {
   };
 
   return (
-    <div className="relative bg-neutral-50 min-h-screen">
+    <div className="relative bg-neutral-50 min-h-screen" data-cy="job-posting">
       <CircuitOverlay />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <Link
           href="/careers"
+          data-cy="back-link"
           onMouseEnter={() => setHoveringBack(true)}
           onMouseLeave={() => setHoveringBack(false)}
           className="inline-flex items-center gap-2 text-secondary-400 hover:text-secondary-500 
@@ -57,73 +58,78 @@ const JobPostingTemplate = ({ position }: JobPostingTemplateProps) => {
         </Link>
 
         <div className="bg-white rounded-lg shadow-lg border-2 border-neutral-200 p-8 sm:p-12">
-          <div className="mb-12">
-            <h1 className="font-serif text-4xl sm:text-5xl text-secondary-400 mb-4">
+          <div className="mb-12" data-cy="job-header">
+            <h1 className="font-serif text-4xl sm:text-5xl text-secondary-400 mb-4" data-cy="job-title">
               {position.title}
             </h1>
-            <div className="flex flex-wrap gap-4 mb-6">
-              <div className="flex items-center gap-2 text-secondary-500 
-                            bg-neutral-50 px-4 py-2 rounded-full">
+            <div className="flex flex-wrap gap-4 mb-6" data-cy="job-meta">
+              <div data-cy="job-type" className="flex items-center gap-2 text-secondary-500 bg-neutral-50 px-4 py-2 rounded-full">
                 <HiOutlineBriefcase className="w-5 h-5" />
                 <span>{position.type}</span>
               </div>
-              <div className="flex items-center gap-2 text-secondary-500 
-                            bg-neutral-50 px-4 py-2 rounded-full">
+              <div data-cy="job-location-type" className="flex items-center gap-2 text-secondary-500 bg-neutral-50 px-4 py-2 rounded-full">
                 <HiOutlineMapPin className="w-5 h-5" />
                 <span>{position.locationType}</span>
               </div>
-              <div className="flex items-center gap-2 text-secondary-500 
-                            bg-neutral-50 px-4 py-2 rounded-full">
+              <div data-cy="job-location" className="flex items-center gap-2 text-secondary-500 bg-neutral-50 px-4 py-2 rounded-full">
                 <HiOutlineBuildingOffice className="w-5 h-5" />
                 <span>{position.location}</span>
               </div>
             </div>
-            <p className="text-secondary-500">
+            <p className="text-secondary-500" data-cy="job-exemption">
               {position.isExempt ? 'FSLA Exempt' : 'FSLA Non-Exempt'}
             </p>
           </div>
 
           <div className="space-y-16">
-            <div>
+            <div data-cy="position-summary">
               <SectionHeading>Position Summary</SectionHeading>
-              <p className="text-secondary-500">
+              <p className="text-secondary-500" data-cy="position-summary-text">
                 {position.overview}
               </p>
             </div>
 
-            <div>
+            <div data-cy="responsibilities">
               <SectionHeading>Key Responsibilities</SectionHeading>
               <ul className="list-disc list-outside ml-6 space-y-4 text-secondary-500">
                 {position.responsibilities.map((section, index) => (
-                  <li key={index} className="leading-relaxed">
-                    <span className="tracking-wide text-secondary-400">{section.title}:</span>
+                  <li key={index} data-cy={`responsibility-${index}`} className="leading-relaxed">
+                    <span className="tracking-wide text-secondary-400" data-cy={`responsibility-title-${index}`}>
+                      {section.title}:
+                    </span>
                     {' '}
-                    {section.items.join(' ')}
+                    <span data-cy={`responsibility-items-${index}`}>
+                      {section.items.join(' ')}
+                    </span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div>
+            <div data-cy="qualifications">
               <SectionHeading>Qualifications</SectionHeading>
               <div className="space-y-8">
                 {position.qualifications.required.length > 0 && (
-                  <div>
+                  <div data-cy="required-qualifications">
                     <SubHeading>Required Skills & Experience</SubHeading>
                     <ul className="list-disc list-outside ml-6 space-y-3 text-secondary-500">
                       {position.qualifications.required.map((skill, index) => (
-                        <li key={index} className="leading-relaxed">{skill}</li>
+                        <li key={index} className="leading-relaxed" data-cy={`required-skill-${index}`}>
+                          {skill}
+                        </li>
                       ))}
                     </ul>
                   </div>
                 )}
                 
                 {position.qualifications.preferred.length > 0 && (
-                  <div>
+                  <div data-cy="preferred-qualifications">
                     <SubHeading>Nice-to-Have Skills</SubHeading>
                     <ul className="list-disc list-outside ml-6 space-y-3 text-secondary-500">
                       {position.qualifications.preferred.map((skill, index) => (
-                        <li key={index} className="leading-relaxed">{skill}</li>
+                        <li key={index} className="leading-relaxed" data-cy={`preferred-skill-${index}`}>
+                          {skill}
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -131,18 +137,20 @@ const JobPostingTemplate = ({ position }: JobPostingTemplateProps) => {
               </div>
             </div>
 
-            <div>
+            <div data-cy="why-join-us">
               <SectionHeading>Why Join Us?</SectionHeading>
               <ul className="list-disc list-outside ml-6 space-y-4 text-secondary-500">
                 {position.whyJoinUs.map((reason, index) => (
-                  <li key={index} className="leading-relaxed">
+                  <li key={index} className="leading-relaxed" data-cy={`why-join-us-reason-${index}`}>
                     {reason.split(':').map((part, partIndex) => 
                       partIndex === 0 ? (
-                        <span key={partIndex} className="text-secondary-400">
+                        <span key={partIndex} className="text-secondary-400" data-cy={`why-join-us-reason-title-${index}`}>
                           {part}:
                         </span>
                       ) : (
-                        part
+                        <span key={partIndex} data-cy={`why-join-us-reason-description-${index}`}>
+                          {part}
+                        </span>
                       )
                     )}
                   </li>
@@ -150,11 +158,13 @@ const JobPostingTemplate = ({ position }: JobPostingTemplateProps) => {
               </ul>
             </div>
 
-            <div>
+            <div data-cy="benefits">
               <SectionHeading>Benefits</SectionHeading>
               <ul className="list-disc list-outside ml-6 space-y-3 text-secondary-500">
                 {position.benefits.map((benefit, index) => (
-                  <li key={index} className="leading-relaxed">{benefit}</li>
+                  <li key={index} className="leading-relaxed" data-cy={`benefit-${index}`}>
+                    {benefit}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -162,6 +172,7 @@ const JobPostingTemplate = ({ position }: JobPostingTemplateProps) => {
 
           <div className="text-center mt-16">
             <button
+              data-cy="apply-button"
               onMouseEnter={() => setHoveringApply(true)}
               onMouseLeave={() => setHoveringApply(false)}
               className="inline-flex items-center justify-center gap-2 px-8 py-4
