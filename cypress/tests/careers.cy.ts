@@ -1,3 +1,5 @@
+import { positions } from '@/data/positions';
+
 describe('Careers Page', () => {
   beforeEach(() => {
     cy.visit('/careers');
@@ -95,28 +97,6 @@ describe('Careers Page', () => {
 
     it('should render OpenPositions component correctly', () => {
       cy.get('[data-cy="open-positions-section"]').should('exist');
-
-      const positions = [
-        {
-          id: 'junior-software-engineer',
-          title: 'Junior Full Stack Engineer',
-          type: 'Full-Time',
-          location: 'In-Person',
-          department: 'Engineering',
-          description: "Join our development team as we build innovative digital solutions. We're seeking a developer with backend fundamentals (Node.js/Express) and React basics who's eager to grow across the full stack. Experience with GraphQL or Python is a plus.You'll work directly with our lead engineer on e-commerce platforms and client portals, while learning valuable skills in SEO and analytics. Ideal for a motivated junior developer looking to rapidly expand their skillset through hands-on mentorship.",
-          link: '/careers/junior-software-engineer'
-        },
-        {
-          id: 'social-media-manager',
-          title: 'Social Media Manager',
-          type: 'Full-Time',
-          location: 'In-Person',
-          department: 'Marketing',
-          description: 'Lead social media strategy and content creation across multiple brand portfolios. You\'ll develop engaging campaigns, manage community interactions, and drive growth through both organic and paid social initiatives. The ideal candidate has 2-4 years of experience, strong creative skills, and expertise in social media analytics and management tools. You\'ll work closely with our marketing team to maintain brand consistency while optimizing performance across all platforms.',
-          link: '/careers/social-media-manager'
-        }
-      ];
-
       positions.forEach(position => {
         cy.get(`[data-cy="position-${position.id}"]`).within(() => {
           cy.contains(position.title);
@@ -128,7 +108,7 @@ describe('Careers Page', () => {
         });
 
         cy.get(`[data-cy="position-${position.id}"]`)
-          .should('have.attr', 'href', position.link);
+          .should('have.attr', 'href', `/careers/${position.id}`);
       });
     });
   });
