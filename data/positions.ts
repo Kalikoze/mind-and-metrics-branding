@@ -26,6 +26,16 @@ const sharedWhyJoinUs = [
   "Collaborative Team: Join an agile, creative team that encourages innovation, collaboration, and continuous learning"
 ];
 
+const sharedBenefits = [
+  "401(k) matching",
+  "Dental insurance",
+  "Disability insurance",
+  "Health insurance",
+  "Life insurance",
+  "Paid holidays",
+  "Referral program"
+];
+
 export const positions: Position[] = [
   {
     id: 'junior-software-engineer',
@@ -89,15 +99,7 @@ export const positions: Position[] = [
         "Interest in AI technologies for data processing or content generation"
       ]
     },
-    benefits: [
-      "401(k) matching",
-      "Dental insurance",
-      "Disability insurance",
-      "Health insurance",
-      "Life insurance",
-      "Paid holidays",
-      "Referral program"
-    ],
+    benefits: sharedBenefits,
     whyJoinUs: sharedWhyJoinUs
   },
   {
@@ -201,7 +203,7 @@ export const positions: Position[] = [
         "Community Management Skills for fostering engagement and moderating online discussions"
       ]
     },
-    benefits: [],
+    benefits: sharedBenefits,
     whyJoinUs: sharedWhyJoinUs
   }
 ]; 
