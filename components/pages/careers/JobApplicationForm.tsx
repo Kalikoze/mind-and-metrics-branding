@@ -1,20 +1,22 @@
 'use client'
 
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { motion } from 'framer-motion';
-import { HiExclamationCircle, HiArrowRight, HiXMark } from 'react-icons/hi2';
+import { HiExclamationCircle, HiArrowRight, HiXMark, HiOutlineCloudArrowUp, HiOutlineDocumentText } from 'react-icons/hi2';
 import { usePhoneFormat } from '@/hooks/usePhoneFormat';
 import { toast } from 'react-toastify';
 import { CustomToast } from '@/components/common/Notifications/CustomToast';
 import ScrambleText from '@/components/common/ScrambleText';
 import type { Position } from '@/data/positions';
+import { useDropzone } from 'react-dropzone';
+import Link from 'next/link';
 
 interface JobApplicationData {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone?: string;
   linkedIn?: string;
   portfolio?: string;
   currentEmployer?: string;
@@ -22,6 +24,7 @@ interface JobApplicationData {
   startDate: string;
   coverLetter: string;
   heardFrom: string;
+  referralDetail?: string;
   resume: FileList;
   privacyPolicy: boolean;
 }
@@ -37,7 +40,9 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitted }
+    formState: { errors, isSubmitted },
+    control,
+    watch
   } = useForm<JobApplicationData>({
     mode: 'onSubmit',
     reValidateMode: 'onChange'
@@ -50,7 +55,6 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
 
     try {
       setIsLoading(true);
-      // Create FormData object to handle file upload
       const submitData = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
         if (key === 'resume' && value[0]) {
@@ -101,28 +105,35 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                     hover:shadow-lg"
       data-cy="job-application-form"
     >
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="font-serif text-2xl text-secondary-400">
-          Apply for {position.title}
-        </h2>
-        <motion.button
-          onClick={onCancel}
-          className="text-secondary-400 hover:text-secondary-500 transition-colors"
-          variants={{
-            hover: {
-              y: -2,
-              transition: { type: "spring", stiffness: 400 }
-            }
-          }}
-          whileHover="hover"
-        >
-          <HiXMark className="w-6 h-6" />
-        </motion.button>
+      <div className="mb-12">
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="font-serif text-4xl text-secondary-400">
+            Apply for {position.title}
+          </h1>
+
+          <motion.button
+            onClick={onCancel}
+            className="text-secondary-400 hover:text-secondary-500 transition-colors"
+            variants={{
+              hover: {
+                y: -2,
+                transition: { type: "spring", stiffness: 400 }
+              }
+            }}
+            whileHover="hover"
+          >
+            <HiXMark className="w-6 h-6" />
+          </motion.button>
+        </div>
+
+        <p className="ml-1 text-secondary-500 text-lg">
+          Join our team and help shape the future of digital marketing
+        </p>
       </div>
 
       {/* Error Summary */}
       {isSubmitted && Object.keys(errors).length > 0 && (
-        <div className="p-4 bg-red-50 rounded-lg mb-6" role="alert">
+        <div className="bg-red-50 rounded-lg mb-6" role="alert">
           <p className="text-red-500 font-medium mb-2">Please correct the following errors:</p>
           <ul className="list-disc list-inside text-sm text-red-500">
             {Object.entries(errors).map(([field, error]) => (
@@ -203,13 +214,12 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
 
           <div>
             <label className="block text-secondary-400 mb-2" htmlFor="phone">
-              Phone *
+              Phone
             </label>
             <input
               {...register('phone', {
-                required: 'Phone number is required',
                 validate: (value) => {
-                  if (!/^\(\d{3}\) \d{3}-\d{4}$/.test(value)) {
+                  if (value && !/^\(\d{3}\) \d{3}-\d{4}$/.test(value)) {
                     return 'Please enter a valid phone number';
                   }
                   return true;
@@ -328,8 +338,17 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             Earliest Available Start Date *
           </label>
           <input
-            {...register('startDate', { required: 'Start date is required' })}
+            {...register('startDate', { 
+              required: 'Start date is required',
+              validate: (value) => {
+                const selectedDate = new Date(value);
+                const minDate = new Date();
+                minDate.setDate(minDate.getDate() + 14); // Add 14 days to today
+                return selectedDate >= minDate || 'Start date must be at least 2 weeks from today';
+              }
+            })}
             type="date"
+            min={new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                      focus:border-secondary-400 focus:outline-none transition-colors"
             data-cy="input-start-date"
@@ -344,12 +363,11 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
 
         <div>
           <label className="block text-secondary-400 mb-2" htmlFor="coverLetter">
-            Cover Letter *
+            Cover Letter (Recommended)
           </label>
           <textarea
             {...register('coverLetter', {
-              required: 'Cover letter is required',
-              minLength: { value: 100, message: 'Cover letter should be at least 100 characters' }
+              minLength: { value: 100, message: 'If providing a cover letter, it should be at least 100 characters' }
             })}
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                      focus:border-secondary-400 focus:outline-none transition-colors"
@@ -367,12 +385,12 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
 
         <div>
           <label className="block text-secondary-400 mb-2" htmlFor="heardFrom">
-            How did you hear about this position? *
+            How did you hear about this position?
           </label>
           <select
-            {...register('heardFrom', { required: 'Please select how you heard about us' })}
+            {...register('heardFrom')}
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
-                     focus:border-secondary-400 focus:outline-none transition-colors"
+                       focus:border-secondary-400 focus:outline-none transition-colors"
             data-cy="input-heard-from"
           >
             <option value="">Select an option</option>
@@ -382,45 +400,136 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             <option value="referral">Employee Referral</option>
             <option value="other">Other</option>
           </select>
-          {isSubmitted && errors.heardFrom && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
-              <HiExclamationCircle className="w-4 h-4 mr-1" />
-              {errors.heardFrom.message}
-            </p>
-          )}
         </div>
+
+        {/* Add the conditional referral detail input */}
+        {watch('heardFrom') === 'referral' && (
+          <div>
+            <label className="block text-secondary-400 mb-2" htmlFor="referralDetail">
+              Who referred you?
+            </label>
+            <input
+              {...register('referralDetail')}
+              className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
+                        focus:border-secondary-400 focus:outline-none transition-colors"
+              placeholder="Name of person who referred you"
+              data-cy="input-referral-detail"
+            />
+          </div>
+        )}
+
+        {watch('heardFrom') === 'other' && (
+          <div>
+            <label className="block text-secondary-400 mb-2" htmlFor="referralDetail">
+              Please specify
+            </label>
+            <input
+              {...register('referralDetail')}
+              className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
+                        focus:border-secondary-400 focus:outline-none transition-colors"
+              placeholder="Please specify"
+              data-cy="input-referral-detail"
+            />
+          </div>
+        )}
 
         <div>
           <label className="block text-secondary-400 mb-2" htmlFor="resume">
             Resume * (PDF, DOC, or DOCX)
           </label>
-          <input
-            type="file"
-            {...register('resume', {
-              required: 'Resume is required',
-              validate: {
-                fileFormat: (files) => {
-                  if (!files[0]) return true;
-                  const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-                  return validTypes.includes(files[0].type) || 'Please upload a PDF, DOC, or DOCX file';
+          <Controller
+            control={control}
+            name="resume"
+            rules={{
+              required: 'Resume is required'
+            }}
+            render={({ field: { onChange, value } }) => {
+              const { getRootProps, getInputProps, isDragActive, fileRejections } = useDropzone({
+                accept: {
+                  'application/pdf': ['.pdf'],
+                  'application/msword': ['.doc'],
+                  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
                 },
-                fileSize: (files) => {
-                  if (!files[0]) return true;
-                  return files[0].size <= 5000000 || 'File size must be less than 5MB';
+                maxSize: 5000000, // 5MB
+                multiple: false,
+                onDrop: (acceptedFiles) => {
+                  onChange(acceptedFiles);
                 }
-              }
-            })}
-            accept=".pdf,.doc,.docx"
-            className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
-                     focus:border-secondary-400 focus:outline-none transition-colors"
-            data-cy="input-resume"
+              });
+
+              // Show form submission error only if there are no file rejection errors
+              const showFormError = isSubmitted && errors.resume && fileRejections.length === 0;
+
+              return (
+                <div>
+                  {!value || !value[0] ? (
+                    <>
+                      <div
+                        {...getRootProps()}
+                        className={`border-2 border-dashed rounded-lg p-8 transition-all duration-300
+                          ${isDragActive
+                            ? 'border-secondary-400 bg-secondary-400/5 ring-2 ring-secondary-400 ring-opacity-20'
+                            : 'border-neutral-200 hover:border-secondary-400'}
+                          ${fileRejections.length > 0 ? 'border-red-400 bg-red-50' : ''}`}
+                      >
+                        <input {...getInputProps()} />
+                        <div className="text-center">
+                          <HiOutlineCloudArrowUp className={`mx-auto h-12 w-12 transition-colors duration-300
+                            ${isDragActive ? 'text-secondary-500' : 'text-secondary-400'}
+                            ${fileRejections.length > 0 ? 'text-red-400' : ''}`}
+                          />
+                          <p className="mt-2 text-sm text-secondary-500">
+                            <span className="font-semibold">Click to upload</span> or drag and drop
+                          </p>
+                          <p className="mt-1 text-xs text-secondary-500">
+                            PDF, DOC, or DOCX up to 5MB
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Always show file rejection errors if they exist */}
+                      {fileRejections.length > 0 && fileRejections.map(({ errors }) => (
+                        <div key={errors[0].code} className="mt-2">
+                          {errors.map(error => (
+                            <p key={error.code} className="text-red-500 text-sm flex items-center">
+                              <HiExclamationCircle className="w-4 h-4 mr-1" />
+                              {error.code === 'file-invalid-type' && 'Please upload a PDF, DOC, or DOCX file'}
+                              {error.code === 'file-too-large' && 'File is larger than 5MB'}
+                            </p>
+                          ))}
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <div className="flex items-center justify-between p-4 border rounded-lg bg-neutral-50">
+                      <div className="flex items-center">
+                        <HiOutlineDocumentText className="h-6 w-6 text-secondary-400" />
+                        <span className="ml-2 text-sm text-secondary-500">{value[0].name}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <span className="text-sm text-secondary-500 mr-4">
+                          {(value[0].size / (1024 * 1024)).toFixed(2)} MB
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => onChange(null)}
+                          className="text-secondary-400 hover:text-secondary-500"
+                        >
+                          <HiXMark className="h-5 w-5" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                  {showFormError && (
+                    <p className="mt-1 text-red-500 text-sm flex items-center">
+                      <HiExclamationCircle className="w-4 h-4 mr-1" />
+                      {errors.resume?.message}
+                    </p>
+                  )}
+                </div>
+              );
+            }}
           />
-          {isSubmitted && errors.resume && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
-              <HiExclamationCircle className="w-4 h-4 mr-1" />
-              {errors.resume.message}
-            </p>
-          )}
         </div>
 
         {/* Privacy Policy */}
@@ -435,7 +544,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
               data-cy="privacy-policy-checkbox"
             />
             <span className="text-sm text-secondary-500">
-              I agree to the processing of my personal data according to the privacy policy
+              I agree to the processing of my personal data according to the <Link href="/privacy" className="text-secondary-400 hover:underline">Privacy Policy</Link>
             </span>
           </label>
           {isSubmitted && errors.privacyPolicy && (
@@ -467,21 +576,22 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
 
           <motion.button
             type="submit"
-            disabled={isLoading}
-            whileHover={!isLoading ? { scale: 1.05 } : undefined}
-            whileTap={!isLoading ? { scale: 0.95 } : undefined}
+            disabled={isLoading || (isSubmitted && Object.keys(errors).length > 0)}
+            whileHover={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 1.05 } : undefined}
+            whileTap={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 0.95 } : undefined}
             className={`px-8 py-3.5 font-medium rounded-lg flex items-center space-x-3 
-               border-2 transition-all duration-300 ${isLoading
-                ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
-                : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'
-              }`}
+               border-2 transition-all duration-300 ${
+                 isLoading || (isSubmitted && Object.keys(errors).length > 0)
+                   ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
+                   : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'
+               }`}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
           >
             <span className="w-[80px] text-center">
               <ScrambleText
                 text={isLoading ? "Sending..." : "Submit"}
-                isHovering={isHovering && !isLoading}
+                isHovering={isHovering && !isLoading && (!isSubmitted || Object.keys(errors).length === 0)}
               />
             </span>
             {isLoading ? (

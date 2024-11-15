@@ -208,15 +208,6 @@ const JobPostingTemplate = ({ position }: JobPostingTemplateProps) => {
             className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24"
           >
             <div className="w-full">
-              <div className="text-center mb-12">
-                <h1 className="font-serif text-4xl text-secondary-400 mb-4">
-                  Apply for {position.title}
-                </h1>
-                <p className="text-secondary-500 text-lg">
-                  Join our team and help shape the future of digital marketing
-                </p>
-              </div>
-              
               <JobApplicationForm 
                 position={position}
                 onCancel={() => setShowApplicationForm(false)}
