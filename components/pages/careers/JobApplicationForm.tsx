@@ -34,6 +34,102 @@ interface JobApplicationFormProps {
   onCancel: () => void;
 }
 
+const ResumeUpload = ({ 
+  onChange, 
+  value, 
+  isSubmitted, 
+  error 
+}: { 
+  onChange: (files: File[]) => void;
+  value: FileList | null;
+  isSubmitted: boolean;
+  error?: { message?: string };
+}) => {
+  const { getRootProps, getInputProps, isDragActive, fileRejections } = useDropzone({
+    accept: {
+      'application/pdf': ['.pdf'],
+      'application/msword': ['.doc'],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
+    },
+    maxSize: 5000000, // 5MB
+    multiple: false,
+    onDrop: (acceptedFiles) => {
+      onChange(acceptedFiles);
+    }
+  });
+
+  // Show form submission error only if there are no file rejection errors
+  const showFormError = isSubmitted && error && fileRejections.length === 0;
+
+  return (
+    <div>
+      {!value || !value[0] ? (
+        <>
+          <div
+            {...getRootProps()}
+            className={`border-2 border-dashed rounded-lg p-8 transition-all duration-300
+              ${isDragActive
+                ? 'border-secondary-400 bg-secondary-400/5 ring-2 ring-secondary-400 ring-opacity-20'
+                : 'border-neutral-200 hover:border-secondary-400'}
+              ${fileRejections.length > 0 ? 'border-red-400 bg-red-50' : ''}`}
+          >
+            <input {...getInputProps()} />
+            <div className="text-center">
+              <HiOutlineCloudArrowUp className={`mx-auto h-12 w-12 transition-colors duration-300
+                ${isDragActive ? 'text-secondary-500' : 'text-secondary-400'}
+                ${fileRejections.length > 0 ? 'text-red-400' : ''}`}
+              />
+              <p className="mt-2 text-sm text-secondary-500">
+                <span className="font-semibold">Click to upload</span> or drag and drop
+              </p>
+              <p className="mt-1 text-xs text-secondary-500">
+                PDF, DOC, or DOCX up to 5MB
+              </p>
+            </div>
+          </div>
+
+          {fileRejections.length > 0 && fileRejections.map(({ errors }) => (
+            <div key={errors[0].code} className="mt-2">
+              {errors.map(error => (
+                <p key={error.code} className="text-red-500 text-sm flex items-center">
+                  <HiExclamationCircle className="w-4 h-4 mr-1" />
+                  {error.code === 'file-invalid-type' && 'Please upload a PDF, DOC, or DOCX file'}
+                  {error.code === 'file-too-large' && 'File is larger than 5MB'}
+                </p>
+              ))}
+            </div>
+          ))}
+        </>
+      ) : (
+        <div className="flex items-center justify-between p-4 border rounded-lg bg-neutral-50">
+          <div className="flex items-center">
+            <HiOutlineDocumentText className="h-6 w-6 text-secondary-400" />
+            <span className="ml-2 text-sm text-secondary-500">{value[0].name}</span>
+          </div>
+          <div className="flex items-center">
+            <span className="text-sm text-secondary-500 mr-4">
+              {(value[0].size / (1024 * 1024)).toFixed(2)} MB
+            </span>
+            <button
+              type="button"
+              onClick={() => onChange([])}
+              className="text-secondary-400 hover:text-secondary-500"
+            >
+              <HiXMark className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+      )}
+      {showFormError && (
+        <p className="mt-1 text-red-500 text-sm flex items-center">
+          <HiExclamationCircle className="w-4 h-4 mr-1" />
+          {error?.message}
+        </p>
+      )}
+    </div>
+  );
+};
+
 export default function JobApplicationForm({ position, onCancel }: JobApplicationFormProps) {
   const [isHovering, setIsHovering] = useState(false);
   const { handlePhoneChange } = usePhoneFormat();
@@ -75,7 +171,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         throw new Error(errorData.message || 'Failed to submit application');
       }
 
-      const data = await response.json();
+      // const data = await response.json();
 
       toast(() => CustomToast({
         type: 'success',
@@ -443,92 +539,14 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             rules={{
               required: 'Resume is required'
             }}
-            render={({ field: { onChange, value } }) => {
-              const { getRootProps, getInputProps, isDragActive, fileRejections } = useDropzone({
-                accept: {
-                  'application/pdf': ['.pdf'],
-                  'application/msword': ['.doc'],
-                  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
-                },
-                maxSize: 5000000, // 5MB
-                multiple: false,
-                onDrop: (acceptedFiles) => {
-                  onChange(acceptedFiles);
-                }
-              });
-
-              // Show form submission error only if there are no file rejection errors
-              const showFormError = isSubmitted && errors.resume && fileRejections.length === 0;
-
-              return (
-                <div>
-                  {!value || !value[0] ? (
-                    <>
-                      <div
-                        {...getRootProps()}
-                        className={`border-2 border-dashed rounded-lg p-8 transition-all duration-300
-                          ${isDragActive
-                            ? 'border-secondary-400 bg-secondary-400/5 ring-2 ring-secondary-400 ring-opacity-20'
-                            : 'border-neutral-200 hover:border-secondary-400'}
-                          ${fileRejections.length > 0 ? 'border-red-400 bg-red-50' : ''}`}
-                      >
-                        <input {...getInputProps()} />
-                        <div className="text-center">
-                          <HiOutlineCloudArrowUp className={`mx-auto h-12 w-12 transition-colors duration-300
-                            ${isDragActive ? 'text-secondary-500' : 'text-secondary-400'}
-                            ${fileRejections.length > 0 ? 'text-red-400' : ''}`}
-                          />
-                          <p className="mt-2 text-sm text-secondary-500">
-                            <span className="font-semibold">Click to upload</span> or drag and drop
-                          </p>
-                          <p className="mt-1 text-xs text-secondary-500">
-                            PDF, DOC, or DOCX up to 5MB
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Always show file rejection errors if they exist */}
-                      {fileRejections.length > 0 && fileRejections.map(({ errors }) => (
-                        <div key={errors[0].code} className="mt-2">
-                          {errors.map(error => (
-                            <p key={error.code} className="text-red-500 text-sm flex items-center">
-                              <HiExclamationCircle className="w-4 h-4 mr-1" />
-                              {error.code === 'file-invalid-type' && 'Please upload a PDF, DOC, or DOCX file'}
-                              {error.code === 'file-too-large' && 'File is larger than 5MB'}
-                            </p>
-                          ))}
-                        </div>
-                      ))}
-                    </>
-                  ) : (
-                    <div className="flex items-center justify-between p-4 border rounded-lg bg-neutral-50">
-                      <div className="flex items-center">
-                        <HiOutlineDocumentText className="h-6 w-6 text-secondary-400" />
-                        <span className="ml-2 text-sm text-secondary-500">{value[0].name}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-sm text-secondary-500 mr-4">
-                          {(value[0].size / (1024 * 1024)).toFixed(2)} MB
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => onChange(null)}
-                          className="text-secondary-400 hover:text-secondary-500"
-                        >
-                          <HiXMark className="h-5 w-5" />
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                  {showFormError && (
-                    <p className="mt-1 text-red-500 text-sm flex items-center">
-                      <HiExclamationCircle className="w-4 h-4 mr-1" />
-                      {errors.resume?.message}
-                    </p>
-                  )}
-                </div>
-              );
-            }}
+            render={({ field: { onChange, value } }) => (
+              <ResumeUpload
+                onChange={onChange}
+                value={value}
+                isSubmitted={isSubmitted}
+                error={errors.resume}
+              />
+            )}
           />
         </div>
 
