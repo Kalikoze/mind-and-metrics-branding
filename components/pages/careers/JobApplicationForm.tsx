@@ -67,13 +67,14 @@ const ResumeUpload = ({
         <>
           <div
             {...getRootProps()}
+            data-cy="resume-dropzone"
             className={`border-2 border-dashed rounded-lg p-8 transition-all duration-300
               ${isDragActive
                 ? 'border-secondary-400 bg-secondary-400/5 ring-2 ring-secondary-400 ring-opacity-20'
                 : 'border-neutral-200 hover:border-secondary-400'}
-              ${fileRejections.length > 0 ? 'border-red-400 bg-red-50' : ''}`}
+              ${fileRejections.length > 0 || (isSubmitted && error) ? 'border-red-400 bg-red-50' : ''}`}
           >
-            <input {...getInputProps()} />
+            <input {...getInputProps()} data-cy="resume-input" />
             <div className="text-center">
               <HiOutlineCloudArrowUp className={`mx-auto h-12 w-12 transition-colors duration-300
                 ${isDragActive ? 'text-secondary-500' : 'text-secondary-400'}
@@ -91,7 +92,7 @@ const ResumeUpload = ({
           {fileRejections.length > 0 && fileRejections.map(({ errors }) => (
             <div key={errors[0].code} className="mt-2">
               {errors.map(error => (
-                <p key={error.code} className="text-red-500 text-sm flex items-center">
+                <p key={error.code} className="text-red-500 text-sm flex items-center" data-cy="resume-error">
                   <HiExclamationCircle className="w-4 h-4 mr-1" />
                   {error.code === 'file-invalid-type' && 'Please upload a PDF, DOC, or DOCX file'}
                   {error.code === 'file-too-large' && 'File is larger than 5MB'}
@@ -99,32 +100,38 @@ const ResumeUpload = ({
               ))}
             </div>
           ))}
+
+          {isSubmitted && error && fileRejections.length === 0 && (
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="resume-error">
+              <HiExclamationCircle className="w-4 h-4 mr-1" />
+              {error.message}
+            </p>
+          )}
         </>
       ) : (
-        <div className="flex items-center justify-between p-4 border rounded-lg bg-neutral-50">
+        <div 
+          className="flex items-center justify-between p-4 border rounded-lg bg-neutral-50"
+          data-cy="resume-preview"
+        >
           <div className="flex items-center">
             <HiOutlineDocumentText className="h-6 w-6 text-secondary-400" />
-            <span className="ml-2 text-sm text-secondary-500">{value[0].name}</span>
+            <span className="ml-2 text-sm text-secondary-500" data-cy="resume-filename">
+              {value[0].name}
+            </span>
           </div>
           <div className="flex items-center">
-            <span className="text-sm text-secondary-500 mr-4">
+            <span className="text-sm text-secondary-500 mr-4" data-cy="resume-size">
               {(value[0].size / (1024 * 1024)).toFixed(2)} MB
             </span>
             <button
-              type="button"
               onClick={() => onChange([])}
               className="text-secondary-400 hover:text-secondary-500"
+              data-cy="resume-remove"
             >
               <HiXMark className="h-5 w-5" />
             </button>
           </div>
         </div>
-      )}
-      {showFormError && (
-        <p className="mt-1 text-red-500 text-sm flex items-center">
-          <HiExclamationCircle className="w-4 h-4 mr-1" />
-          {error?.message}
-        </p>
       )}
     </div>
   );
@@ -254,7 +261,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
               data-cy="input-first-name"
             />
             {isSubmitted && errors.firstName && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-firstName">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.firstName.message}
               </p>
@@ -273,7 +280,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
               data-cy="input-last-name"
             />
             {isSubmitted && errors.lastName && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-lastName">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.lastName.message}
               </p>
@@ -301,7 +308,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
               data-cy="input-email"
             />
             {isSubmitted && errors.email && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-email">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.email.message}
               </p>
@@ -359,7 +366,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
               data-cy="input-linkedin"
             />
             {isSubmitted && errors.linkedIn && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-linkedin">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.linkedIn.message}
               </p>
@@ -429,14 +436,13 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
               placeholder="5"
               data-cy="input-experience"
               onKeyDown={(e) => {
-                // Prevent 'e', '+', '-' from being entered
-                if (['e', 'E', '+', '-'].includes(e.key)) {
+                if (['e', 'E', '+', '-', '.'].includes(e.key)) {
                   e.preventDefault();
                 }
               }}
             />
             {isSubmitted && errors.yearsExperience && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-experience">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.yearsExperience.message}
               </p>
@@ -464,7 +470,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             data-cy="input-start-date"
           />
           {isSubmitted && errors.startDate && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-start-date">
               <HiExclamationCircle className="w-4 h-4 mr-1" />
               {errors.startDate.message}
             </p>
@@ -486,7 +492,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             data-cy="input-cover-letter"
           />
           {isSubmitted && errors.coverLetter && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-cover-letter">
               <HiExclamationCircle className="w-4 h-4 mr-1" />
               {errors.coverLetter.message}
             </p>
@@ -544,7 +550,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         )}
 
         <div>
-          <label className="block text-secondary-400 mb-2" htmlFor="resume">
+          <label className="block text-secondary-400 mb-2" htmlFor="resume" data-cy="resume-upload">
             Resume * (PDF, DOC, or DOCX)
           </label>
           <Controller
@@ -619,6 +625,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                }`}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
+            data-cy="submit-button"
           >
             <span className="w-[80px] text-center">
               <ScrambleText
