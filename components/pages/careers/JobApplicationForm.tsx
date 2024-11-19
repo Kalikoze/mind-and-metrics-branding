@@ -20,7 +20,7 @@ interface JobApplicationData {
   linkedIn?: string;
   portfolio?: string;
   currentEmployer?: string;
-  yearsExperience: string;
+  yearsExperience?: string;
   startDate: string;
   coverLetter: string;
   heardFrom: string;
@@ -408,16 +408,32 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
 
           <div>
             <label className="block text-secondary-400 mb-2" htmlFor="yearsExperience">
-              Years of Relevant Experience *
+              Years of Relevant Experience
             </label>
             <input
-              {...register('yearsExperience', { required: 'Years of experience is required' })}
+              {...register('yearsExperience', {
+                validate: (value) => {
+                  if (!value) return true; // Optional field
+                  const numValue = Number(value);
+                  if (isNaN(numValue) || numValue < 0) {
+                    return 'Please enter a valid number of years';
+                  }
+                  return true;
+                }
+              })}
               type="number"
               min="0"
+              step="1"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="5"
               data-cy="input-experience"
+              onKeyDown={(e) => {
+                // Prevent 'e', '+', '-' from being entered
+                if (['e', 'E', '+', '-'].includes(e.key)) {
+                  e.preventDefault();
+                }
+              }}
             />
             {isSubmitted && errors.yearsExperience && (
               <p className="mt-1 text-red-500 text-sm flex items-center">
@@ -437,14 +453,12 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             {...register('startDate', { 
               required: 'Start date is required',
               validate: (value) => {
-                const selectedDate = new Date(value);
-                const minDate = new Date();
-                minDate.setDate(minDate.getDate() + 14); // Add 14 days to today
-                return selectedDate >= minDate || 'Start date must be at least 2 weeks from today';
+                const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+                return value >= today || 'Please select today or a future date';
               }
             })}
             type="date"
-            min={new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
+            min={new Date().toISOString().split('T')[0]}
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                      focus:border-secondary-400 focus:outline-none transition-colors"
             data-cy="input-start-date"
