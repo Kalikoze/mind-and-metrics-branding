@@ -70,20 +70,17 @@ function validateJobApplication(data: JobApplicationData, resume?: File) {
     errors.portfolio = 'Please enter a valid portfolio URL';
   }
 
-  if (!data.yearsExperience) {
-    errors.yearsExperience = 'Years of experience is required';
-  } else if (isNaN(Number(data.yearsExperience)) || Number(data.yearsExperience) < 0) {
+  if (isNaN(Number(data.yearsExperience)) || Number(data.yearsExperience) < 0) {
     errors.yearsExperience = 'Please enter a valid number of years';
   }
 
   if (!data.startDate) {
     errors.startDate = 'Start date is required';
   } else {
-    const selectedDate = new Date(data.startDate);
-    const minDate = new Date();
-    minDate.setDate(minDate.getDate() + 14);
-    if (selectedDate < minDate) {
-      errors.startDate = 'Start date must be at least 2 weeks from today';
+    const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+    
+    if (data.startDate < today) {
+      errors.startDate = 'Please select today or a future date';
     }
   }
 
@@ -188,11 +185,12 @@ export async function POST(request: Request) {
         linkedIn: data.linkedIn || 'Not provided',
         portfolio: data.portfolio || 'Not provided',
         currentEmployer: data.currentEmployer || 'Not provided',
-        yearsExperience: `${data.yearsExperience} years`,
-        startDate: new Date(data.startDate).toLocaleDateString('en-US', {
+        yearsExperience: data.yearsExperience ? `${data.yearsExperience} years` : 'Not provided',
+        startDate: new Date(data.startDate + 'T00:00:00').toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long',
-          day: 'numeric'
+          day: 'numeric',
+          timeZone: 'America/Chicago'
         }),
         coverLetter: data.coverLetter || 'Not provided',
         heardFrom: data.heardFrom,
