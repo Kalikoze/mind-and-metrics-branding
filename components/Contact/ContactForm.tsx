@@ -138,6 +138,7 @@ export default function ContactForm() {
               First Name *
             </label>
             <input
+              id="firstName"
               {...register('firstName', { required: 'First name is required' })}
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
@@ -157,6 +158,7 @@ export default function ContactForm() {
               Last Name *
             </label>
             <input
+              id="lastName"
               {...register('lastName', { required: 'Last name is required' })}
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
@@ -177,6 +179,7 @@ export default function ContactForm() {
             Email *
           </label>
           <input
+            id="email"
             {...register('email', {
               required: 'Email is required',
               pattern: {
@@ -202,6 +205,7 @@ export default function ContactForm() {
             Phone
           </label>
           <input
+            id="phone"
             {...register('phone', {
               validate: (value) => {
                 if (value && !/^\(\d{3}\) \d{3}-\d{4}$/.test(value)) {
@@ -233,6 +237,7 @@ export default function ContactForm() {
             Company Name
           </label>
           <input
+            id="companyName"
             {...register('companyName')}
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                      focus:border-secondary-400 focus:outline-none transition-colors"
@@ -246,6 +251,7 @@ export default function ContactForm() {
             Subject *
           </label>
           <input
+            id="subject"
             {...register('subject', { required: 'Subject is required' })}
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                      focus:border-secondary-400 focus:outline-none transition-colors"
@@ -265,6 +271,7 @@ export default function ContactForm() {
             Message *
           </label>
           <textarea
+            id="message"
             {...register('message', {
               required: 'Message is required',
               maxLength: { value: 500, message: 'Message is too long' }
@@ -286,6 +293,7 @@ export default function ContactForm() {
         <div>
           <label className="flex items-start space-x-2">
             <input
+              id="privacyPolicy"
               type="checkbox"
               {...register('privacyPolicy', {
                 required: 'Please accept the privacy policy to proceed'
@@ -294,7 +302,24 @@ export default function ContactForm() {
               data-cy="privacy-policy-checkbox"
             />
             <span className="text-sm text-secondary-500">
-              I agree to the <Link href="/privacy" className="text-secondary-400 hover:underline">Privacy Policy</Link>
+              I agree to the processing of my personal data according to the{' '}
+              <motion.div
+                className="inline-block"
+                variants={{
+                  hover: {
+                    y: -2,
+                    transition: { type: "spring", stiffness: 400 }
+                  }
+                }}
+                whileHover="hover"
+              >
+                <Link 
+                  href="/privacy" 
+                  className="text-secondary-400 underline"
+                >
+                  Privacy Policy
+                </Link>
+              </motion.div>
             </span>
           </label>
           {isSubmitted && errors.privacyPolicy && (
