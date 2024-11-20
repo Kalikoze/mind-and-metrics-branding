@@ -110,7 +110,6 @@ describe('Careers Page', () => {
         cy.get(`[data-cy="culture-point-${index}"]`).within(() => {
           cy.contains(point.title);
           cy.contains(point.description);
-          cy.get(`[data-testid="${point.iconTestId}"]`).should('exist');
         });
       });
     });

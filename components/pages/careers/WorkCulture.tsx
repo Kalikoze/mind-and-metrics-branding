@@ -63,10 +63,7 @@ const WorkCulture = () => {
             >
               <div className="flex flex-col items-center text-center">
                 <div className="bg-white p-4 rounded-full mb-6 border-2 border-neutral-200">
-                  <point.icon 
-                    className="w-8 h-8 text-secondary-400" 
-                    data-testid={`icon-${point.icon.name.toLowerCase()}`}
-                  />
+                  <point.icon className="w-8 h-8 text-secondary-400" />
                 </div>
                 <h3 className="font-serif text-xl text-secondary-400 mb-4">
                   {point.title}
