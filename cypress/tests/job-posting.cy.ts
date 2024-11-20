@@ -122,7 +122,7 @@ describe('Job Posting Pages', () => {
     });
   });
 
-  context.only('Job Application Form Tests', () => {
+  context('Job Application Form Tests', () => {
     beforeEach(() => {
       cy.visit(`/careers/${positions[0].id}`);
       cy.get('[data-cy="apply-button"]').click();
@@ -356,7 +356,7 @@ describe('Job Posting Pages', () => {
       });
 
       it('should handle server errors gracefully', () => {
-        cy.intercept('POST', '/api/job-application', {
+        cy.intercept('POST', '/api/apply', {
           statusCode: 500,
           body: {
             success: false,
@@ -369,6 +369,8 @@ describe('Job Posting Pages', () => {
         cy.get('[data-cy="input-last-name"]').type('Doe');
         cy.get('[data-cy="input-email"]').type('john@example.com');
         cy.get('[data-cy="input-start-date"]').type('2024-12-31');
+        cy.get('[data-cy="resume-input"]').attachFile('dummy-resume.pdf');
+        cy.get('[data-cy="privacy-policy-checkbox"]').click();
 
         cy.get('[data-cy="submit-button"]').click();
 
@@ -383,6 +385,7 @@ describe('Job Posting Pages', () => {
       });
 
       it('should pass accessibility checks', () => {
+        cy.wait(500);
         cy.checkA11y();
       });
     });

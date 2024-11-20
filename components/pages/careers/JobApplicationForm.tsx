@@ -74,7 +74,12 @@ const ResumeUpload = ({
                 : 'border-neutral-200 hover:border-secondary-400'}
               ${fileRejections.length > 0 || (isSubmitted && error) ? 'border-red-400 bg-red-50' : ''}`}
           >
-            <input {...getInputProps()} data-cy="resume-input" />
+            <input 
+              {...getInputProps()} 
+              data-cy="resume-input"
+              id="resume-upload-input"
+              aria-label="Upload resume file"
+            />
             <div className="text-center">
               <HiOutlineCloudArrowUp className={`mx-auto h-12 w-12 transition-colors duration-300
                 ${isDragActive ? 'text-secondary-500' : 'text-secondary-400'}
@@ -224,14 +229,15 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
               }
             }}
             whileHover="hover"
+            aria-label="Close application form"
           >
             <HiXMark className="w-6 h-6" />
           </motion.button>
         </div>
 
-        <p className="ml-1 text-secondary-500 text-lg">
+        <h2 className="ml-1 text-secondary-500 text-lg">
           Join our team and help shape the future of digital marketing
-        </p>
+        </h2>
       </div>
 
       {/* Error Summary */}
@@ -255,6 +261,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             </label>
             <input
               {...register('firstName', { required: 'First name is required' })}
+              id="firstName"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="John"
@@ -274,6 +281,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             </label>
             <input
               {...register('lastName', { required: 'Last name is required' })}
+              id="lastName"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="Doe"
@@ -302,6 +310,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                   message: 'Invalid email address'
                 }
               })}
+              id="email"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="john@example.com"
@@ -328,6 +337,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                   return true;
                 }
               })}
+              id="phone"
               onChange={(e) => {
                 handlePhoneChange(e);
                 register('phone').onChange(e);
@@ -360,6 +370,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                   message: 'Please enter a valid LinkedIn URL'
                 }
               })}
+              id="linkedIn"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="https://linkedin.com/in/johndoe"
@@ -384,6 +395,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                   message: 'Please enter a valid URL (must start with http:// or https://)'
                 }
               })}
+              id="portfolio"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="https://yourportfolio.com"
@@ -406,6 +418,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             </label>
             <input
               {...register('currentEmployer')}
+              id="currentEmployer"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="Company Name"
@@ -428,6 +441,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                   return true;
                 }
               })}
+              id="yearsExperience"
               type="number"
               min="0"
               step="1"
@@ -463,6 +477,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                 return value >= today || 'Please select today or a future date';
               }
             })}
+            id="startDate"
             type="date"
             min={new Date().toISOString().split('T')[0]}
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
@@ -485,6 +500,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             {...register('coverLetter', {
               minLength: { value: 100, message: 'If providing a cover letter, it should be at least 100 characters' }
             })}
+            id="coverLetter"
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                      focus:border-secondary-400 focus:outline-none transition-colors"
             rows={6}
@@ -505,6 +521,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
           </label>
           <select
             {...register('heardFrom')}
+            id="heardFrom"
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
             data-cy="input-heard-from"
@@ -526,6 +543,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             </label>
             <input
               {...register('referralDetail')}
+              id="referralDetail"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                         focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="Name of person who referred you"
@@ -541,6 +559,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             </label>
             <input
               {...register('referralDetail')}
+              id="referralDetail"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                         focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="Please specify"
@@ -578,11 +597,29 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
               {...register('privacyPolicy', {
                 required: 'You must accept the privacy policy to proceed'
               })}
+              id="privacyPolicy"
               className="mt-1 mr-2"
               data-cy="privacy-policy-checkbox"
             />
             <span className="text-sm text-secondary-500">
-              I agree to the processing of my personal data according to the <Link href="/privacy" className="text-secondary-400 hover:underline">Privacy Policy</Link>
+              I agree to the processing of my personal data according to the{' '}
+              <motion.div
+                className="inline-block"
+                variants={{
+                  hover: {
+                    y: -2,
+                    transition: { type: "spring", stiffness: 400 }
+                  }
+                }}
+                whileHover="hover"
+              >
+                <Link 
+                  href="/privacy" 
+                  className="text-secondary-400 underline"
+                >
+                  Privacy Policy
+                </Link>
+              </motion.div>
             </span>
           </label>
           {isSubmitted && errors.privacyPolicy && (
