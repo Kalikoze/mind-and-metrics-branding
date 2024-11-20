@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { HiOutlinePuzzlePiece, HiOutlineScale, HiOutlineChartBar, HiOutlineRocketLaunch, HiOutlineCurrencyDollar } from 'react-icons/hi2';
+import { HiOutlinePuzzlePiece, HiOutlineScale, HiOutlineChartBar, HiOutlineRocketLaunch } from 'react-icons/hi2';
 import ScrambleText from '@/components/common/ScrambleText';
 
 const valueProps = [
@@ -23,7 +23,6 @@ const valueProps = [
 
 const PricingPreview = () => {
   const [primaryHover, setPrimaryHover] = useState(false);
-  const [secondaryHover, setSecondaryHover] = useState(false);
 
   return (
     <section data-cy="pricing-preview-section" className="bg-white py-20">
@@ -66,13 +65,14 @@ const PricingPreview = () => {
             Ready to Build Your Custom Solution?
           </h3>
           <p data-cy="pricing-cta-description" className="text-secondary-500 max-w-2xl mx-auto mb-8">
-            Answer a few questions to receive an initial estimate. We&apos;ll then schedule a consultation to discuss specifics and provide a detailed quote. No commitment required.
+            Complete a quick quiz for an instant estimate. We&apos;ll review your submission and reach out to schedule a consultation for your tailored solution. No commitment required.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center">
             <Link
               data-cy="pricing-get-started-button"
               href="/get-started"
+              aria-label="Complete a short quiz and get started with a custom solution"
               onMouseEnter={() => setPrimaryHover(true)}
               onMouseLeave={() => setPrimaryHover(false)}
               className="font-sans px-8 py-3.5 bg-secondary-400 text-white font-medium
@@ -83,22 +83,6 @@ const PricingPreview = () => {
               <HiOutlineRocketLaunch className="w-5 h-5 shrink-0" />
               <span className="w-[120px] text-center">
                 <ScrambleText text="Get Started" isHovering={primaryHover} />
-              </span>
-            </Link>
-
-            <Link
-              data-cy="pricing-view-pricing-button"
-              href="/pricing"
-              onMouseEnter={() => setSecondaryHover(true)}
-              onMouseLeave={() => setSecondaryHover(false)}
-              className="font-sans px-8 py-3.5 border-2 border-secondary-400 text-secondary-400 
-                         rounded-lg flex items-center space-x-2
-                         transition-all duration-300 w-[200px] justify-center
-                         hover:bg-secondary-400 hover:text-white hover:scale-105"
-            >
-              <HiOutlineCurrencyDollar className="w-5 h-5 shrink-0" />
-              <span className="w-[120px] text-center">
-                <ScrambleText text="View Pricing" isHovering={secondaryHover} />
               </span>
             </Link>
           </div>

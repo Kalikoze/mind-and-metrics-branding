@@ -6,9 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { RiMenuLine, RiCloseLine, RiHome5Line, RiCustomerService2Line, RiTeamLine, RiMailLine, RiBriefcaseLine } from 'react-icons/ri';
-import { HiOutlineUserCircle } from 'react-icons/hi';
 import Logo from '@/public/assets/logos/mm-temp-logo.svg';
-import ScrambleText from '@/components/common/ScrambleText';
 
 const menuItems = [
   { name: 'Home', href: '/', icon: RiHome5Line },
@@ -21,7 +19,6 @@ const menuItems = [
 const MainNav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  const [loginHovering, setLoginHovering] = useState(false);
 
   const navItemVariants = {
     hover: {
@@ -93,27 +90,6 @@ const MainNav = () => {
                 </Link>
               </motion.div>
             ))}
-            <motion.div
-              variants={navItemVariants}
-              whileHover="hover"
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link
-                data-cy="nav-login"
-                href="/login"
-                onMouseEnter={() => setLoginHovering(true)}
-                onMouseLeave={() => setLoginHovering(false)}
-                className="font-sans px-6 py-2.5 border-2 border-secondary-400 text-secondary-400 
-                         rounded-lg flex items-center space-x-2 w-[140px] justify-center
-                         transition-all duration-300
-                         hover:bg-secondary-400 hover:text-white"
-              >
-                <HiOutlineUserCircle className="w-5 h-5 shrink-0" />
-                <span className="w-[60px] text-center">
-                  <ScrambleText text="Login" isHovering={loginHovering} />
-                </span>
-              </Link>
-            </motion.div>
           </div>
 
           {/* Mobile menu button */}
@@ -173,38 +149,6 @@ const MainNav = () => {
               </Link>
             </motion.div>
           ))}
-
-          {/* Divider */}
-          <div className="border-t border-neutral-200 my-2"></div>
-
-          {/* Login button */}
-          <motion.div
-            variants={{
-              open: {
-                opacity: 1,
-                x: 0,
-                transition: { type: "spring", stiffness: 300, damping: 30 }
-              },
-              closed: {
-                opacity: 0,
-                x: -20,
-                transition: { type: "spring", stiffness: 300, damping: 30 }
-              }
-            }}
-          >
-            <Link
-              href="/login"
-              className="block px-3 py-2 rounded-md text-base font-sans
-                       border-2 border-secondary-400 text-secondary-400
-                       flex items-center space-x-3
-                       transition-all duration-200
-                       hover:bg-secondary-400 hover:text-white"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <HiOutlineUserCircle className="w-5 h-5" />
-              <span className="font-medium">Login</span>
-            </Link>
-          </motion.div>
         </div>
       </motion.div>
     </nav>

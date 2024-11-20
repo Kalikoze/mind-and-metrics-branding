@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { usePhoneFormat } from '@/hooks/usePhoneFormat';
 import { toast } from 'react-toastify';
 import { CustomToast } from '@/components/common/Notifications/CustomToast';
+import Link from 'next/link';
 
 export interface ContactFormData {
   firstName: string;
@@ -152,6 +153,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               First Name *
             </label>
             <input
+              id="firstName"
               {...register('firstName', {
                 required: 'First name is required',
                 maxLength: { value: 20, message: 'First name is too long' }
@@ -174,6 +176,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               Last Name *
             </label>
             <input
+              id="lastName"
               {...register('lastName', {
                 required: 'Last name is required',
                 maxLength: { value: 20, message: 'Last name is too long' }
@@ -196,6 +199,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               Company Name
             </label>
             <input
+              id="companyName"
               {...register('companyName')}
               data-cy="input-company"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
@@ -209,6 +213,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               Email Address *
             </label>
             <input
+              id="email"
               {...register('email', {
                 required: 'Email is required',
                 pattern: {
@@ -235,6 +240,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               Phone Number
             </label>
             <input
+              id="phone"
               {...register('phone', {
                 validate: (value) => {
                   if (preferredContact === 'phone') {
@@ -298,9 +304,10 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             Preferred Contact Method *
           </label>
           <div className="flex gap-4">
-            <label className="flex items-center">
+            <label className="flex items-center" htmlFor="preferredContact-email">
               <input
                 type="radio"
+                id="preferredContact-email"
                 {...register('preferredContact', { required: 'Please select a contact method' })}
                 value="email"
                 className="mr-2"
@@ -308,9 +315,10 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               />
               Email
             </label>
-            <label className="flex items-center">
+            <label className="flex items-center" htmlFor="preferredContact-phone">
               <input
                 type="radio"
+                id="preferredContact-phone"
                 {...register('preferredContact', { required: 'Please select a contact method' })}
                 value="phone"
                 className="mr-2"
@@ -332,6 +340,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             Additional Comments
           </label>
           <textarea
+            id="message"
             {...register('message', {
               maxLength: { value: 500, message: 'Message is too long' }
             })}
@@ -376,6 +385,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 Who referred you?
               </label>
               <input
+                id="referralDetail"
                 {...register('referralDetail')}
                 className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                          focus:border-secondary-400 focus:outline-none transition-colors"
@@ -390,6 +400,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 Please specify
               </label>
               <input
+                id="referralDetail"
                 {...register('referralDetail')}
                 className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                          focus:border-secondary-400 focus:outline-none transition-colors"
@@ -410,7 +421,25 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               className="mt-1 mr-2"
             />
             <span className="text-sm text-secondary-500">
-              I agree to the <a href="/privacy" className="text-secondary-400 hover:underline">Privacy Policy</a> and understand that:
+              I agree to the{' '}
+              <motion.div
+                className="inline-block"
+                variants={{
+                  hover: {
+                    y: -2,
+                    transition: { type: "spring", stiffness: 400 }
+                  }
+                }}
+                whileHover="hover"
+              >
+                <Link 
+                  href="/privacy" 
+                  className="text-secondary-400 hover:underline"
+                >
+                  Privacy Policy
+                </Link>
+              </motion.div>
+              {' '}and understand that:
               <ul className="mt-2 ml-4 list-disc">
                 <li>My information will only be used to process my quote request</li>
                 <li>I can request access to my data at any time</li>

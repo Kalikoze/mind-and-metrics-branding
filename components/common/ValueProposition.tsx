@@ -42,54 +42,52 @@ const ValueProposition: React.FC<ValuePropositionProps> = ({
     >
       <CircuitOverlay />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
-          <h2 
-            className="font-serif text-4xl text-secondary-400 mb-8 text-center"
-            data-cy="value-proposition-title"
-          >
-            {title}
-          </h2>
-          
-          <div 
-            className="space-y-8 text-lg text-secondary-500 leading-relaxed"
-            data-cy="value-proposition-content"
-          >
-            {paragraphs.map((paragraph, index) => (
-              <div 
-                key={index}
-                className="value-proposition-paragraph"
-                data-cy={`value-proposition-paragraph-${index}`}
+        <h2
+          className="font-serif text-4xl text-secondary-400 mb-8 text-center"
+          data-cy="value-proposition-title"
+        >
+          {title}
+        </h2>
+
+        <div
+          className="space-y-8 text-lg text-secondary-500 leading-relaxed"
+          data-cy="value-proposition-content"
+        >
+          {paragraphs.map((paragraph, index) => (
+            <div
+              key={index}
+              className="value-proposition-paragraph"
+              data-cy={`value-proposition-paragraph-${index}`}
+            >
+              {renderParagraphWithHighlights(paragraph.text, paragraph.highlights, index)}
+            </div>
+          ))}
+        </div>
+
+        <div
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
+          data-cy="value-proposition-stats"
+        >
+          {stats.map((stat, index) => (
+            <div
+              key={index}
+              className="text-center"
+              data-cy={`value-proposition-stat-${index}`}
+            >
+              <div
+                className="font-serif text-3xl text-secondary-400 mb-2"
+                data-cy={`value-proposition-stat-value-${index}`}
               >
-                {renderParagraphWithHighlights(paragraph.text, paragraph.highlights, index)}
+                {stat.value}
               </div>
-            ))}
-          </div>
-          
-          <div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
-            data-cy="value-proposition-stats"
-          >
-            {stats.map((stat, index) => (
-              <div 
-                key={index} 
-                className="text-center"
-                data-cy={`value-proposition-stat-${index}`}
+              <div
+                className="text-secondary-500"
+                data-cy={`value-proposition-stat-label-${index}`}
               >
-                <div 
-                  className="font-serif text-3xl text-secondary-400 mb-2"
-                  data-cy={`value-proposition-stat-value-${index}`}
-                >
-                  {stat.value}
-                </div>
-                <div 
-                  className="text-secondary-500"
-                  data-cy={`value-proposition-stat-label-${index}`}
-                >
-                  {stat.label}
-                </div>
+                {stat.label}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
