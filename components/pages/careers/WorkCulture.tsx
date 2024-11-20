@@ -1,31 +1,43 @@
 import React from 'react';
 import { 
+  HiOutlinePuzzlePiece,
+  HiOutlinePresentationChartLine,
   HiOutlineLightBulb,
   HiOutlineUserGroup,
-  HiOutlinePresentationChartLine,
-  HiOutlineHeart
+  HiOutlineGlobeAsiaAustralia,
+  HiOutlineChatBubbleLeftRight
 } from 'react-icons/hi2';
 
 const culturePoints = [
   {
-    icon: HiOutlineLightBulb,
-    title: "Innovation First",
-    description: "We encourage creative thinking and welcome fresh perspectives. Every team member has the opportunity to contribute ideas and shape our approach to client solutions."
-  },
-  {
-    icon: HiOutlineUserGroup,
-    title: "Collaborative Spirit",
-    description: "Our success is built on teamwork. We foster an environment where knowledge sharing and cross-functional collaboration drive exceptional results."
+    icon: HiOutlinePuzzlePiece,
+    title: "Know the Mission",
+    description: "Preparation sets the foundation. Know the plan, gather the right tools, and start with focus and intention."
   },
   {
     icon: HiOutlinePresentationChartLine,
-    title: "Growth Mindset",
-    description: "We invest in our team's professional development through mentorship, training programs, and opportunities to work with cutting-edge technologies."
+    title: "Resilient Adaptability",
+    description: "Challenges will come - stay focused and keep moving forward. Progress is built through persistence."
   },
   {
-    icon: HiOutlineHeart,
-    title: "Work-Life Balance",
-    description: "We believe in flexible scheduling, remote work options, and creating an environment that supports both professional excellence and personal well-being."
+    icon: HiOutlineLightBulb,
+    title: "Be Willing to Fail",
+    description: "Learn, adapt, and keep moving forward. We view failure as an opportunity to learn, grow, and continuously improve."
+  },
+  {
+    icon: HiOutlineUserGroup,
+    title: "Support the Team",
+    description: "Help where you can. Strong teams deliver the best results by working together and communicating."
+  },
+  {
+    icon: HiOutlineGlobeAsiaAustralia,
+    title: "Be Respectful",
+    description: "Respect time, ideas, and people. Listening and being courteous goes a long way in building trust."
+  },
+  {
+    icon: HiOutlineChatBubbleLeftRight,
+    title: "Communicate Clearly",
+    description: "Keep the conversation flowing—with the team, yourself, and clients. Speak up, stay open, and make sure everyone's on the same page."
   }
 ];
 
@@ -42,7 +54,7 @@ const WorkCulture = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {culturePoints.map((point, index) => (
             <div
               key={index}
