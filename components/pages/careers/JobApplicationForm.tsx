@@ -58,9 +58,6 @@ const ResumeUpload = ({
     }
   });
 
-  // Show form submission error only if there are no file rejection errors
-  const showFormError = isSubmitted && error && fileRejections.length === 0;
-
   return (
     <div>
       {!value || !value[0] ? (
