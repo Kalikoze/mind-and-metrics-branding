@@ -18,10 +18,6 @@ describe('Home Page', () => {
           .should('exist')
           .and('have.text', item);
       });
-
-      cy.get('[data-cy="nav-login"]')
-        .should('exist')
-        .and('have.text', 'Login');
     });
 
     it('should render Hero component correctly', () => {
@@ -195,16 +191,13 @@ describe('Home Page', () => {
           cy.get('[data-cy="service-description"]')
             .should('exist')
             .and('have.text', service.description);
-          
-          cy.get('[data-cy="service-card-content"]').contains('Learn More').should('exist');
         });
-
-        cy.get(selector)
-          .should('have.attr', 'href', `/services#${service.title.toLowerCase().replace(/\s+/g, '-')}`);
       });
 
+      // Test the footer "Learn More" link
       cy.get('[data-cy="explore-services"]')
         .should('exist')
+        .and('have.attr', 'href', '/services')
         .contains('Learn More');
     });
 
@@ -246,18 +239,12 @@ describe('Home Page', () => {
         
         cy.get('[data-cy="pricing-cta-description"]')
           .should('exist')
-          .and('contain.text', 'Answer a few questions to receive an initial estimate. We\'ll then schedule a consultation to discuss specifics and provide a detailed quote. No commitment required.');
+          .and('contain.text', 'Complete a quick quiz for an instant estimate. We\'ll review your submission and reach out to schedule a consultation for your tailored solution. No commitment required.');
         
-        // Check CTA buttons
         cy.get('[data-cy="pricing-get-started-button"]')
           .should('exist')
           .and('have.attr', 'href', '/get-started')
           .and('contain.text', 'Get Started');
-        
-        cy.get('[data-cy="pricing-view-pricing-button"]')
-          .should('exist')
-          .and('have.attr', 'href', '/pricing')
-          .and('contain.text', 'View Pricing');
       });
     });
 

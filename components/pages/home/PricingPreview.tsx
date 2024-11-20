@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { HiOutlinePuzzlePiece, HiOutlineScale, HiOutlineChartBar, HiOutlineRocketLaunch, HiOutlineCurrencyDollar } from 'react-icons/hi2';
+import { HiOutlinePuzzlePiece, HiOutlineScale, HiOutlineChartBar, HiOutlineRocketLaunch } from 'react-icons/hi2';
 import ScrambleText from '@/components/common/ScrambleText';
 
 const valueProps = [
@@ -65,7 +65,7 @@ const PricingPreview = () => {
             Ready to Build Your Custom Solution?
           </h3>
           <p data-cy="pricing-cta-description" className="text-secondary-500 max-w-2xl mx-auto mb-8">
-            Complete a quick quiz for an instant estimate. We'll review your submission and reach out to schedule a consultation for your tailored solution. No commitment required.
+            Complete a quick quiz for an instant estimate. We&apos;ll review your submission and reach out to schedule a consultation for your tailored solution. No commitment required.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center">
