@@ -1,0 +1,12 @@
+John Doe
+123 Main St, Anytown, USA
+john.doe@email.com
+(123) 456-7890
+Objective: Seeking a challenging position in software development
+Experience:
+- Software Developer, ABC Corp, 2018-present
+- Junior Developer, XYZ Inc, 2016-2018
+Education:
+Bachelor of Science in Computer Science, University College, 2016
+Skills:
+JavaScript, React, Node.js, Python, Git

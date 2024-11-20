@@ -58,22 +58,25 @@ const ResumeUpload = ({
     }
   });
 
-  // Show form submission error only if there are no file rejection errors
-  const showFormError = isSubmitted && error && fileRejections.length === 0;
-
   return (
     <div>
       {!value || !value[0] ? (
         <>
           <div
             {...getRootProps()}
+            data-cy="resume-dropzone"
             className={`border-2 border-dashed rounded-lg p-8 transition-all duration-300
               ${isDragActive
                 ? 'border-secondary-400 bg-secondary-400/5 ring-2 ring-secondary-400 ring-opacity-20'
                 : 'border-neutral-200 hover:border-secondary-400'}
-              ${fileRejections.length > 0 ? 'border-red-400 bg-red-50' : ''}`}
+              ${fileRejections.length > 0 || (isSubmitted && error) ? 'border-red-400 bg-red-50' : ''}`}
           >
-            <input {...getInputProps()} />
+            <input 
+              {...getInputProps()} 
+              data-cy="resume-input"
+              id="resume-upload-input"
+              aria-label="Upload resume file"
+            />
             <div className="text-center">
               <HiOutlineCloudArrowUp className={`mx-auto h-12 w-12 transition-colors duration-300
                 ${isDragActive ? 'text-secondary-500' : 'text-secondary-400'}
@@ -91,7 +94,7 @@ const ResumeUpload = ({
           {fileRejections.length > 0 && fileRejections.map(({ errors }) => (
             <div key={errors[0].code} className="mt-2">
               {errors.map(error => (
-                <p key={error.code} className="text-red-500 text-sm flex items-center">
+                <p key={error.code} className="text-red-500 text-sm flex items-center" data-cy="resume-error">
                   <HiExclamationCircle className="w-4 h-4 mr-1" />
                   {error.code === 'file-invalid-type' && 'Please upload a PDF, DOC, or DOCX file'}
                   {error.code === 'file-too-large' && 'File is larger than 5MB'}
@@ -99,32 +102,38 @@ const ResumeUpload = ({
               ))}
             </div>
           ))}
+
+          {isSubmitted && error && fileRejections.length === 0 && (
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="resume-error">
+              <HiExclamationCircle className="w-4 h-4 mr-1" />
+              {error.message}
+            </p>
+          )}
         </>
       ) : (
-        <div className="flex items-center justify-between p-4 border rounded-lg bg-neutral-50">
+        <div 
+          className="flex items-center justify-between p-4 border rounded-lg bg-neutral-50"
+          data-cy="resume-preview"
+        >
           <div className="flex items-center">
             <HiOutlineDocumentText className="h-6 w-6 text-secondary-400" />
-            <span className="ml-2 text-sm text-secondary-500">{value[0].name}</span>
+            <span className="ml-2 text-sm text-secondary-500" data-cy="resume-filename">
+              {value[0].name}
+            </span>
           </div>
           <div className="flex items-center">
-            <span className="text-sm text-secondary-500 mr-4">
+            <span className="text-sm text-secondary-500 mr-4" data-cy="resume-size">
               {(value[0].size / (1024 * 1024)).toFixed(2)} MB
             </span>
             <button
-              type="button"
               onClick={() => onChange([])}
               className="text-secondary-400 hover:text-secondary-500"
+              data-cy="resume-remove"
             >
               <HiXMark className="h-5 w-5" />
             </button>
           </div>
         </div>
-      )}
-      {showFormError && (
-        <p className="mt-1 text-red-500 text-sm flex items-center">
-          <HiExclamationCircle className="w-4 h-4 mr-1" />
-          {error?.message}
-        </p>
       )}
     </div>
   );
@@ -217,14 +226,15 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
               }
             }}
             whileHover="hover"
+            aria-label="Close application form"
           >
             <HiXMark className="w-6 h-6" />
           </motion.button>
         </div>
 
-        <p className="ml-1 text-secondary-500 text-lg">
+        <h2 className="ml-1 text-secondary-500 text-lg">
           Join our team and help shape the future of digital marketing
-        </p>
+        </h2>
       </div>
 
       {/* Error Summary */}
@@ -248,13 +258,14 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             </label>
             <input
               {...register('firstName', { required: 'First name is required' })}
+              id="firstName"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="John"
               data-cy="input-first-name"
             />
             {isSubmitted && errors.firstName && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-firstName">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.firstName.message}
               </p>
@@ -267,13 +278,14 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             </label>
             <input
               {...register('lastName', { required: 'Last name is required' })}
+              id="lastName"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="Doe"
               data-cy="input-last-name"
             />
             {isSubmitted && errors.lastName && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-lastName">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.lastName.message}
               </p>
@@ -295,13 +307,14 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                   message: 'Invalid email address'
                 }
               })}
+              id="email"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="john@example.com"
               data-cy="input-email"
             />
             {isSubmitted && errors.email && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-email">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.email.message}
               </p>
@@ -321,6 +334,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                   return true;
                 }
               })}
+              id="phone"
               onChange={(e) => {
                 handlePhoneChange(e);
                 register('phone').onChange(e);
@@ -353,13 +367,14 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                   message: 'Please enter a valid LinkedIn URL'
                 }
               })}
+              id="linkedIn"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="https://linkedin.com/in/johndoe"
               data-cy="input-linkedin"
             />
             {isSubmitted && errors.linkedIn && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-linkedin">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.linkedIn.message}
               </p>
@@ -377,6 +392,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                   message: 'Please enter a valid URL (must start with http:// or https://)'
                 }
               })}
+              id="portfolio"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="https://yourportfolio.com"
@@ -399,6 +415,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             </label>
             <input
               {...register('currentEmployer')}
+              id="currentEmployer"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="Company Name"
@@ -421,6 +438,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                   return true;
                 }
               })}
+              id="yearsExperience"
               type="number"
               min="0"
               step="1"
@@ -429,14 +447,13 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
               placeholder="5"
               data-cy="input-experience"
               onKeyDown={(e) => {
-                // Prevent 'e', '+', '-' from being entered
-                if (['e', 'E', '+', '-'].includes(e.key)) {
+                if (['e', 'E', '+', '-', '.'].includes(e.key)) {
                   e.preventDefault();
                 }
               }}
             />
             {isSubmitted && errors.yearsExperience && (
-              <p className="mt-1 text-red-500 text-sm flex items-center">
+              <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-experience">
                 <HiExclamationCircle className="w-4 h-4 mr-1" />
                 {errors.yearsExperience.message}
               </p>
@@ -457,6 +474,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                 return value >= today || 'Please select today or a future date';
               }
             })}
+            id="startDate"
             type="date"
             min={new Date().toISOString().split('T')[0]}
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
@@ -464,7 +482,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             data-cy="input-start-date"
           />
           {isSubmitted && errors.startDate && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-start-date">
               <HiExclamationCircle className="w-4 h-4 mr-1" />
               {errors.startDate.message}
             </p>
@@ -479,6 +497,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             {...register('coverLetter', {
               minLength: { value: 100, message: 'If providing a cover letter, it should be at least 100 characters' }
             })}
+            id="coverLetter"
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                      focus:border-secondary-400 focus:outline-none transition-colors"
             rows={6}
@@ -486,7 +505,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             data-cy="input-cover-letter"
           />
           {isSubmitted && errors.coverLetter && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
+            <p className="mt-1 text-red-500 text-sm flex items-center" data-cy="error-cover-letter">
               <HiExclamationCircle className="w-4 h-4 mr-1" />
               {errors.coverLetter.message}
             </p>
@@ -499,6 +518,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
           </label>
           <select
             {...register('heardFrom')}
+            id="heardFrom"
             className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                        focus:border-secondary-400 focus:outline-none transition-colors"
             data-cy="input-heard-from"
@@ -520,6 +540,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             </label>
             <input
               {...register('referralDetail')}
+              id="referralDetail"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                         focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="Name of person who referred you"
@@ -535,6 +556,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             </label>
             <input
               {...register('referralDetail')}
+              id="referralDetail"
               className="w-full px-4 py-2 border-2 border-neutral-200 rounded-lg 
                         focus:border-secondary-400 focus:outline-none transition-colors"
               placeholder="Please specify"
@@ -544,7 +566,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         )}
 
         <div>
-          <label className="block text-secondary-400 mb-2" htmlFor="resume">
+          <label className="block text-secondary-400 mb-2" htmlFor="resume" data-cy="resume-upload">
             Resume * (PDF, DOC, or DOCX)
           </label>
           <Controller
@@ -572,11 +594,29 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
               {...register('privacyPolicy', {
                 required: 'You must accept the privacy policy to proceed'
               })}
+              id="privacyPolicy"
               className="mt-1 mr-2"
               data-cy="privacy-policy-checkbox"
             />
             <span className="text-sm text-secondary-500">
-              I agree to the processing of my personal data according to the <Link href="/privacy" className="text-secondary-400 hover:underline">Privacy Policy</Link>
+              I agree to the processing of my personal data according to the{' '}
+              <motion.div
+                className="inline-block"
+                variants={{
+                  hover: {
+                    y: -2,
+                    transition: { type: "spring", stiffness: 400 }
+                  }
+                }}
+                whileHover="hover"
+              >
+                <Link 
+                  href="/privacy" 
+                  className="text-secondary-400 underline"
+                >
+                  Privacy Policy
+                </Link>
+              </motion.div>
             </span>
           </label>
           {isSubmitted && errors.privacyPolicy && (
@@ -619,6 +659,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                }`}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
+            data-cy="submit-button"
           >
             <span className="w-[80px] text-center">
               <ScrambleText
