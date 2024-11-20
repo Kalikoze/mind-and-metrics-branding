@@ -70,27 +70,47 @@ describe('Careers Page', () => {
 
       const culturePoints = [
         {
-          title: "Innovation First",
-          description: "We encourage creative thinking and welcome fresh perspectives. Every team member has the opportunity to contribute ideas and shape our approach to client solutions."
+          title: "Know the Mission",
+          description: "Preparation sets the foundation. Know the plan, gather the right tools, and start with focus and intention.",
+          iconTestId: "icon-hioutlinepuzzlepiece"
         },
         {
-          title: "Collaborative Spirit",
-          description: "Our success is built on teamwork. We foster an environment where knowledge sharing and cross-functional collaboration drive exceptional results."
+          title: "Resilient Adaptability",
+          description: "Challenges will come - stay focused and keep moving forward. Progress is built through persistence.",
+          iconTestId: "icon-hioutlinepresentationchartline"
         },
         {
-          title: "Growth Mindset",
-          description: "We invest in our team's professional development through mentorship, training programs, and opportunities to work with cutting-edge technologies."
+          title: "Be Willing to Fail",
+          description: "Learn, adapt, and keep moving forward. We view failure as an opportunity to learn, grow, and continuously improve.",
+          iconTestId: "icon-hioutlinelightbulb"
         },
         {
-          title: "Work-Life Balance",
-          description: "We believe in flexible scheduling, remote work options, and creating an environment that supports both professional excellence and personal well-being."
+          title: "Support the Team",
+          description: "Help where you can. Strong teams deliver the best results by working together and communicating.",
+          iconTestId: "icon-hioutlineusergroup"
+        },
+        {
+          title: "Be Respectful",
+          description: "Respect time, ideas, and people. Listening and being courteous goes a long way in building trust.",
+          iconTestId: "icon-hioutlineglobeasiaaustralia"
+        },
+        {
+          title: "Communicate Clearly",
+          description: "Keep the conversation flowing—with the team, yourself, and clients. Speak up, stay open, and make sure everyone's on the same page.",
+          iconTestId: "icon-hioutlinechatbubbleleftright"
         }
       ];
+
+      cy.get('[data-cy="work-culture-section"]').within(() => {
+        cy.contains('Our Culture');
+        cy.contains('Experience a workplace that values mission-driven teamwork, continuous learning, and clear communication');
+      });
 
       culturePoints.forEach((point, index) => {
         cy.get(`[data-cy="culture-point-${index}"]`).within(() => {
           cy.contains(point.title);
           cy.contains(point.description);
+          cy.get(`[data-testid="${point.iconTestId}"]`).should('exist');
         });
       });
     });

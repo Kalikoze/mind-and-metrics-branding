@@ -49,8 +49,8 @@ const WorkCulture = () => {
           <h2 className="font-serif text-4xl text-secondary-400 mb-4">
             Our Culture
           </h2>
-          <p className="text-secondary-500 text-lg max-w-2xl mx-auto">
-            Experience a workplace that values creativity, growth, and well-being
+          <p className="text-secondary-500 text-lg mx-auto">
+            Experience a workplace that values mission-driven teamwork, continuous learning, and clear communication
           </p>
         </div>
 
@@ -63,7 +63,10 @@ const WorkCulture = () => {
             >
               <div className="flex flex-col items-center text-center">
                 <div className="bg-white p-4 rounded-full mb-6 border-2 border-neutral-200">
-                  <point.icon className="w-8 h-8 text-secondary-400" />
+                  <point.icon 
+                    className="w-8 h-8 text-secondary-400" 
+                    data-testid={`icon-${point.icon.name.toLowerCase()}`}
+                  />
                 </div>
                 <h3 className="font-serif text-xl text-secondary-400 mb-4">
                   {point.title}
