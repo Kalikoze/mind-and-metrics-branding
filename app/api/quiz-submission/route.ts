@@ -176,7 +176,7 @@ export async function POST(request: Request) {
         investmentRange,
       }
     };
-    console.log(msg);
+
     try {
       await sgMail.send(msg);
       return NextResponse.json({ success: true });

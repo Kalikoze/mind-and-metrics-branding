@@ -21,6 +21,25 @@ export default function ResultsSummary({
   const [hoveringEdit, setHoveringEdit] = useState<string | null>(null);
   const range = calculateInvestmentRange(answers, selectedBranches);
 
+  const hasOverlap = (
+    range1: { min: number; max: number }, 
+    range2: { min: number; max: number }
+  ) => {
+    return !(range1.max < range2.min || range1.min > range2.max);
+  };
+
+  const getOverlapPercentage = (
+    range1: { min: number; max: number }, 
+    range2: { min: number; max: number }
+  ) => {
+    if (!hasOverlap(range1, range2)) return 0;
+    const overlapStart = Math.max(range1.min, range2.min);
+    const overlapEnd = Math.min(range1.max, range2.max);
+    const overlapSize = overlapEnd - overlapStart;
+    const range1Size = range1.max - range1.min;
+    return (overlapSize / range1Size) * 100;
+  };
+
   return (
     <div className="bg-white rounded-lg p-8 shadow-sm w-full" data-cy="results-summary">
       <div className="mb-8">
@@ -97,18 +116,28 @@ export default function ResultsSummary({
               Investment Summary:
             </h3>
 
-            <div className="bg-neutral-50 p-4 rounded-lg" data-cy="initial-investment">
-              <p className="text-secondary-400 mb-1">Initial Investment:</p>
-              <p className="text-xl font-serif text-secondary-400" data-cy="initial-investment-amount">
-                ${range.initial.min.toLocaleString()}
+            <div className="bg-neutral-50 p-4 rounded-lg" data-cy="service-investment">
+              <p className="text-secondary-400 mb-1">Initial Investment Range:</p>
+              <p className="text-xl font-serif text-secondary-400" data-cy="service-investment-amount">
+                ${range.initial.min.toLocaleString()} - ${range.initial.max.toLocaleString()}
+              </p>
+              <p className="text-sm text-secondary-400/80 mt-1">
+                Estimated Service Hours: {range.initial.hours.min} - {range.initial.hours.max} hrs
+              </p>
+              <p className="text-xs text-secondary-400/60 mt-2 italic">
+                Note: Some services may be one-time projects while others may require ongoing support. 
+                We'll discuss specific timelines and maintenance needs during our consultation.
               </p>
             </div>
 
-            {range.monthly.max > 0 && (
+            {range.monthly.hours.max > 0 && (
               <div className="bg-neutral-50 p-4 rounded-lg" data-cy="monthly-investment">
                 <p className="text-secondary-400 mb-1">Monthly Investment:</p>
                 <p className="text-xl font-serif text-secondary-400" data-cy="monthly-investment-amount">
-                  ${range.monthly.min.toLocaleString()}
+                  ${range.monthly.min.toLocaleString()} - ${range.monthly.max.toLocaleString()}
+                </p>
+                <p className="text-sm text-secondary-400/80 mt-1">
+                  Estimated Monthly Hours: {range.monthly.hours.min} - {range.monthly.hours.max}
                 </p>
               </div>
             )}
@@ -116,43 +145,62 @@ export default function ResultsSummary({
             {range.comfort.max > 0 && (
               <div className="mt-4 p-4 rounded-lg bg-white border border-neutral-200" data-cy="investment-comparison">
                 <div className="flex items-start gap-3">
-                  {range.initial.min > range.comfort.max ? (
-                    <div data-cy="investment-warning">
-                      <HiExclamationCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-                      <div>
-                        <p className="font-medium text-secondary-500 mb-1">Investment Consideration</p>
-                        <p className="text-secondary-600">
-                          Your selected services exceed your indicated investment comfort level. Let&apos;s discuss options to align with your budget.
-                        </p>
+                  {(() => {
+                    const initial = { min: range.initial.min, max: range.initial.max };
+                    const comfort = { min: range.comfort.min, max: range.comfort.max };
+                    const overlapPercent = getOverlapPercentage(initial, comfort);
+
+                    if (!hasOverlap(initial, comfort)) {
+                      if (initial.min > comfort.max) {
+                        return (
+                          <div data-cy="investment-warning">
+                            <HiExclamationCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                            <div>
+                              <p className="font-medium text-secondary-500 mb-1">Investment Consideration</p>
+                              <p className="text-secondary-600">
+                                Your selected services exceed your indicated investment comfort level. Let&apos;s discuss options to align with your budget.
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <div data-cy="investment-opportunity">
+                            <HiLightBulb className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                            <div>
+                              <p className="font-medium text-secondary-500 mb-1">Growth Opportunity</p>
+                              <p className="text-secondary-600">
+                                Your selected services are below your indicated investment range. Consider additional services to maximize your growth potential.
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      }
+                    }
+
+                    return (
+                      <div data-cy="investment-match">
+                        <HiCheckCircle className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                        <div>
+                          <p className="font-medium text-secondary-500 mb-1">
+                            {overlapPercent > 75 ? 'Strong Range Alignment' : 'Partial Range Alignment'}
+                          </p>
+                          <p className="text-secondary-600">
+                            {overlapPercent > 75 
+                              ? 'Your selected services align well with your investment comfort level.'
+                              : 'Your selected services partially overlap with your investment comfort range. We can discuss adjustments if needed.'}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ) : range.initial.min < range.comfort.min ? (
-                    <div data-cy="investment-opportunity">
-                      <HiLightBulb className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-                      <div>
-                        <p className="font-medium text-secondary-500 mb-1">Growth Opportunity</p>
-                        <p className="text-secondary-600">
-                          Your selected services are below your indicated investment range. Consider additional services to maximize your growth potential.
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div data-cy="investment-match">
-                      <HiCheckCircle className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                      <div>
-                        <p className="font-medium text-secondary-500 mb-1">Perfect Match</p>
-                        <p className="text-secondary-600">
-                          Your selected services align well with your investment comfort level.
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                    );
+                  })()}
                 </div>
               </div>
             )}
 
             <div className="mt-2 text-sm text-secondary-600 italic" data-cy="investment-disclaimer">
-              <p>* This is an estimated investment based on your selections. The final amount may be adjusted after we discuss your specific needs and requirements in detail.</p>
+              <p>* This is an estimated investment based on projected hours at our standard rate of $110/hour. 
+                 The final scope and hours may be adjusted after we discuss your specific needs and requirements in detail.</p>
             </div>
           </div>
 
