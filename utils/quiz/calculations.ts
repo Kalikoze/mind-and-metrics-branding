@@ -4,10 +4,7 @@ interface InvestmentRange {
   initial: {
     min: number;
     max: number;
-  };
-  monthly: {
-    min: number;
-    max: number;
+    hours: { min: number; max: number };
   };
   comfort: {
     min: number;
@@ -33,9 +30,13 @@ export const calculateInvestmentRange = (
   answers: Record<string, string[]>,
   selectedBranches: string[]
 ): InvestmentRange => {
+  const hourlyRate = 110;
   const range = {
-    initial: { min: 0, max: 0 },
-    monthly: { min: 0, max: 0 },
+    initial: { 
+      min: 0, 
+      max: 0,
+      hours: { min: 0, max: 0 }
+    },
     comfort: { min: 0, max: 0 }
   };
 
@@ -46,30 +47,29 @@ export const calculateInvestmentRange = (
     if (questionId === 'investment_comfort') {
       const option = question.options.find((opt: Option) => opt.value === selectedValues[0]);
       if (option?.value === 'basic') {
-        range.comfort = { min: 2000, max: 5000 };
-      } else if (option?.value === 'strategic') {
         range.comfort = { min: 5000, max: 10000 };
-      } else if (option?.value === 'growth') {
+      } else if (option?.value === 'strategic') {
         range.comfort = { min: 10000, max: 20000 };
+      } else if (option?.value === 'growth') {
+        range.comfort = { min: 20000, max: 50000 };
       }
       return;
     }
 
     selectedValues.forEach(value => {
       const option = question.options.find((opt: Option) => opt.value === value);
-      if (!option?.cost) return;
+      if (!option) return;
 
-      if (option.cost.initial) {
-        range.initial.min += option.cost.initial;
-        range.initial.max += option.cost.initial;
-      }
-
-      if (option.cost.monthly) {
-        range.monthly.min += option.cost.monthly;
-        range.monthly.max += option.cost.monthly;
+      if (option.hoursMin !== undefined && option.hoursMax !== undefined) {
+        range.initial.hours.min += option.hoursMin;
+        range.initial.hours.max += option.hoursMax;
       }
     });
   });
+
+  // Calculate costs based on hours
+  range.initial.min = range.initial.hours.min * hourlyRate;
+  range.initial.max = range.initial.hours.max * hourlyRate;
 
   return range;
 };

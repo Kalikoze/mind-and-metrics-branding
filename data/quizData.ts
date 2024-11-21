@@ -1,13 +1,9 @@
-export interface Cost {
-  initial: number;
-  monthly?: number;
-}
-
 export interface Option {
   label: string;
   value: any;
   description?: string;
-  cost?: Cost;
+  hoursMin?: number;
+  hoursMax?: number;
 }
 
 export interface Question {
@@ -77,38 +73,30 @@ export const commonQuestions: Question[] = [
       {
         label: 'Basic Investment',
         value: 'basic',
-        description: 'Essential services within $2,000 - $5,000 for small businesses or specific focused needs',
-        cost: {
-          initial: 2000,
-          monthly: 0
-        }
+        description: 'Essential services within $5,000 - $10,000 for small businesses or specific focused needs',
+        hoursMin: 40,
+        hoursMax: 90
       },
       {
         label: 'Strategic Investment',
         value: 'strategic',
-        description: 'Comprehensive solutions within $5,000 - $10,000 for growing businesses needing multiple services',
-        cost: {
-          initial: 5000,
-          monthly: 0
-        }
+        description: 'Comprehensive solutions within $10,000 - $20,000 for growing businesses needing multiple services',
+        hoursMin: 90,
+        hoursMax: 180
       },
       {
         label: 'Growth Investment',
         value: 'growth',
-        description: 'Full-scale implementation $10,000+ for established businesses ready for significant expansion',
-        cost: {
-          initial: 10000,
-          monthly: 0
-        }
+        description: 'Full-scale implementation $20,000+ for established businesses ready for significant expansion',
+        hoursMin: 180,
+        hoursMax: 400
       },
       {
         label: 'Not Sure Yet',
         value: 'unsure',
         description: 'Would like to discuss options based on needs and receive a custom quote',
-        cost: {
-          initial: 0,
-          monthly: 0
-        }
+        hoursMin: 0,
+        hoursMax: 0
       }
     ]
   }
@@ -125,28 +113,22 @@ export const branchQuestions: Record<string, Question[]> = {
           label: 'Basic Logo Package',
           value: 'basic_logo',
           description: '2 initial concepts, 2 revisions, high-quality PNG file',
-          cost: {
-            initial: 1200,
-            monthly: 0
-          }
+          hoursMin: 15,
+          hoursMax: 20
         },
         {
           label: 'Standard Identity Package',
           value: 'standard_logo',
           description: '3 initial concepts, 3 revisions, full vector file',
-          cost: {
-            initial: 1500,
-            monthly: 0
-          }
+          hoursMin: 20,
+          hoursMax: 25
         },
         {
           label: 'Premium Brand Package',
           value: 'premium_logo',
           description: 'Logo, brand color palette, typography, basic brand style guide',
-          cost: {
-            initial: 2500,
-            monthly: 0
-          }
+          hoursMin: 35,
+          hoursMax: 45
         }
       ]
     },
@@ -160,28 +142,22 @@ export const branchQuestions: Record<string, Question[]> = {
           label: 'Business Cards',
           value: 'cards',
           description: 'Professional business card design',
-          cost: {
-            initial: 300,
-            monthly: 0
-          }
+          hoursMin: 1.5,
+          hoursMax: 2
         },
         {
           label: 'Presentation Folders',
           value: 'folders',
           description: 'Custom folder design for documents',
-          cost: {
-            initial: 300,
-            monthly: 0
-          }
+          hoursMin: 2,
+          hoursMax: 2.5
         },
         {
           label: 'Email Signature',
           value: 'email_signature',
           description: 'Professional email signature template',
-          cost: {
-            initial: 300,
-            monthly: 0
-          }
+          hoursMin: 1,
+          hoursMax: 1.5
         }
       ]
     },
@@ -195,73 +171,59 @@ export const branchQuestions: Record<string, Question[]> = {
           label: 'T-shirt Design & Vendor Coordination',
           value: 'tshirt',
           description: 'Custom t-shirt design with vendor interfacing',
-          cost: {
-            initial: 350,
-            monthly: 0
-          }
+          hoursMin: 3,
+          hoursMax: 3
         },
         {
           label: 'Brochure & Flyer Design',
           value: 'brochure',
           description: 'Design with revisions, print/digital ready',
-          cost: {
-            initial: 400,
-            monthly: 0
-          }
+          hoursMin: 4,
+          hoursMax: 4
         },
         {
           label: 'Promotional Item Design',
           value: 'promo',
           description: 'Custom designs for branded items with vendor coordination',
-          cost: {
-            initial: 350,
-            monthly: 0
-          }
+          hoursMin: 3,
+          hoursMax: 3
         },
         {
           label: 'Brand Support Retainer',
           value: 'retainer',
           description: '5+ hours monthly for ongoing brand support',
-          cost: {
-            initial: 0,
-            monthly: 500
-          }
+          hoursMin: 5,
+          hoursMax: 5
         }
       ]
     }
   ],
   website: [
     {
-      id: 'website_scope',
-      text: "What best describes your website needs?",
+      id: 'website_type',
+      text: "What type of website do you need?",
       multiSelect: false,
       options: [
         {
           label: 'Basic Business Website',
           value: 'starter',
-          description: '3-5 pages with essential features and SEO setup',
-          cost: {
-            initial: 3300,
-            monthly: 900
-          }
+          description: '3-5 pages with essential features and SEO setup (2-3 months)',
+          hoursMin: 40,
+          hoursMax: 60
         },
         {
           label: 'Professional Business Website',
           value: 'standard',
-          description: '6-10 pages with CMS and comprehensive SEO',
-          cost: {
-            initial: 5250,
-            monthly: 1200
-          }
+          description: '6-10 pages with CMS and comprehensive SEO (3-4 months)',
+          hoursMin: 80,
+          hoursMax: 120
         },
         {
-          label: 'Advanced Business Platform',
+          label: 'Advanced Business Website',
           value: 'advanced',
-          description: '10+ pages with custom features and animations',
-          cost: {
-            initial: 7550,
-            monthly: 1200
-          }
+          description: '10+ pages with advanced CMS, custom functionality, and comprehensive SEO (4-6 months)',
+          hoursMin: 160,
+          hoursMax: 300
         }
       ]
     },
@@ -275,28 +237,22 @@ export const branchQuestions: Record<string, Question[]> = {
           label: 'E-commerce Store',
           value: 'ecommerce',
           description: 'Sell products or services online',
-          cost: {
-            initial: 2000,
-            monthly: 0
-          }
+          hoursMin: 60,
+          hoursMax: 100
         },
         {
           label: 'Booking System',
           value: 'booking',
           description: 'Allow customers to schedule appointments',
-          cost: {
-            initial: 2000,
-            monthly: 0
-          }
+          hoursMin: 15,
+          hoursMax: 25
         },
         {
           label: 'Google Business Integration',
           value: 'google',
           description: 'Enhance your local business presence',
-          cost: {
-            initial: 200,
-            monthly: 200
-          }
+          hoursMin: 5,
+          hoursMax: 10
         }
       ]
     }
@@ -304,77 +260,50 @@ export const branchQuestions: Record<string, Question[]> = {
   marketing: [
     {
       id: 'social_media',
-      text: "What level of social media management do you need?",
+      text: "What level of social media management do you need? (Monthly)",
       multiSelect: false,
       options: [
         {
           label: 'Basic Social Media Package',
           value: 'basic_social',
-          description: 'Social media setup and basic content management',
-          cost: {
-            initial: 500,
-            monthly: 800
-          }
+          description: 'Social media setup with 3-5 posts per week and basic content management (1-2 platforms)',
+          hoursMin: 6,
+          hoursMax: 10
         },
         {
           label: 'Standard Social Media Package',
           value: 'standard_social',
-          description: '5 posts per week per platform with monthly insight reports',
-          cost: {
-            initial: 500,
-            monthly: 1000
-          }
+          description: '5-7 posts per week per platform with monthly insight reports (2-3 platforms)',
+          hoursMin: 15,
+          hoursMax: 20
         },
         {
           label: 'Advanced Social Media Package',
           value: 'advanced_social',
-          description: '5 posts per week all platforms with content strategy session',
-          cost: {
-            initial: 500,
-            monthly: 1200
-          }
-        }
-      ]
-    },
-    {
-      id: 'youtube_management',
-      text: "Would you like to add YouTube channel management to your marketing strategy?",
-      multiSelect: false,
-      skipable: true,
-      options: [
-        {
-          label: 'YouTube Management',
-          value: 'youtube',
-          description: 'Professional video optimization, SEO-friendly titles and descriptions, thumbnail creation, and upload management ($50 per video upload). Includes performance analytics and engagement monitoring',
-          cost: {
-            initial: 500,
-            monthly: 0
-          }
+          description: '7-14+ posts per week all platforms with content strategy session (3-5 platforms)',
+          hoursMin: 30,
+          hoursMax: 40
         }
       ]
     },
     {
       id: 'marketing_needs',
-      text: "Which marketing services interest you?",
+      text: "Which email marketing services interest you? (Monthly)",
       multiSelect: false,
       options: [
         {
           label: 'Starter Email Marketing',
           value: 'starter_email',
           description: '2 emails per month, performance tracking',
-          cost: {
-            initial: 0,
-            monthly: 250
-          }
+          hoursMin: 5,
+          hoursMax: 8
         },
         {
           label: 'Advanced Email Marketing',
           value: 'advanced_email',
           description: '4 emails per month, A/B testing, segmentation',
-          cost: {
-            initial: 0,
-            monthly: 400
-          }
+          hoursMin: 8,
+          hoursMax: 12
         }
       ]
     },
@@ -387,19 +316,15 @@ export const branchQuestions: Record<string, Question[]> = {
           label: 'Starter Campaign Management',
           value: 'starter',
           description: 'Multi-channel strategy with basic tracking',
-          cost: {
-            initial: 2000,
-            monthly: 1500
-          }
+          hoursMin: 30,
+          hoursMax: 35
         },
         {
           label: 'Advanced Campaign Management',
           value: 'advanced',
           description: 'Comprehensive strategy with detailed analytics',
-          cost: {
-            initial: 2500,
-            monthly: 3000
-          }
+          hoursMin: 40,
+          hoursMax: 45
         }
       ]
     },
@@ -412,28 +337,16 @@ export const branchQuestions: Record<string, Question[]> = {
           label: 'Immediate Start',
           value: 'immediate',
           description: 'Ready to begin within the next month',
-          cost: {
-            initial: 0,
-            monthly: 0
-          }
         },
         {
           label: 'Planned Launch',
           value: 'planned',
           description: 'Specific future date in mind',
-          cost: {
-            initial: 0,
-            monthly: 0
-          }
         },
         {
           label: 'After Other Services',
           value: 'after',
           description: 'Following website/branding completion',
-          cost: {
-            initial: 0,
-            monthly: 0
-          }
         }
       ]
     }
@@ -447,29 +360,23 @@ export const branchQuestions: Record<string, Question[]> = {
         {
           label: 'Hourly Consulting',
           value: 'hourly',
-          description: 'Flexible strategy sessions and marketing insights for specific challenges ($150/hour)',
-          cost: {
-            initial: 150,
-            monthly: 0
-          }
+          description: 'Flexible strategy sessions and marketing insights for specific challenges',
+          hoursMin: 10,
+          hoursMax: 20
         },
         {
           label: 'Monthly Retainer',
           value: 'monthly',
           description: 'Dedicated support including weekly strategy calls, campaign optimization, and creative direction',
-          cost: {
-            initial: 0,
-            monthly: 1500
-          }
+          hoursMin: 20,
+          hoursMax: 40
         },
         {
           label: 'Market Research Package',
           value: 'research',
           description: 'Market analysis, competitor research, and strategic recommendations with implementation plan',
-          cost: {
-            initial: 3000,
-            monthly: 0
-          }
+          hoursMin: 25,
+          hoursMax: 40
         }
       ]
     }

@@ -34,11 +34,15 @@ function formatInvestmentRange(answers: Record<string, string[]>, selectedBranch
   return {
     initial: {
       min: range.initial.min.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }),
-      max: range.initial.max.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 })
+      max: range.initial.max.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }),
+      hours: {
+        min: range.initial.hours.min,
+        max: range.initial.hours.max
+      }
     },
-    monthly: {
-      min: range.monthly.min.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }),
-      max: range.monthly.max.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 })
+    comfort: {
+      min: range.comfort.min.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }),
+      max: range.comfort.max.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 })
     }
   };
 }
@@ -174,9 +178,10 @@ export async function POST(request: Request) {
         quizAnswers: formattedAnswers,
         selectedServices: selectedBranches,
         investmentRange,
+        hourlyRate: 110,
       }
     };
-    console.log(msg);
+
     try {
       await sgMail.send(msg);
       return NextResponse.json({ success: true });
