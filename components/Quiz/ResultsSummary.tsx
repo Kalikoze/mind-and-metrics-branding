@@ -130,18 +130,6 @@ export default function ResultsSummary({
               </p>
             </div>
 
-            {range.monthly.hours.max > 0 && (
-              <div className="bg-neutral-50 p-4 rounded-lg" data-cy="monthly-investment">
-                <p className="text-secondary-400 mb-1">Monthly Investment:</p>
-                <p className="text-xl font-serif text-secondary-400" data-cy="monthly-investment-amount">
-                  ${range.monthly.min.toLocaleString()} - ${range.monthly.max.toLocaleString()}
-                </p>
-                <p className="text-sm text-secondary-400/80 mt-1">
-                  Estimated Monthly Hours: {range.monthly.hours.min} - {range.monthly.hours.max}
-                </p>
-              </div>
-            )}
-
             {range.comfort.max > 0 && (
               <div className="mt-4 p-4 rounded-lg bg-white border border-neutral-200" data-cy="investment-comparison">
                 <div className="flex items-start gap-3">

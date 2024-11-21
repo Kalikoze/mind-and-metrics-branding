@@ -6,11 +6,6 @@ interface InvestmentRange {
     max: number;
     hours: { min: number; max: number };
   };
-  monthly: {
-    min: number;
-    max: number;
-    hours: { min: number; max: number };
-  };
   comfort: {
     min: number;
     max: number;
@@ -42,11 +37,6 @@ export const calculateInvestmentRange = (
       max: 0,
       hours: { min: 0, max: 0 }
     },
-    monthly: { 
-      min: 0, 
-      max: 0,
-      hours: { min: 0, max: 0 }
-    },
     comfort: { min: 0, max: 0 }
   };
 
@@ -70,7 +60,6 @@ export const calculateInvestmentRange = (
       const option = question.options.find((opt: Option) => opt.value === value);
       if (!option) return;
 
-      // Add hours to initial investment by default
       if (option.hoursMin !== undefined && option.hoursMax !== undefined) {
         range.initial.hours.min += option.hoursMin;
         range.initial.hours.max += option.hoursMax;
@@ -81,8 +70,6 @@ export const calculateInvestmentRange = (
   // Calculate costs based on hours
   range.initial.min = range.initial.hours.min * hourlyRate;
   range.initial.max = range.initial.hours.max * hourlyRate;
-  range.monthly.min = range.monthly.hours.min * hourlyRate;
-  range.monthly.max = range.monthly.hours.max * hourlyRate;
 
   return range;
 };
