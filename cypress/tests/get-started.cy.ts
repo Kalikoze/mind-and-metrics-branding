@@ -145,15 +145,19 @@ describe('Get Started Page', () => {
         .should('exist')
         .and('have.text', 'Investment Summary:');
 
-      cy.get('[data-cy="initial-investment"]')
+      cy.get('[data-cy="service-investment"]')
         .should('exist')
-        .and('contain.text', 'Initial Investment');
+        .within(() => {
+          cy.contains('Initial Investment Range:').should('exist');
+          cy.get('[data-cy="service-investment-amount"]').should('exist');
+          cy.contains('Estimated Service Hours:').should('exist');
+        });
 
       cy.get('[data-cy="investment-comparison"]').should('exist');
 
       cy.get('[data-cy="investment-disclaimer"]')
         .should('exist')
-        .and('contain.text', 'This is an estimated investment based on your selections');
+        .and('contain.text', 'This is an estimated investment based on projected hours at our standard rate of $110/hour');
 
       cy.intercept('POST', '/api/quiz-submission', (req) => {
         expect(req.body).to.have.property('answers');
@@ -297,10 +301,18 @@ describe('Get Started Page', () => {
       cy.get('[data-cy="investment-title"]')
         .should('exist')
         .and('have.text', 'Investment Summary:');
-      cy.get('[data-cy="initial-investment"]').should('exist');
+
+      cy.get('[data-cy="service-investment"]')
+        .should('exist')
+        .within(() => {
+          cy.contains('Initial Investment Range:').should('exist');
+          cy.get('[data-cy="service-investment-amount"]').should('exist');
+          cy.contains('Estimated Service Hours:').should('exist');
+        });
+
       cy.get('[data-cy="investment-disclaimer"]')
         .should('exist')
-        .and('contain.text', 'This is an estimated investment based on your selections');
+        .and('contain.text', 'This is an estimated investment based on projected hours at our standard rate of $110/hour');
     });
 
 

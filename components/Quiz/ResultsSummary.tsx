@@ -126,7 +126,7 @@ export default function ResultsSummary({
               </p>
               <p className="text-xs text-secondary-400/60 mt-2 italic">
                 Note: Some services may be one-time projects while others may require ongoing support. 
-                We'll discuss specific timelines and maintenance needs during our consultation.
+                We&apos;ll discuss specific timelines and maintenance needs during our consultation.
               </p>
             </div>
 
