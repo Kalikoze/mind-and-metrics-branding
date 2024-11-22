@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import type { Position } from '@/data/positions';
 import CircuitOverlay from '@/components/common/CircuitOverlay';
@@ -32,6 +32,12 @@ const JobPostingTemplate = ({ position }: JobPostingTemplateProps) => {
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const [hoveringBack, setHoveringBack] = useState(false);
   const [hoveringApply, setHoveringApply] = useState(false);
+
+  useEffect(() => {
+    if (showApplicationForm) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [showApplicationForm]);
 
   return (
     <div className="relative bg-neutral-50 min-h-screen" data-cy="job-posting">
