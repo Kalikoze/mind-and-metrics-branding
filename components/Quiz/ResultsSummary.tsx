@@ -59,7 +59,7 @@ export default function ResultsSummary({
       </div>
 
       <div className="space-y-6" data-cy="selections-container">
-        {Object.entries(answers).map(([questionId, selectedValues], index) => {
+        {Object.entries(answers).map(([questionId, selectedValues]) => {
           const question = getQuestionById(questionId, selectedBranches);
           if (!question) return null;
 
