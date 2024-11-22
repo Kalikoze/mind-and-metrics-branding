@@ -613,7 +613,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                 whileHover="hover"
               >
                 <Link 
-                  href="/privacy" 
+                  href="/privacy-policy" 
                   className="text-secondary-400 underline"
                 >
                   Privacy Policy

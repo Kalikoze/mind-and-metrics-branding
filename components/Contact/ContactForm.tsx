@@ -314,7 +314,7 @@ export default function ContactForm() {
                 whileHover="hover"
               >
                 <Link 
-                  href="/privacy" 
+                  href="/privacy-policy" 
                   className="text-secondary-400 underline"
                 >
                   Privacy Policy
