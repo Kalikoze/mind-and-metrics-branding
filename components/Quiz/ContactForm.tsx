@@ -455,7 +455,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
           )}
         </div>
 
-        <div className="flex justify-between items-center pt-6">
+        <div className="flex flex-col-reverse sm:flex-row justify-between items-center gap-4 pt-6">
           <motion.button
             type="button"
             onClick={onBack}
@@ -463,8 +463,8 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => setIsBackHovering(true)}
             onMouseLeave={() => setIsBackHovering(false)}
-            className="px-8 py-3.5 bg-transparent text-secondary-400 font-medium
-                     rounded-lg flex items-center space-x-2 border-2 border-secondary-400
+            className="w-full sm:w-auto px-8 py-3.5 bg-transparent text-secondary-400 font-medium
+                     rounded-lg flex items-center justify-center space-x-2 border-2 border-secondary-400
                      transition-all duration-300 hover:bg-secondary-400 hover:text-white"
           >
             <HiArrowLeft className="w-5 h-5 shrink-0" />
@@ -479,7 +479,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             disabled={isLoading || (isSubmitted && Object.keys(errors).length > 0)}
             whileHover={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 1.05 } : undefined}
             whileTap={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 0.95 } : undefined}
-            className={`px-8 py-3 font-medium rounded-lg flex items-center space-x-3 border-2
+            className={`w-full sm:w-auto px-8 py-3.5 font-medium rounded-lg flex items-center justify-center space-x-3 border-2
                      transition-all duration-300 ${isLoading || (isSubmitted && Object.keys(errors).length > 0)
                 ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
                 : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'

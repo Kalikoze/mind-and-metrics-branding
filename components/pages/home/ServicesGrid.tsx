@@ -69,9 +69,9 @@ const ServicesGrid = () => {
             href="/services"
             onMouseEnter={() => setViewAllHovering(true)}
             onMouseLeave={() => setViewAllHovering(false)}
-            className="font-sans px-8 py-3.5 border-2 border-secondary-400 text-secondary-400 
+            className="w-full sm:w-auto px-8 py-3.5 border-2 border-secondary-400 text-secondary-400 
                      rounded-lg flex items-center space-x-2 inline-flex
-                     transition-all duration-200 w-[200px] justify-center
+                     transition-all duration-200 justify-center
                      hover:bg-secondary-400 hover:text-white hover:scale-105"
           >
             <HiOutlineArrowRight className="w-5 h-5 shrink-0" aria-hidden="true" />

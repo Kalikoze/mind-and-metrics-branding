@@ -27,7 +27,7 @@ export default function QuizQuestion({
   const canContinue = question.skipable || selectedAnswers.length > 0;
 
   return (
-    <div className="bg-white rounded-lg p-8 shadow-sm w-full" data-cy="question-container">
+    <div className="bg-white rounded-lg p-8 shadow-sm w-full min-h-[500px] sm:min-h-0" data-cy="question-container">
       <div className="mb-6">
         <h2 className="font-serif text-2xl text-secondary-400" data-cy="question-title">
           {question.text}
@@ -81,7 +81,7 @@ export default function QuizQuestion({
         ))}
       </div>
 
-      <div className="h-[76px] mt-8" data-cy="navigation-container">
+      <div className="mt-8 sm:h-[76px]" data-cy="navigation-container">
         <NavigationButtons
           showBack={showBack}
           canContinue={canContinue}

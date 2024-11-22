@@ -93,30 +93,9 @@ const caseStudies = [
 const CaseStudies = () => {
   const [activeStudyId, setActiveStudyId] = useState(caseStudies[0].id);
   const [hoveringStates, setHoveringStates] = useState<{ [key: string]: boolean }>({});
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
-  const [touchStartY, setTouchStartY] = useState(0);
-  const [touchEndY, setTouchEndY] = useState(0);
   const componentRef = useRef(null);
 
   const activeStudy = caseStudies.find(study => study.id === activeStudyId);
-
-  const handleSwipe = () => {
-    const minSwipeDistance = 50;
-    const swipeDistanceX = touchStart - touchEnd;
-    const swipeDistanceY = Math.abs(touchStartY - touchEndY);
-
-    if (swipeDistanceY > Math.abs(swipeDistanceX) || Math.abs(swipeDistanceX) < minSwipeDistance) return;
-
-    const currentIndex = caseStudies.findIndex(study => study.id === activeStudyId);
-    if (swipeDistanceX > 0) {
-      const nextIndex = (currentIndex + 1) % caseStudies.length;
-      setActiveStudyId(caseStudies[nextIndex].id);
-    } else {
-      const prevIndex = currentIndex === 0 ? caseStudies.length - 1 : currentIndex - 1;
-      setActiveStudyId(caseStudies[prevIndex].id);
-    }
-  };
 
   return (
     <section
@@ -184,15 +163,7 @@ const CaseStudies = () => {
         <div className="relative min-h-fit"
           data-cy="case-studies-container"
           ref={componentRef}
-          onTouchStart={e => {
-            setTouchStart(e.touches[0].clientX);
-            setTouchStartY(e.touches[0].clientY);
-          }}
-          onTouchMove={e => {
-            setTouchEnd(e.touches[0].clientX);
-            setTouchEndY(e.touches[0].clientY);
-          }}
-          onTouchEnd={handleSwipe}>
+        >
           <AnimatePresence mode="wait">
             {activeStudy && (
               <motion.div
@@ -205,7 +176,7 @@ const CaseStudies = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white rounded-lg border-2 border-neutral-200 pb-32"
+                className="bg-white rounded-lg border-2 border-neutral-200 pb-56 md:pb-32"
               >
                 <div className="grid md:grid-cols-2 gap-8 p-8">
                   <div className="space-y-8">
@@ -317,11 +288,13 @@ const CaseStudies = () => {
                       rel="noopener noreferrer"
                       onMouseEnter={() => setHoveringStates({ ...hoveringStates, [activeStudy.id]: true })}
                       onMouseLeave={() => setHoveringStates({ ...hoveringStates, [activeStudy.id]: false })}
-                      className="absolute top-4 right-4 font-sans px-8 py-3.5 bg-white/90 backdrop-blur-sm
-                               border-2 border-secondary-400 text-secondary-400 
-                               rounded-lg flex items-center space-x-2 w-[200px] justify-center
+                      className="absolute md:top-4 md:right-4 -bottom-48 md:bottom-auto
+                               font-sans px-8 py-3.5 bg-secondary-400 md:bg-white/90 md:backdrop-blur-sm
+                               border-2 border-secondary-400 text-white md:text-secondary-400 
+                               rounded-lg flex items-center space-x-2 w-full md:w-[200px] justify-center
                                transition-all duration-300
-                               hover:bg-secondary-400 hover:text-white hover:scale-105"
+                               hover:bg-transparent hover:text-secondary-400 md:hover:bg-secondary-400 md:hover:text-white 
+                               hover:scale-105 sm:w-auto sm:left-1/2 sm:-translate-x-1/2 md:left-auto md:translate-x-0"
                     >
                       <HiOutlineGlobeAlt className="w-5 h-5 shrink-0" />
                       <span className="w-[120px] text-center">

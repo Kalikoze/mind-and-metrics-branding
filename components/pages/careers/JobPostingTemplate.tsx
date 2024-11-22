@@ -181,11 +181,11 @@ const JobPostingTemplate = ({ position }: JobPostingTemplateProps) => {
                   data-cy="apply-button"
                   onMouseEnter={() => setHoveringApply(true)}
                   onMouseLeave={() => setHoveringApply(false)}
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4
                            bg-secondary-400 text-white rounded-lg border-2 border-secondary-400
                            hover:bg-transparent hover:text-secondary-400 
                            transition-all duration-300 hover:scale-105
-                           font-medium text-lg w-[200px]"
+                           font-medium"
                   onClick={() => setShowApplicationForm(true)}
                 >
                   <HiOutlinePaperAirplane className="w-5 h-5 shrink-0" />
