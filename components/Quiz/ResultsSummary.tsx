@@ -41,7 +41,14 @@ export default function ResultsSummary({
   };
 
   return (
-    <div className="bg-white rounded-lg p-8 shadow-sm w-full" data-cy="results-summary">
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.3 }}
+      className="bg-white rounded-lg p-8 shadow-sm w-full"
+      data-cy="results-summary"
+    >
       <div className="mb-8">
         <h1 className="font-serif text-3xl text-secondary-400 mb-4" data-cy="summary-title">
           Your Growth Strategy Summary
@@ -52,7 +59,7 @@ export default function ResultsSummary({
       </div>
 
       <div className="space-y-6" data-cy="selections-container">
-        {Object.entries(answers).map(([questionId, selectedValues]) => {
+        {Object.entries(answers).map(([questionId, selectedValues], index) => {
           const question = getQuestionById(questionId, selectedBranches);
           if (!question) return null;
 
@@ -62,7 +69,7 @@ export default function ResultsSummary({
               data-cy={`question-summary-${questionId}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.3, delay: 0.2 + (index * 0.1) }}
               className="border-b border-neutral-200 pb-4"
             >
               <div className="flex justify-between items-start mb-2">
@@ -88,7 +95,13 @@ export default function ResultsSummary({
                   </span>
                 </motion.button>
               </div>
-              <div className="flex flex-wrap gap-2" data-cy={`selected-values-${questionId}`}>
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.3 + (index * 0.1) }}
+                className="flex flex-wrap gap-2" 
+                data-cy={`selected-values-${questionId}`}
+              >
                 {selectedValues.map(value => (
                   <span
                     key={value}
@@ -99,7 +112,7 @@ export default function ResultsSummary({
                     {getOptionLabel(question, value)}
                   </span>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
           );
         })}
@@ -108,10 +121,21 @@ export default function ResultsSummary({
           data-cy="investment-summary"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
+          transition={{ 
+            duration: 0.3, 
+            delay: 0.2 + (Object.keys(answers).length * 0.1) 
+          }}
           className="mt-8 border-neutral-200"
         >
-          <div className="flex flex-col gap-4">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ 
+              duration: 0.3, 
+              delay: 0.3 + (Object.keys(answers).length * 0.1) 
+            }}
+            className="flex flex-col gap-4"
+          >
             <h3 className="font-medium text-secondary-400" data-cy="investment-title">
               Investment Summary:
             </h3>
@@ -131,7 +155,16 @@ export default function ResultsSummary({
             </div>
 
             {range.comfort.max > 0 && (
-              <div className="mt-4 p-4 rounded-lg bg-white border border-neutral-200" data-cy="investment-comparison">
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  duration: 0.3, 
+                  delay: 0.4 + (Object.keys(answers).length * 0.1) 
+                }}
+                className="mt-4 p-4 rounded-lg bg-white border border-neutral-200" 
+                data-cy="investment-comparison"
+              >
                 <div className="flex items-start gap-3">
                   {(() => {
                     const initial = { min: range.initial.min, max: range.initial.max };
@@ -183,17 +216,32 @@ export default function ResultsSummary({
                     );
                   })()}
                 </div>
-              </div>
+              </motion.div>
             )}
 
-            <div className="mt-2 text-sm text-secondary-600 italic" data-cy="investment-disclaimer">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ 
+                duration: 0.3, 
+                delay: 0.5 + (Object.keys(answers).length * 0.1) 
+              }}
+              className="mt-2 text-sm text-secondary-600 italic" 
+              data-cy="investment-disclaimer"
+            >
               <p>* This is an estimated investment based on projected hours at our standard rate of $110/hour. 
                  The final scope and hours may be adjusted after we discuss your specific needs and requirements in detail.</p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           <motion.button
             data-cy="confirm-selections"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ 
+              duration: 0.3, 
+              delay: 0.6 + (Object.keys(answers).length * 0.1) 
+            }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={onConfirm}
@@ -211,6 +259,6 @@ export default function ResultsSummary({
           </motion.button>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 } 
