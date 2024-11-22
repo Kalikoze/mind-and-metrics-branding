@@ -64,22 +64,17 @@ export default function ResultsSummary({
           if (!question) return null;
 
           return (
-            <motion.div
+            <div
               key={questionId}
               data-cy={`question-summary-${questionId}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.2 + (index * 0.1) }}
               className="border-b border-neutral-200 pb-4"
             >
               <div className="flex justify-between items-start mb-2">
                 <h3 className="font-medium text-secondary-400 px-2" data-cy={`question-text-${questionId}`}>
                   {question.text}
                 </h3>
-                <motion.button
+                <button
                   data-cy={`edit-button-${questionId}`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
                   onClick={() => onEdit(questionId)}
                   onMouseEnter={() => setHoveringEdit(questionId)}
                   onMouseLeave={() => setHoveringEdit(null)}
@@ -93,12 +88,9 @@ export default function ResultsSummary({
                   <span className="w-[40px] text-center">
                     <ScrambleText text="Edit" isHovering={hoveringEdit === questionId} />
                   </span>
-                </motion.button>
+                </button>
               </div>
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.3 + (index * 0.1) }}
+              <div 
                 className="flex flex-wrap gap-2" 
                 data-cy={`selected-values-${questionId}`}
               >
@@ -112,30 +104,16 @@ export default function ResultsSummary({
                     {getOptionLabel(question, value)}
                   </span>
                 ))}
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           );
         })}
 
-        <motion.div
+        <div
           data-cy="investment-summary"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: 0.3, 
-            delay: 0.2 + (Object.keys(answers).length * 0.1) 
-          }}
           className="mt-8 border-neutral-200"
         >
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ 
-              duration: 0.3, 
-              delay: 0.3 + (Object.keys(answers).length * 0.1) 
-            }}
-            className="flex flex-col gap-4"
-          >
+          <div className="flex flex-col gap-4">
             <h3 className="font-medium text-secondary-400" data-cy="investment-title">
               Investment Summary:
             </h3>
@@ -155,13 +133,7 @@ export default function ResultsSummary({
             </div>
 
             {range.comfort.max > 0 && (
-              <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  duration: 0.3, 
-                  delay: 0.4 + (Object.keys(answers).length * 0.1) 
-                }}
+              <div 
                 className="mt-4 p-4 rounded-lg bg-white border border-neutral-200" 
                 data-cy="investment-comparison"
               >
@@ -216,34 +188,20 @@ export default function ResultsSummary({
                     );
                   })()}
                 </div>
-              </motion.div>
+              </div>
             )}
 
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ 
-                duration: 0.3, 
-                delay: 0.5 + (Object.keys(answers).length * 0.1) 
-              }}
+            <div 
               className="mt-2 text-sm text-secondary-600 italic" 
               data-cy="investment-disclaimer"
             >
               <p>* This is an estimated investment based on projected hours at our standard rate of $110/hour. 
                  The final scope and hours may be adjusted after we discuss your specific needs and requirements in detail.</p>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
-          <motion.button
+          <button
             data-cy="confirm-selections"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-              duration: 0.3, 
-              delay: 0.6 + (Object.keys(answers).length * 0.1) 
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             onClick={onConfirm}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
@@ -256,8 +214,8 @@ export default function ResultsSummary({
               <ScrambleText text="Continue to Contact Info" isHovering={isHovering} />
             </span>
             <HiArrowRight className="w-5 h-5 shrink-0" />
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
       </div>
     </motion.div>
   );

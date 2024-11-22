@@ -531,10 +531,8 @@ describe('Get Started Page', () => {
 
         cy.get('[data-cy="continue-button"]').click();
         cy.wait(500);
+        cy.checkA11y();
       });
-
-      cy.wait(5000);
-      cy.checkA11y();
 
       cy.get('[data-cy="confirm-selections"]').click();
       cy.wait(1000);
