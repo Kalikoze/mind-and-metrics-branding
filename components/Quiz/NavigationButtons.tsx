@@ -25,8 +25,8 @@ export default function NavigationButtons({
   const [isSummaryHovering, setIsSummaryHovering] = useState(false);
 
   return (
-    <div className="flex justify-between items-center">
-      <div className="flex-1">
+    <div className="flex flex-col-reverse sm:flex-row justify-between items-center gap-4">
+      <div className="w-full sm:flex-1">
         <AnimatePresence mode="wait">
           {showBack && (
             <motion.button
@@ -39,8 +39,8 @@ export default function NavigationButtons({
               onClick={onBack}
               onMouseEnter={() => setIsBackHovering(true)}
               onMouseLeave={() => setIsBackHovering(false)}
-              className="px-8 py-3.5 bg-transparent text-secondary-400 font-medium
-                       rounded-lg flex items-center space-x-2 border-2 border-secondary-400
+              className="w-full sm:w-auto px-8 py-3.5 bg-transparent text-secondary-400 font-medium
+                       rounded-lg flex items-center justify-center space-x-2 border-2 border-secondary-400
                        transition-all duration-300 hover:bg-secondary-400 
                        hover:text-white"
               data-cy="back-button"
@@ -54,7 +54,7 @@ export default function NavigationButtons({
         </AnimatePresence>
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex flex-col-reverse sm:flex-row gap-4 w-full sm:w-auto">
         {isEditing && (
           <motion.button
             initial={{ opacity: 0, x: -20 }}
@@ -67,7 +67,7 @@ export default function NavigationButtons({
             onMouseEnter={() => setIsSummaryHovering(true)}
             onMouseLeave={() => setIsSummaryHovering(false)}
             disabled={!onReturnToSummary}
-            className={`px-8 py-3.5 font-medium rounded-lg flex items-center space-x-2 border-2
+            className={`w-full sm:w-auto px-8 py-3.5 font-medium rounded-lg flex items-center justify-center space-x-2 border-2
                      transition-all duration-300 ${onReturnToSummary
                 ? 'bg-transparent text-secondary-400 border-secondary-400 hover:bg-secondary-400 hover:text-white'
                 : 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
@@ -92,8 +92,8 @@ export default function NavigationButtons({
             onClick={onContinue}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
-            className="px-8 py-3.5 bg-secondary-400 text-white font-medium
-                     rounded-lg flex items-center space-x-2 border-2 border-secondary-400
+            className="w-full sm:w-auto px-8 py-3.5 bg-secondary-400 text-white font-medium
+                     rounded-lg flex items-center justify-center space-x-2 border-2 border-secondary-400
                      transition-all duration-300 hover:bg-transparent 
                      hover:text-secondary-400"
             data-cy="continue-button"

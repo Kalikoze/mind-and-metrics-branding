@@ -75,10 +75,10 @@ const PricingPreview = () => {
               aria-label="Complete a short quiz and get started with a custom solution"
               onMouseEnter={() => setPrimaryHover(true)}
               onMouseLeave={() => setPrimaryHover(false)}
-              className="font-sans px-8 py-3.5 bg-secondary-400 text-white font-medium
-                         rounded-lg flex items-center space-x-2 border-2 border-secondary-400
-                         transition-all duration-300 w-[200px] justify-center
-                         hover:bg-transparent hover:text-secondary-400 hover:scale-105"
+              className="w-full sm:w-auto px-8 py-3.5 bg-secondary-400 text-white font-medium
+                       rounded-lg flex items-center space-x-2 border-2 border-secondary-400
+                       transition-all duration-300 justify-center mx-4 sm:mx-0
+                       hover:bg-transparent hover:text-secondary-400 hover:scale-105"
             >
               <HiOutlineRocketLaunch className="w-5 h-5 shrink-0" />
               <span className="w-[120px] text-center">

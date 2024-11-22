@@ -63,17 +63,17 @@ const Hero: React.FC<HeroProps> = ({
           </h2>
 
           {(primaryButton || secondaryButton) && (
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 mt-12">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:space-y-0 mt-12 w-full">
               {primaryButton && (
                 <Link
                   href={primaryButton.href}
                   data-cy="hero-primary-cta"
                   onMouseEnter={() => setHoveringPrimary(true)}
                   onMouseLeave={() => setHoveringPrimary(false)}
-                  className="font-sans px-8 py-3.5 bg-secondary-400 text-white font-medium
-                           rounded-lg flex items-center space-x-2 border-2 border-secondary-400
-                           transition-all duration-300 w-[200px] justify-center
-                           hover:bg-transparent hover:text-secondary-400 hover:scale-105"
+                  className="w-full sm:w-auto px-8 py-3.5 bg-secondary-400 text-white font-medium
+                           rounded-lg flex items-center justify-center space-x-2 border-2 border-secondary-400
+                           transition-all duration-300 hover:bg-transparent hover:text-secondary-400 
+                           hover:scale-105"
                 >
                   <HiOutlineRocketLaunch className="w-5 h-5 shrink-0" />
                   <span className="w-[120px] text-center">
@@ -88,10 +88,10 @@ const Hero: React.FC<HeroProps> = ({
                   data-cy="hero-secondary-cta"
                   onMouseEnter={() => setHoveringSecondary(true)}
                   onMouseLeave={() => setHoveringSecondary(false)}
-                  className="font-sans px-8 py-3.5 border-2 border-secondary-400 text-secondary-400 
-                           rounded-lg flex items-center space-x-2
-                           transition-all duration-300 w-[200px] justify-center
-                           hover:bg-secondary-400 hover:text-white hover:scale-105"
+                  className="w-full sm:w-auto px-8 py-3.5 border-2 border-secondary-400 text-secondary-400 
+                           rounded-lg flex items-center justify-center space-x-2
+                           transition-all duration-300 hover:bg-secondary-400 hover:text-white 
+                           hover:scale-105"
                 >
                   <HiOutlineEnvelope className="w-5 h-5 shrink-0" />
                   <span className="w-[120px] text-center">
