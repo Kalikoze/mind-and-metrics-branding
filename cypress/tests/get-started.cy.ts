@@ -528,12 +528,11 @@ describe('Get Started Page', () => {
         if (!question.skipable) {
           cy.get('[data-cy="option-2"]').click();
         }
+
         cy.get('[data-cy="continue-button"]').click();
         cy.wait(500);
         cy.checkA11y();
       });
-
-      cy.checkA11y();
 
       cy.get('[data-cy="confirm-selections"]').click();
       cy.wait(1000);

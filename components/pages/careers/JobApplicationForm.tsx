@@ -155,6 +155,11 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
   const [isLoading, setIsLoading] = useState(false);
   const [isCancelHovering, setIsCancelHovering] = useState(false);
 
+  const handleCancel = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    onCancel();
+  };
+
   const onSubmit = async (formData: JobApplicationData) => {
     if (isLoading) return;
 
@@ -180,16 +185,13 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         throw new Error(errorData.message || 'Failed to submit application');
       }
 
-      // const data = await response.json();
-
       toast(() => CustomToast({
         type: 'success',
         message: 'Application Submitted Successfully',
         description: "We'll review your application and get back to you soon."
       }));
 
-      onCancel();
-
+      handleCancel();
     } catch (error) {
       console.error('Error submitting application:', error);
       toast(() => CustomToast({
@@ -217,7 +219,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
           </h1>
 
           <motion.button
-            onClick={onCancel}
+            onClick={handleCancel}
             className="text-secondary-400 hover:text-secondary-500 transition-colors"
             variants={{
               hover: {
@@ -631,7 +633,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         <div className="flex flex-col-reverse sm:flex-row justify-between items-center gap-4 pt-6">
           <motion.button
             type="button"
-            onClick={onCancel}
+            onClick={handleCancel}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => setIsCancelHovering(true)}

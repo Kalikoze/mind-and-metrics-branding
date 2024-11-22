@@ -115,7 +115,13 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
   };
 
   return (
-    <div className="bg-white rounded-lg p-8 shadow-sm w-full">
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.3 }}
+      className="bg-white rounded-lg p-8 shadow-sm w-full"
+    >
       <div className="mb-8">
         <h1 className="font-serif text-3xl text-secondary-400 mb-4">
           Almost There!
@@ -501,6 +507,6 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
           </motion.button>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 } 

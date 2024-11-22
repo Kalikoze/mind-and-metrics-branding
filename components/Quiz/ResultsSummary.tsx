@@ -41,7 +41,14 @@ export default function ResultsSummary({
   };
 
   return (
-    <div className="bg-white rounded-lg p-8 shadow-sm w-full" data-cy="results-summary">
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.3 }}
+      className="bg-white rounded-lg p-8 shadow-sm w-full"
+      data-cy="results-summary"
+    >
       <div className="mb-8">
         <h1 className="font-serif text-3xl text-secondary-400 mb-4" data-cy="summary-title">
           Your Growth Strategy Summary
@@ -57,22 +64,17 @@ export default function ResultsSummary({
           if (!question) return null;
 
           return (
-            <motion.div
+            <div
               key={questionId}
               data-cy={`question-summary-${questionId}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
               className="border-b border-neutral-200 pb-4"
             >
               <div className="flex justify-between items-start mb-2">
                 <h3 className="font-medium text-secondary-400 px-2" data-cy={`question-text-${questionId}`}>
                   {question.text}
                 </h3>
-                <motion.button
+                <button
                   data-cy={`edit-button-${questionId}`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
                   onClick={() => onEdit(questionId)}
                   onMouseEnter={() => setHoveringEdit(questionId)}
                   onMouseLeave={() => setHoveringEdit(null)}
@@ -86,9 +88,12 @@ export default function ResultsSummary({
                   <span className="w-[40px] text-center">
                     <ScrambleText text="Edit" isHovering={hoveringEdit === questionId} />
                   </span>
-                </motion.button>
+                </button>
               </div>
-              <div className="flex flex-wrap gap-2" data-cy={`selected-values-${questionId}`}>
+              <div 
+                className="flex flex-wrap gap-2" 
+                data-cy={`selected-values-${questionId}`}
+              >
                 {selectedValues.map(value => (
                   <span
                     key={value}
@@ -100,15 +105,12 @@ export default function ResultsSummary({
                   </span>
                 ))}
               </div>
-            </motion.div>
+            </div>
           );
         })}
 
-        <motion.div
+        <div
           data-cy="investment-summary"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
           className="mt-8 border-neutral-200"
         >
           <div className="flex flex-col gap-4">
@@ -131,7 +133,10 @@ export default function ResultsSummary({
             </div>
 
             {range.comfort.max > 0 && (
-              <div className="mt-4 p-4 rounded-lg bg-white border border-neutral-200" data-cy="investment-comparison">
+              <div 
+                className="mt-4 p-4 rounded-lg bg-white border border-neutral-200" 
+                data-cy="investment-comparison"
+              >
                 <div className="flex items-start gap-3">
                   {(() => {
                     const initial = { min: range.initial.min, max: range.initial.max };
@@ -186,16 +191,17 @@ export default function ResultsSummary({
               </div>
             )}
 
-            <div className="mt-2 text-sm text-secondary-600 italic" data-cy="investment-disclaimer">
+            <div 
+              className="mt-2 text-sm text-secondary-600 italic" 
+              data-cy="investment-disclaimer"
+            >
               <p>* This is an estimated investment based on projected hours at our standard rate of $110/hour. 
                  The final scope and hours may be adjusted after we discuss your specific needs and requirements in detail.</p>
             </div>
           </div>
 
-          <motion.button
+          <button
             data-cy="confirm-selections"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             onClick={onConfirm}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
@@ -208,9 +214,9 @@ export default function ResultsSummary({
               <ScrambleText text="Continue to Contact Info" isHovering={isHovering} />
             </span>
             <HiArrowRight className="w-5 h-5 shrink-0" />
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 } 

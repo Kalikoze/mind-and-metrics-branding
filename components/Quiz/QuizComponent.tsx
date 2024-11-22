@@ -84,6 +84,8 @@ export default function QuizComponent() {
   };
 
   const handleNextQuestion = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     const moveToNextQuestion = (
       newBranchIndex: number,
       newBranchQuestionIndex: number,
@@ -138,6 +140,8 @@ export default function QuizComponent() {
   };
 
   const handleBack = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     const updateState = (
       newBranchIndex: number,
       newBranchQuestionIndex: number,
@@ -177,6 +181,7 @@ export default function QuizComponent() {
   };
 
   const handleEdit = (questionId: string) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setIsEditing(true);
     setHasProceededWithChanges(false);
 
@@ -215,7 +220,13 @@ export default function QuizComponent() {
     }
   };
 
+  const handleConfirmAndProceed = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setShowingContactForm(true);
+  };
+
   const handleReturnToSummary = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setIsEditing(false);
     setShowingSummary(true);
   };
@@ -236,8 +247,14 @@ export default function QuizComponent() {
   };
 
   const handleContactSubmit = async (formData: ContactFormData) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setPreferredContact(formData.preferredContact);
     setIsComplete(true);
+  };
+
+  const handleBackToSummary = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setShowingContactForm(false);
   };
 
   return (
@@ -257,7 +274,7 @@ export default function QuizComponent() {
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${currentBranch}-${branchQuestionIndex}-${commonQuestionIndex}`}
+            key={showingContactForm ? 'contact-form' : `${currentBranch}-${branchQuestionIndex}-${commonQuestionIndex}`}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
@@ -270,14 +287,14 @@ export default function QuizComponent() {
                   answers={answers}
                   selectedBranches={selectedBranches}
                   onSubmit={handleContactSubmit}
-                  onBack={() => setShowingContactForm(false)}
+                  onBack={handleBackToSummary}
                 />
               ) : showingSummary ? (
                 <ResultsSummary
                   answers={answers}
                   selectedBranches={selectedBranches}
                   onEdit={handleEdit}
-                  onConfirm={() => setShowingContactForm(true)}
+                  onConfirm={handleConfirmAndProceed}
                 />
               ) : (
                 <QuizQuestion
@@ -292,8 +309,14 @@ export default function QuizComponent() {
                 />
               )
             ) : (
-              <div className="text-center p-8 bg-white rounded-lg shadow-sm max-w-2xl mx-auto" data-cy="completion-view">
-                <div className="mb-8">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+                className="text-center p-8 bg-white rounded-lg shadow-sm max-w-2xl mx-auto"
+                data-cy="completion-view"
+              >                <div className="mb-8">
                   <h1 className="font-serif text-3xl text-secondary-400 mb-4" data-cy="completion-title">
                     Thank You for Choosing Us
                   </h1>
@@ -339,7 +362,7 @@ export default function QuizComponent() {
                   </span>
                   <HiArrowRight className="w-5 h-5" />
                 </motion.button>
-              </div>
+              </motion.div>
             )}
           </motion.div>
         </AnimatePresence>
