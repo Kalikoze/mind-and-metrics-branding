@@ -12,15 +12,15 @@ import FemaleProfile from '@/public/assets/about/female-profile.svg';
 const leaders = [
   {
     name: "Julia Eskelson",
-    role: "Brand Strategy Director",
-    bio: "Combining creative vision with brand development expertise, specializing in visual storytelling and strategic marketing. Leverages professional photography background and design principles to help businesses build authentic, engaging brand identities that resonate with their target audience.",
+    role: "Lead Brand Strategist & Marketing Specialist",
+    bio: "With a background in professional photography and digital design. Specializes in creating authentic, engaging brand identities that combine creative vision with strategic marketing, while maintaining a focus on consistency and measurable results.",
     image: FemaleProfile,
-    linkedin: "https://linkedin.com/",
+    linkedin: "https://www.linkedin.com/in/julia-eskelson/",
     email: "jeskelson@mindandmetricsbranding.com"
   },
   {
     name: "Travis Rollins",
-    role: "Technical Director & Lead Engineer",
+    role: "Lead Software Engineer",
     bio: "Bringing 7+ years of software development expertise and educational leadership in modern web technologies. Specializes in creating powerful digital experiences that combine technical excellence with intuitive design, while maintaining a focus on accessibility and best practices.",
     image: MaleProfile,
     linkedin: "https://www.linkedin.com/in/travisrollins/",

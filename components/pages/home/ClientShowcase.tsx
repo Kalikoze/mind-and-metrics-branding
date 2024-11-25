@@ -8,10 +8,10 @@ import NatHydroLogo from '@/public/assets/logos/nat-hydro-logo.svg';
 import PrecisionSurveyLogo from '@/public/assets/logos/precision-survey-logo.svg';
 
 const stats = [
-  { value: "$42K", label: "Average Annual Savings" },
-  { value: '100%', label: 'Preview Before Production' },
-  { value: '24hr', label: 'Content Update Turnaround' },
-  { value: '10+', label: 'Client Trainings Attended' }
+  { value: "90%", label: "24hr Support Resolution Rate" },
+  { value: '80%', label: "Early Project Deliveries" },
+  { value: '10%', label: "Overhead Cost Savings" },
+  { value: '98%', label: "Client Digital Confidence" }
 ];
 
 const clientLogos = [

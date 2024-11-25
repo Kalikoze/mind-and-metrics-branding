@@ -17,7 +17,6 @@ interface HeroProps {
     text: string;
     href: string;
   };
-  showBackground?: boolean;
 }
 
 const Hero: React.FC<HeroProps> = ({

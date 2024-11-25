@@ -7,17 +7,17 @@ const valueProps = [
   {
     icon: HiOutlinePuzzlePiece,
     title: "Tailored Solutions",
-    description: "Custom-built strategies that adapt to your specific business needs and goals"
+    description: "Strategies custom-crafted to meet your unique business needs and objectives"
   },
   {
     icon: HiOutlineScale,
     title: "Flexible Scaling",
-    description: "Adjust services and resources as your business grows and evolves"
+    description: "Easily adapt services and resources as your business evolves"
   },
   {
     icon: HiOutlineChartBar,
     title: "Transparent ROI",
-    description: "Clear reporting and metrics to demonstrate value and impact"
+    description: "Detailed reporting and metrics to clearly demonstrate value and impact"
   }
 ];
 
@@ -32,7 +32,7 @@ const PricingPreview = () => {
             Transparent Value-Based Pricing
           </h2>
           <p data-cy="pricing-preview-subtitle" className="text-dark-600 text-lg max-w-2xl mx-auto">
-            Discover a pricing structure that aligns with your goals and scales with your success
+            A pricing model designed to align with your goals and grow with your success.
           </p>
         </div>
 

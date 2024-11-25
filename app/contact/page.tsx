@@ -7,9 +7,8 @@ export default function Contact() {
   return (
     <main>
       <Hero
-        title="Start Your Growth Journey"
-        subtitle="Ready to transform your brand with data-driven strategies? Let's discuss how we can help your business reach its full potential."
-        showBackground={false}
+        title="Begin Your Brand Transformation"
+        subtitle="Ready to elevate your brand with data-driven strategies? Let's explore how we can help your business unlock its full potential and drive lasting growth."
       />
       <ContactSection />
     </main>

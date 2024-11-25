@@ -16,9 +16,9 @@ export default function ContactInfo() {
         Get in Touch
       </h2>
       <p className="text-dark-600 mb-12" data-cy="contact-info-description">
-        Whether you&apos;re looking to transform your brand, optimize your digital presence,
-        or develop a comprehensive marketing strategy, we&apos;re here to help. Let&apos;s discuss
-        how we can help your business reach its full potential.
+        Whether you&apos;re ready to transform your brand, enhance your digital presence,
+        or craft a tailored marketing strategy, we&apos;re here to help. Let&apos;s connect
+        and discuss how we can drive your business toward its full potential.
       </p>
 
       <div className="space-y-8">
