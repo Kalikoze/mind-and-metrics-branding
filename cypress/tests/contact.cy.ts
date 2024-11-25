@@ -282,9 +282,9 @@ describe('Contact Page', () => {
 
     it('should handle privacy policy link navigation', () => {
       cy.get('[data-cy="contact-form"]').within(() => {
-        cy.get('a[href="/privacy"]')
+        cy.get('a[href="/privacy-policy"]')
           .should('exist')
-          .and('have.attr', 'href', '/privacy');
+          .and('have.attr', 'href', '/privacy-policy');
       });
     });
 
