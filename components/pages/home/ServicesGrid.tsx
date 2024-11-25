@@ -44,10 +44,12 @@ const ServicesGrid = () => {
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="text-center mb-16">
-          <h2 data-cy="services-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
+          <h2 data-cy="services-title" 
+              className="text-3xl md:text-4xl font-serif text-dark-800 mb-4">
             Total B2B Business Suite
           </h2>
-          <p data-cy="services-subtitle" className="text-secondary-500 text-lg max-w-2xl mx-auto">
+          <p data-cy="services-subtitle" 
+             className="text-dark-600 text-lg max-w-2xl mx-auto">
             Ready to scale your business with experts who truly understand your vision and goals?
           </p>
         </header>

@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import GraphingBackground from '@/public/assets/backgrounds/graphing-background.svg';
-import SpiralDesign from '@/public/assets/backgrounds/spiral-design.svg';
 import { HiOutlineRocketLaunch, HiOutlineEnvelope } from 'react-icons/hi2';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -26,7 +25,6 @@ const Hero: React.FC<HeroProps> = ({
   subtitle,
   primaryButton,
   secondaryButton,
-  showBackground = true
 }) => {
   const [hoveringPrimary, setHoveringPrimary] = useState(false);
   const [hoveringSecondary, setHoveringSecondary] = useState(false);
@@ -41,24 +39,16 @@ const Hero: React.FC<HeroProps> = ({
           fill
           className="opacity-50 object-cover"
         />
-        {showBackground && (
-          <Image
-            src={SpiralDesign}
-            alt="Background design"
-            fill
-            className="opacity-50 object-cover"
-          />
-        )}
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 data-cy="hero-title" className="font-serif text-5xl sm:text-6xl font-bold mb-6 text-secondary-600
+          <h1 data-cy="hero-title" className="font-serif text-5xl sm:text-6xl font-bold mb-6
                          [text-wrap:balance] bg-clip-text text-transparent 
-                         bg-gradient-to-r from-secondary-600 to-secondary-400 pb-2">
+                         bg-gradient-to-r from-dark-900 to-dark-700 pb-2">
             {title}
           </h1>
-          <h2 data-cy="hero-subtitle" className="font-sans text-xl sm:text-2xl text-secondary-500">
+          <h2 data-cy="hero-subtitle" className="font-sans text-xl sm:text-2xl text-dark-600">
             {subtitle}
           </h2>
 
@@ -71,9 +61,10 @@ const Hero: React.FC<HeroProps> = ({
                   onMouseEnter={() => setHoveringPrimary(true)}
                   onMouseLeave={() => setHoveringPrimary(false)}
                   className="w-full sm:w-auto px-8 py-3.5 bg-secondary-400 text-white font-medium
-                           rounded-lg flex items-center justify-center space-x-2 border-2 border-secondary-400
-                           transition-all duration-300 hover:bg-transparent hover:text-secondary-400 
-                           hover:scale-105"
+                           rounded-lg flex items-center justify-center space-x-2 
+                           border-2 border-secondary-400
+                           transition-all duration-300 hover:bg-transparent 
+                           hover:text-secondary-400 hover:scale-105"
                 >
                   <HiOutlineRocketLaunch className="w-5 h-5 shrink-0" />
                   <span className="w-[120px] text-center">
@@ -88,10 +79,10 @@ const Hero: React.FC<HeroProps> = ({
                   data-cy="hero-secondary-cta"
                   onMouseEnter={() => setHoveringSecondary(true)}
                   onMouseLeave={() => setHoveringSecondary(false)}
-                  className="w-full sm:w-auto px-8 py-3.5 border-2 border-secondary-400 text-secondary-400 
-                           rounded-lg flex items-center justify-center space-x-2
-                           transition-all duration-300 hover:bg-secondary-400 hover:text-white 
-                           hover:scale-105"
+                  className="w-full sm:w-auto px-8 py-3.5 border-2 border-secondary-400 
+                           text-secondary-400 rounded-lg flex items-center justify-center 
+                           space-x-2 transition-all duration-300 
+                           hover:bg-secondary-400 hover:text-white hover:scale-105"
                 >
                   <HiOutlineEnvelope className="w-5 h-5 shrink-0" />
                   <span className="w-[120px] text-center">

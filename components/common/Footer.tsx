@@ -69,12 +69,12 @@ const Footer = () => {
                     width={40}
                     height={40}
                   />
-                  <span className="font-serif text-xl text-secondary-600">
+                  <span className="font-serif text-xl text-dark-900">
                     Mind & Metrics
                   </span>
                 </Link>
               </motion.div>
-              <p className="text-secondary-500 text-sm mt-6" data-cy="footer-description">
+              <p className="text-dark-600 text-sm mt-6" data-cy="footer-description">
                 Transforming Omaha&apos;s B2B landscape with strategic branding and digital solutions that are tailored to your business&apos;s unique vision. Serving the Greater Omaha area and beyond with expert strategies designed for sustainable growth.
               </p>
             </div>
@@ -83,7 +83,7 @@ const Footer = () => {
           {/* Navigation Links */}
           <div className="flex flex-col items-center md:items-start">
             <div className="max-w-sm w-full">
-              <h3 className="font-serif text-lg text-secondary-400 mb-4" data-cy="footer-nav-title">Navigation</h3>
+              <h3 className="font-serif text-lg text-dark-800 mb-4" data-cy="footer-nav-title">Navigation</h3>
               <ul className="space-y-3">
                 {navigationLinks.map((link) => (
                   <motion.li
@@ -99,12 +99,12 @@ const Footer = () => {
                     <Link
                       href={link.href}
                       data-cy={`footer-nav-${link.name.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="text-gray-600 hover:text-secondary-400 transition-colors
+                      className="text-dark-600 hover:text-dark-800 transition-colors
                                relative group text-sm inline-flex items-center"
                     >
                       <span className="relative">
                         {link.name}
-                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-secondary-50 
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-dark-800/10 
                                        transition-all duration-300 group-hover:w-full" />
                       </span>
                       <RiArrowRightUpLine className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 
@@ -119,19 +119,19 @@ const Footer = () => {
           {/* Hours & Contact */}
           <div className="flex flex-col items-center md:items-start">
             <div className="max-w-sm w-full">
-              <h3 className="font-serif text-lg text-secondary-400 mb-4" data-cy="footer-hours-title">Hours & Contact</h3>
+              <h3 className="font-serif text-lg text-dark-800 mb-4" data-cy="footer-hours-title">Hours & Contact</h3>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3" data-cy="footer-hours">
-                  <RiTimeLine className="w-5 h-5 text-secondary-400 shrink-0 mt-0.5" />
-                  <div className="text-sm text-secondary-500">
-                    <p className="font-medium">Monday - Friday</p>
+                  <RiTimeLine className="w-5 h-5 text-dark-700 shrink-0 mt-0.5" />
+                  <div className="text-sm text-dark-600">
+                    <p className="font-medium text-dark-700">Monday - Friday</p>
                     <p>8:00 AM - 4:00 PM</p>
                     <p className="mt-2">Closed Weekends & Holidays</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3" data-cy="footer-address">
-                  <RiMapPin2Line className="w-5 h-5 text-secondary-400 shrink-0 mt-0.5" />
-                  <div className="text-sm text-secondary-500">
+                  <RiMapPin2Line className="w-5 h-5 text-dark-700 shrink-0 mt-0.5" />
+                  <div className="text-sm text-dark-600">
                     <motion.div
                       variants={{
                         hover: {
@@ -147,15 +147,15 @@ const Footer = () => {
                         rel="noopener noreferrer"
                         className="group"
                       >
-                        <p className="group-hover:text-secondary-400 transition-colors">1569 Washington St</p>
-                        <p className="group-hover:text-secondary-400 transition-colors">Blair, NE 68008</p>
-                        <p className="text-xs text-secondary-400 mt-1 group-hover:underline">Get Directions →</p>
+                        <p className="group-hover:text-dark-800 transition-colors">1569 Washington St</p>
+                        <p className="group-hover:text-dark-800 transition-colors">Blair, NE 68008</p>
+                        <p className="text-xs text-dark-500 mt-1 group-hover:underline">Get Directions →</p>
                       </Link>
                     </motion.div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <RiMailLine className="w-5 h-5 shrink-0 text-secondary-500" />
+                  <RiMailLine className="w-5 h-5 shrink-0 text-dark-700" />
                   <motion.div
                     variants={{
                       hover: {
@@ -168,7 +168,7 @@ const Footer = () => {
                     <Link
                       href="mailto:info@mindandmetricsbranding.com"
                       data-cy="footer-email"
-                      className="text-secondary-500 hover:text-secondary-400 transition-colors group"
+                      className="text-dark-600 hover:text-dark-800 transition-colors group"
                     >
                       <span className="text-sm break-all group-hover:underline">
                         info@mindandmetricsbranding.com
@@ -183,7 +183,7 @@ const Footer = () => {
           {/* Social Links */}
           <div className="flex flex-col items-center md:items-start">
             <div className="max-w-sm w-full">
-              <h3 className="font-serif text-lg text-secondary-400 mb-4" data-cy="footer-social-title">Connect With Us</h3>
+              <h3 className="font-serif text-lg text-dark-800 mb-4" data-cy="footer-social-title">Connect With Us</h3>
               <div className="flex space-x-4">
                 {socialLinks.map((social) => (
                   <motion.div
@@ -201,7 +201,7 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       data-cy={`footer-social-${social.name.toLowerCase()}`}
-                      className="text-secondary-500 hover:text-secondary-400 transition-all duration-300
+                      className="text-dark-600 hover:text-dark-800 transition-all duration-300
                              group"
                       aria-label={social.name}
                     >
@@ -221,7 +221,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="pt-8 border-t border-neutral-200">
-          <p className="text-center text-sm text-secondary-500">
+          <p className="text-center text-sm text-dark-600">
             © {new Date().getFullYear()} Mind & Metrics Branding. All rights reserved.
           </p>
         </div>

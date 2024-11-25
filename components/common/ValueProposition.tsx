@@ -28,7 +28,7 @@ const ValueProposition: React.FC<ValuePropositionProps> = ({
       const regex = new RegExp(`(${word})`, 'gi');
       result = result.replace(
         regex, 
-        `<span class="text-secondary-400 font-semibold" data-cy="value-proposition-highlight-${index}-${highlightIndex}">$1</span>`
+        `<span class="text-dark-800 font-semibold" data-cy="value-proposition-highlight-${index}-${highlightIndex}">$1</span>`
       );
     });
 
@@ -43,14 +43,14 @@ const ValueProposition: React.FC<ValuePropositionProps> = ({
       <CircuitOverlay />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2
-          className="font-serif text-4xl text-secondary-400 mb-8 text-center"
+          className="font-serif text-4xl text-dark-800 mb-8 text-center"
           data-cy="value-proposition-title"
         >
           {title}
         </h2>
 
         <div
-          className="space-y-8 text-lg text-secondary-500 leading-relaxed"
+          className="space-y-8 text-lg text-dark-600 leading-relaxed"
           data-cy="value-proposition-content"
         >
           {paragraphs.map((paragraph, index) => (
@@ -75,13 +75,13 @@ const ValueProposition: React.FC<ValuePropositionProps> = ({
               data-cy={`value-proposition-stat-${index}`}
             >
               <div
-                className="font-serif text-3xl text-secondary-400 mb-2"
+                className="font-serif text-3xl text-dark-800 mb-2"
                 data-cy={`value-proposition-stat-value-${index}`}
               >
                 {stat.value}
               </div>
               <div
-                className="text-secondary-500"
+                className="text-dark-600"
                 data-cy={`value-proposition-stat-label-${index}`}
               >
                 {stat.label}
