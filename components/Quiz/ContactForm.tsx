@@ -439,7 +439,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 whileHover="hover"
               >
                 <Link 
-                  href="/privacy" 
+                  href="/privacy-policy" 
                   className="text-secondary-400 hover:underline"
                 >
                   Privacy Policy
