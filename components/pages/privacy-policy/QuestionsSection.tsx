@@ -14,7 +14,7 @@ const QuestionsSection = () => {
       <div className="bg-neutral-50 rounded-lg p-8 border-2 border-neutral-200" 
            data-cy="questions-section-content">
         <p className="text-secondary-500 mb-4" data-cy="questions-section-text">
-          If you have any questions about this Privacy Policy or our data practices, please don't hesitate to reach out to us.
+          If you have any questions about this Privacy Policy or our data practices, please don&apos;t hesitate to reach out to us.
         </p>
         <motion.div
           variants={{
