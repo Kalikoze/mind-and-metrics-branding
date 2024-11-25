@@ -46,10 +46,10 @@ const WorkCulture = () => {
     <section className="bg-white py-24" data-cy="work-culture-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl text-secondary-400 mb-4">
+          <h2 className="font-serif text-4xl text-dark-800 mb-4">
             Our Culture
           </h2>
-          <p className="text-secondary-500 text-lg mx-auto">
+          <p className="text-dark-600 text-lg mx-auto">
             Experience a workplace that values mission-driven teamwork, continuous learning, and clear communication
           </p>
         </div>
@@ -65,10 +65,10 @@ const WorkCulture = () => {
                 <div className="bg-white p-4 rounded-full mb-6 border-2 border-neutral-200">
                   <point.icon className="w-8 h-8 text-secondary-400" />
                 </div>
-                <h3 className="font-serif text-xl text-secondary-400 mb-4">
+                <h3 className="font-serif text-xl text-dark-800 mb-4">
                   {point.title}
                 </h3>
-                <p className="text-secondary-500">
+                <p className="text-dark-600">
                   {point.description}
                 </p>
               </div>

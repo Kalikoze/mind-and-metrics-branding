@@ -33,10 +33,10 @@ const TeamLeaders = () => {
     <section className="bg-white py-24" data-cy="team-leaders-section">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl text-secondary-400 mb-4" data-cy="team-leaders-title">
+          <h2 className="font-serif text-4xl text-dark-800 mb-4" data-cy="team-leaders-title">
             Leadership Team
           </h2>
-          <p className="text-secondary-500 text-lg max-w-2xl mx-auto">
+          <p className="text-dark-600 text-lg max-w-2xl mx-auto">
             Meet the minds behind Mind & Metrics, uniting strategic vision and technical expertise.
           </p>
         </div>
@@ -61,15 +61,15 @@ const TeamLeaders = () => {
                   />
                 </div>
 
-                <h3 className="font-serif text-2xl text-secondary-400 mb-2"
+                <h3 className="font-serif text-2xl text-dark-800 mb-2"
                     data-cy={`team-leader-name-${index}`}>
                   {leader.name}
                 </h3>
-                <p className="text-secondary-500 font-medium mb-4"
+                <p className="text-dark-600 font-medium mb-4"
                    data-cy={`team-leader-role-${index}`}>
                   {leader.role}
                 </p>
-                <p className="text-secondary-400 mb-6 max-w-md"
+                <p className="text-dark-600 mb-6 max-w-md"
                    data-cy={`team-leader-bio-${index}`}>
                   {leader.bio}
                 </p>

@@ -13,10 +13,10 @@ const OpenPositions = () => {
       <CircuitOverlay />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl text-secondary-400 mb-4">
+          <h2 className="font-serif text-4xl text-dark-800 mb-4">
             Open Positions
           </h2>
-          <p className="text-secondary-500 text-lg max-w-2xl mx-auto">
+          <p className="text-dark-600 text-lg max-w-2xl mx-auto">
             Explore opportunities to make an impact and grow with us
           </p>
         </div>
@@ -37,24 +37,24 @@ const OpenPositions = () => {
                 <div className="flex-1">
                   <div className="mb-3">
                     <div className="flex flex-wrap items-center gap-3">
-                      <h3 className="font-serif text-xl text-secondary-400">
+                      <h3 className="font-serif text-xl text-dark-800">
                         {position.title}
                       </h3>
-                      <span className="text-sm bg-neutral-100 text-secondary-500 px-3 py-1 rounded-full">
+                      <span className="text-sm bg-neutral-100 text-dark-600 px-3 py-1 rounded-full">
                         {position.type}
                       </span>
-                      <span className="text-sm bg-neutral-100 text-secondary-500 px-3 py-1 rounded-full">
+                      <span className="text-sm bg-neutral-100 text-dark-600 px-3 py-1 rounded-full">
                         {position.locationType}
                       </span>
-                      <span className="text-sm bg-neutral-100 text-secondary-500 px-3 py-1 rounded-full">
+                      <span className="text-sm bg-neutral-100 text-dark-600 px-3 py-1 rounded-full">
                         {position.department}
                       </span>
                     </div>
-                    <p className="text-secondary-500 text-sm mt-1">
+                    <p className="text-dark-600 text-sm mt-1">
                       {position.location}
                     </p>
                   </div>
-                  <p className="text-secondary-500">
+                  <p className="text-dark-600">
                     {position.description}
                   </p>
                 </div>
