@@ -5,13 +5,15 @@ import { RiArrowRightUpLine } from 'react-icons/ri';
 
 const QuestionsSection = () => {
   return (
-    <section id="contact" className="scroll-mt-24">
-      <h2 className="font-serif text-3xl text-secondary-400 mb-8 flex items-center">
+    <section id="contact" className="scroll-mt-24" data-cy="questions-section">
+      <h2 className="font-serif text-3xl text-secondary-400 mb-8 flex items-center" 
+          data-cy="questions-section-title">
         <HiQuestionMarkCircle className="w-8 h-8 mr-3 text-secondary-400" />
         Questions or Concerns?
       </h2>
-      <div className="bg-neutral-50 rounded-lg p-8 border-2 border-neutral-200">
-        <p className="text-secondary-500 mb-4">
+      <div className="bg-neutral-50 rounded-lg p-8 border-2 border-neutral-200" 
+           data-cy="questions-section-content">
+        <p className="text-secondary-500 mb-4" data-cy="questions-section-text">
           If you have any questions about this Privacy Policy or our data practices, please don't hesitate to reach out to us.
         </p>
         <motion.div
@@ -25,8 +27,8 @@ const QuestionsSection = () => {
         >
           <Link
             href="/contact"
-            className="text-secondary-500 hover:text-secondary-400 transition-colors
-                     relative group text-sm inline-flex items-center"
+            className="text-secondary-500 hover:text-secondary-400 transition-colors relative group text-sm inline-flex items-center"
+            data-cy="questions-section-contact-link"
           >
             <span className="relative">
               Contact us with your questions
