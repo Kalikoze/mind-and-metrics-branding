@@ -97,7 +97,7 @@ describe('About Page', () => {
         {
           name: "Travis Rollins",
           role: "Lead Software Engineer",
-          bio: "Bringing 7+ years of software development expertise",
+          bio: "With 7+ years of software development expertise",
           linkedin: "https://www.linkedin.com/in/travisrollins/",
           email: "trollins@mindandmetricsbranding.com"
         }
