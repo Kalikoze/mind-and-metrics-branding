@@ -27,9 +27,17 @@ export default function QuizQuestion({
   const canContinue = question.skipable || selectedAnswers.length > 0;
 
   return (
-    <div className="bg-white rounded-lg p-8 shadow-sm w-full min-h-[500px] sm:min-h-0" data-cy="question-container">
+    <div 
+      className="bg-white rounded-lg p-8 border-2 border-neutral-200
+                 transition-all duration-300 hover:border-secondary-400
+                 hover:shadow-lg w-full min-h-[500px] sm:min-h-0" 
+      data-cy="question-container"
+    >
       <div className="mb-6">
-        <h2 className="font-serif text-2xl text-secondary-400" data-cy="question-title">
+        <h2 
+          className="font-serif text-2xl text-dark-800 mb-2" 
+          data-cy="question-title"
+        >
           {question.text}
         </h2>
         
@@ -44,7 +52,7 @@ export default function QuizQuestion({
         
         {question.skipable && (
           <div 
-            className="text-lg italic text-secondary-300 mt-1"
+            className="text-lg italic text-dark-600 mt-1"
             data-cy="skipable-note"
           >
             {question.multiSelect
@@ -56,7 +64,7 @@ export default function QuizQuestion({
         
         {!question.skipable && question.multiSelect && (
           <div 
-            className="text-lg italic text-secondary-300 mt-1"
+            className="text-lg italic text-dark-600 mt-1"
             data-cy="multiselect-note"
           >
             (Select all that apply)
@@ -81,7 +89,10 @@ export default function QuizQuestion({
         ))}
       </div>
 
-      <div className="mt-8 sm:h-[76px]" data-cy="navigation-container">
+      <div 
+        className="mt-8 sm:h-[76px]" 
+        data-cy="navigation-container"
+      >
         <NavigationButtons
           showBack={showBack}
           canContinue={canContinue}

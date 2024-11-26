@@ -27,14 +27,14 @@ export default function QuestionOption({ option, isSelected, onSelect, index }: 
         <div className="flex-1">
           <h3 
             className={`font-medium transition-colors duration-300
-                     ${isSelected ? 'text-secondary-400' : 'text-secondary-500 group-hover:text-secondary-400'}`}
+                     ${isSelected ? 'text-dark-800' : 'text-dark-800 group-hover:text-dark-800'}`}
             data-cy="option-label"
           >
             {option.label}
           </h3>
           {option.description && (
             <p 
-              className="text-secondary-400 text-sm mt-1"
+              className="text-dark-600 text-sm mt-1"
               data-cy="option-description"
             >
               {option.description}
@@ -44,7 +44,7 @@ export default function QuestionOption({ option, isSelected, onSelect, index }: 
         {isSelected && (
           <div className="ml-4">
             <HiCheck 
-              className="w-6 h-6 text-secondary-400"
+              className="w-5 h-5 text-secondary-400"
               data-cy="option-selected-icon" 
             />
           </div>

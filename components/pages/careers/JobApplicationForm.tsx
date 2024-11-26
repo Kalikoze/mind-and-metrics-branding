@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { motion } from 'framer-motion';
-import { HiExclamationCircle, HiArrowRight, HiXMark, HiOutlineCloudArrowUp, HiOutlineDocumentText } from 'react-icons/hi2';
+import { HiExclamationCircle, HiArrowRight, HiXMark, HiOutlineCloudArrowUp, HiOutlineDocumentText, HiArrowLeft } from 'react-icons/hi2';
 import { usePhoneFormat } from '@/hooks/usePhoneFormat';
 import { toast } from 'react-toastify';
 import { CustomToast } from '@/components/common/Notifications/CustomToast';
@@ -234,7 +234,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
           </motion.button>
         </div>
 
-        <h2 className="ml-1 text-dark-600 text-lg">
+        <h2 className="ml-1 text-dark-600 text-sm italic">
           Join our team and help shape the future of digital marketing
         </h2>
       </div>
@@ -638,11 +638,13 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => setIsCancelHovering(true)}
             onMouseLeave={() => setIsCancelHovering(false)}
-            className="w-full sm:w-auto px-8 py-3.5 bg-transparent text-secondary-400 font-medium
-                     rounded-lg flex items-center justify-center space-x-2 border-2 border-secondary-400
-                     transition-all duration-300 hover:bg-secondary-400 hover:text-white"
+            className="w-full sm:w-auto px-8 py-3.5 bg-transparent text-dark-600 font-medium
+                     rounded-lg flex items-center justify-center space-x-2 border-2 border-neutral-200
+                     transition-all duration-300 hover:border-secondary-400 hover:bg-secondary-400 
+                     hover:text-white hover:shadow-lg"
             data-cy="cancel-button"
           >
+            <HiArrowLeft className="w-5 h-5 shrink-0" />
             <span className="w-[80px] text-center">
               <ScrambleText text="Cancel" isHovering={isCancelHovering} />
             </span>

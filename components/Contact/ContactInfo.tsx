@@ -12,7 +12,7 @@ export default function ContactInfo() {
     <div className="bg-white rounded-lg p-8 border-2 border-neutral-200
                     transition-all duration-300 hover:border-secondary-400
                     hover:shadow-lg" data-cy="contact-info">
-      <h2 className="font-serif text-3xl text-dark-800 mb-6" data-cy="contact-info-title">
+      <h2 className="font-serif text-4xl text-dark-800 mb-4" data-cy="contact-info-title">
         Get in Touch
       </h2>
       <p className="text-dark-600 mb-12" data-cy="contact-info-description">

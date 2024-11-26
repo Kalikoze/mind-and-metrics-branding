@@ -39,10 +39,10 @@ export default function NavigationButtons({
               onClick={onBack}
               onMouseEnter={() => setIsBackHovering(true)}
               onMouseLeave={() => setIsBackHovering(false)}
-              className="w-full sm:w-auto px-8 py-3.5 bg-transparent text-secondary-400 font-medium
-                       rounded-lg flex items-center justify-center space-x-2 border-2 border-secondary-400
-                       transition-all duration-300 hover:bg-secondary-400 
-                       hover:text-white"
+              className="w-full sm:w-auto px-8 py-3.5 bg-transparent text-dark-600 font-medium
+                       rounded-lg flex items-center justify-center space-x-2 border-2 border-neutral-200
+                       transition-all duration-300 hover:border-secondary-400 hover:bg-secondary-400 
+                       hover:text-white hover:shadow-lg"
               data-cy="back-button"
             >
               <HiArrowLeft className="w-5 h-5 shrink-0" />
@@ -69,7 +69,7 @@ export default function NavigationButtons({
             disabled={!onReturnToSummary}
             className={`w-full sm:w-auto px-8 py-3.5 font-medium rounded-lg flex items-center justify-center space-x-2 border-2
                      transition-all duration-300 ${onReturnToSummary
-                ? 'bg-transparent text-secondary-400 border-secondary-400 hover:bg-secondary-400 hover:text-white'
+                ? 'bg-transparent text-dark-600 border-neutral-200 hover:border-secondary-400 hover:bg-secondary-400 hover:text-white hover:shadow-lg'
                 : 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
               }`}
             data-cy="return-to-summary"
@@ -95,7 +95,7 @@ export default function NavigationButtons({
             className="w-full sm:w-auto px-8 py-3.5 bg-secondary-400 text-white font-medium
                      rounded-lg flex items-center justify-center space-x-2 border-2 border-secondary-400
                      transition-all duration-300 hover:bg-transparent 
-                     hover:text-secondary-400"
+                     hover:text-secondary-400 hover:shadow-lg"
             data-cy="continue-button"
           >
             <span className="w-[80px] text-center">
@@ -107,4 +107,4 @@ export default function NavigationButtons({
       </div>
     </div>
   );
-} 
+}
