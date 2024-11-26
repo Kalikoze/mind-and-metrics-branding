@@ -16,7 +16,7 @@ import PrecisionMobile from '@/public/assets/about/precision-mobile.png';
 export interface CaseStudy {
   id: string;
   client: string;
-  logo: FC<SVGProps<SVGSVGElement>>;
+  logo: string;
   industry: string;
   challenge: string;
   solution: string;
@@ -25,8 +25,8 @@ export interface CaseStudy {
     value: string;
   }>;
   websiteUrl: string;
-  desktopPreview: StaticImageData;
-  mobilePreview: StaticImageData;
+  desktopPreview: string;
+  mobilePreview: string;
   tags: string[];
 }
 
@@ -44,8 +44,8 @@ export const caseStudies: CaseStudy[] = [
       { metric: 'Keyword Rankings', value: '+15%' }
     ],
     websiteUrl: 'https://www.psccompanies.com',
-    desktopPreview: PSCDesktop,
-    mobilePreview: PSCMobile,
+    desktopPreview: PSCDesktop.src,
+    mobilePreview: PSCMobile.src,
     tags: ['Website Redesign', 'SEO', 'Brand Identity', 'UI/UX Design']
   },
   {
@@ -61,8 +61,8 @@ export const caseStudies: CaseStudy[] = [
       { metric: 'Website Performance', value: '100%' }
     ],
     websiteUrl: 'https://www.precisionsurveyingandconsulting.com',
-    desktopPreview: PrecisionDesktop,
-    mobilePreview: PrecisionMobile,
+    desktopPreview: PrecisionDesktop.src,
+    mobilePreview: PrecisionMobile.src,
     tags: ['Brand Refresh', 'Web Development', 'Lead Generation', 'Content Strategy']
   },
   {
@@ -78,8 +78,8 @@ export const caseStudies: CaseStudy[] = [
       { metric: 'Online Sales', value: '+40%' }
     ],
     websiteUrl: 'https://www.hydrovac-supply.com',
-    desktopPreview: HydrovacDesktop,
-    mobilePreview: HydrovacMobile,
+    desktopPreview: HydrovacDesktop.src,
+    mobilePreview: HydrovacMobile.src,
     tags: ['Brand Identity', 'SEO', 'Social Media Marketing', 'Web Design']
   },
   {
@@ -95,8 +95,8 @@ export const caseStudies: CaseStudy[] = [
       { metric: 'Brand Awareness', value: '+40%' }
     ],
     websiteUrl: 'https://www.nathydro.com',
-    desktopPreview: NatHydroDesktop,
-    mobilePreview: NatHydroMobile,
+    desktopPreview: NatHydroDesktop.src,
+    mobilePreview: NatHydroMobile.src,
     tags: ['Brand Development', 'Web Design', 'Local SEO', 'Content Marketing']
   },
 
