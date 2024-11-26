@@ -61,7 +61,7 @@ const Footer = () => {
                 whileHover="hover"
                 whileTap={{ scale: 0.95 }}
               >
-                <Link href="/" className="flex items-center space-x-3" data-cy="footer-logo">
+                <Link href="/" className="flex items-end space-x-3 -mt-3.5" data-cy="footer-logo">
                   <Image
                     src={Logo}
                     alt=""
@@ -69,7 +69,7 @@ const Footer = () => {
                     width={40}
                     height={40}
                   />
-                  <span className="font-serif text-xl text-dark-900">
+                  <span className="font-serif text-xl text-dark-900 -mb-[2px]">
                     Mind & Metrics
                   </span>
                 </Link>

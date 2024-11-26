@@ -57,8 +57,9 @@ const MainNav = () => {
               variants={navItemVariants}
               whileHover="hover"
               whileTap={{ scale: 0.95 }}
+              className="mb-2"
             >
-              <Link href="/" className="flex items-center space-x-3" data-cy="nav-logo">
+              <Link href="/" className="flex items-end space-x-3" data-cy="nav-logo">
                 <Image
                   src={Logo}
                   alt=""
@@ -67,7 +68,7 @@ const MainNav = () => {
                   height={40}
                 />
                 <span data-cy="nav-logo-text" 
-                      className="font-serif text-xl text-dark-900">
+                      className="font-serif text-xl text-dark-900 -mb-[2px]">
                   Mind & Metrics
                 </span>
               </Link>
@@ -75,12 +76,13 @@ const MainNav = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-end space-x-8">
             {menuItems.map((item) => (
               <motion.div
                 key={item.name}
                 variants={navItemVariants}
                 whileHover="hover"
+                className="mb-4"
               >
                 <Link
                   data-cy={`nav-item-${item.name.toLowerCase().replace(' ', '-')}`}
