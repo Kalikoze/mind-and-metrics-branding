@@ -20,6 +20,7 @@ const ServiceDetailsSection = ({ serviceId, offerings, isEvenSection }: ServiceD
         {offerings.map((offering, offeringIndex) => (
           <li 
             key={offeringIndex}
+            data-cy={`service-offering-${serviceId}-${offeringIndex}`}
             className="mb-6 last:mb-0"
             style={{ minHeight: '150px' }}
           >

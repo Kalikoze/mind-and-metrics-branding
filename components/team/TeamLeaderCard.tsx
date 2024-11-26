@@ -44,7 +44,10 @@ export const TeamLeaderCard = ({ leader, index }: TeamLeaderCardProps) => {
         {leader.bio}
       </p>
 
-      <nav className="flex justify-center space-x-4" aria-label="Social links">
+      <nav 
+        className="flex justify-center space-x-4" 
+        aria-label={`${leader.name}'s social links`}
+      >
         <motion.div whileHover={{ y: -2 }} transition={{ type: "spring", stiffness: 400 }}>
           <Link
             href={leader.linkedin}

@@ -21,6 +21,7 @@ const KeyFeatures = ({ serviceId, keyPoints, isEvenSection }: KeyFeaturesProps) 
         {keyPoints.map((point, pointIndex) => (
           <li 
             key={pointIndex}
+            data-cy={`service-feature-${serviceId}-${pointIndex}`}
             className="mb-6 last:mb-0"
             style={{ minHeight: '150px' }}
           >
