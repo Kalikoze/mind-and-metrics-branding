@@ -46,7 +46,7 @@ export const caseStudies: CaseStudy[] = [
     websiteUrl: 'https://www.psccompanies.com',
     desktopPreview: PSCDesktop,
     mobilePreview: PSCMobile,
-    tags: ['Web Development', 'Brand Evolution', 'Digital Strategy']
+    tags: ['Website Redesign', 'SEO', 'Brand Identity', 'UI/UX Design']
   },
   {
     id: 'precision-survey',
@@ -60,10 +60,10 @@ export const caseStudies: CaseStudy[] = [
       { metric: 'Facebook Lead Gen', value: '+30%' },
       { metric: 'Website Performance', value: '100%' }
     ],
-    websiteUrl: 'https://www.precisionsurveysupply.com',
+    websiteUrl: 'https://www.precisionsurveyingandconsulting.com',
     desktopPreview: PrecisionDesktop,
     mobilePreview: PrecisionMobile,
-    tags: ['E-commerce', 'Custom Development', 'System Integration']
+    tags: ['Brand Refresh', 'Web Development', 'Lead Generation', 'Content Strategy']
   },
   {
     id: 'hydrovac',
@@ -75,11 +75,12 @@ export const caseStudies: CaseStudy[] = [
     results: [
       { metric: 'Website Traffic', value: '+35%' },
       { metric: 'Lead Generation', value: '+40%' },
+      { metric: 'Sales from Web Leads', value: '+45%' }
     ],
-    websiteUrl: 'https://www.hydrovacnation.com',
+    websiteUrl: 'https://www.hydrovac-supply.com',
     desktopPreview: HydrovacDesktop,
     mobilePreview: HydrovacMobile,
-    tags: ['E-commerce', 'UX Design', 'Mobile Optimization']
+    tags: ['Brand Identity', 'SEO', 'Social Media Marketing', 'Web Design']
   },
   {
     id: 'national-hydro',
@@ -93,10 +94,10 @@ export const caseStudies: CaseStudy[] = [
       { metric: 'Organic Search Traffic', value: '+25%' },
       { metric: 'Brand Awareness', value: '+40%' }
     ],
-    websiteUrl: 'https://www.nationalhydroexcavation.com',
+    websiteUrl: 'https://www.nathydro.com',
     desktopPreview: NatHydroDesktop,
     mobilePreview: NatHydroMobile,
-    tags: ['Lead Generation', 'Content Strategy', 'SEO']
+    tags: ['Brand Development', 'Web Design', 'Local SEO', 'Content Marketing']
   },
 
 ]; 
