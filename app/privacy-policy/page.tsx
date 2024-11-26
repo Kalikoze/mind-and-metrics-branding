@@ -32,7 +32,6 @@ export default function Privacy() {
       <Hero
         title="Privacy Policy"
         subtitle="How we collect, use, and protect your information"
-        showBackground={false}
       />
       <ValueProposition {...valuePropositionData} />
       <PrivacyContent />

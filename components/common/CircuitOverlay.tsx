@@ -14,28 +14,28 @@ const paths: CircuitPath[] = [
   // Main elegant lines (thicker)
   {
     d: "M-100,600 H300 V300 H700 V100 H1300",
-    className: "animate-draw stroke-primary-200/10",
+    className: "animate-draw stroke-dark-800/5",
     width: 2
   },
   {
     d: "M0,200 H400 V400 H800 V0 H1200",
-    className: "animate-draw-delay-1 stroke-secondary-200/10",
+    className: "animate-draw-delay-1 stroke-dark-800/5",
     width: 2
   },
   {
     d: "M1300,500 H900 V200 H500 V400 H100 V100",
-    className: "animate-draw-delay-2 stroke-primary-300/20",
+    className: "animate-draw-delay-2 stroke-dark-800/10",
     width: 2
   },
   // Subtle accent lines (thinner)
   {
     d: "M-50,150 H200 V350 H600 V150 H1300",
-    className: "animate-draw-delay-2 stroke-primary-200/10",
+    className: "animate-draw-delay-2 stroke-dark-800/5",
     width: 1
   },
   {
     d: "M1200,250 H800 V50 H400 V250 H-100",
-    className: "animate-draw stroke-secondary-200/10",
+    className: "animate-draw stroke-dark-800/5",
     width: 1
   }
 ];

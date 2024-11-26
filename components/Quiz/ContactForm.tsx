@@ -120,13 +120,15 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
       transition={{ duration: 0.3 }}
-      className="bg-white rounded-lg p-8 shadow-sm w-full"
+      className="bg-white rounded-lg p-8 border-2 border-neutral-200 
+                transition-all duration-300 hover:border-secondary-400 
+                hover:shadow-lg w-full"
     >
       <div className="mb-8">
-        <h1 className="font-serif text-3xl text-secondary-400 mb-4">
+        <h1 className="font-serif text-4xl text-dark-800 mb-4">
           Almost There!
         </h1>
-        <h2 className="text-secondary-500/80 text-sm italic">
+        <h2 className="text-dark-600 text-sm italic">
           Share your contact details to receive your customized growth strategy. We&apos;ll only use your information to discuss this quote.
         </h2>
       </div>
@@ -155,7 +157,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="firstName">
+            <label className="block text-dark-800 mb-2" htmlFor="firstName">
               First Name *
             </label>
             <input
@@ -178,7 +180,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
           </div>
 
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="lastName">
+            <label className="block text-dark-800 mb-2" htmlFor="lastName">
               Last Name *
             </label>
             <input
@@ -201,7 +203,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
           </div>
 
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="companyName">
+            <label className="block text-dark-800 mb-2" htmlFor="companyName">
               Company Name
             </label>
             <input
@@ -215,7 +217,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
           </div>
 
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="email">
+            <label className="block text-dark-800 mb-2" htmlFor="email">
               Email Address *
             </label>
             <input
@@ -238,11 +240,11 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 {errors.email.message}
               </p>
             )}
-            <p className="text-xs text-secondary-500/80 mt-1">For quote-related communications only</p>
+            <p className="text-xs text-dark-600 mt-1">For quote-related communications only</p>
           </div>
 
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="phone">
+            <label className="block text-dark-800 mb-2" htmlFor="phone">
               Phone Number
             </label>
             <input
@@ -272,11 +274,11 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 {errors.phone.message}
               </p>
             )}
-            <p className="text-xs text-secondary-500/80 mt-1">By providing your number, you agree to receive messages about your quote</p>
+            <p className="text-xs text-dark-600 mt-1">By providing your number, you agree to receive messages about your quote</p>
           </div>
 
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="bestTimeToContact">
+            <label className="block text-dark-800 mb-2" htmlFor="bestTimeToContact">
               Best Time to Contact {preferredContact === 'phone' && '*'}
             </label>
             <select
@@ -306,7 +308,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
         </div>
 
         <div>
-          <label className="block text-secondary-400 mb-2">
+          <label className="block text-dark-800 mb-2">
             Preferred Contact Method *
           </label>
           <div className="flex gap-4">
@@ -342,7 +344,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
         </div>
 
         <div>
-          <label className="block text-secondary-400 mb-2" htmlFor="message">
+          <label className="block text-dark-800 mb-2" htmlFor="message">
             Additional Comments
           </label>
           <textarea
@@ -365,7 +367,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
 
         <div className="space-y-4">
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="referralSource">
+            <label className="block text-dark-800 mb-2" htmlFor="referralSource">
               How did you hear about us?
             </label>
             <select
@@ -387,7 +389,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
 
           {watch('referralSource') === 'referral' && (
             <div>
-              <label className="block text-secondary-400 mb-2" htmlFor="referralDetail">
+              <label className="block text-dark-800 mb-2" htmlFor="referralDetail">
                 Who referred you?
               </label>
               <input
@@ -402,7 +404,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
 
           {watch('referralSource') === 'other' && (
             <div>
-              <label className="block text-secondary-400 mb-2" htmlFor="referralDetail">
+              <label className="block text-dark-800 mb-2" htmlFor="referralDetail">
                 Please specify
               </label>
               <input
@@ -426,7 +428,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
               })}
               className="mt-1 mr-2"
             />
-            <span className="text-sm text-secondary-500">
+            <span className="text-sm text-dark-600">
               I agree to the{' '}
               <motion.div
                 className="inline-block"
@@ -469,9 +471,10 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => setIsBackHovering(true)}
             onMouseLeave={() => setIsBackHovering(false)}
-            className="w-full sm:w-auto px-8 py-3.5 bg-transparent text-secondary-400 font-medium
-                     rounded-lg flex items-center justify-center space-x-2 border-2 border-secondary-400
-                     transition-all duration-300 hover:bg-secondary-400 hover:text-white"
+            className="w-full sm:w-auto px-8 py-3.5 bg-transparent text-dark-600 font-medium
+                     rounded-lg flex items-center justify-center space-x-2 border-2 border-neutral-200
+                     transition-all duration-300 hover:border-secondary-400 hover:bg-secondary-400 
+                     hover:text-white hover:shadow-lg"
           >
             <HiArrowLeft className="w-5 h-5 shrink-0" />
             <span className="w-[140px] text-center">
@@ -485,11 +488,12 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             disabled={isLoading || (isSubmitted && Object.keys(errors).length > 0)}
             whileHover={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 1.05 } : undefined}
             whileTap={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 0.95 } : undefined}
-            className={`w-full sm:w-auto px-8 py-3.5 font-medium rounded-lg flex items-center justify-center space-x-3 border-2
-                     transition-all duration-300 ${isLoading || (isSubmitted && Object.keys(errors).length > 0)
-                ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
-                : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'
-              }`}
+            className={`w-full sm:w-auto px-8 py-3.5 font-medium rounded-lg flex items-center justify-center space-x-3 
+                     border-2 transition-all duration-300 ${
+                       isLoading || (isSubmitted && Object.keys(errors).length > 0)
+                         ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
+                         : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'
+                     }`}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
           >
@@ -509,4 +513,4 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
       </form>
     </motion.div>
   );
-} 
+}

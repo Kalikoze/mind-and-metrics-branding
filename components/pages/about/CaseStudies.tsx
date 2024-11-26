@@ -108,12 +108,12 @@ const CaseStudies = () => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2
-            className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4"
+            className="text-3xl md:text-4xl font-serif text-dark-800 mb-4"
             data-cy="case-studies-title"
           >
             Client Success Stories
           </h2>
-          <p className="text-secondary-500 text-lg max-w-2xl mx-auto">
+          <p className="text-dark-600 text-lg max-w-2xl mx-auto">
             Discover how we&apos;ve helped B2B leaders transform their digital presence and achieve measurable results.
           </p>
         </div>
@@ -192,29 +192,29 @@ const CaseStudies = () => {
                     </div>
 
                     <div>
-                      <h3 className="font-serif text-2xl text-secondary-400 mb-2">
+                      <h3 className="font-serif text-2xl text-dark-800 mb-2">
                         {activeStudy.client}
                       </h3>
-                      <p className="text-secondary-500 font-medium">
+                      <p className="text-dark-600 font-medium">
                         {activeStudy.industry}
                       </p>
                     </div>
 
                     <div className="space-y-4">
                       <div>
-                        <h4 className="font-serif text-lg text-secondary-400 mb-2">
+                        <h4 className="font-serif text-lg text-dark-800 mb-2">
                           Challenge
                         </h4>
-                        <p className="text-secondary-500">
+                        <p className="text-dark-600">
                           {activeStudy.challenge}
                         </p>
                       </div>
 
                       <div>
-                        <h4 className="font-serif text-lg text-secondary-400 mb-2">
+                        <h4 className="font-serif text-lg text-dark-800 mb-2">
                           Solution
                         </h4>
-                        <p className="text-secondary-500">
+                        <p className="text-dark-600">
                           {activeStudy.solution}
                         </p>
                       </div>
@@ -223,10 +223,10 @@ const CaseStudies = () => {
                     <div className="grid grid-cols-3 gap-4">
                       {activeStudy.results.map((result, index) => (
                         <div key={index} className="text-center p-4 bg-neutral-50 rounded-lg">
-                          <div className="font-serif text-2xl text-secondary-400 mb-1">
+                          <div className="font-serif text-2xl text-dark-800 mb-1">
                             {result.value}
                           </div>
-                          <div className="text-sm text-secondary-500">
+                          <div className="text-sm text-dark-600">
                             {result.metric}
                           </div>
                         </div>
@@ -237,7 +237,7 @@ const CaseStudies = () => {
                       {activeStudy.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-3 py-1 text-sm bg-neutral-50 text-secondary-400 rounded-full"
+                          className="px-3 py-1 text-sm bg-neutral-50 text-dark-600 rounded-full"
                         >
                           {tag}
                         </span>
@@ -256,7 +256,7 @@ const CaseStudies = () => {
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, 50vw"
                         />
                       </div>
-                      <span className="absolute -bottom-2 left-4 text-sm text-secondary-400 bg-white/90 
+                      <span className="absolute -bottom-2 left-4 text-sm text-dark-600 bg-white/90 
                                        backdrop-blur-sm px-2 py-1 rounded-md shadow-sm">
                         Desktop View
                       </span>
@@ -276,7 +276,7 @@ const CaseStudies = () => {
                           />
                         </div>
                       </div>
-                      <span className="absolute -bottom-2 right-4 text-sm text-secondary-400 bg-white/90 
+                      <span className="absolute -bottom-2 right-4 text-sm text-dark-600 bg-white/90 
                                        backdrop-blur-sm px-2 py-1 rounded-md shadow-sm">
                         Mobile View
                       </span>

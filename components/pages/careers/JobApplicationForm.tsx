@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { motion } from 'framer-motion';
-import { HiExclamationCircle, HiArrowRight, HiXMark, HiOutlineCloudArrowUp, HiOutlineDocumentText } from 'react-icons/hi2';
+import { HiExclamationCircle, HiArrowRight, HiXMark, HiOutlineCloudArrowUp, HiOutlineDocumentText, HiArrowLeft } from 'react-icons/hi2';
 import { usePhoneFormat } from '@/hooks/usePhoneFormat';
 import { toast } from 'react-toastify';
 import { CustomToast } from '@/components/common/Notifications/CustomToast';
@@ -214,7 +214,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
     >
       <div className="mb-12">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="font-serif text-4xl text-secondary-400">
+          <h1 className="font-serif text-4xl text-dark-800">
             Apply for {position.title}
           </h1>
 
@@ -234,7 +234,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
           </motion.button>
         </div>
 
-        <h2 className="ml-1 text-secondary-500 text-lg">
+        <h2 className="ml-1 text-dark-600 text-sm italic">
           Join our team and help shape the future of digital marketing
         </h2>
       </div>
@@ -255,7 +255,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         {/* Basic Information */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="firstName">
+            <label className="block text-dark-800 mb-2" htmlFor="firstName">
               First Name *
             </label>
             <input
@@ -275,7 +275,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
           </div>
 
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="lastName">
+            <label className="block text-dark-800 mb-2" htmlFor="lastName">
               Last Name *
             </label>
             <input
@@ -298,7 +298,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         {/* Contact Information */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="email">
+            <label className="block text-dark-800 mb-2" htmlFor="email">
               Email *
             </label>
             <input
@@ -324,7 +324,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
           </div>
 
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="phone">
+            <label className="block text-dark-800 mb-2" htmlFor="phone">
               Phone
             </label>
             <input
@@ -359,7 +359,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         {/* Professional Links */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="linkedIn">
+            <label className="block text-dark-800 mb-2" htmlFor="linkedIn">
               LinkedIn Profile URL
             </label>
             <input
@@ -384,7 +384,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
           </div>
 
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="portfolio">
+            <label className="block text-dark-800 mb-2" htmlFor="portfolio">
               Portfolio URL
             </label>
             <input
@@ -412,7 +412,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         {/* Experience */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="currentEmployer">
+            <label className="block text-dark-800 mb-2" htmlFor="currentEmployer">
               Current/Most Recent Employer
             </label>
             <input
@@ -426,7 +426,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
           </div>
 
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="yearsExperience">
+            <label className="block text-dark-800 mb-2" htmlFor="yearsExperience">
               Years of Relevant Experience
             </label>
             <input
@@ -465,7 +465,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
 
         {/* Additional Information */}
         <div>
-          <label className="block text-secondary-400 mb-2" htmlFor="startDate">
+          <label className="block text-dark-800 mb-2" htmlFor="startDate">
             Earliest Available Start Date *
           </label>
           <input
@@ -492,7 +492,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         </div>
 
         <div>
-          <label className="block text-secondary-400 mb-2" htmlFor="coverLetter">
+          <label className="block text-dark-800 mb-2" htmlFor="coverLetter">
             Cover Letter (Recommended)
           </label>
           <textarea
@@ -515,7 +515,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         </div>
 
         <div>
-          <label className="block text-secondary-400 mb-2" htmlFor="heardFrom">
+          <label className="block text-dark-800 mb-2" htmlFor="heardFrom">
             How did you hear about this position?
           </label>
           <select
@@ -537,7 +537,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         {/* Add the conditional referral detail input */}
         {watch('heardFrom') === 'referral' && (
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="referralDetail">
+            <label className="block text-dark-800 mb-2" htmlFor="referralDetail">
               Who referred you?
             </label>
             <input
@@ -553,7 +553,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
 
         {watch('heardFrom') === 'other' && (
           <div>
-            <label className="block text-secondary-400 mb-2" htmlFor="referralDetail">
+            <label className="block text-dark-800 mb-2" htmlFor="referralDetail">
               Please specify
             </label>
             <input
@@ -568,7 +568,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         )}
 
         <div>
-          <label className="block text-secondary-400 mb-2" htmlFor="resume" data-cy="resume-upload">
+          <label className="block text-dark-800 mb-2" htmlFor="resume" data-cy="resume-upload">
             Resume * (PDF, DOC, or DOCX)
           </label>
           <Controller
@@ -600,7 +600,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
               className="mt-1 mr-2"
               data-cy="privacy-policy-checkbox"
             />
-            <span className="text-sm text-secondary-500">
+            <span className="text-sm text-dark-600">
               I agree to the processing of my personal data according to the{' '}
               <motion.div
                 className="inline-block"
@@ -638,11 +638,13 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => setIsCancelHovering(true)}
             onMouseLeave={() => setIsCancelHovering(false)}
-            className="w-full sm:w-auto px-8 py-3.5 bg-transparent text-secondary-400 font-medium
-                     rounded-lg flex items-center justify-center space-x-2 border-2 border-secondary-400
-                     transition-all duration-300 hover:bg-secondary-400 hover:text-white"
+            className="w-full sm:w-auto px-8 py-3.5 bg-transparent text-dark-600 font-medium
+                     rounded-lg flex items-center justify-center space-x-2 border-2 border-neutral-200
+                     transition-all duration-300 hover:border-secondary-400 hover:bg-secondary-400 
+                     hover:text-white hover:shadow-lg"
             data-cy="cancel-button"
           >
+            <HiArrowLeft className="w-5 h-5 shrink-0" />
             <span className="w-[80px] text-center">
               <ScrambleText text="Cancel" isHovering={isCancelHovering} />
             </span>

@@ -105,7 +105,7 @@ export default function ContactForm() {
                     hover:shadow-lg"
       data-cy="contact-form"
     >
-      <h2 className="font-serif text-2xl text-secondary-400 mb-6"
+      <h2 className="font-serif text-4xl text-dark-800 mb-4"
         data-cy="contact-form-title"
       >
         Send Us a Message

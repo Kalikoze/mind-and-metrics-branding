@@ -16,7 +16,7 @@ const ServiceCard = ({ icon: Icon, title, description }: ServiceCardProps) => {
     >
       <figure
         data-cy="service-icon"
-        className="bg-white p-4 rounded-full w-16 h-16 mb-6
+        className="bg-neutral-50 p-4 rounded-full w-16 h-16 mb-6
                   flex items-center justify-center"
       >
         <Icon className="w-8 h-8 text-secondary-400" aria-hidden="true" />
@@ -24,14 +24,14 @@ const ServiceCard = ({ icon: Icon, title, description }: ServiceCardProps) => {
 
       <h3
         data-cy="service-title"
-        className="text-xl font-serif text-secondary-500 mb-3"
+        className="text-xl font-serif text-dark-800 mb-3"
       >
         {title}
       </h3>
 
       <p
         data-cy="service-description"
-        className="text-secondary-400 font-sans mb-6"
+        className="text-dark-600 font-sans mb-6"
       >
         {description}
       </p>

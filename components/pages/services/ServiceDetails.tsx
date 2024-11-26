@@ -232,12 +232,12 @@ const ServiceDetails = () => {
               </div>
               <h2
                 data-cy={`service-title-${service.id}`}
-                className="font-serif text-3xl md:text-4xl text-secondary-400 mb-4">
+                className="font-serif text-3xl md:text-4xl text-dark-800 mb-4">
                 {service.title}
               </h2>
               <p
                 data-cy={`service-overview-${service.id}`}
-                className="text-secondary-500 text-lg leading-relaxed max-w-3xl mx-auto text-center">
+                className="text-dark-600 text-lg leading-relaxed max-w-3xl mx-auto text-center">
                 {service.overview}
               </p>
             </div>
@@ -247,8 +247,9 @@ const ServiceDetails = () => {
                   ? 'bg-white border border-neutral-200'
                   : 'bg-neutral-50 border-2 border-neutral-200'
                 }`}>
-                <h3 className={`font-serif text-xl mb-6 ${index % 2 === 0 ? 'text-secondary-500' : 'text-secondary-400'
-                  }`}>Key Features</h3>
+                <h3 className="font-serif text-xl mb-6 text-dark-800">
+                  Key Features
+                </h3>
                 <div
                   data-cy={`service-features-${service.id}`}
                   className="space-y-6">
@@ -259,11 +260,11 @@ const ServiceDetails = () => {
                       className="space-y-3">
                       <div className="flex items-center space-x-3">
                         <RiCheckLine className="w-5 h-5 text-secondary-400 shrink-0" />
-                        <span className="font-medium text-secondary-500">{point.title}</span>
+                        <span className="font-medium text-dark-800">{point.title}</span>
                       </div>
                       <ul className="pl-8 space-y-2">
                         {point.subPoints.map((subPoint, subIndex) => (
-                          <li key={subIndex} className="text-secondary-400 text-sm">
+                          <li key={subIndex} className="text-dark-600 text-sm">
                             • {subPoint}
                           </li>
                         ))}
@@ -277,8 +278,9 @@ const ServiceDetails = () => {
                   ? 'bg-white border border-neutral-200'
                   : 'bg-neutral-50 border-2 border-neutral-200'
                 }`}>
-                <h3 className={`font-serif text-xl mb-6 ${index % 2 === 0 ? 'text-secondary-500' : 'text-secondary-400'
-                  }`}>Service Details</h3>
+                <h3 className="font-serif text-xl mb-6 text-dark-800">
+                  Service Details
+                </h3>
                 <div
                   data-cy={`service-offerings-${service.id}`}
                   className="space-y-8">
@@ -287,8 +289,8 @@ const ServiceDetails = () => {
                       key={index}
                       data-cy={`service-offering-${service.id}-${index}`}
                     >
-                      <h4 className="font-medium text-secondary-500 mb-2">{offering.title}</h4>
-                      <p className="text-secondary-400 text-sm">{offering.description}</p>
+                      <h4 className="font-medium text-dark-800 mb-2">{offering.title}</h4>
+                      <p className="text-dark-600 text-sm">{offering.description}</p>
                     </div>
                   ))}
                 </div>

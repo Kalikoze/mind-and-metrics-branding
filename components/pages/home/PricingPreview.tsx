@@ -7,17 +7,17 @@ const valueProps = [
   {
     icon: HiOutlinePuzzlePiece,
     title: "Tailored Solutions",
-    description: "Custom-built strategies that adapt to your specific business needs and goals"
+    description: "Strategies custom-crafted to meet your unique business needs and objectives"
   },
   {
     icon: HiOutlineScale,
     title: "Flexible Scaling",
-    description: "Adjust services and resources as your business grows and evolves"
+    description: "Easily adapt services and resources as your business evolves"
   },
   {
     icon: HiOutlineChartBar,
     title: "Transparent ROI",
-    description: "Clear reporting and metrics to demonstrate value and impact"
+    description: "Detailed reporting and metrics to clearly demonstrate value and impact"
   }
 ];
 
@@ -28,11 +28,11 @@ const PricingPreview = () => {
     <section data-cy="pricing-preview-section" className="bg-white py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 data-cy="pricing-preview-title" className="text-3xl md:text-4xl font-serif text-secondary-400 mb-4">
+          <h2 data-cy="pricing-preview-title" className="text-3xl md:text-4xl font-serif text-dark-800 mb-4">
             Transparent Value-Based Pricing
           </h2>
-          <p data-cy="pricing-preview-subtitle" className="text-secondary-500 text-lg max-w-2xl mx-auto">
-            Discover a pricing structure that aligns with your goals and scales with your success
+          <p data-cy="pricing-preview-subtitle" className="text-dark-600 text-lg max-w-2xl mx-auto">
+            A pricing model designed to align with your goals and grow with your success.
           </p>
         </div>
 
@@ -47,10 +47,10 @@ const PricingPreview = () => {
                             flex items-center justify-center">
                 <prop.icon className="w-8 h-8 text-secondary-400" />
               </div>
-              <h3 className="text-xl font-serif text-secondary-500 mb-3">
+              <h3 className="text-xl font-serif text-dark-800 mb-3">
                 {prop.title}
               </h3>
-              <p className="text-secondary-400 font-sans">
+              <p className="text-dark-600 font-sans">
                 {prop.description}
               </p>
             </div>
@@ -61,10 +61,10 @@ const PricingPreview = () => {
              className="bg-neutral-50 rounded-2xl p-12 border-2 border-neutral-200
                        transition-all duration-300 hover:border-secondary-400
                        hover:shadow-lg text-center">
-          <h3 data-cy="pricing-cta-title" className="text-2xl font-serif text-secondary-400 mb-6">
+          <h3 data-cy="pricing-cta-title" className="text-2xl font-serif text-dark-800 mb-6">
             Ready to Build Your Custom Solution?
           </h3>
-          <p data-cy="pricing-cta-description" className="text-secondary-500 max-w-2xl mx-auto mb-8">
+          <p data-cy="pricing-cta-description" className="text-dark-600 max-w-2xl mx-auto mb-8">
             Complete a quick quiz for an instant estimate. We&apos;ll review your submission and reach out to schedule a consultation for your tailored solution. No commitment required.
           </p>
 

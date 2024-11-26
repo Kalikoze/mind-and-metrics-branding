@@ -30,7 +30,6 @@ export default function Careers() {
       <Hero
         title="Shape the Future of Digital Excellence"
         subtitle="Join a team dedicated to transforming brands through strategy, creativity, and innovation"
-        showBackground={false}
       />
       <ValueProposition {...valuePropositionData} />
       <WorkCulture />

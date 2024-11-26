@@ -8,15 +8,15 @@ import ClientShowcase from '@/components/pages/home/ClientShowcase';
 
 export default function Home() {
   const valuePropositionData = {
-    title: "Dedicated Partners in Your Growth",
+    title: "Dedicated Partners in Sustainable Growth",
     paragraphs: [
       {
-        text: "We work exclusively with B2B companies serious about scaling efficiently while maintaining their reputation. Our team knows that sustainable growth takes a mix of strategy, precision, and data-backed insights.",
-        highlights: ["sustainable growth"]
+        text: "At Mind & Metrics, we specialize in working with B2B companies ready to scale efficiently without compromising their reputation. We understand that true growth requires a blend of strategic planning, precision, and data-driven insights.",
+        highlights: ["scale efficiently", "data-driven insights"]
       },
       {
-        text: "At Mind & Metrics, we build collaborative relationships—becoming trusted partners on your journey toward sustainable success. Whether it's enhancing your brand, optimizing your web presence, or driving marketing performance, we're with you at every step.",
-        highlights: ["collaborative relationships"]
+        text: "Our approach is built on collaboration and trust. From enhancing your brand and optimizing your digital presence to driving measurable marketing results, we partner with you every step of the way to achieve long-term success.",
+        highlights: ["collaboration", "long-term success"]
       }
     ],
     stats: [
