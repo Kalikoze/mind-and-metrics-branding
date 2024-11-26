@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { HiOutlinePuzzlePiece, HiOutlineScale, HiOutlineChartBar, HiOutlineRocketLaunch } from 'react-icons/hi2';
 import ScrambleText from '@/components/common/ScrambleText';
-
+import ValuePropCard from './ValuePropCard';
 const valueProps = [
   {
     icon: HiOutlinePuzzlePiece,
@@ -27,40 +27,25 @@ const PricingPreview = () => {
   return (
     <section data-cy="pricing-preview-section" className="bg-white py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <header className="text-center mb-16">
           <h2 data-cy="pricing-preview-title" className="text-3xl md:text-4xl font-serif text-dark-800 mb-4">
             Transparent Value-Based Pricing
           </h2>
           <p data-cy="pricing-preview-subtitle" className="text-dark-600 text-lg max-w-2xl mx-auto">
             A pricing model designed to align with your goals and grow with your success.
           </p>
-        </div>
+        </header>
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {valueProps.map((prop, index) => (
-            <div
-              key={index}
-              data-cy={`value-prop-${prop.title.toLowerCase().replace(/\s+/g, '-')}`}
-              className="p-8 rounded-lg bg-neutral-50 border-2 border-neutral-200"
-            >
-              <div className="bg-white p-4 rounded-full w-16 h-16 mb-6
-                            flex items-center justify-center">
-                <prop.icon className="w-8 h-8 text-secondary-400" />
-              </div>
-              <h3 className="text-xl font-serif text-dark-800 mb-3">
-                {prop.title}
-              </h3>
-              <p className="text-dark-600 font-sans">
-                {prop.description}
-              </p>
-            </div>
+          {valueProps.map((prop) => (
+            <ValuePropCard key={prop.title} {...prop} />
           ))}
         </div>
 
-        <div data-cy="pricing-cta-card" 
-             className="bg-neutral-50 rounded-2xl p-12 border-2 border-neutral-200
-                       transition-all duration-300 hover:border-secondary-400
-                       hover:shadow-lg text-center">
+        <aside data-cy="pricing-cta-card" 
+              className="bg-neutral-50 rounded-2xl p-12 border-2 border-neutral-200
+                        transition-all duration-300 hover:border-secondary-400
+                        hover:shadow-lg text-center">
           <h3 data-cy="pricing-cta-title" className="text-2xl font-serif text-dark-800 mb-6">
             Ready to Build Your Custom Solution?
           </h3>
@@ -86,7 +71,7 @@ const PricingPreview = () => {
               </span>
             </Link>
           </div>
-        </div>
+        </aside>
       </div>
     </section>
   );

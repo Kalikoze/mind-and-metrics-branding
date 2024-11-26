@@ -1,39 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import {
-  RiLightbulbFlashLine,
-  RiCodeBoxLine,
-  RiMegaphoneLine,
-  RiBarChartBoxLine
-} from 'react-icons/ri';
 import { HiOutlineArrowRight } from 'react-icons/hi2';
 import { useState } from 'react';
 import ScrambleText from '@/components/common/ScrambleText';
 import CircuitOverlay from '@/components/common/CircuitOverlay';
 import ServiceCard from './ServiceCard';
-
-const services = [
-  {
-    icon: RiLightbulbFlashLine,
-    title: "Brand Identity and Strategy",
-    description: "Transform your brand into a strategic asset that resonates with your target audience and drives business growth."
-  },
-  {
-    icon: RiCodeBoxLine,
-    title: "Website Development & SEO",
-    description: "Build a site that drives success through modern development practices and search engine optimization strategies."
-  },
-  {
-    icon: RiMegaphoneLine,
-    title: "Digital Marketing & Content Management",
-    description: "Tailored content and marketing strategies to drive engagement and establish your brand's digital presence."
-  },
-  {
-    icon: RiBarChartBoxLine,
-    title: "Consulting & Market Research",
-    description: "Tailored research and consulting services to inform your strategic decisions and accelerate growth."
-  }
-];
+import { homeServices } from '@/data/homeServices';
 
 const ServicesGrid = () => {
   const [viewAllHovering, setViewAllHovering] = useState(false);
@@ -55,7 +27,7 @@ const ServicesGrid = () => {
         </header>
 
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-8 list-none p-0">
-          {services.map((service, index) => (
+          {homeServices.map((service, index) => (
             <ServiceCard
               key={index}
               icon={service.icon}
