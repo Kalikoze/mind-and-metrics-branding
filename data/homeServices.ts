@@ -1,6 +1,7 @@
 import { serviceDetails } from './serviceDetails';
 
 export const homeServices = serviceDetails.map(service => ({
+  id: service.id,
   icon: service.icon,
   title: service.title,
   description: getHomeDescription(service.id)

@@ -10,12 +10,13 @@ const StatsSection = ({ stats }: { stats: readonly StatProps[] }) => (
     <SectionHeader
       title="Success By The Numbers"
       subtitle="Measurable results that drive business growth through data-driven strategies"
+      dataCy="stats-section"
     />
     
     <ul className="grid grid-cols-2 md:grid-cols-4 gap-8">
-      {stats.map((stat, index) => (
+      {stats.map((stat) => (
         <li
-          key={index}
+          key={stat.label}
           data-cy={`stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}`}
           className="text-center p-8 bg-neutral-50 border-2 border-neutral-200 rounded-lg"
         >

@@ -33,6 +33,7 @@ const ServicesGrid = () => {
               icon={service.icon}
               title={service.title}
               description={service.description}
+              id={service.id}
             />
           ))}
         </ul>

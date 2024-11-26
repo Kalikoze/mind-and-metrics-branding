@@ -75,7 +75,7 @@ export const caseStudies: CaseStudy[] = [
     results: [
       { metric: 'Website Traffic', value: '+35%' },
       { metric: 'Lead Generation', value: '+40%' },
-      { metric: 'Sales from Web Leads', value: '+45%' }
+      { metric: 'Online Sales', value: '+40%' }
     ],
     websiteUrl: 'https://www.hydrovac-supply.com',
     desktopPreview: HydrovacDesktop,

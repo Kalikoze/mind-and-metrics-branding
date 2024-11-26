@@ -42,7 +42,7 @@ const PricingPreview = () => {
           ))}
         </div>
 
-        <aside data-cy="pricing-cta-card" 
+        <section data-cy="pricing-cta-card" 
               className="bg-neutral-50 rounded-2xl p-12 border-2 border-neutral-200
                         transition-all duration-300 hover:border-secondary-400
                         hover:shadow-lg text-center">
@@ -71,7 +71,7 @@ const PricingPreview = () => {
               </span>
             </Link>
           </div>
-        </aside>
+        </section>
       </div>
     </section>
   );
