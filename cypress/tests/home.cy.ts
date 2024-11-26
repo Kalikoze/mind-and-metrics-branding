@@ -46,20 +46,26 @@ describe('Home Page', () => {
       
       cy.get('[data-cy="value-proposition-title"]')
         .should('exist')
-        .and('have.text', 'Dedicated Partners in Your Growth');
+        .and('have.text', 'Dedicated Partners in Sustainable Growth');
 
       cy.get('[data-cy="value-proposition-paragraph-0"]').within(() => {
-        cy.get('p').should('contain.text', 'We work exclusively with B2B companies serious about scaling efficiently while maintaining their reputation. Our team knows that sustainable growth takes a mix of strategy, precision, and data-backed insights.');
+        cy.get('p').should('contain.text', 'At Mind & Metrics, we specialize in working with B2B companies ready to scale efficiently without compromising their reputation. We understand that true growth requires a blend of strategic planning, precision, and data-driven insights.');
         cy.get('[data-cy="value-proposition-highlight-0-0"]')
           .should('exist')
-          .and('have.text', 'sustainable growth');
+          .and('have.text', 'scale efficiently');
+        cy.get('[data-cy="value-proposition-highlight-0-1"]')
+          .should('exist')
+          .and('have.text', 'data-driven insights');
       });
 
       cy.get('[data-cy="value-proposition-paragraph-1"]').within(() => {
-        cy.get('p').should('contain.text', 'At Mind & Metrics, we build collaborative relationships—becoming trusted partners on your journey toward sustainable success. Whether it\'s enhancing your brand, optimizing your web presence, or driving marketing performance, we\'re with you at every step.');
+        cy.get('p').should('contain.text', 'Our approach is built on collaboration and trust. From enhancing your brand and optimizing your digital presence to driving measurable marketing results, we partner with you every step of the way to achieve long-term success.');
         cy.get('[data-cy="value-proposition-highlight-1-0"]')
           .should('exist')
-          .and('have.text', 'collaborative relationships');
+          .and('have.text', 'collaboration');
+        cy.get('[data-cy="value-proposition-highlight-1-1"]')
+          .should('exist')
+          .and('have.text', 'long-term success');
       });
 
       // Test statistics
@@ -96,12 +102,12 @@ describe('Home Page', () => {
       cy.contains('h2', 'Success By The Numbers').should('exist');
       cy.contains('p', 'Measurable results that drive business growth through data-driven strategies').should('exist');
 
-        const expectedStats = [
-          { value: '$42K', label: 'Average Annual Savings' },
-          { value: '100%', label: 'Preview Before Production' },
-          { value: '24hr', label: 'Content Update Turnaround' },
-          { value: '10+', label: 'Client Trainings Attended' }
-        ];
+      const expectedStats = [
+        { value: '90%', label: '24hr Support Resolution Rate' },
+        { value: '80%', label: 'Early Project Deliveries' },
+        { value: '10%', label: 'Overhead Cost Savings' },
+        { value: '98%', label: 'Client Digital Confidence' }
+      ];
 
       expectedStats.forEach(stat => {
         cy.get(`[data-cy="stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}"]`).within(() => {
@@ -208,20 +214,20 @@ describe('Home Page', () => {
         .and('have.text', 'Transparent Value-Based Pricing');
       cy.get('[data-cy="pricing-preview-subtitle"]')
         .should('exist')
-        .and('have.text', 'Discover a pricing structure that aligns with your goals and scales with your success');
+        .and('have.text', 'A pricing model designed to align with your goals and grow with your success.');
 
       const expectedValueProps = [
         {
           title: "Tailored Solutions",
-          description: "Custom-built strategies that adapt to your specific business needs and goals"
+          description: "Strategies custom-crafted to meet your unique business needs and objectives"
         },
         {
           title: "Flexible Scaling",
-          description: "Adjust services and resources as your business grows and evolves"
+          description: "Easily adapt services and resources as your business evolves"
         },
         {
           title: "Transparent ROI",
-          description: "Clear reporting and metrics to demonstrate value and impact"
+          description: "Detailed reporting and metrics to clearly demonstrate value and impact"
         }
       ];
 

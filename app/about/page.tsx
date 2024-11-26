@@ -15,11 +15,11 @@ export default function About() {
       },
       {
         text: "The strategies presented weren't backed by data relevant to our business, leaving us with numbers that lacked actionable insights. The website they built wasn't custom—it was a generic template that didn't reflect our brand or vision. They didn't take the time to understand what made us unique or why certain approaches mattered. Instead of empowering our growth, their process added obstacles.",
-        highlights: ["data-driven insights", "custom solutions"]
+        highlights: ["actionable insights", "generic template"]
       },
       {
         text: "Why wasn't the team listening to us—the people who know our business inside and out? What was meant to save time and drive growth only added to our frustration. That's when Mind & Metrics was born.",
-        highlights: ["business expertise", "transformative change"]
+        highlights: ["know our business", "drive growth"]
       },
       {
         text: "We realized businesses like yours need more than just a vendor—they need a true partner. At Mind & Metrics, we're focused on understanding your business, supporting your growth, and delivering data-driven strategies that matter. With a personalized approach, we handle all things marketing and branding so you can get back to doing what you do best running your business and achieving your goals.",

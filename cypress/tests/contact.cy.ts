@@ -8,11 +8,11 @@ describe('Contact Page', () => {
       cy.get('[data-cy="hero-section"]').should('exist');
       cy.get('[data-cy="hero-title"]')
         .should('exist')
-        .and('have.text', 'Start Your Growth Journey');
+        .and('have.text', 'Begin Your Brand Transformation');
       
       cy.get('[data-cy="hero-subtitle"]')
         .should('exist')
-        .and('have.text', 'Ready to transform your brand with data-driven strategies? Let\'s discuss how we can help your business reach its full potential.');
+        .and('have.text', 'Ready to elevate your brand with data-driven strategies? Let\'s explore how we can help your business unlock its full potential and drive lasting growth.');
     });
 
     it('should render contact info section correctly', () => {
@@ -26,7 +26,7 @@ describe('Contact Page', () => {
         
         cy.get('[data-cy="contact-info-description"]')
           .should('exist')
-          .and('have.text', 'Whether you\'re looking to transform your brand, optimize your digital presence, or develop a comprehensive marketing strategy, we\'re here to help. Let\'s discuss how we can help your business reach its full potential.');
+          .and('have.text', 'Whether you\'re ready to transform your brand, enhance your digital presence, or craft a tailored marketing strategy, we\'re here to help. Let\'s connect and discuss how we can drive your business toward its full potential.');
 
         // Email section
         cy.get('[data-cy="contact-email"]').within(() => {

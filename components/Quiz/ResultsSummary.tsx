@@ -118,7 +118,7 @@ export default function ResultsSummary({
         >
           <div className="flex flex-col gap-4">
             <h3 className="font-serif text-2xl text-dark-800" data-cy="investment-title">
-              Investment Summary
+              Investment Summary:
             </h3>
 
             <div className="bg-neutral-50 p-6 rounded-lg border-2 border-neutral-200" data-cy="service-investment">

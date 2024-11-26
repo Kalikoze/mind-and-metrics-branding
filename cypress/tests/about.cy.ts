@@ -8,11 +8,11 @@ describe('About Page', () => {
       cy.get('[data-cy="hero-section"]').should('exist');
       cy.get('[data-cy="hero-title"]')
         .should('exist')
-        .and('have.text', 'Where Strategy Meets Reputation and Results');
+        .and('have.text', 'Where Strategy, Reputation, and Results Align');
       
       cy.get('[data-cy="hero-subtitle"]')
         .should('exist')
-        .and('have.text', 'Building lasting partnerships with B2B leaders through data-driven solutions and collaborative excellence.');
+        .and('have.text', 'We create lasting partnerships with B2B leaders, delivering data-driven solutions through collaboration and precision.');
     });
 
     it('should render ValueProposition component correctly', () => {
@@ -22,29 +22,46 @@ describe('About Page', () => {
         .should('exist')
         .and('have.text', 'A Better Way to Serve Your Brand');
 
-      // Test first paragraph with highlights
       cy.get('[data-cy="value-proposition-paragraph-0"]').within(() => {
-        cy.get('p').should('contain.text', 'For years, we partnered with marketing agencies');
+        cy.get('p').should('contain.text', 'For years, we worked with marketing agencies');
         cy.get('[data-cy="value-proposition-highlight-0-0"]')
           .should('exist')
-          .and('have.text', 'meaningful relationship');
+          .and('have.text', 'meaningful relationships');
         cy.get('[data-cy="value-proposition-highlight-0-1"]')
           .should('exist')
           .and('have.text', 'unique needs');
       });
 
-      // Test second paragraph with highlights
       cy.get('[data-cy="value-proposition-paragraph-1"]').within(() => {
-        cy.get('p').should('contain.text', 'The website they built for us');
+        cy.get('p').should('contain.text', 'The strategies presented weren\'t backed by data');
         cy.get('[data-cy="value-proposition-highlight-1-0"]')
           .should('exist')
-          .and('have.text', 'true partner');
+          .and('have.text', 'actionable insights');
         cy.get('[data-cy="value-proposition-highlight-1-1"]')
           .should('exist')
-          .and('have.text', 'personalized care');
+          .and('have.text', 'generic template');
       });
 
-      // Test statistics
+      cy.get('[data-cy="value-proposition-paragraph-2"]').within(() => {
+        cy.get('p').should('contain.text', 'Why wasn\'t the team listening to us');
+        cy.get('[data-cy="value-proposition-highlight-2-0"]')
+          .should('exist')
+          .and('have.text', 'know our business');
+        cy.get('[data-cy="value-proposition-highlight-2-1"]')
+          .should('exist')
+          .and('have.text', 'drive growth');
+      });
+
+      cy.get('[data-cy="value-proposition-paragraph-3"]').within(() => {
+        cy.get('p').should('contain.text', 'We realized businesses like yours need more');
+        cy.get('[data-cy="value-proposition-highlight-3-0"]')
+          .should('exist')
+          .and('have.text', 'true partner');
+        cy.get('[data-cy="value-proposition-highlight-3-1"]')
+          .should('exist')
+          .and('have.text', 'personalized approach');
+      });
+
       const expectedStats = [
         { value: '100%', label: 'Accessibility Compliance' },
         { value: '24/7', label: 'Guaranteed Uptime' },
@@ -72,14 +89,14 @@ describe('About Page', () => {
       const expectedLeaders = [
         {
           name: "Julia Eskelson",
-          role: "Brand Strategy Director",
-          bio: "Combining creative vision with brand development expertise",
-          linkedin: "https://linkedin.com/",
+          role: "Lead Brand Strategist & Marketing Specialist",
+          bio: "With a background in professional photography and digital design",
+          linkedin: "https://www.linkedin.com/in/julia-eskelson/",
           email: "jeskelson@mindandmetricsbranding.com"
         },
         {
           name: "Travis Rollins",
-          role: "Technical Director & Lead Engineer",
+          role: "Lead Software Engineer",
           bio: "Bringing 7+ years of software development expertise",
           linkedin: "https://www.linkedin.com/in/travisrollins/",
           email: "trollins@mindandmetricsbranding.com"
