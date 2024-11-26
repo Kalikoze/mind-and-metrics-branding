@@ -16,14 +16,18 @@ export const TeamLeaderCard = ({ leader, index }: TeamLeaderCardProps) => {
       className="bg-neutral-50 rounded-lg p-8 border-2 border-neutral-200
                  hover:border-secondary-400 transition-all duration-300 text-center"
     >
-      <figure className="relative w-48 h-48 mb-6 rounded-full overflow-hidden
-                        border-4 border-neutral-200 mx-auto"
-              data-cy={`team-leader-image-${index}`}>
+      <figure 
+        className="relative w-72 h-[400px] mb-8 mx-auto rounded-xl overflow-hidden
+                   ring-2 ring-neutral-200 ring-offset-4"
+        data-cy={`team-leader-image-${index}`}
+      >
         <Image
           src={leader.image}
           alt={leader.name}
           fill
-          className="object-cover"
+          className="object-cover object-top"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          priority={index < 2}
         />
       </figure>
 

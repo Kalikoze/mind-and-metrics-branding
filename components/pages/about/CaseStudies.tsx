@@ -1,94 +1,12 @@
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { HiOutlineGlobeAlt } from 'react-icons/hi2';
-import ScrambleText from '@/components/common/ScrambleText';
-import CircuitOverlay from '@/components/common/CircuitOverlay';
 import { motion, AnimatePresence } from 'framer-motion';
-
-import PSCLogo from '@/public/assets/logos/psc-logo.svg';
-import HydrovacLogo from '@/public/assets/logos/hydrovac-logo.svg';
-import NatHydroLogo from '@/public/assets/logos/nat-hydro-logo.svg';
-import PrecisionSurveyLogo from '@/public/assets/logos/precision-survey-logo.svg';
-import PSCDesktop from '@/public/assets/about/psc-desktop.png';
-import PSCMobile from '@/public/assets/about/psc-mobile.png';
-import HydrovacDesktop from '@/public/assets/about/hydrovac-desktop.png';
-import HydrovacMobile from '@/public/assets/about/hydrovac-mobile.png';
-import NatHydroDesktop from '@/public/assets/about/nathydro-desktop.png';
-import NatHydroMobile from '@/public/assets/about/nathydro-mobile.png';
-import PrecisionDesktop from '@/public/assets/about/precision-desktop.png';
-import PrecisionMobile from '@/public/assets/about/precision-mobile.png';
-
-const caseStudies = [
-  {
-    id: 'psc-construction',
-    client: 'PSC Construction',
-    logo: PSCLogo,
-    industry: 'Site Preparation & Underground Utilities',
-    challenge: 'Needed to modernize their digital presence and rebrand away from dated orange-based color schemes while maintaining their established reputation in the industry.',
-    solution: 'Executed a digital transformation strategy with refined brand identity, modern color palette, and built a custom website with project showcases.',
-    results: [
-      { metric: 'Lead Quality', value: '+156%' },
-      { metric: 'Cost Savings', value: '+40%' },
-      { metric: 'Timeline Accuracy', value: '94%' }
-    ],
-    websiteUrl: 'https://www.psccompanies.com',
-    desktopPreview: PSCDesktop,
-    mobilePreview: PSCMobile,
-    tags: ['Web Development', 'Brand Evolution', 'Digital Strategy']
-  },
-  {
-    id: 'precision-survey',
-    client: 'Precision Surveying & Consulting',
-    logo: PrecisionSurveyLogo,
-    industry: 'Construction Surveying & As-Built Mapping',
-    challenge: 'Required a complete digital transformation to modernize their brand, streamline client communications, and showcase their technical expertise.',
-    solution: 'Executed a full brand refresh with a modern website featuring project galleries, automated client portals, and integrated survey request systems.',
-    results: [
-      { metric: 'Digital Efficiency', value: '+175%' },
-      { metric: 'Client Response Time', value: '-65%' },
-      { metric: 'New Project Inquiries', value: '+225%' }
-    ],
-    websiteUrl: 'https://www.precisionsurveyingandconsulting.com',
-    desktopPreview: PrecisionDesktop,
-    mobilePreview: PrecisionMobile,
-    tags: ['Digital Transformation', 'Brand Evolution', 'Web Development']
-  },
-  {
-    id: 'hydrovac-supply',
-    client: 'Hydrovac Supply',
-    logo: HydrovacLogo,
-    industry: 'Hydro Excavation Parts & Equipment Supply',
-    challenge: 'Required a complete brand identity and e-commerce solution to establish market presence and streamline their sales process.',
-    solution: 'Created a distinctive brand identity and built a custom e-commerce platform with inventory management and automated ordering systems.',
-    results: [
-      { metric: 'Parts Accuracy', value: '99.2%' },
-      { metric: 'Order Processing Time', value: '-75%' },
-      { metric: 'Online Sales Growth', value: '245%' },
-    ],
-    websiteUrl: 'https://www.hydrovac-supply.com',
-    desktopPreview: HydrovacDesktop,
-    mobilePreview: HydrovacMobile,
-    tags: ['E-commerce', 'Brand Identity', 'Web Development']
-  },
-  {
-    id: 'national-hydro',
-    client: 'National Hydro Excavation Services',
-    logo: NatHydroLogo,
-    industry: 'Hydro Excavation & Industrial Cleaning Services',
-    challenge: 'Needed to establish a strong online presence and improve lead generation while showcasing their specialized excavation services and safety standards.',
-    solution: 'Developed a comprehensive website featuring emergency service integration, detailed industry-specific documentation, and multi-location support. Enhanced credibility through safety certifications and streamlined contact systems.',
-    results: [
-      { metric: 'Response Time', value: '-42%' },
-      { metric: 'Quote Request Rate', value: '+165%' },
-      { metric: 'Safety Compliance', value: '100%' }
-    ],
-    websiteUrl: 'https://www.nathydro.com',
-    desktopPreview: NatHydroDesktop,
-    mobilePreview: NatHydroMobile,
-    tags: ['Web Development', 'SEO Strategy', 'Lead Generation']
-  }
-];
+import CircuitOverlay from '@/components/common/CircuitOverlay';
+import { caseStudies } from '@/data/caseStudies';
+import { CaseStudyTabs } from './case-studies/CaseStudyTabs';
+import { CaseStudyResults } from './case-studies/CaseStudyResults';
+import { CaseStudyPreview } from './case-studies/CaseStudyPreview';
+import { MobilePagination } from './case-studies/MobilePagination';
 
 const CaseStudies = () => {
   const [activeStudyId, setActiveStudyId] = useState(caseStudies[0].id);
@@ -104,8 +22,9 @@ const CaseStudies = () => {
       aria-label="Case Studies"
     >
       <CircuitOverlay />
-
+      
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center mb-16">
           <h2
             className="text-3xl md:text-4xl font-serif text-dark-800 mb-4"
@@ -118,47 +37,11 @@ const CaseStudies = () => {
           </p>
         </div>
 
-        <div
-          className="flex justify-center mb-12 space-x-4"
-          role="tablist"
-          aria-label="Case study selection"
-        >
-          {caseStudies.map((study) => (
-            <button
-              key={study.id}
-              onClick={() => setActiveStudyId(study.id)}
-              role="tab"
-              aria-selected={activeStudyId === study.id}
-              aria-controls={`panel-${study.id}`}
-              id={`tab-${study.id}`}
-              data-cy={`case-study-tab-${study.id}`}
-              className={`relative p-4 transition-all duration-300 
-                ${activeStudyId === study.id
-                  ? 'bg-white shadow-lg scale-105'
-                  : 'bg-neutral-100 hover:bg-white hover:scale-105'
-                } rounded-lg border-2 
-                ${activeStudyId === study.id
-                  ? 'border-secondary-400'
-                  : 'border-neutral-200'
-                }`}
-            >
-              <span className="sr-only">
-                View case study for {study.client}
-              </span>
-              <Image
-                src={study.logo}
-                alt={`${study.client} logo`}
-                width={120}
-                height={40}
-                className={`transition-all duration-300 
-                  ${activeStudyId === study.id
-                    ? 'opacity-100'
-                    : 'opacity-60 grayscale'
-                  }`}
-              />
-            </button>
-          ))}
-        </div>
+        <CaseStudyTabs
+          studies={caseStudies}
+          activeStudyId={activeStudyId}
+          onStudySelect={setActiveStudyId}
+        />
 
         <div className="relative min-h-fit"
           data-cy="case-studies-container"
@@ -220,18 +103,7 @@ const CaseStudies = () => {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-4">
-                      {activeStudy.results.map((result, index) => (
-                        <div key={index} className="text-center p-4 bg-neutral-50 rounded-lg">
-                          <div className="font-serif text-2xl text-dark-800 mb-1">
-                            {result.value}
-                          </div>
-                          <div className="text-sm text-dark-600">
-                            {result.metric}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                    <CaseStudyResults results={activeStudy.results} />
 
                     <div className="flex flex-wrap gap-2">
                       {activeStudy.tags.map((tag) => (
@@ -245,110 +117,24 @@ const CaseStudies = () => {
                     </div>
                   </div>
 
-                  <div className="relative h-auto pb-32 md:h-[600px]">
-                    <div className="relative h-[300px] lg:h-[400px] min-w-[280px]">
-                      <div className="relative h-full">
-                        <Image
-                          src={activeStudy.desktopPreview}
-                          alt={`${activeStudy.client} desktop preview`}
-                          fill
-                          className="object-contain lg:object-cover rounded-lg shadow-lg"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, 50vw"
-                        />
-                      </div>
-                      <span className="absolute -bottom-2 left-4 text-sm text-dark-600 bg-white/90 
-                                       backdrop-blur-sm px-2 py-1 rounded-md shadow-sm">
-                        Desktop View
-                      </span>
-                    </div>
-
-                    <div className="absolute -bottom-24 right-12 w-[160px] md:w-1/3 h-[350px]">
-                      <div className="relative h-full min-w-[160px] bg-dark-800 rounded-[2rem] p-1.5 shadow-xl">
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-[0.75rem] 
-                                        bg-dark-700 rounded-b-xl" />
-                        <div className="relative h-full overflow-hidden rounded-[1.75rem]">
-                          <Image
-                            src={activeStudy.mobilePreview}
-                            alt={`${activeStudy.client} mobile preview`}
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 768px) 160px, 33vw"
-                          />
-                        </div>
-                      </div>
-                      <span className="absolute -bottom-2 right-4 text-sm text-dark-600 bg-white/90 
-                                       backdrop-blur-sm px-2 py-1 rounded-md shadow-sm">
-                        Mobile View
-                      </span>
-                    </div>
-
-                    <Link
-                      href={activeStudy.websiteUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onMouseEnter={() => setHoveringStates({ ...hoveringStates, [activeStudy.id]: true })}
-                      onMouseLeave={() => setHoveringStates({ ...hoveringStates, [activeStudy.id]: false })}
-                      className="absolute md:top-4 md:right-4 -bottom-48 md:bottom-auto
-                               font-sans px-8 py-3.5 bg-secondary-400 md:bg-white/90 md:backdrop-blur-sm
-                               border-2 border-secondary-400 text-white md:text-secondary-400 
-                               rounded-lg flex items-center space-x-2 w-full md:w-[200px] justify-center
-                               transition-all duration-300
-                               hover:bg-transparent hover:text-secondary-400 md:hover:bg-secondary-400 md:hover:text-white 
-                               hover:scale-105 sm:w-auto sm:left-1/2 sm:-translate-x-1/2 md:left-auto md:translate-x-0"
-                    >
-                      <HiOutlineGlobeAlt className="w-5 h-5 shrink-0" />
-                      <span className="w-[120px] text-center">
-                        <ScrambleText
-                          text="Visit Site"
-                          isHovering={hoveringStates[activeStudy.id]}
-                        />
-                      </span>
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="md:hidden absolute bottom-4 left-0 right-0">
-                  <div className="flex justify-center gap-2">
-                    {caseStudies.map((study, index) => (
-                      <div
-                        key={study.id}
-                        className={`h-1 rounded-full transition-all duration-300 
-                          ${study.id === activeStudyId
-                            ? 'w-8 bg-secondary-400'
-                            : 'w-2 bg-secondary-400/40'}`}
-                        aria-label={`Case study ${index + 1} of ${caseStudies.length}`}
-                      />
-                    ))}
-                  </div>
+                  <CaseStudyPreview
+                    study={activeStudy}
+                    isHovering={hoveringStates[activeStudy.id]}
+                    onHoverChange={(isHovering) => 
+                      setHoveringStates({ ...hoveringStates, [activeStudy.id]: isHovering })
+                    }
+                  />
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
-        <div className="md:hidden absolute bottom-4 left-0 right-0">
-          <div
-            className="flex justify-center gap-2"
-            role="tablist"
-            aria-label="Case study pagination"
-          >
-            {caseStudies.map((study, index) => (
-              <button
-                key={study.id}
-                onClick={() => setActiveStudyId(study.id)}
-                role="tab"
-                aria-selected={study.id === activeStudyId}
-                aria-controls={`panel-${study.id}`}
-                aria-label={`Case study ${index + 1} of ${caseStudies.length}`}
-                data-cy={`case-study-indicator-${index}`}
-                className={`h-1 rounded-full transition-all duration-300 
-                  ${study.id === activeStudyId
-                    ? 'w-8 bg-secondary-400'
-                    : 'w-2 bg-secondary-400/40'}`}
-              />
-            ))}
-          </div>
-        </div>
+        <MobilePagination
+          studies={caseStudies}
+          activeStudyId={activeStudyId}
+          onStudySelect={setActiveStudyId}
+        />
       </div>
     </section>
   );
