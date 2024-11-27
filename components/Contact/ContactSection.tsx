@@ -9,11 +9,9 @@ export default function ContactSection() {
     <section className="relative bg-neutral-50 py-20 overflow-hidden" data-cy="contact-section">
       <CircuitOverlay />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12">
-          <ContactInfo />
-          <ContactForm />
-        </div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12">
+        <ContactInfo />
+        <ContactForm />
       </div>
     </section>
   );

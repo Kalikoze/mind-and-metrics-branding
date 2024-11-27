@@ -6,9 +6,10 @@ const chars = 'ABCDEFIJSTUVYabcdefghijklnorstuvxyz';
 interface ScrambleTextProps {
   text: string;
   isHovering: boolean;
+  className?: string;
 }
 
-const ScrambleText: React.FC<ScrambleTextProps> = ({ text, isHovering }) => {
+const ScrambleText: React.FC<ScrambleTextProps> = ({ text, isHovering, className }) => {
   const [displayText, setDisplayText] = useState(text);
   
   useEffect(() => {
@@ -44,7 +45,7 @@ const ScrambleText: React.FC<ScrambleTextProps> = ({ text, isHovering }) => {
     return () => clearInterval(interval);
   }, [isHovering, text]);
 
-  return <span>{displayText}</span>;
+  return <span className={className}>{displayText}</span>;
 };
 
 export default ScrambleText; 
