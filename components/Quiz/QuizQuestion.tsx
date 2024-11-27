@@ -27,13 +27,13 @@ export default function QuizQuestion({
   const canContinue = question.skipable || selectedAnswers.length > 0;
 
   return (
-    <div 
+    <article 
       className="bg-white rounded-lg p-8 border-2 border-neutral-200
                  transition-all duration-300 hover:border-secondary-400
                  hover:shadow-lg w-full min-h-[500px] sm:min-h-0" 
       data-cy="question-container"
     >
-      <div className="mb-6">
+      <header className="mb-6">
         <h2 
           className="font-serif text-2xl text-dark-800 mb-2" 
           data-cy="question-title"
@@ -42,42 +42,37 @@ export default function QuizQuestion({
         </h2>
         
         {editingPrimaryWithChanges && (
-          <div 
+          <p 
             className="text-sm text-amber-600 mt-2"
             data-cy="editing-warning"
+            role="alert"
           >
             Note: Changing your selections here will require answering new questions for your selected services.
-          </div>
+          </p>
         )}
         
-        {question.skipable && (
-          <div 
+        {(question.skipable || question.multiSelect) && (
+          <p 
             className="text-lg italic text-dark-600 mt-1"
-            data-cy="skipable-note"
+            data-cy={question.skipable ? "skipable-note" : "multiselect-note"}
           >
-            {question.multiSelect
-              ? "(Optional - Select all that apply)"
-              : "(Optional - Click continue to skip)"
+            {question.skipable
+              ? question.multiSelect 
+                ? "(Optional - Select all that apply)"
+                : "(Optional - Click continue to skip)"
+              : "(Select all that apply)"
             }
-          </div>
+          </p>
         )}
-        
-        {!question.skipable && question.multiSelect && (
-          <div 
-            className="text-lg italic text-dark-600 mt-1"
-            data-cy="multiselect-note"
-          >
-            (Select all that apply)
-          </div>
-        )}
-      </div>
+      </header>
 
-      <div 
+      <fieldset 
         className="grid gap-4" 
         data-cy="options-container"
         role="radiogroup"
         aria-label={question.text}
       >
+        <legend className="sr-only">{question.text}</legend>
         {question.options.map((option: Option, index: number) => (
           <QuestionOption
             key={index}
@@ -87,9 +82,9 @@ export default function QuizQuestion({
             index={index}
           />
         ))}
-      </div>
+      </fieldset>
 
-      <div 
+      <footer 
         className="mt-8 sm:h-[76px]" 
         data-cy="navigation-container"
       >
@@ -101,7 +96,7 @@ export default function QuizQuestion({
           isEditing={isEditing}
           onReturnToSummary={onReturnToSummary}
         />
-      </div>
-    </div>
+      </footer>
+    </article>
   );
 } 

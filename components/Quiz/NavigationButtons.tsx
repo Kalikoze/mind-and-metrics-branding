@@ -25,7 +25,7 @@ export default function NavigationButtons({
   const [isSummaryHovering, setIsSummaryHovering] = useState(false);
 
   return (
-    <div className="flex flex-col-reverse sm:flex-row justify-between items-center gap-4">
+    <nav className="flex flex-col-reverse sm:flex-row justify-between items-center gap-4" aria-label="Question navigation">
       <div className="w-full sm:flex-1">
         <AnimatePresence mode="wait">
           {showBack && (
@@ -44,8 +44,9 @@ export default function NavigationButtons({
                        transition-all duration-300 hover:border-secondary-400 hover:bg-secondary-400 
                        hover:text-white hover:shadow-lg"
               data-cy="back-button"
+              aria-label="Go back to previous question"
             >
-              <HiArrowLeft className="w-5 h-5 shrink-0" />
+              <HiArrowLeft className="w-5 h-5 shrink-0" aria-hidden="true" />
               <span className="w-[80px] text-center">
                 <ScrambleText text="Back" isHovering={isBackHovering} />
               </span>
@@ -54,7 +55,7 @@ export default function NavigationButtons({
         </AnimatePresence>
       </div>
 
-      <div className="flex flex-col-reverse sm:flex-row gap-4 w-full sm:w-auto">
+      <div className="flex flex-col-reverse sm:flex-row gap-4 w-full sm:w-auto" role="group" aria-label="Navigation controls">
         {isEditing && (
           <motion.button
             initial={{ opacity: 0, x: -20 }}
@@ -73,8 +74,9 @@ export default function NavigationButtons({
                 : 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
               }`}
             data-cy="return-to-summary"
+            aria-label="Return to summary page"
           >
-            <HiListBullet className="w-5 h-5 shrink-0" />
+            <HiListBullet className="w-5 h-5 shrink-0" aria-hidden="true" />
             <span className="w-[140px] text-center">
               <ScrambleText text="Return to Summary" isHovering={isSummaryHovering && !!onReturnToSummary} />
             </span>
@@ -97,14 +99,15 @@ export default function NavigationButtons({
                      transition-all duration-300 hover:bg-transparent 
                      hover:text-secondary-400 hover:shadow-lg"
             data-cy="continue-button"
+            aria-label="Continue to next question"
           >
             <span className="w-[80px] text-center">
               <ScrambleText text="Continue" isHovering={isHovering} />
             </span>
-            <HiArrowRight className="w-5 h-5 shrink-0" />
+            <HiArrowRight className="w-5 h-5 shrink-0" aria-hidden="true" />
           </motion.button>
         )}
       </div>
-    </div>
+    </nav>
   );
 }
