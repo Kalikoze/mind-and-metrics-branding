@@ -1,5 +1,3 @@
-'use client';
-
 import Hero from '@/components/common/Hero';
 import ContactSection from '@/components/Contact/ContactSection';
 

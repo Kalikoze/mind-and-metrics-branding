@@ -1,5 +1,3 @@
-"use client";
-
 import Hero from '@/components/common/Hero';
 import ValueProposition from '@/components/common/ValueProposition';
 import PrivacyContent from '@/components/pages/privacy-policy/PrivacyContent';

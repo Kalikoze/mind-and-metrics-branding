@@ -1,5 +1,3 @@
-'use client';
-
 import QuizComponent from '@/components/Quiz/QuizComponent';
 
 export default function GetStarted() {

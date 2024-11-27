@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { stats, clientLogos } from '@/data/clientShowcase';
 import SectionHeader from '@/components/pages/home/ClientShowcase/SectionHeader';
