@@ -1,5 +1,5 @@
 import { leaders } from '@/data/team';
-import { TeamLeaderCard } from '@/components/team/TeamLeaderCard';
+import { TeamLeaderCard } from '@/components/pages/about/team/TeamLeaderCard';
 
 const TeamLeaders = () => {
   return (
