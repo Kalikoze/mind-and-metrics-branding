@@ -13,7 +13,7 @@ const contactData = [
     icon: <HiOutlineEnvelope className="w-6 h-6 text-secondary-400" />,
     title: 'Email Us',
     content: (
-      <motion.span
+      <motion.div
         variants={{
           hover: {
             y: -2,
@@ -33,7 +33,7 @@ const contactData = [
           <RiArrowRightUpLine className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 
                                        group-hover:ml-1 transition-all duration-300" />
         </Link>
-      </motion.span>
+      </motion.div>
     )
   },
   {
