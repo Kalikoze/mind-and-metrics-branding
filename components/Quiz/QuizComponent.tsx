@@ -17,16 +17,16 @@ export default function QuizComponent() {
       data-cy="quiz-section"
     >
       <CircuitOverlay />
-      <div className="relative w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <article className="relative w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {!quiz.showingSummary && !quiz.showingContactForm && !quiz.isComplete && (
-          <div className="text-center mb-12">
+          <header className="text-center mb-12">
             <h1 className="font-serif text-4xl text-dark-800 mb-4" data-cy="quiz-title">
               Let&apos;s Build Your Growth Strategy
             </h1>
             <p className="text-dark-600 text-lg" data-cy="quiz-subtitle">
               Answer a few questions to help us understand your needs
             </p>
-          </div>
+          </header>
         )}
 
         <AnimatePresence mode="wait">
@@ -71,17 +71,21 @@ export default function QuizComponent() {
           </motion.div>
         </AnimatePresence>
 
-        <div className="mt-8 flex justify-center gap-2" data-cy="progress-indicators">
+        <footer className="mt-8 flex justify-center gap-2" data-cy="progress-indicators">
           {Array.from({ length: quiz.totalQuestions }).map((_, index) => (
             <div
               key={index}
+              role="progressbar"
+              aria-valuenow={index < quiz.questionPath.length - 1 ? 1 : 0}
+              aria-valuemin={0}
+              aria-valuemax={1}
               className={`h-1 w-8 rounded-full transition-all duration-300 ${
                 index < quiz.questionPath.length - 1 ? 'bg-secondary-400' : 'bg-neutral-200'
               }`}
             />
           ))}
-        </div>
-      </div>
+        </footer>
+      </article>
     </section>
   );
 } 

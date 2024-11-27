@@ -23,8 +23,8 @@ export default function QuestionOption({ option, isSelected, onSelect, index }: 
       role="radio"
       aria-checked={isSelected}
     >
-      <div className="flex items-center">
-        <div className="flex-1">
+      <article className="flex items-center">
+        <section className="flex-1">
           <h3 
             className={`font-medium transition-colors duration-300
                      ${isSelected ? 'text-dark-800' : 'text-dark-800 group-hover:text-dark-800'}`}
@@ -40,16 +40,14 @@ export default function QuestionOption({ option, isSelected, onSelect, index }: 
               {option.description}
             </p>
           )}
-        </div>
+        </section>
         {isSelected && (
-          <div className="ml-4">
-            <HiCheck 
-              className="w-5 h-5 text-secondary-400"
-              data-cy="option-selected-icon" 
-            />
-          </div>
+          <HiCheck 
+            className="ml-4 w-5 h-5 text-secondary-400"
+            data-cy="option-selected-icon" 
+          />
         )}
-      </div>
+      </article>
     </motion.button>
   );
 } 
