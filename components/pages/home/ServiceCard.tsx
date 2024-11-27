@@ -4,12 +4,13 @@ interface ServiceCardProps {
   icon: IconType;
   title: string;
   description: string;
+  id: string;
 }
 
-const ServiceCard = ({ icon: Icon, title, description }: ServiceCardProps) => {
+const ServiceCard = ({ icon: Icon, title, description, id }: ServiceCardProps) => {
   return (
     <li
-      data-cy={`service-${title.toLowerCase().replace(/\s+/g, '-')}`}
+      data-cy={`service-${id}`}
       className="relative p-8 rounded-lg bg-white
                  border-2 border-neutral-200
                  transition-all duration-300"

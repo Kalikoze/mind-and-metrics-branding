@@ -1,3 +1,6 @@
+import { testLeaders } from '@/cypress/fixtures/team-data';
+import { testCaseStudies } from '../fixtures/case-studies';
+
 describe('About Page', () => {
   beforeEach(() => {
     cy.visit('/about');
@@ -86,24 +89,7 @@ describe('About Page', () => {
         .should('exist')
         .and('have.text', 'Leadership Team');
 
-      const expectedLeaders = [
-        {
-          name: "Julia Eskelson",
-          role: "Lead Brand Strategist & Marketing Specialist",
-          bio: "With a background in professional photography and digital design",
-          linkedin: "https://www.linkedin.com/in/julia-eskelson/",
-          email: "jeskelson@mindandmetricsbranding.com"
-        },
-        {
-          name: "Travis Rollins",
-          role: "Lead Software Engineer",
-          bio: "Bringing 7+ years of software development expertise",
-          linkedin: "https://www.linkedin.com/in/travisrollins/",
-          email: "trollins@mindandmetricsbranding.com"
-        }
-      ];
-
-      expectedLeaders.forEach((leader, index) => {
+      testLeaders.forEach((leader, index) => {
         cy.get(`[data-cy="team-leader-${index}"]`).should('exist');
         cy.get(`[data-cy="team-leader-image-${index}"]`).should('exist');
         cy.get(`[data-cy="team-leader-name-${index}"]`)
@@ -143,14 +129,14 @@ describe('About Page', () => {
           cy.contains('Site Preparation & Underground Utilities').should('be.visible');
           
           cy.contains('Challenge').should('be.visible');
-          cy.contains('Needed to modernize their digital presence').should('be.visible');
+          cy.contains('needed a consistent brand profile').should('be.visible');
           cy.contains('Solution').should('be.visible');
-          cy.contains('Executed a digital transformation strategy').should('be.visible');
+          cy.contains('developed a fully customized website').should('be.visible');
           
           const expectedResults = [
-            { metric: 'Lead Quality', value: '+156%' },
-            { metric: 'Cost Savings', value: '+40%' },
-            { metric: 'Timeline Accuracy', value: '94%' }
+            { metric: 'Website Traffic', value: '+45%' },
+            { metric: 'Session Duration', value: '+20%' },
+            { metric: 'Keyword Rankings', value: '+15%' }
           ];
 
           expectedResults.forEach(({ metric, value }) => {
@@ -158,7 +144,7 @@ describe('About Page', () => {
             cy.contains(value).should('be.visible');
           });
           
-          const expectedTags = ['Web Development', 'Brand Evolution', 'Digital Strategy'];
+          const expectedTags = ['Website Redesign', 'SEO', 'Brand Identity', 'UI/UX Design'];
           expectedTags.forEach(tag => {
             cy.contains(tag).should('be.visible');
           });
@@ -167,46 +153,15 @@ describe('About Page', () => {
             .should('exist')
             .and('have.attr', 'target', '_blank')
             .and('have.attr', 'rel', 'noopener noreferrer');
-          cy.get('img[alt="PSC Construction"]').should('be.visible');
-          cy.get('img[alt="PSC Construction desktop preview"]').should('be.visible');
-          cy.get('img[alt="PSC Construction mobile preview"]').should('be.visible');
+          cy.get(`img[alt="PSC Construction"]`).should('be.visible');
+          cy.get(`img[alt="PSC Construction desktop preview"]`).should('be.visible');
+          cy.get(`img[alt="PSC Construction mobile preview"]`).should('be.visible');
         });
     });
   });
 
   context('Interactivity Tests', () => {
-    const caseStudies = [
-      {
-        id: 'psc-construction',
-        name: 'PSC Construction',
-        website: 'https://www.psccompanies.com',
-        challenge: 'Needed to modernize their digital presence and rebrand away from dated orange-based color schemes while maintaining their established reputation in the industry.',
-        solution: 'Executed a digital transformation strategy with refined brand identity, modern color palette, and built a custom website with project showcases.'
-      },
-      {
-        id: 'precision-survey',
-        name: 'Precision Surveying & Consulting',
-        website: 'https://www.precisionsurveyingandconsulting.com',
-        challenge: 'Required a complete digital transformation to modernize their brand, streamline client communications, and showcase their technical expertise.',
-        solution: 'Executed a full brand refresh with a modern website featuring project galleries, automated client portals, and integrated survey request systems.'
-      },
-      {
-        id: 'hydrovac-supply',
-        name: 'Hydrovac Supply',
-        website: 'https://www.hydrovac-supply.com',
-        challenge: 'Required a complete brand identity and e-commerce solution to establish market presence and streamline their sales process.',
-        solution: 'Created a distinctive brand identity and built a custom e-commerce platform with inventory management and automated ordering systems.'
-      },
-      {
-        id: 'national-hydro',
-        name: 'National Hydro Excavation Services',
-        website: 'https://www.nathydro.com',
-        challenge: 'Needed to establish a strong online presence and improve lead generation while showcasing their specialized excavation services and safety standards.',
-        solution: 'Developed a comprehensive website featuring emergency service integration, detailed industry-specific documentation, and multi-location support. Enhanced credibility through safety certifications and streamlined contact systems.'
-      }
-    ];
-
-    caseStudies.forEach(({ id, name, website, challenge, solution }) => {
+    testCaseStudies.forEach(({ id, name, website, challenge, solution }) => {
       it(`should display and interact with ${name} case study`, () => {
         cy.get(`[data-cy="case-study-tab-${id}"]`).click();
         cy.get(`[data-cy="case-study-content-${id}"]`).should('be.visible');
@@ -245,37 +200,7 @@ describe('About Page', () => {
 
   context('Responsive Design', () => {
     const viewports = ['iphone-6', 'iphone-x', 'samsung-s10', 'samsung-note9'] as const;
-    const caseStudies = [
-      {
-        id: 'psc-construction',
-        name: 'PSC Construction',
-        website: 'https://www.psccompanies.com',
-        challenge: 'Needed to modernize their digital presence',
-        solution: 'Executed a digital transformation strategy'
-      },
-      {
-        id: 'precision-survey',
-        name: 'Precision Surveying & Consulting',
-        website: 'https://www.precisionsurveyingandconsulting.com',
-        challenge: 'Required a complete digital transformation',
-        solution: 'Executed a full brand refresh'
-      },
-      {
-        id: 'hydrovac-supply',
-        name: 'Hydrovac Supply',
-        website: 'https://www.hydrovac-supply.com',
-        challenge: 'Required a complete brand identity',
-        solution: 'Created a distinctive brand identity'
-      },
-      {
-        id: 'national-hydro',
-        name: 'National Hydro Excavation Services',
-        website: 'https://www.nathydro.com',
-        challenge: 'Needed to establish a strong online presence',
-        solution: 'Developed a comprehensive website'
-      }
-    ];
-
+    
     viewports.forEach(viewport => {
       context(`Tests for ${viewport}`, () => {
         beforeEach(() => {
@@ -318,7 +243,7 @@ describe('About Page', () => {
             .scrollIntoView()
             .should('be.visible')
 
-          caseStudies.forEach((study, index) => {
+          testCaseStudies.forEach((study, index) => {
             if (index > 0) {
               cy.get(`[data-cy="case-study-indicator-${index}"]`)
                 .should('be.visible')

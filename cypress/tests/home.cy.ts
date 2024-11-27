@@ -99,8 +99,13 @@ describe('Home Page', () => {
 
     it('should display statistics correctly for the Success By The Numbers section', () => {
       // Check section headers
-      cy.contains('h2', 'Success By The Numbers').should('exist');
-      cy.contains('p', 'Measurable results that drive business growth through data-driven strategies').should('exist');
+      cy.get('[data-cy="stats-section-title"]')
+        .should('exist')
+        .and('have.text', 'Success By The Numbers');
+      
+      cy.get('[data-cy="stats-section-subtitle"]')
+        .should('exist')
+        .and('have.text', 'Measurable results that drive business growth through data-driven strategies');
 
       const expectedStats = [
         { value: '90%', label: '24hr Support Resolution Rate' },
@@ -120,22 +125,22 @@ describe('Home Page', () => {
     it('should display client logos correctly', () => {
       const expectedClients = [
         { 
-          name: 'PSC Construction',
+          alt: 'PSC Construction',
           description: 'Brand Evolution & Digital Marketing',
           websiteUrl: 'https://www.psccompanies.com'
         },
         { 
-          name: 'Precision Surveying & Consulting',
+          alt: 'Precision Surveying & Consulting',
           description: 'Complete Digital Transformation',
           websiteUrl: 'https://www.precisionsurveyingandconsulting.com'
         },
         { 
-          name: 'Hydrovac Supply',
+          alt: 'Hydrovac Supply',
           description: 'Brand Identity & Web Development',
           websiteUrl: 'https://www.hydrovac-supply.com'
         },
         { 
-          name: 'National Hydro Excavation Services',
+          alt: 'National Hydro Excavation Services',
           description: 'Website Design & SEO Strategy',
           websiteUrl: 'https://www.nathydro.com'
         }
@@ -150,10 +155,15 @@ describe('Home Page', () => {
           .and('have.attr', 'rel', 'noopener noreferrer');
         
         cy.wrap($card).within(() => {
-          cy.get('[data-cy="client-logo-image"]').should('exist');
-          cy.get('[data-cy="client-name"]').should('have.text', client.name);
-          cy.get('[data-cy="client-description"]').should('have.text', client.description);
-          cy.get('[data-cy="client-website-link"]').should('exist');
+          cy.get('[data-cy="client-logo-image"]')
+            .should('exist')
+            .and('have.attr', 'alt', client.alt);
+          cy.get('[data-cy="client-name"]')
+            .should('have.text', client.alt);
+          cy.get('[data-cy="client-description"]')
+            .should('have.text', client.description);
+          // Check for the visit website text
+          cy.contains('Visit Website').should('exist');
         });
       });
     });
@@ -170,26 +180,29 @@ describe('Home Page', () => {
 
       const services = [
         {
-          title: 'Brand Identity and Strategy',
+          id: 'brand-identity-and-strategy',
+          title: 'Brand Identity & Strategy',
           description: "Transform your brand into a strategic asset that resonates with your target audience and drives business growth."
         },
         {
+          id: 'website-development-seo',
           title: 'Website Development & SEO',
           description: "Build a site that drives success through modern development practices and search engine optimization strategies."
         },
         {
+          id: 'digital-marketing-content-management',
           title: 'Digital Marketing & Content Management',
           description: "Tailored content and marketing strategies to drive engagement and establish your brand's digital presence."
         },
         {
-          title: 'Consulting & Market Research',
+          id: 'consulting-market-research',
+          title: 'Consulting & Marketing Research',
           description: "Tailored research and consulting services to inform your strategic decisions and accelerate growth."
         }
       ];
 
       services.forEach(service => {
-        const selector = `[data-cy="service-${service.title.toLowerCase().replace(/\s+/g, '-')}"]`;
-        cy.get(selector).within(() => {
+        cy.get(`[data-cy="service-${service.id}"]`).within(() => {
           cy.get('[data-cy="service-icon"]').should('exist');
           cy.get('[data-cy="service-title"]')
             .should('exist')
