@@ -12,9 +12,10 @@ interface CaseStudyPreviewProps {
 
 export const CaseStudyPreview = ({ study, isHovering, onHoverChange }: CaseStudyPreviewProps) => {
   return (
-    <div className="relative h-auto pb-32 md:h-[600px]">
-      {/* Desktop Preview */}
-      <div className="relative h-[300px] lg:h-[400px] min-w-[280px]">
+    <section className="relative h-auto pb-32 md:h-[600px]" aria-labelledby="preview-heading">
+      <h4 className="sr-only" id="preview-heading">Website Preview</h4>
+      
+      <figure className="relative h-[300px] lg:h-[400px] min-w-[280px]">
         <div className="relative h-full">
           <Image
             src={study.desktopPreview}
@@ -24,16 +25,15 @@ export const CaseStudyPreview = ({ study, isHovering, onHoverChange }: CaseStudy
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 45vw, 50vw"
           />
         </div>
-        <span className="absolute -bottom-2 left-4 text-sm text-dark-600 bg-white/90 
+        <figcaption className="absolute -bottom-2 left-4 text-sm text-dark-600 bg-white/90 
                        backdrop-blur-sm px-2 py-1 rounded-md shadow-sm">
           Desktop View
-        </span>
-      </div>
+        </figcaption>
+      </figure>
 
-      {/* Mobile Preview */}
-      <div className="absolute -bottom-24 right-12 w-[160px] md:w-1/3 h-[350px]">
+      <figure className="absolute -bottom-24 right-12 w-[160px] md:w-1/3 h-[350px]">
         <div className="relative h-full min-w-[160px] bg-dark-800 rounded-[2rem] p-1.5 shadow-xl">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-[0.75rem] 
+          <span className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-[0.75rem] 
                         bg-dark-700 rounded-b-xl" />
           <div className="relative h-full overflow-hidden rounded-[1.75rem]">
             <Image
@@ -45,13 +45,12 @@ export const CaseStudyPreview = ({ study, isHovering, onHoverChange }: CaseStudy
             />
           </div>
         </div>
-        <span className="absolute -bottom-2 right-4 text-sm text-dark-600 bg-white/90 
+        <figcaption className="absolute -bottom-2 right-4 text-sm text-dark-600 bg-white/90 
                        backdrop-blur-sm px-2 py-1 rounded-md shadow-sm">
           Mobile View
-        </span>
-      </div>
+        </figcaption>
+      </figure>
 
-      {/* Visit Site Link */}
       <Link
         href={study.websiteUrl}
         target="_blank"
@@ -74,6 +73,6 @@ export const CaseStudyPreview = ({ study, isHovering, onHoverChange }: CaseStudy
           />
         </span>
       </Link>
-    </div>
+    </section>
   );
 }; 

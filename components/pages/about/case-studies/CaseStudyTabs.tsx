@@ -9,7 +9,7 @@ interface CaseStudyTabsProps {
 
 export const CaseStudyTabs = ({ studies, activeStudyId, onStudySelect }: CaseStudyTabsProps) => {
   return (
-    <div
+    <nav
       className="flex justify-center mb-12 space-x-4"
       role="tablist"
       aria-label="Case study selection"
@@ -36,19 +36,21 @@ export const CaseStudyTabs = ({ studies, activeStudyId, onStudySelect }: CaseStu
           <span className="sr-only">
             View case study for {study.client}
           </span>
-          <Image
-            src={study.logo}
-            alt={`${study.client} logo`}
-            width={120}
-            height={40}
-            className={`transition-all duration-300 
-              ${activeStudyId === study.id
-                ? 'opacity-100'
-                : 'opacity-60 grayscale'
-              }`}
-          />
+          <figure>
+            <Image
+              src={study.logo}
+              alt={`${study.client} logo`}
+              width={120}
+              height={40}
+              className={`transition-all duration-300 
+                ${activeStudyId === study.id
+                  ? 'opacity-100'
+                  : 'opacity-60 grayscale'
+                }`}
+            />
+          </figure>
         </button>
       ))}
-    </div>
+    </nav>
   );
 }; 
