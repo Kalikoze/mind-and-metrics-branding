@@ -88,7 +88,7 @@ const MainNav = () => {
                   data-cy={`nav-item-${item.name.toLowerCase().replace(' ', '-')}`}
                   href={item.href}
                   className={`font-sans text-sm transition-colors relative group 
-                    ${pathname === item.href 
+                    ${(pathname === item.href || (item.href === '/careers' && pathname.startsWith('/careers')))
                       ? 'text-dark-900 font-semibold' 
                       : 'text-dark-600 hover:text-dark-800'}`}
                 >
@@ -149,7 +149,7 @@ const MainNav = () => {
                 data-cy={`mobile-menu-${item.name.toLowerCase()}`}
                 href={item.href}
                 className={`block px-3 py-2 rounded-md text-base font-sans
-                  ${pathname === item.href
+                  ${(pathname === item.href || (item.href === '/careers' && pathname.startsWith('/careers')))
                     ? 'text-dark-900 font-semibold bg-neutral-100'
                     : 'text-dark-600 hover:text-dark-800 hover:bg-neutral-50'}
                   flex items-center space-x-3`}
