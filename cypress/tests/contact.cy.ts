@@ -16,10 +16,9 @@ describe('Contact Page', () => {
     });
 
     it('should render contact info section correctly', () => {
-      cy.get('[data-cy="contact-section"]').should('exist');
+      cy.get('[data-cy="contact-info"]').should('exist');
       
       cy.get('[data-cy="contact-info"]').within(() => {
-        // Title and description
         cy.get('[data-cy="contact-info-title"]')
           .should('exist')
           .and('have.text', 'Get in Touch');
@@ -28,35 +27,26 @@ describe('Contact Page', () => {
           .should('exist')
           .and('have.text', 'Whether you\'re ready to transform your brand, enhance your digital presence, or craft a tailored marketing strategy, we\'re here to help. Let\'s connect and discuss how we can drive your business toward its full potential.');
 
-        // Email section
-        cy.get('[data-cy="contact-email"]').within(() => {
-          cy.get('[data-cy="contact-email-title"]')
-            .should('have.text', 'Email Us');
-          cy.get('[data-cy="contact-email-link"]')
+        cy.get('li').eq(0).within(() => {
+          cy.get('h3').should('have.text', 'Email Us');
+          cy.get('a')
             .should('have.attr', 'href', 'mailto:info@mindandmetricsbranding.com')
             .and('have.text', 'info@mindandmetricsbranding.com');
         });
 
-        // Location section
-        cy.get('[data-cy="contact-location"]').within(() => {
-          cy.get('[data-cy="contact-location-title"]')
-            .should('have.text', 'Visit Us');
-          cy.get('[data-cy="contact-location-address"]')
-            .should('contain', '1569 Washington St')
-            .and('contain', 'Blair, NE 68008');
-          cy.get('[data-cy="contact-location-directions"]')
+        cy.get('li').eq(1).within(() => {
+          cy.get('h3').should('have.text', 'Visit Us');
+          cy.get('a')
             .should('have.attr', 'href')
             .and('include', 'google.com/maps');
+          cy.get('p').should('contain', '1569 Washington St')
+            .and('contain', 'Blair, NE 68008');
         });
 
-        // Hours section
-        cy.get('[data-cy="contact-hours"]').within(() => {
-          cy.get('[data-cy="contact-hours-title"]')
-            .should('have.text', 'Business Hours');
-          cy.get('[data-cy="contact-hours-weekday"]')
-            .should('have.text', 'Monday - Friday: 8:00 AM - 4:00 PM');
-          cy.get('[data-cy="contact-hours-weekend"]')
-            .should('have.text', 'Closed Weekends & Holidays');
+        cy.get('li').eq(2).within(() => {
+          cy.get('h3').should('have.text', 'Business Hours');
+          cy.get('time').should('have.text', 'Monday - Friday: 8:00 AM - 4:00 PM');
+          cy.get('p').should('have.text', 'Closed Weekends & Holidays');
         });
       });
     });
