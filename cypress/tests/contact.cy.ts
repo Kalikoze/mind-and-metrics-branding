@@ -139,6 +139,7 @@ describe('Contact Page', () => {
     it('should handle form validation errors correctly', () => {
       cy.get('[data-cy="contact-form"]').within(() => {
         cy.get('[data-cy="submit-form"]').click();
+        cy.wait(1000);
 
         cy.get('[data-cy="error-firstName"]')
           .should('exist')
