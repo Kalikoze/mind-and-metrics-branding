@@ -30,12 +30,12 @@ export default function CompletionMessage({ preferredContact }: CompletionMessag
         >
           Thank You for Choosing Us
         </h1>
-        <p 
+        <h2 
           className="text-dark-600 text-lg" 
           data-cy="completion-subtitle"
         >
           We&apos;re excited to help grow your business
-        </p>
+        </h2>
       </header>
 
       <article className="mb-8 text-dark-600">
