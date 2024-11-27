@@ -76,6 +76,7 @@ export default function QuizComponent() {
             <div
               key={index}
               role="progressbar"
+              aria-label={`Question ${index + 1} of ${quiz.totalQuestions}`}
               aria-valuenow={index < quiz.questionPath.length - 1 ? 1 : 0}
               aria-valuemin={0}
               aria-valuemax={1}
