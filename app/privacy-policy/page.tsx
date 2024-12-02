@@ -1,6 +1,34 @@
 import Hero from '@/components/common/Hero';
 import ValueProposition from '@/components/common/ValueProposition';
 import PrivacyContent from '@/components/pages/privacy-policy/PrivacyContent';
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description: 'A concise overview stating that Mind & Metrics is dedicated to transparency and data security, focusing on minimal data collection and robust protection practices. It invites readers to learn more about how information is collected, used, and protected.',
+  openGraph: {
+    title: 'Privacy Policy | Mind & Metrics Branding',
+    description: 'A concise overview stating that Mind & Metrics is dedicated to transparency and data security, focusing on minimal data collection and robust protection practices. It invites readers to learn more about how information is collected, used, and protected.',
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://mindandmetricsbranding.com/privacy-policy',
+    siteName: 'Mind & Metrics Branding',
+    images: [
+      {
+        url: 'https://mindandmetricsbranding.com/og-image.png',
+        width: 2400,
+        height: 1260,
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy Policy | Mind & Metrics Branding',
+    description: 'A concise overview stating that Mind & Metrics is dedicated to transparency and data security, focusing on minimal data collection and robust protection practices. It invites readers to learn more about how information is collected, used, and protected.',
+    images: ['https://mindandmetricsbranding.com/og-image.png'],
+  },
+};
 
 export default function Privacy() {
   const valuePropositionData = {
