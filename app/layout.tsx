@@ -51,7 +51,10 @@ export const metadata: Metadata = {
     'msapplication-TileImage': '/tile.png',
   },
   icons: {
-    icon: 'favicon.ico'
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
   }
 };
 

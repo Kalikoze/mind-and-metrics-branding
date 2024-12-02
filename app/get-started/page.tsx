@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: 'Get Started',
-  description: 'Begin your journey with Mind & Metrics by assessing your business needs through our comprehensive quiz. Discover tailored solutions to elevate your brand and achieve your goals.',
+  description: 'Take our quick quiz to build a custom growth strategy for your business. Explore options for branding, web design, marketing, and consulting to meet your needs and budget.',
   openGraph: {
     title: 'Get Started | Mind & Metrics Branding',
-    description: 'Begin your journey with Mind & Metrics by assessing your business needs through our comprehensive quiz. Discover tailored solutions to elevate your brand and achieve your goals.',
+    description: 'Take our quick quiz to build a custom growth strategy for your business. Explore options for branding, web design, marketing, and consulting to meet your needs and budget.',
     type: 'website',
     locale: 'en_US',
     url: 'https://mindandmetricsbranding.com/get-started',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Get Started | Mind & Metrics Branding',
-    description: 'Begin your journey with Mind & Metrics by assessing your business needs through our comprehensive quiz. Discover tailored solutions to elevate your brand and achieve your goals.',
+    description: 'Take our quick quiz to build a custom growth strategy for your business. Explore options for branding, web design, marketing, and consulting to meet your needs and budget.',
     images: ['https://mindandmetricsbranding.com/og-image.png'],
   },
 };
