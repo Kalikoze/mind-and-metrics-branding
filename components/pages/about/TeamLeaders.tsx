@@ -1,3 +1,5 @@
+'use client';
+
 import { leaders } from '@/data/team';
 import { TeamLeaderCard } from '@/components/pages/about/team/TeamLeaderCard';
 

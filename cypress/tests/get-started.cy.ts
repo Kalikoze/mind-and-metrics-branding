@@ -591,4 +591,72 @@ describe('Get Started Page', () => {
       });
     });
   });
+
+  context('SEO', () => {
+    it('should have the correct title tag', () => {
+      cy.title().should('eq', 'Get Started | Mind & Metrics Branding');
+    });
+
+    it('should have exactly one H1 tag', () => {
+      cy.get('h1').should('have.length', 1);
+    });
+
+    it('should have alt attributes for all images', () => {
+      cy.get('img').each(($img) => {
+        cy.wrap($img).should('have.attr', 'alt');
+      });
+    });
+
+    it('should have the correct meta description', () => {
+      cy.checkMetaTag(
+        'meta[name="description"]',
+        'Take our quick quiz to build a custom growth strategy for your business. Explore options for branding, web design, marketing, and consulting to meet your needs and budget.'
+      );
+    });
+
+    it('should have correct Open Graph tags', () => {
+      cy.checkMetaTag('meta[property="og:type"]', 'website');
+      cy.checkMetaTag('meta[property="og:title"]', 'Get Started | Mind & Metrics Branding');
+      cy.checkMetaTag('meta[property="og:description"]', 'Take our quick quiz to build a custom growth strategy for your business. Explore options for branding, web design, marketing, and consulting to meet your needs and budget.');
+      cy.checkMetaTag('meta[property="og:url"]', 'https://mindandmetricsbranding.com/get-started');
+      cy.checkMetaTag('meta[property="og:site_name"]', 'Mind & Metrics Branding');
+      cy.checkMetaTag('meta[property="og:locale"]', 'en_US');
+      cy.checkMetaTag('meta[property="og:image"]', 'https://mindandmetricsbranding.com/og-image.png');
+      cy.checkMetaTag('meta[property="og:image:width"]', '2400');
+      cy.checkMetaTag('meta[property="og:image:height"]', '1260');
+      cy.checkMetaTag('meta[property="og:image:type"]', 'image/png');
+    });
+
+    it('should have correct Twitter Card meta tags', () => {
+      cy.checkMetaTag('meta[name="twitter:card"]', 'summary_large_image');
+      cy.checkMetaTag('meta[name="twitter:title"]', 'Get Started | Mind & Metrics Branding');
+      cy.checkMetaTag('meta[name="twitter:description"]', 'Take our quick quiz to build a custom growth strategy for your business. Explore options for branding, web design, marketing, and consulting to meet your needs and budget.');
+      cy.checkMetaTag('meta[name="twitter:image"]', 'https://mindandmetricsbranding.com/og-image.png');
+    });
+
+    it('should have correct robots meta tag', () => {
+      cy.checkMetaTag('meta[name="robots"]', 'index, follow, max-image-preview:large');
+    });
+
+    it('should have correct googlebot meta tag', () => {
+      cy.checkMetaTag('meta[name="googlebot"]', 'index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1');
+    });
+
+    it('should have the correct favicon configuration', () => {
+      cy.get('link[rel="icon"][type="image/svg+xml"]').should('have.attr', 'href', '/icon.svg');
+      cy.get('link[rel="icon"][sizes="any"]').should('have.attr', 'href', '/favicon.ico');
+    });
+
+    it('should verify favicon files exist and are accessible', () => {
+      cy.request('/icon.svg').then((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.headers['content-type']).to.include('image/svg+xml');
+      });
+
+      cy.request('/favicon.ico').then((response) => {
+        expect(response.status).to.eq(200);
+        expect(response.headers['content-type']).to.include('image/x-icon');
+      });
+    });
+  });
 }); 

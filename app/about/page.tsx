@@ -1,9 +1,35 @@
-"use client";
-
+import type { Metadata } from "next";
 import Hero from '@/components/common/Hero';
 import ValueProposition from '@/components/common/ValueProposition';
 import TeamLeaders from '@/components/pages/about/TeamLeaders';
 import CaseStudies from '@/components/pages/about/CaseStudies';
+
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'Discover how Mind & Metrics helps B2B leaders achieve growth with data-driven branding and marketing strategies. Learn more about our vision, team, and client success stories.',
+  openGraph: {
+    title: 'About | Mind & Metrics Branding',
+    description: 'Discover how Mind & Metrics helps B2B leaders achieve growth with data-driven branding and marketing strategies. Learn more about our vision, team, and client success stories.',
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://mindandmetricsbranding.com/about',
+    siteName: 'Mind & Metrics Branding',
+    images: [
+      {
+        url: 'https://mindandmetricsbranding.com/og-image.png',
+        width: 2400,
+        height: 1260,
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About | Mind & Metrics Branding',
+    description: 'Discover how Mind & Metrics helps B2B leaders achieve growth with data-driven branding and marketing strategies. Learn more about our vision, team, and client success stories.',
+    images: ['https://mindandmetricsbranding.com/og-image.png'],
+  },
+};
 
 export default function About() {
   const valuePropositionData = {
