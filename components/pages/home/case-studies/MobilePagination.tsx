@@ -6,7 +6,7 @@ interface MobilePaginationProps {
 
 export const MobilePagination = ({ studies, activeStudyId, onStudySelect }: MobilePaginationProps) => {
   return (
-    <nav 
+    <nav
       className="md:hidden absolute bottom-4 left-0 right-0 flex justify-center"
       role="tablist"
       aria-label="Case study pagination"

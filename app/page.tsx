@@ -1,8 +1,8 @@
 import Hero from '@/components/common/Hero';
 import ValueProposition from '@/components/common/ValueProposition';
+import CaseStudies from '@/components/pages/home/CaseStudies';
 import ServicesGrid from '@/components/pages/home/ServicesGrid';
 import PricingPreview from '@/components/pages/home/PricingPreview';
-import ClientShowcase from '@/components/pages/home/ClientShowcase';
 
 export default function Home() {
   const valuePropositionData = {
@@ -27,6 +27,7 @@ export default function Home() {
   return (
     <main>
       <Hero
+        variant="home"
         title="Data Driven Tailored Excellence"
         subtitle="Your Vision, Our Expertise — Uniting Strategy and Story"
         primaryButton={{
@@ -39,7 +40,7 @@ export default function Home() {
         }}
       />
       <ValueProposition {...valuePropositionData} />
-      <ClientShowcase />
+      <CaseStudies />
       <ServicesGrid />
       <PricingPreview />
     </main>

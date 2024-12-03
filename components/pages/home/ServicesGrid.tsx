@@ -8,6 +8,7 @@ import ScrambleText from '@/components/common/ScrambleText';
 import CircuitOverlay from '@/components/common/CircuitOverlay';
 import ServiceCard from './ServiceCard';
 import { homeServices } from '@/data/homeServices';
+import ScrambleButton from '@/components/common/ScrambleButton';
 
 const ServicesGrid = () => {
   const [viewAllHovering, setViewAllHovering] = useState(false);
@@ -41,21 +42,13 @@ const ServicesGrid = () => {
         </ul>
 
         <footer className="text-center mt-16">
-          <Link
-            data-cy="explore-services"
+          <ScrambleButton
+            text="Learn More"
             href="/services"
-            onMouseEnter={() => setViewAllHovering(true)}
-            onMouseLeave={() => setViewAllHovering(false)}
-            className="w-full sm:w-auto px-8 py-3.5 border-2 border-secondary-400 text-secondary-400 
-                     rounded-lg flex items-center space-x-2 inline-flex
-                     transition-all duration-200 justify-center
-                     hover:bg-secondary-400 hover:text-white hover:scale-105"
-          >
-            <HiOutlineArrowRight className="w-5 h-5 shrink-0" aria-hidden="true" />
-            <span className="w-[120px] text-center">
-              <ScrambleText text="Learn More" isHovering={viewAllHovering} />
-            </span>
-          </Link>
+            icon={HiOutlineArrowRight}
+            variant="secondary"
+            dataCy="explore-services"
+          />
         </footer>
       </div>
     </section>

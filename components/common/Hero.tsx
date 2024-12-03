@@ -2,11 +2,9 @@
 
 import React from 'react';
 import Image from 'next/image';
-import GraphingBackground from '@/public/assets/backgrounds/graphing-background.svg';
 import { HiOutlineRocketLaunch, HiOutlineEnvelope } from 'react-icons/hi2';
-import Link from 'next/link';
-import { useState } from 'react';
-import ScrambleText from './ScrambleText';
+import BrandM from '@/public/assets/graphics/m&m-logo.svg';
+import ScrambleButton from './ScrambleButton';
 
 interface HeroProps {
   title: string;
@@ -19,6 +17,8 @@ interface HeroProps {
     text: string;
     href: string;
   };
+  variant?: 'default' | 'home' | 'about';
+  overlayElements?: React.ReactNode;
 }
 
 const Hero: React.FC<HeroProps> = ({
@@ -26,73 +26,80 @@ const Hero: React.FC<HeroProps> = ({
   subtitle,
   primaryButton,
   secondaryButton,
+  variant = 'default',
 }) => {
-  const [hoveringPrimary, setHoveringPrimary] = useState(false);
-  const [hoveringSecondary, setHoveringSecondary] = useState(false);
 
   return (
-    <div className="relative overflow-hidden bg-background min-h-[70vh] py-20 flex items-center" data-cy="hero-section">
-      {/* Background SVGs */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src={GraphingBackground}
-          alt="Background design"
-          fill
-          className="opacity-50 object-cover"
-        />
+    <div className="relative overflow-hidden min-h-[80vh] py-20 flex items-center" data-cy="hero-section">
+      <div className="absolute inset-0 bg-neutral-50">
+        <div className="absolute inset-0 opacity-10">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={`accent-${i}`}
+              className="absolute transform"
+              style={{
+                top: `${i * 15 + 10}%`,
+                left: `${((i + 1) % 3) * 30 + 20}%`,
+                width: '20%',
+                height: '20%',
+                background: `linear-gradient(145deg, ${i % 2 ? '#436EB1' : '#2D4976'} 0%, transparent 80%)`,
+                clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+                transform: `rotate(${i * 30}deg)`,
+              }}
+            />
+          ))}
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 data-cy="hero-title" className="font-serif text-5xl sm:text-6xl font-bold mb-6
-                         [text-wrap:balance] bg-clip-text text-transparent 
-                         bg-gradient-to-r from-dark-900 to-dark-700 pb-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center">
+        <div className="max-w-3xl mx-auto text-center md:text-left md:w-1/2">
+          <h1 data-cy="hero-title" 
+              className="font-serif text-4xl sm:text-6xl font-bold mb-6
+                        [text-wrap:balance] bg-clip-text text-transparent 
+                        bg-gradient-to-r from-primary-100 to-primary-500">
             {title}
           </h1>
-          <h2 data-cy="hero-subtitle" className="font-sans text-xl sm:text-2xl text-dark-600">
+          <h2 data-cy="hero-subtitle" 
+              className="font-sans text-xl sm:text-2xl text-dark-600 mb-12">
             {subtitle}
           </h2>
 
           {(primaryButton || secondaryButton) && (
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:space-y-0 mt-12 w-full">
+            <div className="flex flex-col sm:flex-row items-center justify-start gap-4 sm:space-y-0">
               {primaryButton && (
-                <Link
+                <ScrambleButton
+                  text={primaryButton.text}
                   href={primaryButton.href}
-                  data-cy="hero-primary-cta"
-                  onMouseEnter={() => setHoveringPrimary(true)}
-                  onMouseLeave={() => setHoveringPrimary(false)}
-                  className="w-full sm:w-auto px-8 py-3.5 bg-secondary-400 text-white font-medium
-                           rounded-lg flex items-center justify-center space-x-2 
-                           border-2 border-secondary-400
-                           transition-all duration-300 hover:bg-transparent 
-                           hover:text-secondary-400 hover:scale-105"
-                >
-                  <HiOutlineRocketLaunch className="w-5 h-5 shrink-0" />
-                  <span className="w-[120px] text-center">
-                    <ScrambleText text={primaryButton.text} isHovering={hoveringPrimary} />
-                  </span>
-                </Link>
+                  icon={HiOutlineRocketLaunch}
+                  variant="primary"
+                  dataCy="hero-primary-cta"
+                />
               )}
 
               {secondaryButton && (
-                <Link
+                <ScrambleButton
+                  text={secondaryButton.text}
                   href={secondaryButton.href}
-                  data-cy="hero-secondary-cta"
-                  onMouseEnter={() => setHoveringSecondary(true)}
-                  onMouseLeave={() => setHoveringSecondary(false)}
-                  className="w-full sm:w-auto px-8 py-3.5 border-2 border-secondary-400 
-                           text-secondary-400 rounded-lg flex items-center justify-center 
-                           space-x-2 transition-all duration-300 
-                           hover:bg-secondary-400 hover:text-white hover:scale-105"
-                >
-                  <HiOutlineEnvelope className="w-5 h-5 shrink-0" />
-                  <span className="w-[120px] text-center">
-                    <ScrambleText text={secondaryButton.text} isHovering={hoveringSecondary} />
-                  </span>
-                </Link>
+                  icon={HiOutlineEnvelope}
+                  variant="secondary"
+                  dataCy="hero-secondary-cta"
+                />
               )}
             </div>
           )}
+        </div>
+        <div className="md:w-1/2 flex justify-center mt-8 md:mt-0">
+          <div className="relative w-[300px] h-[300px] sm:w-[400px] sm:h-[400px]">
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary-100/20 to-primary-400/20 
+                          rounded-full filter blur-3xl transform -rotate-12" />
+            <Image 
+              src={BrandM} 
+              alt="Brand M" 
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
         </div>
       </div>
     </div>
