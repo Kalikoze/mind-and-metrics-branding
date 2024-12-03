@@ -29,10 +29,16 @@ const ScrambleButton: React.FC<ScrambleButtonProps> = ({
     secondary: "bg-white/90 backdrop-blur-sm border-2 border-primary-300 text-primary-100 hover:bg-primary-100 hover:text-white shadow-lg shadow-primary-100/20"
   };
 
+  const isExternal = href.startsWith('http') || href.startsWith('https');
+
   return (
     <Link
       href={href}
       data-cy={dataCy}
+      {...isExternal && {
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       className={`${baseStyles} ${variantStyles[variant]}`}

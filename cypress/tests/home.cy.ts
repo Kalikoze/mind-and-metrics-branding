@@ -1,3 +1,5 @@
+import { testCaseStudies } from '../fixtures/case-studies';
+
 describe('Home Page', () => {
   beforeEach(() => {
     cy.visit('/')
@@ -25,7 +27,7 @@ describe('Home Page', () => {
       cy.get('[data-cy="hero-title"]')
         .should('exist')
         .and('have.text', 'Data Driven Tailored Excellence');
-      
+
       cy.get('[data-cy="hero-subtitle"]')
         .should('exist')
         .and('have.text', 'Your Vision, Our Expertise — Uniting Strategy and Story');
@@ -43,7 +45,7 @@ describe('Home Page', () => {
 
     it('should render ValueProposition component correctly', () => {
       cy.get('[data-cy="value-proposition-section"]').should('exist');
-      
+
       cy.get('[data-cy="value-proposition-title"]')
         .should('exist')
         .and('have.text', 'Dedicated Partners in Sustainable Growth');
@@ -87,85 +89,51 @@ describe('Home Page', () => {
       });
     });
 
-    it('should render headers correctly for the ClientShowcase section', () => {
-      cy.get('[data-cy="social-proof-title"]')
+    it('should render Case Studies section correctly', () => {
+      cy.get('[data-cy="case-studies-section"]').should('exist');
+      cy.get('[data-cy="case-studies-title"]')
         .should('exist')
-        .and('have.text', 'Trusted By Industry Leaders');
-      
-      cy.get('[data-cy="social-proof-subtitle"]')
+        .and('have.text', 'Client Success Stories');
+
+      cy.get('[data-cy="case-study-tab-psc-construction"]')
         .should('exist')
-        .and('have.text', 'Join the growing list of B2B leaders who trust us with their digital success.');
-    });
+        .and('have.attr', 'aria-selected', 'true');
 
-    it('should display statistics correctly for the Success By The Numbers section', () => {
-      // Check section headers
-      cy.get('[data-cy="stats-section-title"]')
-        .should('exist')
-        .and('have.text', 'Success By The Numbers');
-      
-      cy.get('[data-cy="stats-section-subtitle"]')
-        .should('exist')
-        .and('have.text', 'Measurable results that drive business growth through data-driven strategies');
+      cy.get('[data-cy="case-study-content-psc-construction"]')
+        .should('be.visible')
+        .within(() => {
+          cy.contains('PSC Construction').should('be.visible');
+          cy.contains('Site Preparation & Underground Utilities').should('be.visible');
 
-      const expectedStats = [
-        { value: '90%', label: '24hr Support Resolution Rate' },
-        { value: '80%', label: 'Early Project Deliveries' },
-        { value: '10%', label: 'Overhead Cost Savings' },
-        { value: '98%', label: 'Client Digital Confidence' }
-      ];
+          cy.contains('Challenge').should('be.visible');
+          cy.contains('needed a consistent brand profile').should('be.visible');
+          cy.contains('Solution').should('be.visible');
+          cy.contains('developed a fully customized website').should('be.visible');
 
-      expectedStats.forEach(stat => {
-        cy.get(`[data-cy="stat-${stat.label.toLowerCase().replace(/\s+/g, '-')}"]`).within(() => {
-          cy.get('[data-cy="stat-value"]').should('have.text', stat.value);
-          cy.get('[data-cy="stat-label"]').should('have.text', stat.label);
-        });
-      });
-    });
+          const expectedResults = [
+            { metric: 'Website Traffic', value: '+45%' },
+            { metric: 'Session Duration', value: '+20%' },
+            { metric: 'Keyword Rankings', value: '+15%' }
+          ];
 
-    it('should display client logos correctly', () => {
-      const expectedClients = [
-        { 
-          alt: 'PSC Construction',
-          description: 'Brand Evolution & Digital Marketing',
-          websiteUrl: 'https://www.psccompanies.com'
-        },
-        { 
-          alt: 'Precision Surveying & Consulting',
-          description: 'Complete Digital Transformation',
-          websiteUrl: 'https://www.precisionsurveyingandconsulting.com'
-        },
-        { 
-          alt: 'Hydrovac Supply',
-          description: 'Brand Identity & Web Development',
-          websiteUrl: 'https://www.hydrovac-supply.com'
-        },
-        { 
-          alt: 'National Hydro Excavation Services',
-          description: 'Website Design & SEO Strategy',
-          websiteUrl: 'https://www.nathydro.com'
-        }
-      ];
+          expectedResults.forEach(({ metric, value }) => {
+            cy.contains(metric).should('be.visible');
+            cy.contains(value).should('be.visible');
+          });
 
-      cy.get('[data-cy="client-logo-card"]').each(($card, index) => {
-        const client = expectedClients[index];
-        
-        cy.wrap($card)
-          .should('have.attr', 'href', client.websiteUrl)
-          .and('have.attr', 'target', '_blank')
-          .and('have.attr', 'rel', 'noopener noreferrer');
-        
-        cy.wrap($card).within(() => {
-          cy.get('[data-cy="client-logo-image"]')
+          const expectedTags = ['Website Redesign', 'SEO', 'Brand Identity', 'UI/UX Design'];
+          expectedTags.forEach(tag => {
+            cy.contains(tag).should('be.visible');
+          });
+
+          cy.get('a[href="https://www.psccompanies.com"]')
             .should('exist')
-            .and('have.attr', 'alt', client.alt);
-          cy.get('[data-cy="client-name"]')
-            .should('have.text', client.alt);
-          cy.get('[data-cy="client-description"]')
-            .should('have.text', client.description);
-          // Check for the visit website text
-          cy.contains('Visit Website').should('exist');
+            .and('have.attr', 'target', '_blank')
+            .and('have.attr', 'rel', 'noopener noreferrer');
+          cy.get(`img[alt="PSC Construction"]`).should('be.visible');
+          cy.get(`img[alt="PSC Construction desktop preview"]`).should('be.visible');
+          cy.get(`img[alt="PSC Construction mobile preview"]`).should('be.visible');
         });
-      });
     });
 
     it('should render ServicesGrid correctly', () => {
@@ -255,11 +223,11 @@ describe('Home Page', () => {
         cy.get('[data-cy="pricing-cta-title"]')
           .should('exist')
           .and('have.text', 'Ready to Build Your Custom Solution?');
-        
+
         cy.get('[data-cy="pricing-cta-description"]')
           .should('exist')
           .and('contain.text', 'Complete a quick quiz for an instant estimate. We\'ll review your submission and reach out to schedule a consultation for your tailored solution. No commitment required.');
-        
+
         cy.get('[data-cy="pricing-get-started-button"]')
           .should('exist')
           .and('have.attr', 'href', '/get-started')
@@ -274,10 +242,10 @@ describe('Home Page', () => {
       cy.get('[data-cy="footer-description"]')
         .should('contain.text', 'Transforming Omaha\'s B2B landscape with strategic branding and digital solutions that are tailored to your business\'s unique vision. Serving the Greater Omaha area and beyond with expert strategies designed for sustainable growth.');
     });
-  
+
     it('should render navigation links in footer correctly', () => {
       cy.get('[data-cy="footer-nav-title"]').should('have.text', 'Navigation');
-  
+
       const navigationLinks = [
         { name: 'Home', href: '/' },
         { name: 'About', href: '/about' },
@@ -285,7 +253,7 @@ describe('Home Page', () => {
         { name: 'Careers', href: '/careers' },
         { name: 'Contact', href: '/contact' },
       ];
-  
+
       navigationLinks.forEach(link => {
         cy.get(`[data-cy="footer-nav-${link.name.toLowerCase().replace(/\s+/g, '-')}"]`)
           .should('exist')
@@ -293,16 +261,16 @@ describe('Home Page', () => {
           .and('contain.text', link.name);
       });
     });
-  
+
     it('should render hours and contact information in footer correctly', () => {
       cy.get('[data-cy="footer-hours-title"]').should('have.text', 'Hours & Contact');
-      
+
       cy.get('[data-cy="footer-hours"]').within(() => {
         cy.contains('Monday - Friday');
         cy.contains('8:00 AM - 4:00 PM');
         cy.contains('Closed Weekends & Holidays');
       });
-  
+
       cy.get('[data-cy="footer-address"]').within(() => {
         cy.contains('1569 Washington St');
         cy.contains('Blair, NE 68008');
@@ -311,30 +279,30 @@ describe('Home Page', () => {
           .should('have.attr', 'href')
           .and('include', 'google.com/maps/dir');
       });
-  
+
       cy.get('[data-cy="footer-email"]')
         .should('have.attr', 'href', 'mailto:info@mindandmetricsbranding.com')
         .and('contain.text', 'info@mindandmetricsbranding.com');
     });
-  
+
     it('should render social links in footer correctly', () => {
       cy.get('[data-cy="footer-social-title"]').should('have.text', 'Connect With Us');
-  
+
       const socialLinks = [
-        { 
-          name: 'linkedin', 
+        {
+          name: 'linkedin',
           href: 'https://www.linkedin.com/company/mind-and-metrics-branding/'
         },
-        { 
-          name: 'facebook', 
+        {
+          name: 'facebook',
           href: 'https://www.facebook.com/mindandmetricsbranding'
         },
-        { 
-          name: 'instagram', 
+        {
+          name: 'instagram',
           href: 'https://www.instagram.com/mindandmetricsbranding/'
         }
       ];
-  
+
       socialLinks.forEach(link => {
         cy.get(`[data-cy="footer-social-${link.name}"]`)
           .should('exist')
@@ -343,10 +311,37 @@ describe('Home Page', () => {
           .and('have.attr', 'rel', 'noopener noreferrer');
       });
     });
-  
+
     it('should render copyright notice in footer correctly', () => {
       const currentYear = new Date().getFullYear();
       cy.contains(`© ${currentYear} Mind & Metrics Branding. All rights reserved.`);
+    });
+  });
+
+  context('Interactivity Tests', () => {
+    testCaseStudies.forEach(({ id, name, website, challenge, solution }) => {
+      it(`should display and interact with ${name} case study`, () => {
+        cy.get(`[data-cy="case-study-tab-${id}"]`).click();
+        cy.get(`[data-cy="case-study-content-${id}"]`).should('be.visible');
+        cy.get(`[data-cy="case-study-content-${id}"]`).within(() => {
+          cy.contains('Challenge').should('be.visible');
+          cy.contains(challenge).should('be.visible');
+          
+          cy.contains('Solution').should('be.visible');
+          cy.contains(solution).should('be.visible');
+          
+          cy.get('[data-cy="case-study-tag"]').should('exist');
+        });
+
+        cy.get('a[href="' + website + '"]')
+          .should('exist')
+          .and('have.attr', 'target', '_blank')
+          .and('have.attr', 'rel', 'noopener noreferrer');
+
+        cy.get('img[alt="' + name + '"]').should('be.visible');
+        cy.get('img[alt="' + name + ' desktop preview"]').should('be.visible');
+        cy.get('img[alt="' + name + ' mobile preview"]').should('be.visible');
+      });
     });
   });
 
@@ -356,6 +351,7 @@ describe('Home Page', () => {
     });
 
     it('should pass accessibility checks', () => {
+      cy.wait(1000);
       cy.checkA11y();
     });
   });
@@ -372,12 +368,13 @@ describe('Home Page', () => {
         });
 
         it('should pass accessibility checks', () => {
+          cy.wait(1000);
           cy.checkA11y();
         });
 
         it('should display and interact with hamburger menu', () => {
           cy.get('[data-cy="mobile-menu"]').should('not.be.visible');
-          
+
           cy.get('[data-cy="mobile-menu-button"]').should('be.visible').click();
           cy.get('[data-cy="mobile-menu"]').should('be.visible');
 
@@ -397,6 +394,28 @@ describe('Home Page', () => {
 
           cy.get('[data-cy="mobile-menu-button"]').click();
           cy.get('[data-cy="mobile-menu"]').should('not.be.visible');
+        });
+
+        it('should navigate through case studies', () => {
+          cy.get('[data-cy="case-studies-container"]')
+            .scrollIntoView()
+            .should('be.visible')
+  
+          testCaseStudies.forEach((study, index) => {
+            if (index > 0) {
+              cy.get(`[data-cy="case-study-indicator-${index}"]`)
+                .should('be.visible')
+                .click({ force: true });
+  
+              cy.get(`[data-cy="case-study-content-${study.id}"]`)
+                .should('be.visible')
+                .within(() => {
+                  cy.contains(study.name).should('be.visible');
+                  cy.contains(study.challenge).should('be.visible');
+                  cy.contains(study.solution).should('be.visible');
+                });
+            }
+          });
         });
       });
     });
@@ -477,7 +496,7 @@ describe('Home Page', () => {
       cy.request('/robots.txt').then((response) => {
         expect(response.status).to.eq(200)
         expect(response.headers['content-type']).to.include('text/plain')
-        
+
         const robotsTxtContent = response.body
         expect(robotsTxtContent).to.include('User-Agent: *')
         expect(robotsTxtContent).to.include('Allow: /')
@@ -492,10 +511,10 @@ describe('Home Page', () => {
       cy.request('/sitemap.xml').then((response) => {
         expect(response.status).to.eq(200)
         expect(response.headers['content-type']).to.include('application/xml')
-        
+
         const sitemapContent = response.body
         expect(sitemapContent).to.include('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
-        
+
         const staticRoutes = ['', 'get-started', 'about', 'services', 'careers', 'contact', 'privacy-policy']
         staticRoutes.forEach(route => {
           expect(sitemapContent).to.include(`<loc>${baseUrl}/${route}</loc>`)
@@ -508,7 +527,7 @@ describe('Home Page', () => {
       const baseUrl = 'https://mindandmetricsbranding.com'
       cy.request('/sitemap.xml').then((response) => {
         const sitemapContent = response.body
-        
+
         const urlPriorities = [
           { url: `${baseUrl}/`, priority: '1' },
           { url: `${baseUrl}/get-started`, priority: '0.9' },

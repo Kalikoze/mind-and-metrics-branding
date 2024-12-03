@@ -26,7 +26,9 @@ const CaseStudies = () => {
         
         <header className="text-center mb-16">
           <h2
-              className="text-3xl md:text-4xl font-serif text-dark-800 mb-4">
+              className="text-3xl md:text-4xl font-serif text-dark-800 mb-4"
+              data-cy="case-studies-title"
+          >
             Client Success Stories
           </h2>
           <p className="text-dark-600 text-lg max-w-2xl mx-auto">
@@ -107,6 +109,7 @@ const CaseStudies = () => {
                         {activeStudy.tags.map((tag) => (
                           <span
                             key={tag}
+                            data-cy="case-study-tag"
                             className="px-3 py-1 text-sm bg-white border-2 border-neutral-200 text-dark-600 rounded-full"
                           >
                             {tag}
