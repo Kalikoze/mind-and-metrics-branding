@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { HiOutlineGlobeAlt } from 'react-icons/hi2';
-import ScrambleText from '@/components/common/ScrambleText';
+import ScrambleButton from '@/components/common/ScrambleButton';
 import { CaseStudy } from '@/data/caseStudies';
+import { useEffect, useState } from 'react';
 
 interface CaseStudyPreviewProps {
   study: CaseStudy;
@@ -10,11 +10,23 @@ interface CaseStudyPreviewProps {
   onHoverChange: (isHovering: boolean) => void;
 }
 
-export const CaseStudyPreview = ({ study, isHovering, onHoverChange }: CaseStudyPreviewProps) => {
+export const CaseStudyPreview = ({ study }: CaseStudyPreviewProps) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section className="relative h-auto pb-32 md:h-[600px]" aria-labelledby="preview-heading">
       <h4 className="sr-only" id="preview-heading">Website Preview</h4>
-      
+
       <figure className="relative h-[300px] lg:h-[400px] min-w-[280px]">
         <div className="relative h-full">
           <Image
@@ -51,28 +63,15 @@ export const CaseStudyPreview = ({ study, isHovering, onHoverChange }: CaseStudy
         </figcaption>
       </figure>
 
-      <Link
-        href={study.websiteUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        onMouseEnter={() => onHoverChange(true)}
-        onMouseLeave={() => onHoverChange(false)}
-        className="absolute md:top-4 md:right-4 -bottom-48 md:bottom-auto
-                 font-sans px-8 py-3.5 bg-secondary-400 md:bg-white/90 md:backdrop-blur-sm
-                 border-2 border-secondary-400 text-white md:text-secondary-400 
-                 rounded-lg flex items-center space-x-2 w-full md:w-[200px] justify-center
-                 transition-all duration-300
-                 hover:bg-transparent hover:text-secondary-400 md:hover:bg-secondary-400 md:hover:text-white 
-                 hover:scale-105 sm:w-auto sm:left-1/2 sm:-translate-x-1/2 md:left-auto md:translate-x-0"
-      >
-        <HiOutlineGlobeAlt className="w-5 h-5 shrink-0" />
-        <span className="w-[120px] text-center">
-          <ScrambleText
-            text="Visit Site"
-            isHovering={isHovering}
-          />
-        </span>
-      </Link>
+      <div className="absolute md:top-4 md:right-4 -bottom-48 md:bottom-auto w-full sm:w-auto sm:left-1/2 sm:-translate-x-1/2 md:left-auto md:translate-x-0">
+        <ScrambleButton
+          text="Visit Site"
+          href={study.websiteUrl}
+          icon={HiOutlineGlobeAlt}
+          variant={isMobile ? "primary" : "secondary"}
+          dataCy="case-study-visit-site"
+        />
+      </div>
     </section>
   );
 }; 

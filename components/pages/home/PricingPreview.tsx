@@ -1,30 +1,34 @@
 'use client';
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { HiOutlinePuzzlePiece, HiOutlineScale, HiOutlineChartBar, HiOutlineRocketLaunch } from 'react-icons/hi2';
-import ScrambleText from '@/components/common/ScrambleText';
+import React from 'react';
+import { 
+  HiPuzzlePiece, 
+  HiScale, 
+  HiChartBar, 
+  HiRocketLaunch 
+} from 'react-icons/hi2';
 import ValuePropCard from './ValuePropCard';
+import ScrambleButton from '@/components/common/ScrambleButton';
+
 const valueProps = [
   {
-    icon: HiOutlinePuzzlePiece,
+    icon: HiPuzzlePiece,
     title: "Tailored Solutions",
     description: "Strategies custom-crafted to meet your unique business needs and objectives"
   },
   {
-    icon: HiOutlineScale,
+    icon: HiScale,
     title: "Flexible Scaling",
     description: "Easily adapt services and resources as your business evolves"
   },
   {
-    icon: HiOutlineChartBar,
+    icon: HiChartBar,
     title: "Transparent ROI",
     description: "Detailed reporting and metrics to clearly demonstrate value and impact"
   }
 ];
 
 const PricingPreview = () => {
-  const [primaryHover, setPrimaryHover] = useState(false);
 
   return (
     <section data-cy="pricing-preview-section" className="bg-white py-20">
@@ -56,22 +60,13 @@ const PricingPreview = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center">
-            <Link
-              data-cy="pricing-get-started-button"
+          <ScrambleButton
+              text="Get Started"
               href="/get-started"
-              aria-label="Complete a short quiz and get started with a custom solution"
-              onMouseEnter={() => setPrimaryHover(true)}
-              onMouseLeave={() => setPrimaryHover(false)}
-              className="w-full sm:w-auto px-8 py-3.5 bg-secondary-400 text-white font-medium
-                       rounded-lg flex items-center space-x-2 border-2 border-secondary-400
-                       transition-all duration-300 justify-center mx-4 sm:mx-0
-                       hover:bg-transparent hover:text-secondary-400 hover:scale-105"
-            >
-              <HiOutlineRocketLaunch className="w-5 h-5 shrink-0" />
-              <span className="w-[120px] text-center">
-                <ScrambleText text="Get Started" isHovering={primaryHover} />
-              </span>
-            </Link>
+              icon={HiRocketLaunch}
+              variant="primary"
+              dataCy="pricing-get-started-button"
+            />
           </div>
         </section>
       </div>

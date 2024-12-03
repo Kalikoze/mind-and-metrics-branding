@@ -3,12 +3,11 @@
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import CircuitOverlay from '@/components/common/CircuitOverlay';
 import { caseStudies } from '@/data/caseStudies';
-import { CaseStudyTabs } from './case-studies/CaseStudyTabs';
-import { CaseStudyResults } from './case-studies/CaseStudyResults';
-import { CaseStudyPreview } from './case-studies/CaseStudyPreview';
-import { MobilePagination } from './case-studies/MobilePagination';
+import { CaseStudyTabs } from '@/components/pages/home/case-studies/CaseStudyTabs';
+import { CaseStudyResults } from '@/components/pages/home/case-studies/CaseStudyResults';
+import { CaseStudyPreview } from '@/components/pages/home/case-studies/CaseStudyPreview';
+import { MobilePagination } from '@/components/pages/home/case-studies/MobilePagination';
 
 const CaseStudies = () => {
   const [activeStudyId, setActiveStudyId] = useState(caseStudies[0].id);
@@ -19,17 +18,16 @@ const CaseStudies = () => {
 
   return (
     <section
-      className="relative bg-neutral-50 py-24 overflow-hidden"
+      className="bg-white py-20"
       data-cy="case-studies-section"
       aria-label="Case Studies"
     >
-      <CircuitOverlay />
-      
-      <article className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
         <header className="text-center mb-16">
           <h2
-            className="text-3xl md:text-4xl font-serif text-dark-800 mb-4"
-            data-cy="case-studies-title"
+              className="text-3xl md:text-4xl font-serif text-dark-800 mb-4"
+              data-cy="case-studies-title"
           >
             Client Success Stories
           </h2>
@@ -44,7 +42,7 @@ const CaseStudies = () => {
           onStudySelect={setActiveStudyId}
         />
 
-        <section 
+        <section
           className="relative min-h-fit"
           data-cy="case-studies-container"
           ref={componentRef}
@@ -62,7 +60,7 @@ const CaseStudies = () => {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <article className="bg-white rounded-lg border-2 border-neutral-200 pb-56 md:pb-32">
+                <article className="bg-neutral-50 rounded-lg border-2 border-neutral-200 pb-56 md:pb-32">
                   <div className="grid md:grid-cols-2 gap-8 p-8">
                     <article className="space-y-8">
                       <figure className="h-[200px] flex items-center justify-start">
@@ -111,7 +109,8 @@ const CaseStudies = () => {
                         {activeStudy.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="px-3 py-1 text-sm bg-neutral-50 text-dark-600 rounded-full"
+                            data-cy="case-study-tag"
+                            className="px-3 py-1 text-sm bg-white border-2 border-neutral-200 text-dark-600 rounded-full"
                           >
                             {tag}
                           </span>
@@ -122,7 +121,7 @@ const CaseStudies = () => {
                     <CaseStudyPreview
                       study={activeStudy}
                       isHovering={hoveringStates[activeStudy.id]}
-                      onHoverChange={(isHovering) => 
+                      onHoverChange={(isHovering) =>
                         setHoveringStates({ ...hoveringStates, [activeStudy.id]: isHovering })
                       }
                     />
@@ -131,13 +130,13 @@ const CaseStudies = () => {
               </motion.div>
             )}
           </AnimatePresence>
+          <MobilePagination
+            studies={caseStudies}
+            activeStudyId={activeStudyId}
+            onStudySelect={setActiveStudyId}
+          />
         </section>
 
-        <MobilePagination
-          studies={caseStudies}
-          activeStudyId={activeStudyId}
-          onStudySelect={setActiveStudyId}
-        />
       </article>
     </section>
   );

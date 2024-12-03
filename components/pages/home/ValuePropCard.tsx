@@ -11,7 +11,7 @@ const ValuePropCard = ({ icon: Icon, title, description }: ValuePropProps) => (
   >
     <figure className="bg-white p-4 rounded-full w-16 h-16 mb-6
                     flex items-center justify-center">
-      <Icon className="w-8 h-8 text-secondary-400" />
+      <Icon className="w-8 h-8 text-primary-400" />
     </figure>
     <h3 className="text-xl font-serif text-dark-800 mb-3">
       {title}

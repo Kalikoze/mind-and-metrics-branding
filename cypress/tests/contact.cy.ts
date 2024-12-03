@@ -335,6 +335,7 @@ describe('Contact Page', () => {
         });
 
         it('should pass accessibility checks', () => {
+          cy.wait(1000);
           cy.checkA11y();
         });
 

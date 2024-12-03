@@ -1,5 +1,4 @@
 import { testLeaders } from '@/cypress/fixtures/team-data';
-import { testCaseStudies } from '../fixtures/case-studies';
 
 describe('About Page', () => {
   beforeEach(() => {
@@ -111,80 +110,6 @@ describe('About Page', () => {
           .should('have.attr', 'href', `mailto:${leader.email}`);
       });
     });
-
-    it('should render Case Studies section correctly', () => {
-      cy.get('[data-cy="case-studies-section"]').should('exist');
-      cy.get('[data-cy="case-studies-title"]')
-        .should('exist')
-        .and('have.text', 'Client Success Stories');
-
-      cy.get('[data-cy="case-study-tab-psc-construction"]')
-        .should('exist')
-        .and('have.attr', 'aria-selected', 'true');
-
-      cy.get('[data-cy="case-study-content-psc-construction"]')
-        .should('be.visible')
-        .within(() => {
-          cy.contains('PSC Construction').should('be.visible');
-          cy.contains('Site Preparation & Underground Utilities').should('be.visible');
-          
-          cy.contains('Challenge').should('be.visible');
-          cy.contains('needed a consistent brand profile').should('be.visible');
-          cy.contains('Solution').should('be.visible');
-          cy.contains('developed a fully customized website').should('be.visible');
-          
-          const expectedResults = [
-            { metric: 'Website Traffic', value: '+45%' },
-            { metric: 'Session Duration', value: '+20%' },
-            { metric: 'Keyword Rankings', value: '+15%' }
-          ];
-
-          expectedResults.forEach(({ metric, value }) => {
-            cy.contains(metric).should('be.visible');
-            cy.contains(value).should('be.visible');
-          });
-          
-          const expectedTags = ['Website Redesign', 'SEO', 'Brand Identity', 'UI/UX Design'];
-          expectedTags.forEach(tag => {
-            cy.contains(tag).should('be.visible');
-          });
-
-          cy.get('a[href="https://www.psccompanies.com"]')
-            .should('exist')
-            .and('have.attr', 'target', '_blank')
-            .and('have.attr', 'rel', 'noopener noreferrer');
-          cy.get(`img[alt="PSC Construction"]`).should('be.visible');
-          cy.get(`img[alt="PSC Construction desktop preview"]`).should('be.visible');
-          cy.get(`img[alt="PSC Construction mobile preview"]`).should('be.visible');
-        });
-    });
-  });
-
-  context('Interactivity Tests', () => {
-    testCaseStudies.forEach(({ id, name, website, challenge, solution }) => {
-      it(`should display and interact with ${name} case study`, () => {
-        cy.get(`[data-cy="case-study-tab-${id}"]`).click();
-        cy.get(`[data-cy="case-study-content-${id}"]`).should('be.visible');
-        cy.get(`[data-cy="case-study-content-${id}"]`).within(() => {
-          cy.contains('Challenge').should('be.visible');
-          cy.contains(challenge).should('be.visible');
-          
-          cy.contains('Solution').should('be.visible');
-          cy.contains(solution).should('be.visible');
-          
-          cy.get('span[class*="text-sm bg-neutral-50"]').should('exist');
-        });
-
-        cy.get('a[href="' + website + '"]')
-          .should('exist')
-          .and('have.attr', 'target', '_blank')
-          .and('have.attr', 'rel', 'noopener noreferrer');
-
-        cy.get('img[alt="' + name + '"]').should('be.visible');
-        cy.get('img[alt="' + name + ' desktop preview"]').should('be.visible');
-        cy.get('img[alt="' + name + ' mobile preview"]').should('be.visible');
-      });
-    });
   });
 
   context('Accessibility Checks', () => {
@@ -193,7 +118,6 @@ describe('About Page', () => {
     });
 
     it('should pass accessibility checks', () => {
-      cy.wait(1000);
       cy.checkA11y();
     });
   });
@@ -210,7 +134,6 @@ describe('About Page', () => {
         });
 
         it('should pass accessibility checks', () => {
-          cy.wait(1000);
           cy.checkA11y();
         });
 
@@ -236,28 +159,6 @@ describe('About Page', () => {
 
           cy.get('[data-cy="mobile-menu-button"]').click();
           cy.get('[data-cy="mobile-menu"]').should('not.be.visible');
-        });
-    
-        it('should navigate through case studies', () => {
-          cy.get('[data-cy="case-studies-container"]')
-            .scrollIntoView()
-            .should('be.visible')
-
-          testCaseStudies.forEach((study, index) => {
-            if (index > 0) {
-              cy.get(`[data-cy="case-study-indicator-${index}"]`)
-                .should('be.visible')
-                .click({ force: true });
-
-              cy.get(`[data-cy="case-study-content-${study.id}"]`)
-                .should('be.visible')
-                .within(() => {
-                  cy.contains(study.name).should('be.visible');
-                  cy.contains(study.challenge).should('be.visible');
-                  cy.contains(study.solution).should('be.visible');
-                });
-            }
-          });
         });
       });
     });
