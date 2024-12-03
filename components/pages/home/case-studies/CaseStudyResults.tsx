@@ -12,7 +12,7 @@ export const CaseStudyResults = ({ results }: CaseStudyResultsProps) => {
     <section className="grid grid-cols-3 gap-4">
       {results.map((result, index) => (
         <article key={index} className="text-center p-4 bg-white rounded-lg border-2 border-neutral-200">
-          <p className="font-serif text-2xl text-primary-700 mb-1 block">
+          <p className="font-serif text-2xl text-dark-800 mb-1 block">
             {result.value}
           </p>
           <p className="text-sm text-dark-600">

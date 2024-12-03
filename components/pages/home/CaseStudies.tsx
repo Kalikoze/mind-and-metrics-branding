@@ -26,9 +26,7 @@ const CaseStudies = () => {
         
         <header className="text-center mb-16">
           <h2
-            className="text-3xl md:text-4xl font-serif text-primary-400 mb-4"
-            data-cy="case-studies-title"
-          >
+              className="text-3xl md:text-4xl font-serif text-dark-800 mb-4">
             Client Success Stories
           </h2>
           <p className="text-dark-600 text-lg max-w-2xl mx-auto">
@@ -75,7 +73,7 @@ const CaseStudies = () => {
                       </figure>
 
                       <header>
-                        <h3 className="font-serif text-2xl text-primary-400 mb-2">
+                        <h3 className="font-serif text-2xl text-dark-800 mb-2">
                           {activeStudy.client}
                         </h3>
                         <p className="text-dark-600 font-medium">
@@ -85,7 +83,7 @@ const CaseStudies = () => {
 
                       <section className="space-y-4">
                         <article>
-                          <h4 className="font-serif text-lg text-primary-700 mb-2">
+                          <h4 className="font-serif text-lg text-dark-800 mb-2">
                             Challenge
                           </h4>
                           <p className="text-dark-600">
@@ -94,7 +92,7 @@ const CaseStudies = () => {
                         </article>
 
                         <article>
-                          <h4 className="font-serif text-lg text-primary-700 mb-2">
+                          <h4 className="font-serif text-lg text-dark-800 mb-2">
                             Solution
                           </h4>
                           <p className="text-dark-600">
@@ -109,7 +107,7 @@ const CaseStudies = () => {
                         {activeStudy.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="px-3 py-1 text-sm bg-neutral-50 text-dark-600 rounded-full"
+                            className="px-3 py-1 text-sm bg-white border-2 border-neutral-200 text-dark-600 rounded-full"
                           >
                             {tag}
                           </span>

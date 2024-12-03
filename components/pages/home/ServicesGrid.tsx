@@ -1,18 +1,13 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { HiOutlineArrowRight } from 'react-icons/hi2';
-import { useState } from 'react';
-import ScrambleText from '@/components/common/ScrambleText';
 import CircuitOverlay from '@/components/common/CircuitOverlay';
 import ServiceCard from './ServiceCard';
 import { homeServices } from '@/data/homeServices';
 import ScrambleButton from '@/components/common/ScrambleButton';
 
 const ServicesGrid = () => {
-  const [viewAllHovering, setViewAllHovering] = useState(false);
-
   return (
     <section data-cy="services-section" className="relative bg-neutral-50 py-20 overflow-hidden">
       <CircuitOverlay />

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { HiOutlineRocketLaunch, HiOutlineEnvelope } from 'react-icons/hi2';
+import { HiRocketLaunch, HiEnvelope } from 'react-icons/hi2';
 import BrandM from '@/public/assets/graphics/m&m-logo.svg';
 import ScrambleButton from './ScrambleButton';
 
@@ -31,7 +31,7 @@ const Hero: React.FC<HeroProps> = ({
 
   return (
     <div className="relative overflow-hidden min-h-[80vh] py-20 flex items-center" data-cy="hero-section">
-      <div className="absolute inset-0 bg-neutral-50">
+      <div className="absolute inset-0 bg-white">
         <div className="absolute inset-0 opacity-10">
           {[...Array(6)].map((_, i) => (
             <div
@@ -70,7 +70,7 @@ const Hero: React.FC<HeroProps> = ({
                 <ScrambleButton
                   text={primaryButton.text}
                   href={primaryButton.href}
-                  icon={HiOutlineRocketLaunch}
+                  icon={HiRocketLaunch}
                   variant="primary"
                   dataCy="hero-primary-cta"
                 />
@@ -80,7 +80,7 @@ const Hero: React.FC<HeroProps> = ({
                 <ScrambleButton
                   text={secondaryButton.text}
                   href={secondaryButton.href}
-                  icon={HiOutlineEnvelope}
+                  icon={HiEnvelope}
                   variant="secondary"
                   dataCy="hero-secondary-cta"
                 />

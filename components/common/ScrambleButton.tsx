@@ -25,7 +25,7 @@ const ScrambleButton: React.FC<ScrambleButtonProps> = ({
   const baseStyles = "inline-flex w-full sm:w-auto px-8 py-3.5 rounded-lg items-center justify-center space-x-2 transition-all duration-300 hover:scale-105";
 
   const variantStyles = {
-    primary: "bg-primary-300 text-white border-2 border-primary-300 hover:bg-transparent hover:text-primary-300 shadow-lg shadow-primary-300/20",
+    primary: "bg-primary-300 text-white border-2 border-primary-300 hover:bg-transparent hover:text-primary-100 shadow-lg shadow-primary-300/20",
     secondary: "bg-white/90 backdrop-blur-sm border-2 border-primary-300 text-primary-100 hover:bg-primary-100 hover:text-white shadow-lg shadow-primary-100/20"
   };
 

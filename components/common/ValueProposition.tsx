@@ -39,9 +39,10 @@ const ValueProposition: React.FC<ValuePropositionProps> = ({
       className="relative overflow-hidden bg-neutral-50 py-24"
       data-cy="value-proposition-section"
     >
+      
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2
-          className="font-serif text-4xl text-primary-400 mb-8 text-center"
+          className="font-serif text-4xl text-dark-800 mb-8 text-center"
           data-cy="value-proposition-title"
         >
           {title}
