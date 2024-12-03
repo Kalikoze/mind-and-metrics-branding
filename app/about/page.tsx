@@ -61,6 +61,7 @@ export default function About() {
   return (
     <main>
       <Hero
+        variant="about"
         title="Where Strategy, Reputation, and Results Align"
         subtitle="We create lasting partnerships with B2B leaders, delivering data-driven solutions through collaboration and precision."
       />
