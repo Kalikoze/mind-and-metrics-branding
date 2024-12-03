@@ -10,7 +10,7 @@ interface CaseStudyPreviewProps {
   onHoverChange: (isHovering: boolean) => void;
 }
 
-export const CaseStudyPreview = ({ study, isHovering, onHoverChange }: CaseStudyPreviewProps) => {
+export const CaseStudyPreview = ({ study }: CaseStudyPreviewProps) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

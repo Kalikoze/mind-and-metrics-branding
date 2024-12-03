@@ -26,7 +26,7 @@ const Hero: React.FC<HeroProps> = ({
   subtitle,
   primaryButton,
   secondaryButton,
-  variant = 'default',
+  // variant = 'default',
 }) => {
 
   return (

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   HiPuzzlePiece, 
   HiScale, 
@@ -29,7 +29,6 @@ const valueProps = [
 ];
 
 const PricingPreview = () => {
-  const [primaryHover, setPrimaryHover] = useState(false);
 
   return (
     <section data-cy="pricing-preview-section" className="bg-white py-20">
