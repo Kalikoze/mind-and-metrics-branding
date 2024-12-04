@@ -20,7 +20,7 @@ interface HeroProps {
     text: string;
     href: string;
   };
-  variant?: 'default' | 'home' | 'about' | 'services';
+  variant?: 'default' | 'home' | 'about' | 'services' | 'careers';
   overlayElements?: React.ReactNode;
 }
 
@@ -82,6 +82,26 @@ const Hero: React.FC<HeroProps> = ({
                     } 0%, transparent 90%)`,
                   clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
                   transform: `rotate(${i * 45}deg) scale(${1 + (i % 3) * 0.2})`,
+                }}
+              />
+            ))}
+          </div>
+        );
+      case 'careers':
+        return (
+          <div className="absolute inset-0 opacity-10">
+            {[...Array(10)].map((_, i) => (
+              <div
+                key={`accent-${i}`}
+                className="absolute transform transition-all duration-700 ease-in-out"
+                style={{
+                  top: `${i * 10 + 5}%`,
+                  left: `${((i + 1) % 5) * 20 + 10}%`,
+                  width: '18%',
+                  height: '18%',
+                  background: `linear-gradient(135deg, ${i % 2 ? '#5C83C1' : '#3E64A3'} 0%, transparent 85%)`,
+                  clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+                  transform: `rotate(${i * 36}deg) scale(${0.9 + (i % 3) * 0.1})`,
                 }}
               />
             ))}
@@ -197,6 +217,20 @@ const Hero: React.FC<HeroProps> = ({
               />
               <StackedCards />
             </figure>
+          ) : variant === 'careers' ? (
+            <div className="flex justify-center items-center w-full">
+              <div className="relative w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] bg-gradient-to-br from-primary-100 to-primary-400 rounded-full shadow-lg flex items-center justify-center animate-pulse">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <h3 className="text-lg sm:text-2xl font-serif text-white font-bold">Where Growth Meets Purpose</h3>
+                    <div className="h-1 w-full bg-gradient-to-r from-primary-300 to-primary-500 mx-auto mt-2 rounded-full"></div>
+                    <p className="text-sm text-white mt-2">
+                      Building Tomorrow&apos;s Leaders Today
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           ) : (
             <div className="relative w-[300px] h-[300px] sm:w-[400px] sm:h-[400px]">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary-100/20 to-primary-400/20 

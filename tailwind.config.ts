@@ -75,12 +75,17 @@ const config: Config = {
             strokeDashoffset: '0',
             opacity: '0.8'
           }
+        },
+        pulse: {
+          '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { transform: 'scale(1.05)', opacity: '0.8' },
         }
       },
       animation: {
         'draw': 'draw 8s ease-out infinite',
         'draw-delay-1': 'draw 8s ease-out infinite 1s',
         'draw-delay-2': 'draw 8s ease-out infinite 2s',
+        'pulse': 'pulse 4s infinite'
       }
     },
   },
