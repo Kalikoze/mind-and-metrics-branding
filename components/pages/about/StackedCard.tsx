@@ -4,7 +4,7 @@ const StackedCard = ({ card }: { card: AboutCard }) => {
   return (
     <div 
       className="absolute w-56 h-24 sm:w-80 sm:h-36 bg-white/60 backdrop-blur-sm 
-                 rounded-xl border border-primary-100/20 p-3 sm:p-6"
+                 rounded-xl border border-primary-100/20 shadow-lg p-3 sm:p-6"
       style={{
         top: card.position.top,
         left: card.position.left,
