@@ -4,8 +4,18 @@ interface BackgroundProps {
   variant: string;
 }
 
+// Define a type for the styles object
+interface ShapeStyles {
+  top: string;
+  left: string;
+  width: string;
+  height: string;
+  background: string;
+  transform: string;
+}
+
 export const Background: React.FC<BackgroundProps> = ({ variant }) => {
-  const renderShapes = (count: number, getStyles: (i: number) => any) => (
+  const renderShapes = (count: number, getStyles: (i: number) => ShapeStyles) => (
     <div className="absolute inset-0 opacity-10">
       {[...Array(count)].map((_, i) => (
         <AccentShape key={`accent-${i}`} {...getStyles(i)} />

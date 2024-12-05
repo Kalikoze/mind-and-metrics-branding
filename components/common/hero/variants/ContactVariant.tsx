@@ -11,7 +11,7 @@ export const ContactVariant: React.FC = () => (
   >
     <header className="text-center mb-6">
       <HiLink className="w-12 h-12 mx-auto text-primary-500 mb-2" />
-      <h2 className="text-xl font-serif text-dark-800">Let's Connect</h2>
+      <h2 className="text-xl font-serif text-dark-800">Let&apos;s Connect</h2>
       <div className="h-px w-12 bg-gradient-to-r from-primary-300 to-primary-500 mx-auto mt-2 rounded-full" 
            role="presentation" />
     </header>
