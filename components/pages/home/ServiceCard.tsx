@@ -18,7 +18,7 @@ const ServiceCard = ({ icon: Icon, title, description, id }: ServiceCardProps) =
       <figure
         data-cy="service-icon"
         className="bg-primary-400 p-4 rounded-full w-16 h-16 mb-6
-                  flex items-center justify-center"
+                  flex items-center justify-center shadow-lg"
       >
         <Icon className="w-8 h-8 text-white" aria-hidden="true" />
       </figure>

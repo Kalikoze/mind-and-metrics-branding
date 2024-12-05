@@ -59,7 +59,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ['var(--font-gfs-didot)'],
+        serif: ['var(--font-cormorant)'],
         sans: ['var(--font-jost)'],
       },
       keyframes: {

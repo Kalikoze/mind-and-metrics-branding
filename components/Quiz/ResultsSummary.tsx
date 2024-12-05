@@ -1,8 +1,7 @@
 import { calculateInvestmentRange, getQuestionById, getOptionLabel } from '@/utils/quiz/calculations';
 import { motion } from 'framer-motion';
 import { HiArrowRight, HiPencil, HiExclamationCircle, HiLightBulb, HiCheckCircle } from 'react-icons/hi2';
-import ScrambleText from '@/components/common/ScrambleText';
-import { useState } from 'react';
+import ScrambleButton from '@/components/common/ScrambleButton';
 
 interface ResultsSummaryProps {
   answers: Record<string, string[]>;
@@ -17,8 +16,6 @@ export default function ResultsSummary({
   onEdit,
   onConfirm
 }: ResultsSummaryProps) {
-  const [isHovering, setIsHovering] = useState(false);
-  const [hoveringEdit, setHoveringEdit] = useState<string | null>(null);
   const range = calculateInvestmentRange(answers, selectedBranches);
 
   const hasOverlap = (
@@ -75,22 +72,16 @@ export default function ResultsSummary({
                 <h3 className="font-medium text-dark-800 px-2" data-cy={`question-text-${questionId}`}>
                   {question.text}
                 </h3>
-                <button
-                  data-cy={`edit-button-${questionId}`}
+                <ScrambleButton
+                  text="Edit"
+                  href="#"
                   onClick={() => onEdit(questionId)}
-                  onMouseEnter={() => setHoveringEdit(questionId)}
-                  onMouseLeave={() => setHoveringEdit(null)}
-                  className="px-4 py-2 bg-transparent text-dark-600 
-                           rounded-lg flex items-center space-x-2 border-2 
-                           border-neutral-200 text-sm font-medium
-                           transition-all duration-300 hover:border-secondary-400 
-                           hover:bg-secondary-400 hover:text-white hover:shadow-lg"
-                >
-                  <HiPencil className="w-4 h-4 shrink-0" />
-                  <span className="w-[40px] text-center">
-                    <ScrambleText text="Edit" isHovering={hoveringEdit === questionId} />
-                  </span>
-                </button>
+                  icon={HiPencil}
+                  variant="secondary"
+                  dataCy={`edit-button-${questionId}`}
+                  spanWidth="40px"
+                  className="!px-4 !py-2"
+                />
               </header>
               <div 
                 className="flex flex-wrap gap-2" 
@@ -204,21 +195,16 @@ export default function ResultsSummary({
           </footer>
         </section>
 
-        <button
-          data-cy="confirm-selections"
+        <ScrambleButton
+          text="Continue to Contact Info"
+          href="#"
           onClick={onConfirm}
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-          className="w-full mt-8 px-8 py-3.5 bg-secondary-400 text-white font-medium
-                   rounded-lg flex items-center justify-center space-x-2 
-                   border-2 border-secondary-400 transition-all duration-300 
-                   hover:bg-transparent hover:text-secondary-400 hover:shadow-lg"
-        >
-          <span className="w-[200px] text-center">
-            <ScrambleText text="Continue to Contact Info" isHovering={isHovering} />
-          </span>
-          <HiArrowRight className="w-5 h-5 shrink-0" />
-        </button>
+          icon={HiArrowRight}
+          variant="primary"
+          dataCy="confirm-selections"
+          spanWidth="200px"
+          className="!w-full"
+        />
       </section>
     </motion.div>
   );

@@ -12,8 +12,8 @@ export default function QuizComponent() {
   const quiz = useQuizLogic();
 
   return (
-    <section 
-      className="relative overflow-hidden py-20 min-h-screen flex items-center justify-center" 
+    <section
+      className="relative overflow-hidden py-20 min-h-screen flex items-center justify-center"
       data-cy="quiz-section"
     >
       <CircuitOverlay />
@@ -61,8 +61,9 @@ export default function QuizComponent() {
                   onBack={quiz.handleBack}
                   showBack={quiz.showBack}
                   isEditing={quiz.isEditing}
-                  onReturnToSummary={quiz.shouldShowReturnToSummary() ? quiz.handleReturnToSummary : undefined}
+                  onReturnToSummary={quiz.shouldShowReturnToSummary() ? quiz.handleReturnToSummary : () => {}}
                   editingPrimaryWithChanges={quiz.editingPrimaryWithChanges}
+                  returnToSummaryDisabled={!quiz.shouldShowReturnToSummary()}
                 />
               )
             ) : (
@@ -80,9 +81,8 @@ export default function QuizComponent() {
               aria-valuenow={index < quiz.questionPath.length - 1 ? 1 : 0}
               aria-valuemin={0}
               aria-valuemax={1}
-              className={`h-1 w-8 rounded-full transition-all duration-300 ${
-                index < quiz.questionPath.length - 1 ? 'bg-secondary-400' : 'bg-neutral-200'
-              }`}
+              className={`h-1 w-8 rounded-full transition-all duration-300 ${index < quiz.questionPath.length - 1 ? 'bg-secondary-400' : 'bg-neutral-200'
+                }`}
             />
           ))}
         </footer>

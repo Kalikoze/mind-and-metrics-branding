@@ -21,8 +21,8 @@ const WorkCulture = () => {
               className="bg-neutral-50 rounded-lg p-8 border-2 border-neutral-200 flex flex-col items-center text-center"
               data-cy={`culture-point-${index}`}
             >
-              <span className="bg-white p-4 rounded-full mb-6 border-2 border-neutral-200">
-                <point.icon className="w-8 h-8 text-secondary-400" />
+              <span className="bg-white p-4 rounded-full mb-6">
+                <point.icon className="w-8 h-8 text-primary-400" />
               </span>
               <h3 className="font-serif text-xl text-dark-800 mb-4">
                 {point.title}

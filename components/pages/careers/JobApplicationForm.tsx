@@ -7,7 +7,7 @@ import { HiExclamationCircle, HiArrowRight, HiXMark, HiOutlineCloudArrowUp, HiOu
 import { usePhoneFormat } from '@/hooks/usePhoneFormat';
 import { toast } from 'react-toastify';
 import { CustomToast } from '@/components/common/Notifications/CustomToast';
-import ScrambleText from '@/components/common/ScrambleText';
+import ScrambleButton from '@/components/common/ScrambleButton';
 import type { Position } from '@/data/positions';
 import { useDropzone } from 'react-dropzone';
 import Link from 'next/link';
@@ -34,12 +34,12 @@ interface JobApplicationFormProps {
   onCancel: () => void;
 }
 
-const ResumeUpload = ({ 
-  onChange, 
-  value, 
-  isSubmitted, 
-  error 
-}: { 
+const ResumeUpload = ({
+  onChange,
+  value,
+  isSubmitted,
+  error
+}: {
   onChange: (files: File[]) => void;
   value: FileList | null;
   isSubmitted: boolean;
@@ -71,21 +71,21 @@ const ResumeUpload = ({
                 : 'border-neutral-200 hover:border-secondary-400'}
               ${fileRejections.length > 0 || (isSubmitted && error) ? 'border-red-400 bg-red-50' : ''}`}
           >
-            <input 
-              {...getInputProps()} 
+            <input
+              {...getInputProps()}
               data-cy="resume-input"
               id="resume-upload-input"
               aria-label="Upload resume file"
             />
             <div className="text-center">
               <HiOutlineCloudArrowUp className={`mx-auto h-12 w-12 transition-colors duration-300
-                ${isDragActive ? 'text-secondary-500' : 'text-secondary-400'}
+                text-primary-400
                 ${fileRejections.length > 0 ? 'text-red-400' : ''}`}
               />
-              <p className="mt-2 text-sm text-secondary-500">
+              <p className="mt-2 text-sm text-dark-800">
                 <span className="font-semibold">Click to upload</span> or drag and drop
               </p>
-              <p className="mt-1 text-xs text-secondary-500">
+              <p className="mt-1 text-xs text-dark-500">
                 PDF, DOC, or DOCX up to 5MB
               </p>
             </div>
@@ -111,27 +111,34 @@ const ResumeUpload = ({
           )}
         </>
       ) : (
-        <div 
+        <div
           className="flex items-center justify-between p-4 border rounded-lg bg-neutral-50"
           data-cy="resume-preview"
         >
           <div className="flex items-center">
-            <HiOutlineDocumentText className="h-6 w-6 text-secondary-400" />
-            <span className="ml-2 text-sm text-secondary-500" data-cy="resume-filename">
+            <HiOutlineDocumentText className="h-6 w-6 text-primary-400" />
+            <span className="ml-2 text-sm text-dark-800" data-cy="resume-filename">
               {value[0].name}
             </span>
           </div>
           <div className="flex items-center">
-            <span className="text-sm text-secondary-500 mr-4" data-cy="resume-size">
+            <span className="text-sm text-dark-800 mr-4" data-cy="resume-size">
               {(value[0].size / (1024 * 1024)).toFixed(2)} MB
             </span>
-            <button
+            <motion.button
               onClick={() => onChange([])}
-              className="text-secondary-400 hover:text-secondary-500"
+              className="text-primary-400"
               data-cy="resume-remove"
+              variants={{
+                hover: {
+                  y: -2,
+                  transition: { type: "spring", stiffness: 400 }
+                }
+              }}
+              whileHover="hover"
             >
               <HiXMark className="h-5 w-5" />
-            </button>
+            </motion.button>
           </div>
         </div>
       )}
@@ -140,7 +147,6 @@ const ResumeUpload = ({
 };
 
 export default function JobApplicationForm({ position, onCancel }: JobApplicationFormProps) {
-  const [isHovering, setIsHovering] = useState(false);
   const { handlePhoneChange } = usePhoneFormat();
   const {
     register,
@@ -153,7 +159,6 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
     reValidateMode: 'onChange'
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [isCancelHovering, setIsCancelHovering] = useState(false);
 
   const handleCancel = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -220,7 +225,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
 
           <motion.button
             onClick={handleCancel}
-            className="text-secondary-400 hover:text-secondary-500 transition-colors"
+            className="text-primary-400 transition-colors"
             variants={{
               hover: {
                 y: -2,
@@ -469,7 +474,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             Earliest Available Start Date *
           </label>
           <input
-            {...register('startDate', { 
+            {...register('startDate', {
               required: 'Start date is required',
               validate: (value) => {
                 const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
@@ -612,8 +617,8 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                 }}
                 whileHover="hover"
               >
-                <Link 
-                  href="/privacy-policy" 
+                <Link
+                  href="/privacy-policy"
                   className="text-secondary-400 underline"
                 >
                   Privacy Policy
@@ -631,53 +636,23 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
 
         {/* Form Actions */}
         <div className="flex flex-col-reverse sm:flex-row justify-between items-center gap-4 pt-6">
-          <motion.button
-            type="button"
+          <ScrambleButton
+            text="Cancel"
+            icon={HiArrowLeft}
+            variant="secondary"
+            dataCy="cancel-button"
             onClick={handleCancel}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onMouseEnter={() => setIsCancelHovering(true)}
-            onMouseLeave={() => setIsCancelHovering(false)}
-            className="w-full sm:w-auto px-8 py-3.5 bg-transparent text-dark-600 font-medium
-                     rounded-lg flex items-center justify-center space-x-2 border-2 border-neutral-200
-                     transition-all duration-300 hover:border-secondary-400 hover:bg-secondary-400 
-                     hover:text-white hover:shadow-lg"
-            data-cy="cancel-button"
-          >
-            <HiArrowLeft className="w-5 h-5 shrink-0" />
-            <span className="w-[80px] text-center">
-              <ScrambleText text="Cancel" isHovering={isCancelHovering} />
-            </span>
-          </motion.button>
+          />
 
-          <motion.button
+          <ScrambleButton
+            text={isLoading ? "Sending..." : "Submit"}
+            icon={HiArrowRight}
+            variant="primary"
+            dataCy="submit-button"
             type="submit"
             disabled={isLoading || (isSubmitted && Object.keys(errors).length > 0)}
-            whileHover={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 1.05 } : undefined}
-            whileTap={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 0.95 } : undefined}
-            className={`w-full sm:w-auto px-8 py-3.5 font-medium rounded-lg flex items-center justify-center space-x-3 
-                     border-2 transition-all duration-300 ${
-                       isLoading || (isSubmitted && Object.keys(errors).length > 0)
-                         ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
-                         : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'
-                     }`}
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
-            data-cy="submit-button"
-          >
-            <span className="w-[80px] text-center">
-              <ScrambleText
-                text={isLoading ? "Sending..." : "Submit"}
-                isHovering={isHovering && !isLoading && (!isSubmitted || Object.keys(errors).length === 0)}
-              />
-            </span>
-            {isLoading ? (
-              <div className="w-5 h-5 border-2 border-neutral-300 border-t-transparent 
-                      rounded-full animate-spin" />
-            ) : (
-              <HiArrowRight className="w-5 h-5 shrink-0" />
-            )}
-          </motion.button>
+            isLoading={isLoading}
+          />
         </div>
       </form>
     </div>

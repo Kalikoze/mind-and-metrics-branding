@@ -1,16 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { HiArrowRight } from 'react-icons/hi';
-import ScrambleText from '@/components/common/ScrambleText';
+import ScrambleButton from '@/components/common/ScrambleButton';
 
 interface CompletionMessageProps {
   preferredContact: 'email' | 'phone' | null;
 }
 
 export default function CompletionMessage({ preferredContact }: CompletionMessageProps) {
-  const [isHomeHovering, setIsHomeHovering] = useState(false);
 
   return (
     <motion.section
@@ -79,23 +77,15 @@ export default function CompletionMessage({ preferredContact }: CompletionMessag
           </motion.span>
         </p>
 
-        <motion.button
-          onClick={() => window.location.href = '/'}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onMouseEnter={() => setIsHomeHovering(true)}
-          onMouseLeave={() => setIsHomeHovering(false)}
-          className="px-8 py-3.5 bg-secondary-400 text-white font-medium
-                   rounded-lg flex items-center justify-center space-x-2 mx-auto
-                   border-2 border-secondary-400 transition-all duration-300
-                   hover:bg-transparent hover:text-secondary-400"
-          data-cy="return-home-button"
-        >
-          <span className="w-[120px] text-center">
-            <ScrambleText text="Return to Home" isHovering={isHomeHovering} />
-          </span>
-          <HiArrowRight className="w-5 h-5" />
-        </motion.button>
+        <ScrambleButton
+          text="Return to Home"
+          href="/"
+          icon={HiArrowRight}
+          variant="primary"
+          dataCy="return-home-button"
+          spanWidth="120px"
+          className="mx-auto"
+        />
       </footer>
     </motion.section>
   );

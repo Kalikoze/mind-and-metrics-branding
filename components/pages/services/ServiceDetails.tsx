@@ -22,10 +22,13 @@ const ServiceDetails = () => {
             <header className="text-center mb-16">
               <figure
                 data-cy={`service-icon-${service.id}`}
-                className="bg-white p-8 rounded-full w-32 h-32 mb-8 mx-auto
+                className={`${
+                  index % 2 === 0 ? 'bg-white' : 'bg-primary-400'
+                } p-8 rounded-full w-32 h-32 mb-8 mx-auto
                           flex items-center justify-center
-                          shadow-lg border-2 border-neutral-200">
-                <service.icon className="w-16 h-16 text-secondary-400" />
+                          shadow-lg`}
+              >
+                <service.icon className={`w-16 h-16 ${index % 2 === 0 ? 'text-primary-400' : 'text-white'}`} />
               </figure>
               <h2
                 data-cy={`service-title-${service.id}`}

@@ -10,9 +10,9 @@ export const ContactVariant: React.FC = () => (
                border border-primary-100/20 shadow-lg p-6"
   >
     <header className="text-center mb-6">
-      <HiLink className="w-12 h-12 mx-auto text-primary-500 mb-2" />
+      <HiLink className="w-12 h-12 mx-auto text-primary-400 mb-2" />
       <h2 className="text-xl font-serif text-dark-800">Let&apos;s Connect</h2>
-      <div className="h-px w-12 bg-gradient-to-r from-primary-300 to-primary-500 mx-auto mt-2 rounded-full" 
+      <div className="h-px w-12 bg-gradient-to-r from-primary-300 to-primary-400 mx-auto mt-2 rounded-full" 
            role="presentation" />
     </header>
 
@@ -57,7 +57,7 @@ export const ContactVariant: React.FC = () => (
             href={social.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary-500 hover:text-primary-600 transition-all duration-300 group"
+            className="text-primary-400 hover:text-primary-400 transition-all duration-300 group"
             aria-label={social.name}
           >
             <div className="relative w-8 h-8">

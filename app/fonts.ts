@@ -1,10 +1,10 @@
-import { GFS_Didot, Jost } from 'next/font/google'
+import { Cormorant_Garamond, Jost } from 'next/font/google'
 
-export const gfsDidot = GFS_Didot({
-  weight: '400',
-  subsets: ['greek'],
+export const cormorantGaramond = Cormorant_Garamond({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
   display: 'swap',
-  variable: '--font-gfs-didot',
+  variable: '--font-cormorant',
 })
 
 export const jost = Jost({

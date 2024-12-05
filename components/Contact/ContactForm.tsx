@@ -8,7 +8,7 @@ import { HiExclamationCircle, HiArrowRight } from 'react-icons/hi2';
 import { usePhoneFormat } from '@/hooks/usePhoneFormat';
 import { toast } from 'react-toastify';
 import { CustomToast } from '@/components/common/Notifications/CustomToast';
-import ScrambleText from '@/components/common/ScrambleText';
+import ScrambleButton from '@/components/common/ScrambleButton';
 
 interface ContactFormData {
   firstName: string;
@@ -22,7 +22,6 @@ interface ContactFormData {
 }
 
 export default function ContactForm() {
-  const [isHovering, setIsHovering] = useState(false);
   const { handlePhoneChange } = usePhoneFormat();
   const {
     register,
@@ -315,8 +314,8 @@ export default function ContactForm() {
                 }}
                 whileHover="hover"
               >
-                <Link 
-                  href="/privacy-policy" 
+                <Link
+                  href="/privacy-policy"
                   className="text-secondary-400 underline"
                 >
                   Privacy Policy
@@ -332,33 +331,16 @@ export default function ContactForm() {
           )}
         </div>
 
-        <motion.button
+        <ScrambleButton
+          text={isLoading ? "Sending..." : "Submit"}
+          icon={HiArrowRight}
+          variant="primary"
           type="submit"
-          data-cy="submit-form"
+          dataCy="submit-form"
           disabled={isLoading || (isSubmitted && Object.keys(errors).length > 0)}
-          whileHover={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 1.05 } : undefined}
-          whileTap={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 0.95 } : undefined}
-          className={`w-full px-8 py-3.5 font-medium rounded-lg flex items-center justify-center space-x-3 
-                     border-2 transition-all duration-300 ${isLoading || (isSubmitted && Object.keys(errors).length > 0)
-              ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
-              : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'
-            }`}
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-        >
-          <span className="w-[80px] text-center">
-            <ScrambleText
-              text={isLoading ? "Sending..." : "Submit"}
-              isHovering={isHovering && !isLoading && (!isSubmitted || Object.keys(errors).length === 0)}
-            />
-          </span>
-          {isLoading ? (
-            <div className="w-5 h-5 border-2 border-neutral-300 border-t-transparent 
-                          rounded-full animate-spin" />
-          ) : (
-            <HiArrowRight className="w-5 h-5 shrink-0" />
-          )}
-        </motion.button>
+          className="!w-full"
+          isLoading={isLoading}
+        />
       </form>
     </div>
   );
