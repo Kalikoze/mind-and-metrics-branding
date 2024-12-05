@@ -61,8 +61,9 @@ export default function QuizComponent() {
                   onBack={quiz.handleBack}
                   showBack={quiz.showBack}
                   isEditing={quiz.isEditing}
-                  onReturnToSummary={quiz.handleReturnToSummary}
+                  onReturnToSummary={quiz.shouldShowReturnToSummary() ? quiz.handleReturnToSummary : () => {}}
                   editingPrimaryWithChanges={quiz.editingPrimaryWithChanges}
+                  returnToSummaryDisabled={!quiz.shouldShowReturnToSummary()}
                 />
               )
             ) : (

@@ -11,6 +11,9 @@ interface ScrambleButtonProps {
   icon: IconType;
   variant: 'primary' | 'secondary';
   dataCy?: string;
+  spanWidth?: string;
+  onClick?: () => void;
+  className?: string;
 }
 
 const ScrambleButton: React.FC<ScrambleButtonProps> = ({
@@ -19,6 +22,9 @@ const ScrambleButton: React.FC<ScrambleButtonProps> = ({
   icon: Icon,
   variant,
   dataCy,
+  spanWidth = '120px',
+  onClick,
+  className = '',
 }) => {
   const [isHovering, setIsHovering] = useState(false);
 
@@ -35,16 +41,22 @@ const ScrambleButton: React.FC<ScrambleButtonProps> = ({
     <Link
       href={href}
       data-cy={dataCy}
+      onClick={(e) => {
+        if (onClick) {
+          e.preventDefault();
+          onClick();
+        }
+      }}
       {...isExternal && {
         target: "_blank",
         rel: "noopener noreferrer"
       }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
-      className={`${baseStyles} ${variantStyles[variant]}`}
+      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
     >
       <Icon className="w-5 h-5 shrink-0" />
-      <span className="w-[120px] text-center">
+      <span className={`w-[${spanWidth}] text-center`}>
         <ScrambleText text={text} isHovering={isHovering} />
       </span>
     </Link>

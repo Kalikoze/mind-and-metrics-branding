@@ -9,6 +9,7 @@ interface NavigationButtonsProps {
   onContinue: () => void;
   isEditing?: boolean;
   onReturnToSummary: () => void;
+  returnToSummaryDisabled?: boolean;
 }
 
 export default function NavigationButtons({
@@ -18,6 +19,7 @@ export default function NavigationButtons({
   onContinue,
   isEditing,
   onReturnToSummary,
+  returnToSummaryDisabled,
 }: NavigationButtonsProps) {
   return (
     <nav className="flex flex-col-reverse sm:flex-row justify-between items-center gap-4" aria-label="Question navigation">
@@ -50,7 +52,7 @@ export default function NavigationButtons({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
             transition={{ duration: 0.2 }}
-            disabled={!onReturnToSummary}
+            disabled={returnToSummaryDisabled}
             dataCy="return-to-summary"
             spanWidth="140px"
           />

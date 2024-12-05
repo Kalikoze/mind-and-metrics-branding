@@ -9,8 +9,9 @@ interface QuizQuestionProps {
   onBack: () => void;
   showBack: boolean;
   isEditing?: boolean;
-  onReturnToSummary?: () => void;
+  onReturnToSummary: () => void;
   editingPrimaryWithChanges?: boolean;
+  returnToSummaryDisabled?: boolean;
 }
 
 export default function QuizQuestion({
@@ -21,7 +22,8 @@ export default function QuizQuestion({
   showBack,
   isEditing,
   onReturnToSummary,
-  editingPrimaryWithChanges
+  editingPrimaryWithChanges,
+  returnToSummaryDisabled
 }: QuizQuestionProps) {
   const isSelected = (value: string) => selectedAnswers.includes(value);
   const canContinue = question.skipable || selectedAnswers.length > 0;
@@ -95,6 +97,7 @@ export default function QuizQuestion({
           onContinue={() => onAnswer(question.id, 'NEXT')}
           isEditing={isEditing}
           onReturnToSummary={onReturnToSummary}
+          returnToSummaryDisabled={returnToSummaryDisabled}
         />
       </footer>
     </article>
