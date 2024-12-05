@@ -54,6 +54,7 @@ export default function Careers() {
   return (
     <main>
       <Hero
+        variant='careers'
         title="Shape the Future of Digital Excellence"
         subtitle="Join a team dedicated to transforming brands through strategy, creativity, and innovation"
       />

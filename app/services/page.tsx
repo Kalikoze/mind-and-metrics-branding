@@ -33,6 +33,7 @@ export default function Services() {
   return (
     <main>
       <Hero
+        variant="services"
         title="Strategic Solutions for Business Growth"
         subtitle="Comprehensive B2B services designed to transform your digital presence and drive measurable results."
       />

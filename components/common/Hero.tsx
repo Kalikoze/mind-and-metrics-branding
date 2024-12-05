@@ -1,10 +1,16 @@
 'use client';
 
-import React from 'react';
-import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 import { HiRocketLaunch, HiEnvelope } from 'react-icons/hi2';
-import BrandM from '@/public/assets/graphics/m&m-logo.svg';
 import ScrambleButton from './ScrambleButton';
+import { serviceDetails } from '@/data/serviceDetails';
+import { Background } from './hero/Background';
+import { ServicesVariant } from './hero/variants/ServicesVariant';
+import { AboutVariant } from './hero/variants/AboutVariant';
+import { CareersVariant } from './hero/variants/CareersVariant';
+import { ContactVariant } from './hero/variants/ContactVariant';
+import { DefaultVariant } from './hero/variants/DefaultVariant';
+import { PrivacyPolicyVariant } from './hero/variants/PrivacyPolicyVariant';
 
 interface HeroProps {
   title: string;
@@ -17,8 +23,7 @@ interface HeroProps {
     text: string;
     href: string;
   };
-  variant?: 'default' | 'home' | 'about';
-  overlayElements?: React.ReactNode;
+  variant?: 'default' | 'home' | 'about' | 'services' | 'careers' | 'contact' | 'privacy';
 }
 
 const Hero: React.FC<HeroProps> = ({
@@ -26,46 +31,69 @@ const Hero: React.FC<HeroProps> = ({
   subtitle,
   primaryButton,
   secondaryButton,
-  // variant = 'default',
+  variant = 'default',
 }) => {
+  const [activeService, setActiveService] = useState(0);
+
+  useEffect(() => {
+    if (variant !== 'services') return;
+
+    const interval = setInterval(() => {
+      setActiveService((prev) => (prev + 1) % serviceDetails.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [variant]);
+
+  const renderVariant = () => {
+    switch (variant) {
+      case 'services':
+        return <ServicesVariant activeService={activeService} />;
+      case 'about':
+        return <AboutVariant />;
+      case 'careers':
+        return <CareersVariant />;
+      case 'contact':
+        return <ContactVariant />;
+      case 'privacy':
+        return <PrivacyPolicyVariant />;
+      default:
+        return <DefaultVariant />;
+    }
+  };
 
   return (
-    <div className="relative overflow-hidden min-h-[80vh] py-20 flex items-center" data-cy="hero-section">
-      <div className="absolute inset-0 bg-white">
-        <div className="absolute inset-0 opacity-10">
-          {[...Array(6)].map((_, i) => (
-            <div
-              key={`accent-${i}`}
-              className="absolute transform"
-              style={{
-                top: `${i * 15 + 10}%`,
-                left: `${((i + 1) % 3) * 30 + 20}%`,
-                width: '20%',
-                height: '20%',
-                background: `linear-gradient(145deg, ${i % 2 ? '#436EB1' : '#2D4976'} 0%, transparent 80%)`,
-                clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
-                transform: `rotate(${i * 30}deg)`,
-              }}
-            />
-          ))}
-        </div>
+    <section className="relative overflow-hidden min-h-[80vh] py-20 flex items-center" data-cy="hero-section">
+      <div className="absolute inset-0 bg-white" aria-hidden="true">
+        <Background variant={variant} />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center">
-        <div className="max-w-3xl mx-auto text-center md:text-left md:w-1/2">
-          <h1 data-cy="hero-title" 
-              className="font-serif text-4xl sm:text-6xl font-bold mb-6
-                        [text-wrap:balance] bg-clip-text text-transparent 
-                        bg-gradient-to-r from-primary-100 to-primary-500">
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex 
+        ${['about'].includes(variant) 
+          ? 'flex-col md:flex-row' 
+          : 'flex-col-reverse md:flex-row'
+        } items-center`}>
+        <header className="max-w-3xl mx-auto text-center md:text-left md:w-1/2">
+          <h1
+            data-cy="hero-title"
+            className="font-serif text-4xl sm:text-6xl font-bold mb-6
+                      [text-wrap:balance] bg-clip-text text-transparent 
+                      bg-gradient-to-r from-primary-100 to-primary-500 p-2"
+          >
             {title}
           </h1>
-          <h2 data-cy="hero-subtitle" 
-              className="font-sans text-xl sm:text-2xl text-dark-600 mb-12">
+          <p
+            data-cy="hero-subtitle"
+            className="font-sans text-xl sm:text-2xl text-dark-600 mb-12"
+          >
             {subtitle}
-          </h2>
+          </p>
 
           {(primaryButton || secondaryButton) && (
-            <div className="flex flex-col sm:flex-row items-center justify-start gap-4 sm:space-y-0">
+            <nav 
+              className="flex flex-col sm:flex-row items-center justify-start gap-4 sm:space-y-0"
+              aria-label="Hero actions"
+            >
               {primaryButton && (
                 <ScrambleButton
                   text={primaryButton.text}
@@ -85,24 +113,19 @@ const Hero: React.FC<HeroProps> = ({
                   dataCy="hero-secondary-cta"
                 />
               )}
-            </div>
+            </nav>
           )}
-        </div>
-        <div className="md:w-1/2 flex justify-center mt-8 md:mt-0">
-          <div className="relative w-[300px] h-[300px] sm:w-[400px] sm:h-[400px]">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary-100/20 to-primary-400/20 
-                          rounded-full filter blur-3xl transform -rotate-12" />
-            <Image 
-              src={BrandM} 
-              alt="Brand M" 
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
-        </div>
+        </header>
+
+        <section className={`md:w-1/2 flex justify-center w-full 
+          ${['about'].includes(variant) 
+            ? 'mt-8 md:mt-0' 
+            : 'mb-8 md:mb-0'
+          }`}>
+          {renderVariant()}
+        </section>
       </div>
-    </div>
+    </section>
   );
 };
 
