@@ -23,7 +23,6 @@ const SectionHeading = ({ children }: { children: React.ReactNode }) => (
 const JobPostingTemplate = ({ position }: JobPostingTemplateProps) => {
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const [hoveringBack, setHoveringBack] = useState(false);
-  const [hoveringApply, setHoveringApply] = useState(false);
   const sections = getJobSections(position);
 
   useEffect(() => {
@@ -59,8 +58,6 @@ const JobPostingTemplate = ({ position }: JobPostingTemplateProps) => {
               </div>
 
               <JobPostingFooter
-                hoveringApply={hoveringApply}
-                setHoveringApply={setHoveringApply}
                 onApplyClick={() => setShowApplicationForm(true)}
               />
             </section>

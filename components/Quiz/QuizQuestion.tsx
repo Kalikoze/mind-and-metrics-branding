@@ -27,22 +27,22 @@ export default function QuizQuestion({
   const canContinue = question.skipable || selectedAnswers.length > 0;
 
   return (
-    <article 
+    <article
       className="bg-white rounded-lg p-8 border-2 border-neutral-200
                  transition-all duration-300 hover:border-secondary-400
-                 hover:shadow-lg w-full min-h-[500px] sm:min-h-0" 
+                 hover:shadow-lg w-full min-h-[500px] sm:min-h-0"
       data-cy="question-container"
     >
       <header className="mb-6">
-        <h2 
-          className="font-serif text-2xl text-dark-800 mb-2" 
+        <h2
+          className="font-serif text-2xl text-dark-800 mb-2"
           data-cy="question-title"
         >
           {question.text}
         </h2>
-        
+
         {editingPrimaryWithChanges && (
-          <p 
+          <p
             className="text-sm text-amber-600 mt-2"
             data-cy="editing-warning"
             role="alert"
@@ -50,14 +50,14 @@ export default function QuizQuestion({
             Note: Changing your selections here will require answering new questions for your selected services.
           </p>
         )}
-        
+
         {(question.skipable || question.multiSelect) && (
-          <p 
+          <p
             className="text-lg italic text-dark-600 mt-1"
             data-cy={question.skipable ? "skipable-note" : "multiselect-note"}
           >
             {question.skipable
-              ? question.multiSelect 
+              ? question.multiSelect
                 ? "(Optional - Select all that apply)"
                 : "(Optional - Click continue to skip)"
               : "(Select all that apply)"
@@ -66,8 +66,8 @@ export default function QuizQuestion({
         )}
       </header>
 
-      <fieldset 
-        className="grid gap-4" 
+      <fieldset
+        className="grid gap-4"
         data-cy="options-container"
         role="radiogroup"
         aria-label={question.text}
@@ -84,8 +84,8 @@ export default function QuizQuestion({
         ))}
       </fieldset>
 
-      <footer 
-        className="mt-8 sm:h-[76px]" 
+      <footer
+        className="mt-8 sm:h-[76px]"
         data-cy="navigation-container"
       >
         <NavigationButtons

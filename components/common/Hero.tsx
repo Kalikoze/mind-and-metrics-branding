@@ -69,7 +69,7 @@ const Hero: React.FC<HeroProps> = ({
       </div>
 
       <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex 
-        ${['about'].includes(variant) 
+        ${[].includes(variant) 
           ? 'flex-col md:flex-row' 
           : 'flex-col-reverse md:flex-row'
         } items-center`}>

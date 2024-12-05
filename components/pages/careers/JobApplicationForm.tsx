@@ -631,53 +631,24 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
 
         {/* Form Actions */}
         <div className="flex flex-col-reverse sm:flex-row justify-between items-center gap-4 pt-6">
-          <motion.button
-            type="button"
+          <ScrambleButton
+            text="Cancel"
+            href="#"
+            icon={HiArrowLeft}
+            variant="secondary"
+            dataCy="cancel-button"
             onClick={handleCancel}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onMouseEnter={() => setIsCancelHovering(true)}
-            onMouseLeave={() => setIsCancelHovering(false)}
-            className="w-full sm:w-auto px-8 py-3.5 bg-transparent text-dark-600 font-medium
-                     rounded-lg flex items-center justify-center space-x-2 border-2 border-neutral-200
-                     transition-all duration-300 hover:border-secondary-400 hover:bg-secondary-400 
-                     hover:text-white hover:shadow-lg"
-            data-cy="cancel-button"
-          >
-            <HiArrowLeft className="w-5 h-5 shrink-0" />
-            <span className="w-[80px] text-center">
-              <ScrambleText text="Cancel" isHovering={isCancelHovering} />
-            </span>
-          </motion.button>
+          />
 
-          <motion.button
-            type="submit"
+          <ScrambleButton
+            text={isLoading ? "Sending..." : "Submit"}
+            href="#"
+            icon={HiArrowRight}
+            variant="primary"
+            dataCy="submit-button"
+            onClick={handleSubmit(onSubmit)}
             disabled={isLoading || (isSubmitted && Object.keys(errors).length > 0)}
-            whileHover={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 1.05 } : undefined}
-            whileTap={!isLoading && (!isSubmitted || Object.keys(errors).length === 0) ? { scale: 0.95 } : undefined}
-            className={`w-full sm:w-auto px-8 py-3.5 font-medium rounded-lg flex items-center justify-center space-x-3 
-                     border-2 transition-all duration-300 ${
-                       isLoading || (isSubmitted && Object.keys(errors).length > 0)
-                         ? 'bg-transparent text-neutral-300 border-neutral-300 cursor-not-allowed'
-                         : 'bg-secondary-400 text-white border-secondary-400 hover:bg-transparent hover:text-secondary-400'
-                     }`}
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
-            data-cy="submit-button"
-          >
-            <span className="w-[80px] text-center">
-              <ScrambleText
-                text={isLoading ? "Sending..." : "Submit"}
-                isHovering={isHovering && !isLoading && (!isSubmitted || Object.keys(errors).length === 0)}
-              />
-            </span>
-            {isLoading ? (
-              <div className="w-5 h-5 border-2 border-neutral-300 border-t-transparent 
-                      rounded-full animate-spin" />
-            ) : (
-              <HiArrowRight className="w-5 h-5 shrink-0" />
-            )}
-          </motion.button>
+          />
         </div>
       </form>
     </div>

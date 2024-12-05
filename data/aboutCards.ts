@@ -44,14 +44,4 @@ export const aboutCards: AboutCard[] = [
     },
     rotation: -3
   },
-  {
-    icon: HiChartBar,
-    title: "Measurable Impact",
-    subtitle: "Results That Matter",
-    position: {
-      top: "14rem",
-      left: "2rem"
-    },
-    rotation: 6
-  }
 ]; 
