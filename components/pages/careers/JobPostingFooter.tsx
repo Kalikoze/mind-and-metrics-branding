@@ -13,7 +13,7 @@ const JobPostingFooter = ({ onApplyClick }: JobPostingFooterProps) => (
         text="Apply Now"
         href="#"
         icon={HiOutlinePaperAirplane}
-        variant="secondary"
+        variant="primary"
         dataCy="apply-button"
       />
     </div>

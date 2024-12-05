@@ -150,8 +150,8 @@ const MainNav = () => {
                 href={item.href}
                 className={`block px-3 py-2 rounded-md text-base font-sans
                   ${(pathname === item.href || (item.href === '/careers' && pathname.startsWith('/careers')))
-                    ? 'text-dark-900 font-semibold bg-neutral-100'
-                    : 'text-dark-600 hover:text-dark-800 hover:bg-neutral-50'}
+                    ? 'text-dark-900 font-semibold bg-primary-800/15'
+                    : 'text-dark-600 hover:text-dark-800 hover:bg-primary-800/5'}
                   flex items-center space-x-3`}
                 onClick={() => setIsMenuOpen(false)}
               >

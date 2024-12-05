@@ -59,7 +59,7 @@ const MotionScrambleButton = ({
       data-cy={dataCy}
     >
       <Icon className="w-5 h-5 shrink-0" aria-hidden="true" />
-      <span className={`text-center w-[${spanWidth}]`}>
+      <span style={{ width: spanWidth }} className="text-center">
         <ScrambleText text={text} isHovering={isHovering && !disabled} />
       </span>
     </motion.button>

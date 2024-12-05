@@ -7,7 +7,7 @@ import { HiExclamationCircle, HiArrowRight, HiXMark, HiOutlineCloudArrowUp, HiOu
 import { usePhoneFormat } from '@/hooks/usePhoneFormat';
 import { toast } from 'react-toastify';
 import { CustomToast } from '@/components/common/Notifications/CustomToast';
-import ScrambleText from '@/components/common/ScrambleText';
+import ScrambleButton from '@/components/common/ScrambleButton';
 import type { Position } from '@/data/positions';
 import { useDropzone } from 'react-dropzone';
 import Link from 'next/link';
@@ -34,12 +34,12 @@ interface JobApplicationFormProps {
   onCancel: () => void;
 }
 
-const ResumeUpload = ({ 
-  onChange, 
-  value, 
-  isSubmitted, 
-  error 
-}: { 
+const ResumeUpload = ({
+  onChange,
+  value,
+  isSubmitted,
+  error
+}: {
   onChange: (files: File[]) => void;
   value: FileList | null;
   isSubmitted: boolean;
@@ -71,21 +71,21 @@ const ResumeUpload = ({
                 : 'border-neutral-200 hover:border-secondary-400'}
               ${fileRejections.length > 0 || (isSubmitted && error) ? 'border-red-400 bg-red-50' : ''}`}
           >
-            <input 
-              {...getInputProps()} 
+            <input
+              {...getInputProps()}
               data-cy="resume-input"
               id="resume-upload-input"
               aria-label="Upload resume file"
             />
             <div className="text-center">
               <HiOutlineCloudArrowUp className={`mx-auto h-12 w-12 transition-colors duration-300
-                ${isDragActive ? 'text-secondary-500' : 'text-secondary-400'}
+                text-primary-400
                 ${fileRejections.length > 0 ? 'text-red-400' : ''}`}
               />
-              <p className="mt-2 text-sm text-secondary-500">
+              <p className="mt-2 text-sm text-dark-800">
                 <span className="font-semibold">Click to upload</span> or drag and drop
               </p>
-              <p className="mt-1 text-xs text-secondary-500">
+              <p className="mt-1 text-xs text-dark-500">
                 PDF, DOC, or DOCX up to 5MB
               </p>
             </div>
@@ -111,27 +111,34 @@ const ResumeUpload = ({
           )}
         </>
       ) : (
-        <div 
+        <div
           className="flex items-center justify-between p-4 border rounded-lg bg-neutral-50"
           data-cy="resume-preview"
         >
           <div className="flex items-center">
-            <HiOutlineDocumentText className="h-6 w-6 text-secondary-400" />
-            <span className="ml-2 text-sm text-secondary-500" data-cy="resume-filename">
+            <HiOutlineDocumentText className="h-6 w-6 text-primary-400" />
+            <span className="ml-2 text-sm text-dark-800" data-cy="resume-filename">
               {value[0].name}
             </span>
           </div>
           <div className="flex items-center">
-            <span className="text-sm text-secondary-500 mr-4" data-cy="resume-size">
+            <span className="text-sm text-dark-800 mr-4" data-cy="resume-size">
               {(value[0].size / (1024 * 1024)).toFixed(2)} MB
             </span>
-            <button
+            <motion.button
               onClick={() => onChange([])}
-              className="text-secondary-400 hover:text-secondary-500"
+              className="text-primary-400"
               data-cy="resume-remove"
+              variants={{
+                hover: {
+                  y: -2,
+                  transition: { type: "spring", stiffness: 400 }
+                }
+              }}
+              whileHover="hover"
             >
               <HiXMark className="h-5 w-5" />
-            </button>
+            </motion.button>
           </div>
         </div>
       )}
@@ -140,7 +147,6 @@ const ResumeUpload = ({
 };
 
 export default function JobApplicationForm({ position, onCancel }: JobApplicationFormProps) {
-  const [isHovering, setIsHovering] = useState(false);
   const { handlePhoneChange } = usePhoneFormat();
   const {
     register,
@@ -220,7 +226,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
 
           <motion.button
             onClick={handleCancel}
-            className="text-secondary-400 hover:text-secondary-500 transition-colors"
+            className="text-primary-400 transition-colors"
             variants={{
               hover: {
                 y: -2,
@@ -469,7 +475,7 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
             Earliest Available Start Date *
           </label>
           <input
-            {...register('startDate', { 
+            {...register('startDate', {
               required: 'Start date is required',
               validate: (value) => {
                 const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
@@ -612,8 +618,8 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
                 }}
                 whileHover="hover"
               >
-                <Link 
-                  href="/privacy-policy" 
+                <Link
+                  href="/privacy-policy"
                   className="text-secondary-400 underline"
                 >
                   Privacy Policy

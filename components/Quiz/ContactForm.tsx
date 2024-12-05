@@ -30,8 +30,6 @@ interface ContactFormProps {
 }
 
 export default function ContactForm({ answers, selectedBranches, onSubmit, onBack }: ContactFormProps) {
-  const [isHovering, setIsHovering] = useState(false);
-  const [isBackHovering, setIsBackHovering] = useState(false);
   const { handlePhoneChange } = usePhoneFormat();
   const {
     register,
