@@ -58,6 +58,20 @@ export const Background: React.FC<BackgroundProps> = ({ variant }) => {
         transform: `rotate(${i * 30}deg)`,
       }));
 
+    case 'privacy':
+      return renderShapes(15, (i) => ({
+        top: `${Math.sin(i * 0.7) * 35 + 50}%`,
+        left: `${Math.cos(i * 0.7) * 40 + 50}%`,
+        width: `${8 + (i % 4) * 4}%`,
+        height: `${8 + (i % 4) * 4}%`,
+        background: `linear-gradient(${i * 24}deg, ${
+          i % 3 === 0 ? '#223759' :
+          i % 3 === 1 ? '#2D4976' :
+          '#385B94'
+        } 0%, transparent 85%)`,
+        transform: `rotate(${i * 24}deg) scale(${0.8 + (i % 3) * 0.2})`,
+      }));
+
     default:
       return renderShapes(6, (i) => ({
         top: `${i * 15 + 10}%`,

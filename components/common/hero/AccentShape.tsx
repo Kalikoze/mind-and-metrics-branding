@@ -1,5 +1,4 @@
 interface AccentShapeProps {
-  key: string;
   top: string;
   left: string;
   width: string;
@@ -8,9 +7,8 @@ interface AccentShapeProps {
   transform: string;
 }
 
-export const AccentShape: React.FC<AccentShapeProps> = ({ key, top, left, width, height, background, transform }) => (
+export const AccentShape: React.FC<AccentShapeProps> = ({ top, left, width, height, background, transform }) => (
   <div
-    key={key}
     className="absolute transform transition-all duration-700 ease-in-out"
     style={{
       top,

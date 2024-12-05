@@ -56,6 +56,7 @@ export default function Privacy() {
   return (
     <main>
       <Hero
+        variant="privacy"
         title="Privacy Policy"
         subtitle="How we collect, use, and protect your information"
       />

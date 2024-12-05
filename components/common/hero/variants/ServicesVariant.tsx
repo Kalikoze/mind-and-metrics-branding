@@ -29,9 +29,9 @@ export const ServicesVariant: React.FC<ServicesVariantProps> = ({ activeService 
         transition={{ duration: 0.3, ease: "easeOut" }}
         className="flex flex-col justify-center items-center w-96 h-64 bg-white rounded-xl shadow-lg border border-primary-100/20 p-4 transform hover:scale-105 mx-auto mt-8"
       >
-        <h3 className="text-xl sm:text-2xl font-serif text-dark-800 text-center">
+        <p className="text-xl sm:text-2xl font-serif text-dark-800 text-center">
           {serviceDetails[activeService].title}
-        </h3>
+        </p>
         <div className="h-1 w-12 bg-gradient-to-r from-primary-300 to-primary-500 mx-auto mt-2 rounded-full"></div>
       </motion.div>
     </AnimatePresence>

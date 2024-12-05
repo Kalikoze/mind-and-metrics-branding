@@ -15,7 +15,7 @@ const StackedCard = ({ card }: { card: AboutCard }) => {
       <div className="flex items-center gap-2 sm:gap-4">
         <card.icon className="w-6 h-6 sm:w-10 sm:h-10 text-primary-500" />
         <div>
-          <h3 className="font-serif text-base sm:text-xl text-dark-800">{card.title}</h3>
+          <p className="font-serif text-base sm:text-xl text-dark-800">{card.title}</p>
           <p className="text-xs sm:text-base text-dark-500">{card.subtitle}</p>
         </div>
       </div>

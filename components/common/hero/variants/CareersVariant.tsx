@@ -8,9 +8,9 @@ export const CareersVariant: React.FC = () => (
   >
     <div className="absolute inset-0 flex flex-col items-center justify-center px-8">
       <HiSparkles className="w-12 h-12 text-white mb-2" aria-hidden="true" />
-      <h3 className="text-lg sm:text-2xl font-serif text-white font-bold text-center">
+      <p className="text-lg sm:text-2xl font-serif text-white font-bold text-center">
         Where Growth Meets Purpose
-      </h3>
+      </p>
       <div 
         className="h-1 w-full bg-gradient-to-r from-primary-300 to-primary-500 
                    mx-auto mt-2 rounded-full"

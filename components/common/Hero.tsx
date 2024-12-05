@@ -10,6 +10,7 @@ import { AboutVariant } from './hero/variants/AboutVariant';
 import { CareersVariant } from './hero/variants/CareersVariant';
 import { ContactVariant } from './hero/variants/ContactVariant';
 import { DefaultVariant } from './hero/variants/DefaultVariant';
+import { PrivacyPolicyVariant } from './hero/variants/PrivacyPolicyVariant';
 
 interface HeroProps {
   title: string;
@@ -22,7 +23,7 @@ interface HeroProps {
     text: string;
     href: string;
   };
-  variant?: 'default' | 'home' | 'about' | 'services' | 'careers' | 'contact';
+  variant?: 'default' | 'home' | 'about' | 'services' | 'careers' | 'contact' | 'privacy';
 }
 
 const Hero: React.FC<HeroProps> = ({
@@ -54,6 +55,8 @@ const Hero: React.FC<HeroProps> = ({
         return <CareersVariant />;
       case 'contact':
         return <ContactVariant />;
+      case 'privacy':
+        return <PrivacyPolicyVariant />;
       default:
         return <DefaultVariant />;
     }
@@ -65,7 +68,11 @@ const Hero: React.FC<HeroProps> = ({
         <Background variant={variant} />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col-reverse md:flex-row items-center">
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex 
+        ${['about'].includes(variant) 
+          ? 'flex-col md:flex-row' 
+          : 'flex-col-reverse md:flex-row'
+        } items-center`}>
         <header className="max-w-3xl mx-auto text-center md:text-left md:w-1/2">
           <h1
             data-cy="hero-title"
@@ -83,7 +90,10 @@ const Hero: React.FC<HeroProps> = ({
           </p>
 
           {(primaryButton || secondaryButton) && (
-            <nav className="flex flex-col sm:flex-row items-center justify-start gap-4 sm:space-y-0">
+            <nav 
+              className="flex flex-col sm:flex-row items-center justify-start gap-4 sm:space-y-0"
+              aria-label="Hero actions"
+            >
               {primaryButton && (
                 <ScrambleButton
                   text={primaryButton.text}
@@ -107,7 +117,11 @@ const Hero: React.FC<HeroProps> = ({
           )}
         </header>
 
-        <section className="md:w-1/2 flex justify-center w-full mb-8 md:mb-0">
+        <section className={`md:w-1/2 flex justify-center w-full 
+          ${['about'].includes(variant) 
+            ? 'mt-8 md:mt-0' 
+            : 'mb-8 md:mb-0'
+          }`}>
           {renderVariant()}
         </section>
       </div>
