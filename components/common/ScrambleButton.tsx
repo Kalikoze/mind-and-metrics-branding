@@ -12,7 +12,7 @@ interface ScrambleButtonProps {
   variant: 'primary' | 'secondary';
   dataCy?: string;
   spanWidth?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
   className?: string;
   type?: 'button' | 'submit';
   disabled?: boolean;
@@ -79,7 +79,7 @@ const ScrambleButton: React.FC<ScrambleButtonProps> = ({
         }
         if (onClick) {
           e.preventDefault();
-          onClick();
+          onClick(e);
         }
       }}
       {...isExternal && {

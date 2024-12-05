@@ -22,7 +22,7 @@ const PrivacySection = ({ section, Icon }: PrivacySectionProps) => {
     <section id={section.id} className="scroll-mt-24" data-cy={`privacy-section-${section.id}`}>
       <h2 className="font-serif text-3xl text-dark-800 mb-8 flex items-center" 
           data-cy={`privacy-section-title-${section.id}`}>
-        <Icon className="w-8 h-8 mr-3 text-secondary-400" data-cy={`privacy-section-icon-${section.id}`} />
+        <Icon className="w-8 h-8 mr-3 text-primary-500" data-cy={`privacy-section-icon-${section.id}`} />
         {section.title}
       </h2>
 

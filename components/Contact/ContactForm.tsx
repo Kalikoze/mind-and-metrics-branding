@@ -22,7 +22,6 @@ interface ContactFormData {
 }
 
 export default function ContactForm() {
-  const [isHovering, setIsHovering] = useState(false);
   const { handlePhoneChange } = usePhoneFormat();
   const {
     register,

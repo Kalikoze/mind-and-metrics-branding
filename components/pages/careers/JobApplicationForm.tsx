@@ -159,7 +159,6 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
     reValidateMode: 'onChange'
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [isCancelHovering, setIsCancelHovering] = useState(false);
 
   const handleCancel = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

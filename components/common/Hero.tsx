@@ -69,10 +69,7 @@ const Hero: React.FC<HeroProps> = ({
       </div>
 
       <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex 
-        ${[].includes(variant) 
-          ? 'flex-col md:flex-row' 
-          : 'flex-col-reverse md:flex-row'
-        } items-center`}>
+        flex-col-reverse md:flex-row items-center`}>
         <header className="max-w-3xl mx-auto text-center md:text-left md:w-1/2">
           <h1
             data-cy="hero-title"
@@ -117,11 +114,7 @@ const Hero: React.FC<HeroProps> = ({
           )}
         </header>
 
-        <section className={`md:w-1/2 flex justify-center w-full 
-          ${['about'].includes(variant) 
-            ? 'mt-8 md:mt-0' 
-            : 'mb-8 md:mb-0'
-          }`}>
+        <section className={`md:w-1/2 flex justify-center w-full mb-8 md:mb-0`}>
           {renderVariant()}
         </section>
       </div>

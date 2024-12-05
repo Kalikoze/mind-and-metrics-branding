@@ -10,7 +10,7 @@ const QuestionsSection = () => {
     <section id="contact" className="scroll-mt-24" data-cy="questions-section">
       <h2 className="font-serif text-3xl text-dark-800 mb-8 flex items-center" 
           data-cy="questions-section-title">
-        <HiQuestionMarkCircle className="w-8 h-8 mr-3 text-secondary-400" />
+        <HiQuestionMarkCircle className="w-8 h-8 mr-3 text-primary-500" />
         Questions or Concerns?
       </h2>
       <div className="bg-neutral-50 rounded-lg p-8 border-2 border-neutral-200" 
