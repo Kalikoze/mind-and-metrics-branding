@@ -17,6 +17,7 @@ type MotionButtonProps = HTMLMotionProps<"button"> & {
   disabled?: boolean;
   dataCy?: string;
   spanWidth?: string;
+  isLoading?: boolean;
 };
 
 const MotionScrambleButton = ({
@@ -31,6 +32,7 @@ const MotionScrambleButton = ({
   disabled,
   dataCy,
   spanWidth = '80px',
+  isLoading,
 }: MotionButtonProps) => {
   const [isHovering, setIsHovering] = useState(false);
 
@@ -58,7 +60,11 @@ const MotionScrambleButton = ({
       className={`${baseStyles} ${variantStyles[variant]} ${hoverStyles} ${disabled ? 'cursor-not-allowed' : ''}`}
       data-cy={dataCy}
     >
-      <Icon className="w-5 h-5 shrink-0" aria-hidden="true" />
+      {isLoading ? (
+        <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+      ) : (
+        <Icon className="w-5 h-5 shrink-0" aria-hidden="true" />
+      )}
       <span style={{ width: spanWidth }} className="text-center">
         <ScrambleText text={text} isHovering={isHovering && !disabled} />
       </span>

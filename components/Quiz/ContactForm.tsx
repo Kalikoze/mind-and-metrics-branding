@@ -480,6 +480,7 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             dataCy="submit-form"
             disabled={isLoading || (isSubmitted && Object.keys(errors).length > 0)}
             spanWidth="80px"
+            isLoading={isLoading}
           />
         </div>
       </form>

@@ -339,6 +339,7 @@ export default function ContactForm() {
           dataCy="submit-form"
           disabled={isLoading || (isSubmitted && Object.keys(errors).length > 0)}
           className="!w-full"
+          isLoading={isLoading}
         />
       </form>
     </div>

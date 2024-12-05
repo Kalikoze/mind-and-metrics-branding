@@ -638,7 +638,6 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
         <div className="flex flex-col-reverse sm:flex-row justify-between items-center gap-4 pt-6">
           <ScrambleButton
             text="Cancel"
-            href="#"
             icon={HiArrowLeft}
             variant="secondary"
             dataCy="cancel-button"
@@ -647,12 +646,12 @@ export default function JobApplicationForm({ position, onCancel }: JobApplicatio
 
           <ScrambleButton
             text={isLoading ? "Sending..." : "Submit"}
-            href="#"
             icon={HiArrowRight}
             variant="primary"
             dataCy="submit-button"
-            onClick={handleSubmit(onSubmit)}
+            type="submit"
             disabled={isLoading || (isSubmitted && Object.keys(errors).length > 0)}
+            isLoading={isLoading}
           />
         </div>
       </form>

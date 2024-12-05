@@ -16,6 +16,7 @@ interface ScrambleButtonProps {
   className?: string;
   type?: 'button' | 'submit';
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
 const ScrambleButton: React.FC<ScrambleButtonProps> = ({
@@ -29,6 +30,7 @@ const ScrambleButton: React.FC<ScrambleButtonProps> = ({
   className = '',
   type,
   disabled = false,
+  isLoading = false,
 }) => {
   const [isHovering, setIsHovering] = useState(false);
 
@@ -60,7 +62,11 @@ const ScrambleButton: React.FC<ScrambleButtonProps> = ({
         onMouseLeave={() => setIsHovering(false)}
         className={`${baseStyles} ${variantStyles[variant]} ${className} ${hoverStyles} ${disabled ? 'cursor-not-allowed' : ''}`}
       >
-        <Icon className="w-5 h-5 shrink-0" />
+        {isLoading ? (
+          <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin shrink-0" />
+        ) : (
+          <Icon className="w-5 h-5 shrink-0" />
+        )}
         <span style={{ width: spanWidth }} className="text-center">
           <ScrambleText text={text} isHovering={isHovering && !disabled} />
         </span>
