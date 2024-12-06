@@ -32,13 +32,9 @@ describe('Home Page', () => {
         .should('exist')
         .and('have.text', 'Your Vision, Our Expertise — Uniting Strategy and Story');
 
-      cy.get('[data-cy="hero-button-description"]')
-        .should('exist')
-        .and('have.text', 'Take a quick quiz for an instant estimate of your custom solution');
-
       cy.get('[data-cy="hero-primary-cta"]')
         .should('exist')
-        .and('have.text', 'Get Started')
+        .and('have.text', 'Build Your Plan')
         .and('have.attr', 'href', '/get-started');
 
       cy.get('[data-cy="hero-secondary-cta"]')
@@ -55,21 +51,31 @@ describe('Home Page', () => {
         .and('have.text', 'Dedicated Partners in Sustainable Growth');
 
       cy.get('[data-cy="value-proposition-paragraph-0"]').within(() => {
-        cy.get('p').should('contain.text', 'At Mind & Metrics, we specialize in working with B2B companies ready to scale efficiently without compromising their reputation. We understand that true growth requires a blend of strategic planning, precision, and data-driven insights.');
+        cy.get('p').should('contain.text', 'At Mind & Metrics, we are a growth marketing agency specializing in working with B2B companies ready to scale efficiently without compromising reputation. We understand that true growth requires a blend of strategic planning, precision, and data-driven insights.');
         cy.get('[data-cy="value-proposition-highlight-0-0"]')
           .should('exist')
-          .and('have.text', 'scale efficiently');
+          .and('have.text', 'growth marketing agency');
         cy.get('[data-cy="value-proposition-highlight-0-1"]')
           .should('exist')
-          .and('have.text', 'data-driven insights');
+          .and('have.text', 'data-driven');
       });
 
       cy.get('[data-cy="value-proposition-paragraph-1"]').within(() => {
-        cy.get('p').should('contain.text', 'Our approach is built on collaboration and trust. From enhancing your brand and optimizing your digital presence to driving measurable marketing results, we partner with you every step of the way to achieve long-term success.');
+        cy.get('p').should('contain.text', 'Our approach is focused on collaboration and trust because we believe the best results come from a true partnership. We will work side-by-side with you, to understand your goals, challenges, and vision for your company at every step.');
         cy.get('[data-cy="value-proposition-highlight-1-0"]')
           .should('exist')
-          .and('have.text', 'collaboration');
+          .and('have.text', 'true partnership');
         cy.get('[data-cy="value-proposition-highlight-1-1"]')
+          .should('exist')
+          .and('have.text', 'side-by-side');
+      });
+
+      cy.get('[data-cy="value-proposition-paragraph-2"]').within(() => {
+        cy.get('p').should('contain.text', 'Whether it\'s strengthening your brand, refining your digital presence, or driving measurable marketing results, we ensure our strategies are tailored to your unique needs allowing us to deliver solutions that not only meet immediate objectives but also support sustainable, long-term success.');
+        cy.get('[data-cy="value-proposition-highlight-2-0"]')
+          .should('exist')
+          .and('have.text', 'measurable marketing results');
+        cy.get('[data-cy="value-proposition-highlight-2-1"]')
           .should('exist')
           .and('have.text', 'long-term success');
       });

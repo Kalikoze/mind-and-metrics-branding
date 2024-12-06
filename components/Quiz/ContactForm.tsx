@@ -438,8 +438,8 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
                 }}
                 whileHover="hover"
               >
-                <Link 
-                  href="/privacy-policy" 
+                <Link
+                  href="/privacy-policy"
                   className="text-secondary-400 hover:underline"
                 >
                   Privacy Policy
@@ -466,7 +466,10 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             text="Back to Summary"
             icon={HiArrowLeft}
             variant="secondary"
-            onClick={onBack}
+            onClick={(e) => {
+              e.preventDefault();
+              onBack();
+            }}
             dataCy="back-button"
             disabled={isLoading}
             spanWidth="140px"
@@ -476,7 +479,10 @@ export default function ContactForm({ answers, selectedBranches, onSubmit, onBac
             text={isLoading ? "Sending..." : "Submit"}
             icon={HiArrowRight}
             variant="primary"
-            onClick={handleSubmit(onSubmitForm)}
+            onClick={(e) => {
+              e.preventDefault();
+              handleSubmit(onSubmitForm)(e);
+            }}
             dataCy="submit-form"
             disabled={isLoading || (isSubmitted && Object.keys(errors).length > 0)}
             spanWidth="80px"
