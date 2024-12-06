@@ -32,6 +32,10 @@ describe('Home Page', () => {
         .should('exist')
         .and('have.text', 'Your Vision, Our Expertise — Uniting Strategy and Story');
 
+      cy.get('[data-cy="hero-button-description"]')
+        .should('exist')
+        .and('have.text', 'Take a quick quiz for an instant estimate of your custom solution');
+
       cy.get('[data-cy="hero-primary-cta"]')
         .should('exist')
         .and('have.text', 'Get Started')

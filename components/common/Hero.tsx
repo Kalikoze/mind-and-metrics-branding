@@ -115,7 +115,9 @@ const Hero: React.FC<HeroProps> = ({
                 )}
               </nav>
               {buttonDescription && (
-                <p className="mt-4 text-sm text-dark-500">{buttonDescription}</p>
+                <p className="mt-4 text-sm text-dark-500" data-cy="hero-button-description">
+                  {buttonDescription}
+                </p>
               )}
             </>
           )}
