@@ -75,7 +75,7 @@ const Hero: React.FC<HeroProps> = ({
         <header className="max-w-3xl mx-auto text-center md:text-left md:w-1/2">
           <h1
             data-cy="hero-title"
-            className="font-serif text-4xl sm:text-6xl font-bold mb-6
+            className="font-serif text-4xl sm:text-6xl font-bold mb-6 py-2
                       [text-wrap:balance] bg-clip-text text-transparent 
                       bg-gradient-to-r from-primary-100 to-primary-500"
           >
