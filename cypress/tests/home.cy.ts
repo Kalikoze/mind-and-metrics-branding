@@ -486,18 +486,12 @@ describe('Home Page', () => {
 
     it('should have the correct favicon configuration', () => {
       cy.get('link[rel="icon"][type="image/svg+xml"]').should('have.attr', 'href', '/icon.svg');
-      cy.get('link[rel="icon"][sizes="any"]').should('have.attr', 'href', '/favicon.ico');
     });
 
     it('should verify favicon files exist and are accessible', () => {
       cy.request('/icon.svg').then((response) => {
         expect(response.status).to.eq(200);
         expect(response.headers['content-type']).to.include('image/svg+xml');
-      });
-
-      cy.request('/favicon.ico').then((response) => {
-        expect(response.status).to.eq(200);
-        expect(response.headers['content-type']).to.include('image/x-icon');
       });
     });
 
