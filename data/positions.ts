@@ -8,6 +8,7 @@ export interface Position {
   description: string;
   isExempt: boolean;
   overview: string;
+  salary: number | null;
   responsibilities: {
     title: string;
     items: string[];
@@ -47,6 +48,7 @@ export const positions: Position[] = [
     description: "Join our development team as we build innovative digital solutions. We're seeking a developer with backend fundamentals (Node.js/Express) and React basics who's eager to grow across the full stack. Experience with GraphQL or Python is a plus. You'll work directly with our lead engineer on e-commerce platforms and client portals, while learning valuable skills in SEO and analytics. Ideal for a motivated junior developer looking to rapidly expand their skillset through hands-on mentorship.",
     isExempt: true,
     overview: "We are seeking a Junior Software Engineer to join our development team and contribute to a range of projects, including frontend interface development, backend logic, and SEO optimization. This role requires versatility across both frontend and backend tasks, with a focus on backend expertise. You will work alongside the lead developer to build and maintain a variety of digital products, including an e-commerce platform, a client portal with data visualizations, and SEO-optimized websites. You will also assist the marketing team with keyword analysis and site performance optimization.",
+    salary: null,
     responsibilities: [
       {
         title: "Full-Stack Development",
@@ -112,6 +114,7 @@ export const positions: Position[] = [
     description: "Lead social media strategy and content creation across multiple brand portfolios. You'll develop engaging campaigns, manage community interactions, and drive growth through both organic and paid social initiatives. The ideal candidate has 2-4 years of experience, strong creative skills, and expertise in social media analytics and management tools. You'll work closely with our marketing team to maintain brand consistency while optimizing performance across all platforms.",
     isExempt: true,
     overview: "The Social Media Manager will be responsible for developing and executing social media strategies across all major platforms for six distinct companies. This individual will create and manage content, engage with our online communities, monitor performance metrics, and collaborate with cross-functional teams to ensure that our social media presence aligns with business goals.",
+    salary: 60000,
     responsibilities: [
       {
         title: "Social Media Strategy Development",

@@ -44,7 +44,7 @@ export default function CompletionMessage({ preferredContact }: CompletionMessag
           We&apos;ll review your information and craft a customized growth strategy for your business.
         </p>
         <p 
-          className="text-sm" 
+          className="text-sm font-bold" 
           data-cy="completion-timeline"
         >
           Expect to hear from us within 24 hours{preferredContact === 'phone' ? ' at your specified time' : ''}.
