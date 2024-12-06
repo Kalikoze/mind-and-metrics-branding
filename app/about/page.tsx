@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Hero from '@/components/common/Hero';
 import ValueProposition from '@/components/common/ValueProposition';
 import TeamLeaders from '@/components/pages/about/TeamLeaders';
+import ProcessFlow from '@/components/pages/about/ProcessFlow';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -67,6 +68,7 @@ export default function About() {
       />
       <ValueProposition {...valuePropositionData} />
       <TeamLeaders />
+      <ProcessFlow />
     </main>
   );
 }
