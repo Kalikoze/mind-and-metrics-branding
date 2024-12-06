@@ -9,12 +9,16 @@ export default function Home() {
     title: "Dedicated Partners in Sustainable Growth",
     paragraphs: [
       {
-        text: "At Mind & Metrics, we specialize in working with B2B companies ready to scale efficiently without compromising their reputation. We understand that true growth requires a blend of strategic planning, precision, and data-driven insights.",
-        highlights: ["scale efficiently", "data-driven insights"]
+        text: "At Mind & Metrics, we are a growth marketing agency specializing in working with B2B companies ready to scale efficiently without compromising reputation. We understand that true growth requires a blend of strategic planning, precision, and data-driven insights.",
+        highlights: ["growth marketing agency", "data-driven"]
       },
       {
-        text: "Our approach is built on collaboration and trust. From enhancing your brand and optimizing your digital presence to driving measurable marketing results, we partner with you every step of the way to achieve long-term success.",
-        highlights: ["collaboration", "long-term success"]
+        text: "Our approach is focused on collaboration and trust because we believe the best results come from a true partnership. We will work side-by-side with you, to understand your goals, challenges, and vision for your company at every step.",
+        highlights: ["true partnership", "side-by-side"]
+      },
+      {
+        text: "Whether it's strengthening your brand, refining your digital presence, or driving measurable marketing results, we ensure our strategies are tailored to your unique needs allowing us to deliver solutions that not only meet immediate objectives but also support sustainable, long-term success.",
+        highlights: ["measurable marketing results", "long-term success"]
       }
     ],
     stats: [
@@ -30,9 +34,8 @@ export default function Home() {
         variant="home"
         title="Data Driven Tailored Excellence"
         subtitle="Your Vision, Our Expertise — Uniting Strategy and Story"
-        buttonDescription="Take a quick quiz for an instant estimate of your custom solution"
         primaryButton={{
-          text: "Get Started",
+          text: "Build Your Plan",
           href: "/get-started"
         }}
         secondaryButton={{

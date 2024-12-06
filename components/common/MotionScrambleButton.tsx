@@ -9,7 +9,8 @@ type MotionButtonProps = HTMLMotionProps<"button"> & {
   text: string;
   icon: IconType;
   variant: 'primary' | 'secondary';
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  type?: 'button' | 'submit' | 'reset';
   initial?: object;
   animate?: object;
   exit?: object;

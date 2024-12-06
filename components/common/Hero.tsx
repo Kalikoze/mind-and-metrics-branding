@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { HiRocketLaunch, HiEnvelope } from 'react-icons/hi2';
+import { HiSquare3Stack3D, HiEnvelope, HiRocketLaunch } from 'react-icons/hi2';
 import ScrambleButton from './ScrambleButton';
 import { serviceDetails } from '@/data/serviceDetails';
 import { Background } from './hero/Background';
@@ -24,7 +24,6 @@ interface HeroProps {
     href: string;
   };
   variant?: 'default' | 'home' | 'about' | 'services' | 'careers' | 'contact' | 'privacy';
-  buttonDescription?: string;
 }
 
 const Hero: React.FC<HeroProps> = ({
@@ -33,7 +32,6 @@ const Hero: React.FC<HeroProps> = ({
   primaryButton,
   secondaryButton,
   variant = 'default',
-  buttonDescription,
 }) => {
   const [activeService, setActiveService] = useState(0);
 
@@ -89,37 +87,30 @@ const Hero: React.FC<HeroProps> = ({
           </p>
 
           {(primaryButton || secondaryButton) && (
-            <>
-              <nav 
-                className="flex flex-col sm:flex-row items-center justify-start gap-4 sm:space-y-0"
-                aria-label="Hero actions"
-              >
-                {primaryButton && (
-                  <ScrambleButton
-                    text={primaryButton.text}
-                    href={primaryButton.href}
-                    icon={HiRocketLaunch}
-                    variant="primary"
-                    dataCy="hero-primary-cta"
-                  />
-                )}
-
-                {secondaryButton && (
-                  <ScrambleButton
-                    text={secondaryButton.text}
-                    href={secondaryButton.href}
-                    icon={HiEnvelope}
-                    variant="secondary"
-                    dataCy="hero-secondary-cta"
-                  />
-                )}
-              </nav>
-              {buttonDescription && (
-                <p className="mt-4 text-sm text-dark-500" data-cy="hero-button-description">
-                  {buttonDescription}
-                </p>
+            <nav
+              className="flex flex-col sm:flex-row items-center justify-start gap-4 sm:space-y-0"
+              aria-label="Hero actions"
+            >
+              {primaryButton && (
+                <ScrambleButton
+                  text={primaryButton.text}
+                  href={primaryButton.href}
+                  icon={HiSquare3Stack3D}
+                  variant="primary"
+                  dataCy="hero-primary-cta"
+                />
               )}
-            </>
+
+              {secondaryButton && (
+                <ScrambleButton
+                  text={secondaryButton.text}
+                  href={secondaryButton.href}
+                  icon={HiEnvelope}
+                  variant="secondary"
+                  dataCy="hero-secondary-cta"
+                />
+              )}
+            </nav>
           )}
         </header>
 
