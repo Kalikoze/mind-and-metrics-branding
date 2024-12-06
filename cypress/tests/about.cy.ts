@@ -1,4 +1,5 @@
 import { testLeaders } from '@/cypress/fixtures/team-data';
+import { processSteps } from '@/data/process-steps';
 
 describe('About Page', () => {
   beforeEach(() => {
@@ -110,6 +111,71 @@ describe('About Page', () => {
           .should('have.attr', 'href', `mailto:${leader.email}`);
       });
     });
+
+    it('should render ProcessFlow component correctly', () => {
+      cy.get('[data-cy="process-flow-section"]').should('exist');
+      
+      // Check header
+      cy.get('[data-cy="process-flow-title"]')
+        .should('exist')
+        .and('have.text', 'Our Process');
+      
+      cy.get('[data-cy="process-flow-subtitle"]')
+        .should('exist')
+        .and('have.text', 'A collaborative journey designed to deliver lasting results — click each step to explore our approach');
+
+      processSteps.forEach((step, index) => {
+        cy.get(`[data-cy="process-step-button-${index}"]`)
+          .should('exist')
+          .and('contain.text', index + 1);
+
+        cy.get(`[data-cy="process-step-title-${index}"]`)
+          .should('exist')
+          .and('have.text', step.title);
+      });
+
+      cy.get('[data-cy="process-step-content"]').within(() => {
+        cy.get('[data-cy="step-content-title"]')
+          .should('exist')
+          .and('have.text', processSteps[0].title);
+
+        processSteps[0].items.forEach((item, itemIndex) => {
+          cy.get(`[data-cy="step-content-item-${itemIndex}"]`).within(() => {
+            cy.get('[data-cy="item-subtitle"]')
+              .should('exist')
+              .and('have.text', item.subtitle);
+            cy.get('[data-cy="item-description"]')
+              .should('exist')
+              .and('have.text', item.description);
+          });
+        });
+      });
+    });
+  });
+
+  context('Interactive Tests', () => {
+    it('should navigate through process steps correctly', () => {
+      processSteps.forEach((step, stepIndex) => {
+        cy.get(`[data-cy="process-step-button-${stepIndex}"]`).click();
+
+        cy.get('[data-cy="process-step-content"]').within(() => {
+          cy.get('[data-cy="step-content-title"]')
+            .should('exist')
+            .and('have.text', step.title);
+
+          step.items.forEach((item, itemIndex) => {
+            cy.get(`[data-cy="step-content-item-${itemIndex}"]`).within(() => {
+              cy.get('[data-cy="item-subtitle"]')
+                .should('exist')
+                .and('have.text', item.subtitle);
+              cy.get('[data-cy="item-description"]')
+                .should('exist')
+                .and('have.text', item.description);
+            });
+          });
+        });
+      });
+    });
   });
 
   context('Accessibility Checks', () => {
@@ -118,6 +184,7 @@ describe('About Page', () => {
     });
 
     it('should pass accessibility checks', () => {
+      cy.wait(1000);
       cy.checkA11y();
     });
   });
@@ -134,6 +201,7 @@ describe('About Page', () => {
         });
 
         it('should pass accessibility checks', () => {
+          cy.wait(1000);
           cy.checkA11y();
         });
 
@@ -159,6 +227,22 @@ describe('About Page', () => {
 
           cy.get('[data-cy="mobile-menu-button"]').click();
           cy.get('[data-cy="mobile-menu"]').should('not.be.visible');
+        });
+
+        it('should maintain ProcessFlow responsive behavior', () => {
+          // Verify step titles are hidden on mobile
+          processSteps.forEach((_, index) => {
+            cy.get(`[data-cy="process-step-title-${index}"]`)
+              .should('not.be.visible');
+          });
+
+          // Verify content remains accessible
+          processSteps.forEach((step, stepIndex) => {
+            cy.get(`[data-cy="process-step-button-${stepIndex}"]`).click();
+            cy.get('[data-cy="step-content-title"]')
+              .should('be.visible')
+              .and('have.text', step.title);
+          });
         });
       });
     });
