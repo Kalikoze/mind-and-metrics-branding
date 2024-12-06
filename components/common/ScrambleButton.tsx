@@ -17,6 +17,7 @@ interface ScrambleButtonProps {
   type?: 'button' | 'submit';
   disabled?: boolean;
   isLoading?: boolean;
+  fixedWidth?: boolean;
 }
 
 const ScrambleButton: React.FC<ScrambleButtonProps> = ({
@@ -31,10 +32,13 @@ const ScrambleButton: React.FC<ScrambleButtonProps> = ({
   type,
   disabled = false,
   isLoading = false,
+  fixedWidth = false,
 }) => {
   const [isHovering, setIsHovering] = useState(false);
 
-  const baseStyles = "inline-flex w-full sm:w-auto px-8 py-3.5 rounded-lg items-center justify-center space-x-2 transition-all duration-300";
+  const baseStyles = `inline-flex ${
+    fixedWidth ? 'w-auto' : 'w-full sm:w-auto'
+  } px-8 py-3.5 rounded-lg items-center justify-center space-x-2 transition-all duration-300`;
 
   const variantStyles = {
     primary: `bg-primary-300 text-white border-2 border-primary-300 ${!disabled ? 'hover:bg-transparent hover:text-primary-100' : 'opacity-50 cursor-not-allowed'} shadow-lg shadow-primary-300/20`,

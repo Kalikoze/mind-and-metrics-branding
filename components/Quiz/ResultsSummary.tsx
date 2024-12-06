@@ -81,6 +81,7 @@ export default function ResultsSummary({
                   dataCy={`edit-button-${questionId}`}
                   spanWidth="40px"
                   className="!px-4 !py-2"
+                  fixedWidth={true}
                 />
               </header>
               <div 
