@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { HiSquare3Stack3D, HiEnvelope, HiRocketLaunch } from 'react-icons/hi2';
+import { HiSquare3Stack3D, HiEnvelope } from 'react-icons/hi2';
 import ScrambleButton from './ScrambleButton';
 import { serviceDetails } from '@/data/serviceDetails';
 import { Background } from './hero/Background';
