@@ -30,6 +30,7 @@ export default function Home() {
         variant="home"
         title="Data Driven Tailored Excellence"
         subtitle="Your Vision, Our Expertise — Uniting Strategy and Story"
+        buttonDescription="Take a quick quiz for an instant estimate of your custom solution"
         primaryButton={{
           text: "Get Started",
           href: "/get-started"

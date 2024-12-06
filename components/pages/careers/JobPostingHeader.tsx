@@ -6,6 +6,11 @@ interface JobPostingHeaderProps {
   position: Position;
 }
 
+const formatSalary = (salary: number | null): string => {
+  if (!salary) return 'Salary: Competitive DOE';
+  return `Salary: $${salary.toLocaleString('en-US')} per year`;
+};
+
 const JobPostingHeader = ({ position }: JobPostingHeaderProps) => (
   <header className="mb-12" data-cy="job-header">
     <h1 className="font-serif text-4xl sm:text-5xl text-dark-800 mb-4" data-cy="job-title">
@@ -25,6 +30,13 @@ const JobPostingHeader = ({ position }: JobPostingHeaderProps) => (
         {position.location}
       </li>
     </ul>
+    <p 
+      className="mt-4 text-lg text-dark-600 font-medium mb-4"
+      data-cy="job-salary"
+      aria-label={formatSalary(position.salary)}
+    >
+      {formatSalary(position.salary)}
+    </p>
     <p className="text-dark-600" data-cy="job-exemption">
       {position.isExempt ? 'FSLA Exempt' : 'FSLA Non-Exempt'}
     </p>

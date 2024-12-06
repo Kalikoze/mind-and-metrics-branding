@@ -20,6 +20,10 @@ describe('Job Posting Pages', () => {
             cy.get('[data-cy="job-location"]').should('contain.text', position.location);
           });
 
+          cy.get('[data-cy="job-salary"]').should('contain.text', 
+            position.salary ? `Salary: $${position.salary.toLocaleString('en-US')} per year` : 'Salary: Competitive DOE'
+          );
+
           cy.get('[data-cy="job-exemption"]')
             .should('contain.text', position.isExempt ? 'FSLA Exempt' : 'FSLA Non-Exempt');
         });

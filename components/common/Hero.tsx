@@ -24,6 +24,7 @@ interface HeroProps {
     href: string;
   };
   variant?: 'default' | 'home' | 'about' | 'services' | 'careers' | 'contact' | 'privacy';
+  buttonDescription?: string;
 }
 
 const Hero: React.FC<HeroProps> = ({
@@ -32,6 +33,7 @@ const Hero: React.FC<HeroProps> = ({
   primaryButton,
   secondaryButton,
   variant = 'default',
+  buttonDescription,
 }) => {
   const [activeService, setActiveService] = useState(0);
 
@@ -75,7 +77,7 @@ const Hero: React.FC<HeroProps> = ({
             data-cy="hero-title"
             className="font-serif text-4xl sm:text-6xl font-bold mb-6
                       [text-wrap:balance] bg-clip-text text-transparent 
-                      bg-gradient-to-r from-primary-100 to-primary-500 p-2"
+                      bg-gradient-to-r from-primary-100 to-primary-500"
           >
             {title}
           </h1>
@@ -87,30 +89,37 @@ const Hero: React.FC<HeroProps> = ({
           </p>
 
           {(primaryButton || secondaryButton) && (
-            <nav 
-              className="flex flex-col sm:flex-row items-center justify-start gap-4 sm:space-y-0"
-              aria-label="Hero actions"
-            >
-              {primaryButton && (
-                <ScrambleButton
-                  text={primaryButton.text}
-                  href={primaryButton.href}
-                  icon={HiRocketLaunch}
-                  variant="primary"
-                  dataCy="hero-primary-cta"
-                />
-              )}
+            <>
+              <nav 
+                className="flex flex-col sm:flex-row items-center justify-start gap-4 sm:space-y-0"
+                aria-label="Hero actions"
+              >
+                {primaryButton && (
+                  <ScrambleButton
+                    text={primaryButton.text}
+                    href={primaryButton.href}
+                    icon={HiRocketLaunch}
+                    variant="primary"
+                    dataCy="hero-primary-cta"
+                  />
+                )}
 
-              {secondaryButton && (
-                <ScrambleButton
-                  text={secondaryButton.text}
-                  href={secondaryButton.href}
-                  icon={HiEnvelope}
-                  variant="secondary"
-                  dataCy="hero-secondary-cta"
-                />
+                {secondaryButton && (
+                  <ScrambleButton
+                    text={secondaryButton.text}
+                    href={secondaryButton.href}
+                    icon={HiEnvelope}
+                    variant="secondary"
+                    dataCy="hero-secondary-cta"
+                  />
+                )}
+              </nav>
+              {buttonDescription && (
+                <p className="mt-4 text-sm text-dark-500" data-cy="hero-button-description">
+                  {buttonDescription}
+                </p>
               )}
-            </nav>
+            </>
           )}
         </header>
 
