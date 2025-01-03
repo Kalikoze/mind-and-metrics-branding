@@ -348,6 +348,9 @@ describe('Job Posting Pages', () => {
 
     context('Interactivity Tests', () => {
       it('should handle successful form submission with resume', () => {
+        const date = new Date();
+        date.setDate(date.getDate() + 7);
+
         cy.intercept('POST', '/api/apply', {
           statusCode: 200,
           body: {
@@ -356,7 +359,6 @@ describe('Job Posting Pages', () => {
           }
         }).as('submitApplication');
 
-        // Fill out form
         cy.get('[data-cy="input-first-name"]').type('John');
         cy.get('[data-cy="input-last-name"]').type('Doe');
         cy.get('[data-cy="input-email"]').type('john@example.com');
@@ -364,18 +366,14 @@ describe('Job Posting Pages', () => {
         cy.get('[data-cy="input-linkedin"]').type('https://linkedin.com/in/johndoe');
         cy.get('[data-cy="input-employer"]').type('Current Corp');
         cy.get('[data-cy="input-experience"]').type('5');
-        cy.get('[data-cy="input-start-date"]').type('2024-12-31');
+        cy.get('[data-cy="input-start-date"]').type(date.toISOString().split('T')[0]);
         cy.get('[data-cy="input-cover-letter"]')
           .type('This is a detailed cover letter explaining why I would be a great fit for this position. I have extensive experience in the field and am passionate about contributing to your team. My background in similar roles has prepared me well for this opportunity.');
 
-        // Upload resume
         cy.get('[data-cy="resume-input"]')
           .attachFile('dummy-resume.pdf');
 
-        // Accept privacy policy
         cy.get('[data-cy="privacy-policy-checkbox"]').click();
-
-        // Submit form
         cy.get('[data-cy="submit-button"]').click();
 
         cy.wait('@submitApplication');
@@ -478,6 +476,9 @@ describe('Job Posting Pages', () => {
       });
 
       it('should handle server errors gracefully', () => {
+        const date = new Date();
+        date.setDate(date.getDate() + 7);
+
         cy.intercept('POST', '/api/apply', {
           statusCode: 500,
           body: {
@@ -490,7 +491,7 @@ describe('Job Posting Pages', () => {
         cy.get('[data-cy="input-first-name"]').type('John');
         cy.get('[data-cy="input-last-name"]').type('Doe');
         cy.get('[data-cy="input-email"]').type('john@example.com');
-        cy.get('[data-cy="input-start-date"]').type('2024-12-31');
+        cy.get('[data-cy="input-start-date"]').type(date.toISOString().split('T')[0]);
         cy.get('[data-cy="resume-input"]').attachFile('dummy-resume.pdf');
         cy.get('[data-cy="privacy-policy-checkbox"]').click();
 
